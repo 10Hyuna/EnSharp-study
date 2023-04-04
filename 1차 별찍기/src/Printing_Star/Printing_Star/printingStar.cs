@@ -40,7 +40,7 @@ namespace Printing_Star
 
         public void SandGlass()
         {
-            for(int i=Line;i>=1;i--)
+           for(int i=Line;i>=1;i--)
             {
                 for (int j = 1; j <= Line - i; j++)
                     Console.Write(" ");
@@ -48,15 +48,14 @@ namespace Printing_Star
                     Console.Write("*");
                 Console.WriteLine();
             }
-
-            for (int i = 1; i <= Line; i++)
+           
+           for(int i = 2; i <= Line; i++)
             {
                 for (int j = 1; j <= Line - i; j++)
                     Console.Write(" ");
                 for (int j = 1; j <= 2 * i - 1; j++)
                     Console.Write("*");
                 Console.WriteLine();
-
             }
         }
         public void Diamond()

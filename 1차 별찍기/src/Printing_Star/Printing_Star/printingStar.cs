@@ -1,5 +1,6 @@
 ﻿using System;
-using System.Reflection.Metadata;
+using System.Runtime.CompilerServices;
+using System.Diagnostics;
 
 namespace Printing_Star
 {
@@ -17,7 +18,7 @@ namespace Printing_Star
             for(int i=1;i<=Line; i++)
             {
                 for (int j = 1; j <= Line-i; j++)
-                    Console.Write("");
+                    Console.Write(" ");
                 for (int j = 1; j <= 2 * i - 1; j++)
                     Console.Write("*");
                 Console.WriteLine();
@@ -78,59 +79,123 @@ namespace Printing_Star
             }
         }
     }
+
+    public class GameStart
+    {
+        private int ShapeLine;
+        public void Menu()
+        {
+            Console.WriteLine("☆*☆*☆*☆*☆*☆*☆*☆*☆*☆*☆*☆*☆*☆*☆*☆*☆*☆*☆*☆*☆*☆*☆*☆*☆*☆☆*☆*☆*☆*☆*☆*☆*☆*");
+            Console.WriteLine(" *                                                                *");
+            Console.WriteLine("☆                                                                ☆");
+            Console.WriteLine(" *             *                            *******               *");
+            Console.WriteLine("☆             ***                            *****               ☆");
+            Console.WriteLine(" *           *****                            ***                 *");
+            Console.WriteLine("☆           *******                            *                 ☆");
+            Console.WriteLine(" *                                                                *");
+            Console.WriteLine("☆        1. 정삼각형                     2. 역삼각형             ☆");
+            Console.WriteLine(" *                                                                *");
+            Console.WriteLine("☆                                                                ☆");
+            Console.WriteLine(" *                                                                *");
+            Console.WriteLine("☆           *****                              *                 ☆");
+            Console.WriteLine(" *           ***                              ***                 *");
+            Console.WriteLine("☆             *                              *****               ☆");
+            Console.WriteLine(" *           ***                              ***                 *");
+            Console.WriteLine("☆           *****                              *                 ☆");
+            Console.WriteLine(" *                                                                *");
+            Console.WriteLine("☆        3. 모래시계                    4. 다이아몬드            ☆");
+            Console.WriteLine(" *                                                                *");
+            Console.WriteLine("☆                                                                ☆");
+            Console.WriteLine(" *                                                                *");
+            Console.WriteLine("☆*☆*☆*☆*☆*☆*☆*☆*☆*☆*☆*☆*☆*☆*☆*☆*☆*☆*☆*☆*☆*☆☆*☆*☆*☆*☆*☆*☆*☆*☆*☆*☆*☆*");
+        }
+
+        public void SelectType()
+        {
+            Menu();
+            Console.WriteLine();
+            Console.Write("출력하고자 하는 도형의 번호를 입력하시오: ");
+            int SelectNum = int.Parse(Console.ReadLine());
+            if (SelectNum>=1&&SelectNum<=4)
+            {
+                LineNum(SelectNum);
+            }
+            else
+            {
+                ErrorNum();
+            }
+        }
+        public void LineNum(int SelectNum)
+        {
+            Console.WriteLine();
+            Console.Write("출력하고자 하는 도형의 줄 수를 입력하시오: ");
+            ShapeLine = int.Parse(Console.ReadLine());
+            Console.Clear();
+            PrintShape(SelectNum);
+
+        }
+        public void ErrorNum()
+        {
+            int Num = 0;
+            bool exit = false;
+            while (!exit)
+            {
+                Console.Clear();
+                Menu();
+                Console.Write("잘못된 입력입니다. 1부터 4 사이의 번호를 입력해 주세요.");
+                Num = int.Parse(Console.ReadLine());
+                if (Num >= 1 && Num <= 4)
+                {
+                    exit = true;
+                }
+            }
+            LineNum(Num);
+        }
+        public void PrintShape(int SelectNum)
+        {
+            PrintingStar printingStar = new PrintingStar(ShapeLine);
+            switch (SelectNum)
+            {
+                case 1:
+                    printingStar.Triangle();
+                    break;
+                case 2:
+                    printingStar.ReverseTriangle();
+                    break;
+                case 3:
+                    printingStar.SandGlass();
+                    break;
+                case 4:
+                    printingStar.Diamond();
+                    break;
+            }
+        }
+        public int ReturnPrint()
+        {
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine("-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-");
+            Console.WriteLine();
+            Console.WriteLine("다시 시도하시겠습니까?");
+            Console.WriteLine("1. 예     2. 아니요");
+            int Exit = int.Parse(Console.ReadLine());
+            return Exit;
+        }
+    }
     class printingStar
     {
         static void Main(string[] args)
         {
             int exit = 1;
 
-            while(exit == 1)
+            GameStart gameStart = new GameStart();
+            GameStart ExitRandomValue = new GameStart();
+
+            while (exit == 1)
             {
+                gameStart.SelectType();
+                exit = ExitRandomValue.ReturnPrint();
                 Console.Clear();
-                Console.WriteLine("1번: 정삼각형");
-                Console.WriteLine("2번: 역삼각형");
-                Console.WriteLine("3번: 모래시계");
-                Console.WriteLine("4번: 다이아몬드");
-                Console.WriteLine();
-                Console.Write("출력하고자 하는 도형의 번호를 선택하시오: ");
-                int Num = 0, row;
-                while(Num<1||Num>4)
-                {
-                    Num = int.Parse(Console.ReadLine());
-                    if(Num<1||Num>4)
-                    {
-                        Console.WriteLine("잘못된 입력입니다.");
-                        Console.WriteLine("다시 시도하시겠습니까?");
-                        Console.WriteLine("1. 다시 시도     2. 종료");
-                        exit=int.Parse(Console.ReadLine());
-                        if (exit == 0)
-                            break;
-                        else
-                            Num = 0;
-                    }
-                }
-                Console.Write("출력하고자 하는 도형의 높이를 입력하시오: ");
-                row = int.Parse(Console.ReadLine());
-                PrintingStar printingStar = new PrintingStar(row);
-                Console.Clear();
-                switch(Num)
-                {
-                    case 1:
-                        printingStar.Triangle();
-                        break;
-                    case 2:
-                        printingStar.ReverseTriangle();
-                        break;
-                    case 3:
-                        printingStar.SandGlass();
-                        break;
-                    case 4:
-                        printingStar.Diamond();
-                        break;
-                }
-                Console.WriteLine("다시 시도하시겠습니까?");
-                Console.WriteLine("1. 예     2. 아니요");
-                exit= int.Parse(Console.ReadLine());
             }
         }
     }

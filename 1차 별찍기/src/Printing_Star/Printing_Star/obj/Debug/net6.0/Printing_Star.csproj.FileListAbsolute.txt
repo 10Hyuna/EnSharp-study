@@ -1,0 +1,15 @@
+C:\Users\현아\Desktop\Develop\Study\1차 별찍기\src\Printing_Star\Printing_Star\obj\Debug\net6.0\Printing_Star.csproj.AssemblyReference.cache
+C:\Users\현아\Desktop\Develop\Study\1차 별찍기\src\Printing_Star\Printing_Star\obj\Debug\net6.0\Printing_Star.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\현아\Desktop\Develop\Study\1차 별찍기\src\Printing_Star\Printing_Star\obj\Debug\net6.0\Printing_Star.AssemblyInfoInputs.cache
+C:\Users\현아\Desktop\Develop\Study\1차 별찍기\src\Printing_Star\Printing_Star\obj\Debug\net6.0\Printing_Star.AssemblyInfo.cs
+C:\Users\현아\Desktop\Develop\Study\1차 별찍기\src\Printing_Star\Printing_Star\obj\Debug\net6.0\Printing_Star.csproj.CoreCompileInputs.cache
+C:\Users\현아\Desktop\Develop\Study\1차 별찍기\src\Printing_Star\Printing_Star\bin\Debug\net6.0\Printing_Star.exe
+C:\Users\현아\Desktop\Develop\Study\1차 별찍기\src\Printing_Star\Printing_Star\bin\Debug\net6.0\Printing_Star.deps.json
+C:\Users\현아\Desktop\Develop\Study\1차 별찍기\src\Printing_Star\Printing_Star\bin\Debug\net6.0\Printing_Star.runtimeconfig.json
+C:\Users\현아\Desktop\Develop\Study\1차 별찍기\src\Printing_Star\Printing_Star\bin\Debug\net6.0\Printing_Star.dll
+C:\Users\현아\Desktop\Develop\Study\1차 별찍기\src\Printing_Star\Printing_Star\bin\Debug\net6.0\Printing_Star.pdb
+C:\Users\현아\Desktop\Develop\Study\1차 별찍기\src\Printing_Star\Printing_Star\obj\Debug\net6.0\Printing_Star.dll
+C:\Users\현아\Desktop\Develop\Study\1차 별찍기\src\Printing_Star\Printing_Star\obj\Debug\net6.0\refint\Printing_Star.dll
+C:\Users\현아\Desktop\Develop\Study\1차 별찍기\src\Printing_Star\Printing_Star\obj\Debug\net6.0\Printing_Star.pdb
+C:\Users\현아\Desktop\Develop\Study\1차 별찍기\src\Printing_Star\Printing_Star\obj\Debug\net6.0\Printing_Star.genruntimeconfig.cache
+C:\Users\현아\Desktop\Develop\Study\1차 별찍기\src\Printing_Star\Printing_Star\obj\Debug\net6.0\ref\Printing_Star.dll

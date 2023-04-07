@@ -56,14 +56,14 @@ namespace TicTacToe
 
         public bool IsWinner(char player)
         {
-            if ((controlBoard.board[0] == player && controlBoard.board[1] == player && controlBoard.board[2] == player)||
-                (controlBoard.board[3] == player && controlBoard.board[4] == player && controlBoard.board[5] == player)||
-                (controlBoard.board[6] == player && controlBoard.board[7] == player && controlBoard.board[8] == player)||
-                (controlBoard.board[0] == player && controlBoard.board[3] == player && controlBoard.board[6] == player)||
-                (controlBoard.board[1] == player && controlBoard.board[4] == player && controlBoard.board[7] == player)||
-                (controlBoard.board[5] == player && controlBoard.board[5] == player && controlBoard.board[8] == player) ||
-                (controlBoard.board[0] == player && controlBoard.board[4] == player && controlBoard.board[8] == player) ||
-                (controlBoard.board[2] == player && controlBoard.board[4] == player && controlBoard.board[6] == player))
+            if ((controlBoard.CheckBoard(0) == player && controlBoard.CheckBoard(1) == player && controlBoard.CheckBoard(2) == player)||
+                (controlBoard.CheckBoard(3) == player && controlBoard.CheckBoard(4) == player && controlBoard.CheckBoard(5) == player)||
+                (controlBoard.CheckBoard(6) == player && controlBoard.CheckBoard(7) == player && controlBoard.CheckBoard(8) == player)||
+                (controlBoard.CheckBoard(0) == player && controlBoard.CheckBoard(3) == player && controlBoard.CheckBoard(6) == player)||
+                (controlBoard.CheckBoard(1) == player && controlBoard.CheckBoard(4) == player && controlBoard.CheckBoard(7) == player)||
+                (controlBoard.CheckBoard(5) == player && controlBoard.CheckBoard(5) == player && controlBoard.CheckBoard(8) == player) ||
+                (controlBoard.CheckBoard(0) == player && controlBoard.CheckBoard(4) == player && controlBoard.CheckBoard(8) == player) ||
+                (controlBoard.CheckBoard(2) == player && controlBoard.CheckBoard(4) == player && controlBoard.CheckBoard(6) == player))
             {
                 return true;
             }
@@ -78,7 +78,7 @@ namespace TicTacToe
             int count = 0;
             for (int i = 0; i < 9; i++)
             {
-                if (controlBoard.board[i] == 'X' || controlBoard.board[i] == 'O')
+                if (controlBoard.CheckBoard(i) == 'X' || controlBoard.CheckBoard(i) == 'O')
                 {
                     count++;
                 }
@@ -94,7 +94,7 @@ namespace TicTacToe
             {
                 return false;
             }
-            else if (controlBoard.board[move] == 'O' || controlBoard.board[move] == 'X')
+            else if (controlBoard.CheckBoard(move) == 'O' || controlBoard.CheckBoard(move) == 'X')
             {
                 return false;
             }
@@ -106,100 +106,100 @@ namespace TicTacToe
 
         public int ForWin(char player)
         {
-            if ((controlBoard.board[0] == player && controlBoard.board[1] == player) && IsvalidPart(2))
+            if ((controlBoard.CheckBoard(0) == player && controlBoard.CheckBoard(1) == player) && IsvalidPart(2))
             {
                 return 2;
             }
-            else if ((controlBoard.board[0] == player && controlBoard.board[2] == player) && IsvalidPart(1))
+            else if ((controlBoard.CheckBoard(0) == player && controlBoard.CheckBoard(2) == player) && IsvalidPart(1))
             {
                 return 1;
             }
-            else if ((controlBoard.board[1] == player && controlBoard.board[2] == player) && IsvalidPart(0))
+            else if ((controlBoard.CheckBoard(1) == player && controlBoard.CheckBoard(2) == player) && IsvalidPart(0))
             {
                 return 0;
             }
-            else if ((controlBoard.board[3] == player && controlBoard.board[4] == player) && IsvalidPart(5))
+            else if ((controlBoard.CheckBoard(3) == player && controlBoard.CheckBoard(4) == player) && IsvalidPart(5))
             {
                 return 5;
             }
-            else if ((controlBoard.board[3] == player && controlBoard.board[5] == player) && IsvalidPart(4))
+            else if ((controlBoard.CheckBoard(3) == player && controlBoard.CheckBoard(5) == player) && IsvalidPart(4))
             {
                 return 4;
             }
-            else if ((controlBoard.board[4] == player && controlBoard.board[5] == player) && IsvalidPart(3))
+            else if ((controlBoard.CheckBoard(4) == player && controlBoard.CheckBoard(5) == player) && IsvalidPart(3))
             {
                 return 3;
             }
-            else if ((controlBoard.board[6] == player && controlBoard.board[7] == player) && IsvalidPart(8))
+            else if ((controlBoard.CheckBoard(6) == player && controlBoard.CheckBoard(7) == player) && IsvalidPart(8))
             {
                 return 8;
             }
-            else if ((controlBoard.board[6] == player && controlBoard.board[8] == player) && IsvalidPart(7))
+            else if ((controlBoard.CheckBoard(6) == player && controlBoard.CheckBoard(8) == player) && IsvalidPart(7))
             {
                 return 7;
             }
-            else if ((controlBoard.board[7] == player && controlBoard.board[8] == player) && IsvalidPart(6))
+            else if ((controlBoard.CheckBoard(7) == player && controlBoard.CheckBoard(8) == player) && IsvalidPart(6))
             {
                 return 6;
             }
-            else if ((controlBoard.board[2] == player && controlBoard.board[4] == player) && IsvalidPart(6))
+            else if ((controlBoard.CheckBoard(2) == player && controlBoard.CheckBoard(4) == player) && IsvalidPart(6))
             {
                 return 6;
             }
-            else if ((controlBoard.board[2] == player && controlBoard.board[6] == player) && IsvalidPart(4))
+            else if ((controlBoard.CheckBoard(2) == player && controlBoard.CheckBoard(6) == player) && IsvalidPart(4))
             {
                 return 4;
             }
-            else if ((controlBoard.board[4] == player && controlBoard.board[6] == player) && IsvalidPart(2))
+            else if ((controlBoard.CheckBoard(4) == player && controlBoard.CheckBoard(6) == player) && IsvalidPart(2))
             {
                 return 2;
             }
-            else if ((controlBoard.board[0] == player && controlBoard.board[4] == player) && IsvalidPart(8))
+            else if ((controlBoard.CheckBoard(0) == player && controlBoard.CheckBoard(4) == player) && IsvalidPart(8))
             {
                 return 8;
             }
-            else if ((controlBoard.board[0] == player && controlBoard.board[8] == player) && IsvalidPart(4))
+            else if ((controlBoard.CheckBoard(0) == player && controlBoard.CheckBoard(8) == player) && IsvalidPart(4))
             {
                 return 4;
             }
-            else if ((controlBoard.board[4] == player && controlBoard.board[8] == player) && IsvalidPart(0))
+            else if ((controlBoard.CheckBoard(4) == player && controlBoard.CheckBoard(8) == player) && IsvalidPart(0))
             {
                 return 0;
             }
-            else if ((controlBoard.board[0] == player && controlBoard.board[3] == player) && IsvalidPart(6))
+            else if ((controlBoard.CheckBoard(0) == player && controlBoard.CheckBoard(3) == player) && IsvalidPart(6))
             {
                 return 6;
             }
-            else if ((controlBoard.board[0] == player && controlBoard.board[6] == player) && IsvalidPart(3))
+            else if ((controlBoard.CheckBoard(0) == player && controlBoard.CheckBoard(6) == player) && IsvalidPart(3))
             {
                 return 3;
             }
-            else if ((controlBoard.board[3] == player && controlBoard.board[6] == player) && IsvalidPart(0))
+            else if ((controlBoard.CheckBoard(3) == player && controlBoard.CheckBoard(6) == player) && IsvalidPart(0))
             {
                 return 0;
             }
-            else if ((controlBoard.board[1] == player && controlBoard.board[4] == player) && IsvalidPart(7))
+            else if ((controlBoard.CheckBoard(1) == player && controlBoard.CheckBoard(4) == player) && IsvalidPart(7))
             {
                 return 7;
 
             }
-            else if ((controlBoard.board[1] == player && controlBoard.board[7] == player) && IsvalidPart(4))
+            else if ((controlBoard.CheckBoard(1) == player && controlBoard.CheckBoard(7) == player) && IsvalidPart(4))
             {
                 return 4;
             }
-            else if ((controlBoard.board[4]==player && controlBoard.board[7]==player)&&IsvalidPart(1))
+            else if ((controlBoard.CheckBoard(4) ==player && controlBoard.CheckBoard(7) ==player)&&IsvalidPart(1))
             {
                 return 1;
             }
-            else if ((controlBoard.board[2] == player && controlBoard.board[5]==player)&&IsvalidPart(8))
+            else if ((controlBoard.CheckBoard(2) == player && controlBoard.CheckBoard(5) ==player)&&IsvalidPart(8))
             {
                 return 8;
             }
-            else if ((controlBoard.board[2]==player && controlBoard.board[8]==player)&&IsvalidPart(5))
+            else if ((controlBoard.CheckBoard(2) ==player && controlBoard.CheckBoard(8) ==player)&&IsvalidPart(5))
             {
                 return 5;
             }    
-            else if ((controlBoard.board[5] == player && controlBoard.board[8]==player)&&IsvalidPart(2))
+            else if ((controlBoard.CheckBoard(5) == player && controlBoard.CheckBoard(8) ==player)&&IsvalidPart(2))
             {
                 return 2;
             }

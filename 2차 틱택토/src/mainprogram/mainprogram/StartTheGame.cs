@@ -32,7 +32,7 @@ namespace TicTacToe
                 Console.Clear();
                 controlBoard.SetBoard();
                 informationForGame.DisplayMenu();
-
+                Console.WriteLine();
                 Console.WriteLine("원하는 항목을 선택해 주세요.");
                 Console.Write("> 입력: ");
 

@@ -19,7 +19,7 @@ namespace TicTacToe
                 {
                     if (information.IsvalidPart(i))
                     {
-                        controlBoard.board[i] = 'X';
+                        controlBoard.InputBoard(i, 'X');
                         return i;
                     }
 
@@ -32,9 +32,9 @@ namespace TicTacToe
         {
             for(int i = 0;i <  9;i++)
             {
-                if((i == 1 || i == 3 || i == 5 || i == 7) && controlBoard.board[i] == player)
+                if((i == 1 || i == 3 || i == 5 || i == 7) && controlBoard.CheckBoard(i) == player)
                 {
-                    controlBoard.board[4] = 'X';
+                    controlBoard.InputBoard(4, 'X');
                     return;
                 }
             }

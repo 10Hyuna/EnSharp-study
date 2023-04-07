@@ -121,7 +121,7 @@ namespace TicTacToe
                 }
             } while (true);
             Console.Clear();
-            controlBoard.board[select - 1] = user1Mark;
+            controlBoard.InputBoard(select - 1, user1Mark);
         }
 
         public void MoveUser2()
@@ -180,7 +180,7 @@ namespace TicTacToe
                 }
             } while (true);
             Console.Clear();
-            controlBoard.board[select - 1] = user2Mark;
+            controlBoard.InputBoard(select - 1, user2Mark);
         }
     }
 }

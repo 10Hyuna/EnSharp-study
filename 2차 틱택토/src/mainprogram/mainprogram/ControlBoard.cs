@@ -6,10 +6,20 @@ using System.Threading.Tasks;
 
 namespace TicTacToe
 {
-    class ControlBoard
-    {
-        public char[] board = { '1', '2', '3', '4', '5', '6', '7', '8', '9' };
 
+    class ControlBoard
+    { 
+        private static char[] board = new char[9];
+
+        public void InputBoard(int index, char mark)
+        {
+            board[index] = mark;
+        }
+
+        public char CheckBoard(int index)
+        {
+            return board[index];
+        }
         public void SetBoard()
         {
             for (int i = 0; i < 9; i++)

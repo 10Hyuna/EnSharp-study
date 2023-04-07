@@ -121,7 +121,7 @@ namespace TicTacToe
                 }
             } while (true);
             Console.Clear();
-            controlBoard.board[select - 1] = user1Mark;
+            controlBoard.InputBoard(select - 1, user1Mark);
         }
         public void MoveComputer()
         {
@@ -130,8 +130,7 @@ namespace TicTacToe
                 controlBoard.DisplayBoard();
                 Console.WriteLine();
                 Console.WriteLine("컴퓨터의 차례입니다.");
-
-                controlBoard.board[information.ForWin(computerMark)] = 'X';
+                controlBoard.InputBoard(information.ForWin(computerMark), 'X');
                 return;
             }
             else if (information.ForWin(user1Mark) != -1)
@@ -140,27 +139,27 @@ namespace TicTacToe
                 Console.WriteLine();
                 Console.WriteLine("컴퓨터의 차례입니다.");
 
-                controlBoard.board[information.ForWin(user1Mark)] = 'X';
+                controlBoard.InputBoard(information.ForWin(user1Mark), 'X');
                 return;
             }
 
             
-            if (controlBoard.board[4] == 'O')
+            if (controlBoard.CheckBoard(4) == 'O')
             {
                 controlBoard.DisplayBoard();
                 Console.WriteLine();
                 Console.WriteLine("컴퓨터의 차례입니다.");
 
-                controlBoard.board[forWin.CheckCorner()] = 'X';
+                controlBoard.InputBoard(forWin.CheckCorner(), 'X');
                 return;
             }
-            else if (controlBoard.board[4] != 'X')
+            else if (controlBoard.CheckBoard(4) != 'X')
             {
                 controlBoard.DisplayBoard();
                 Console.WriteLine();
                 Console.WriteLine("컴퓨터의 차례입니다.");
 
-                controlBoard.board[4] = 'X';
+                controlBoard.InputBoard(4, 'X');
                 return;
             }
 
@@ -172,7 +171,7 @@ namespace TicTacToe
                     controlBoard.DisplayBoard();
                     Console.WriteLine();
                     Console.WriteLine("컴퓨터의 차례입니다.");
-                    controlBoard.board[move] = computerMark;
+                    controlBoard.InputBoard(move, computerMark);
                     return;
                 }
             }

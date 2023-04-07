@@ -90,8 +90,8 @@ namespace TicTacToe
 
         public bool IsWinner(char player)       // 승리할 수 있는 모든 경우의 수 비교
         {
-            if ((controlBoard.CheckBoard(0) == player && controlBoard.CheckBoard(1) == player && controlBoard.CheckBoard(2) == player)||
-                (controlBoard.CheckBoard(3) == player && controlBoard.CheckBoard(4) == player && controlBoard.CheckBoard(5) == player)||
+            if ((controlBoard.CheckBoard(0) == player && controlBoard.CheckBoard(1) == player && controlBoard.CheckBoard(2) == player)||    // 너무 길다
+                (controlBoard.CheckBoard(3) == player && controlBoard.CheckBoard(4) == player && controlBoard.CheckBoard(5) == player)||    // 밑으로
                 (controlBoard.CheckBoard(6) == player && controlBoard.CheckBoard(7) == player && controlBoard.CheckBoard(8) == player)||
                 (controlBoard.CheckBoard(0) == player && controlBoard.CheckBoard(3) == player && controlBoard.CheckBoard(6) == player)||
                 (controlBoard.CheckBoard(1) == player && controlBoard.CheckBoard(4) == player && controlBoard.CheckBoard(7) == player)||
@@ -120,7 +120,7 @@ namespace TicTacToe
             return true;
         }
 
-        public bool IsvalidPart(int move)   // 움직이려는 자리가 유효한 자리인지 확인
+        public bool IsvalidPart(int move)   // 움직이려는 자리가 유효한 자리인지 확인        // 대문자
         {
             if (move < vaildRangeStart- 1 || move > vaildRangeEnd)        // 주어진 판 이외에 해당하는 값
             {

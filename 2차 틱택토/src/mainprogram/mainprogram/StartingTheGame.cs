@@ -14,7 +14,7 @@ namespace TicTacToe
         HandingException handingException = new HandingException();         // 사용할 함수가 정의되어 있는
         GamingWithComputer vsComputer = new GamingWithComputer();           // 클래스의 생성자 인스턴스
         GamingWithUser vsUser = new GamingWithUser();
-        ReturnOrEnd GetReturnOrEnd = new ReturnOrEnd();
+        ReturnOrEnd GetReturnOrEnd = new ReturnOrEnd();     //
         BoardControl controlBoard=new BoardControl();
 
         public string userChoice;   // 사용자의 선택을 예외 처리하기 위하여 문자열로 입력
@@ -25,7 +25,7 @@ namespace TicTacToe
         private const int endProgram = 4;
 
         private const int menuStart = 1;
-        private const int menuEnd = 2;
+        private const int menuEnd = 4;
 
         private const string endProgramstring = "2";
 
@@ -38,7 +38,7 @@ namespace TicTacToe
         {
             Console.CancelKeyPress += new ConsoleCancelEventHandler(Console_CancelKeyPress);    // 단축키로 인해 프로그램이 종료될 경우, 그 단축키를 다시 반환해 프로그램이 종료되는 것을 방지
 
-            while (true)    // 무한 반복
+            while (true)    // 무한 반복                // true ㅇㅢ미
             {
                 Console.Clear();
                 controlBoard.SetBoard();    // 게임이 다시 시작하면 board 배열을 다시 초기화

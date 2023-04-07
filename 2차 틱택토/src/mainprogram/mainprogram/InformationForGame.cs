@@ -11,11 +11,11 @@ namespace TicTacToe
     class InformationForGame
     {
         ControlBoard controlBoard = new ControlBoard();
-        static int computerWin = 0;
-        static int user1Win = 0;
-        static int user2Win = 0;
+        static int computerWin = 0;     // 클래스 내의 함수에 접근할 때마다
+        static int user1Win = 0;        // 변수가 초기화되는 것을 막기 위하여
+        static int user2Win = 0;        // static 변수로 선언
 
-        public string currentWinner = "Computer";
+        public string currentWinner = null;
 
         public void DisplayMenu()
         {
@@ -58,21 +58,34 @@ namespace TicTacToe
             Console.WriteLine("=======================");
         }
 
-        public void PrintWinner()
+        public void PrintWinner()       // 승자 출력
         {
             Console.WriteLine();
             Console.WriteLine("{0} 이/가 이겼습니다!", currentWinner);
-            AddWinCount();
+            AddWinCount();  // 출력 후 승수 증가
         }
 
-        public void AddWinCount()
-        {
-            if (currentWinner == "Computer") { computerWin++; }
-            else if (currentWinner == "User1") { user1Win++; }
-            else { user2Win++; }
+        public void AddWinCount()  
+        {                           // currentWinner 변수에 저장되어 있는 값과 비교해
+                                    // 승수 증가
+            if (currentWinner == "Computer") 
+            { 
+                computerWin++;
+                currentWinner = null;
+            }
+            else if (currentWinner == "User1")
+            {
+                user1Win++;
+                currentWinner = null;
+            }
+            else if(currentWinner == "User2")
+            {
+                user2Win++;
+                currentWinner = null;
+            }
         }
 
-        public bool IsWinner(char player)
+        public bool IsWinner(char player)       // 승리할 수 있는 모든 경우의 수 비교
         {
             if ((controlBoard.CheckBoard(0) == player && controlBoard.CheckBoard(1) == player && controlBoard.CheckBoard(2) == player)||
                 (controlBoard.CheckBoard(3) == player && controlBoard.CheckBoard(4) == player && controlBoard.CheckBoard(5) == player)||
@@ -91,29 +104,27 @@ namespace TicTacToe
             }
         }
 
-        public bool IsBoardFull()
+        public bool IsBoardFull()   // 보드가 모두 돌로 가득찰 경우를 확인
         {
             int count = 0;
             for (int i = 0; i < 9; i++)
             {
-                if (controlBoard.CheckBoard(i) == 'X' || controlBoard.CheckBoard(i) == 'O')
+                if (controlBoard.CheckBoard(i) == (char)( i + '1')) // 저장된 값이 Mark가 아닌 값일 경우
                 {
-                    count++;
+                    return false;
                 }
             }
-            if (count == 9)
-                return true;
-            return false;
+            return true;
         }
 
-        public bool IsvalidPart(int move)
+        public bool IsvalidPart(int move)   // 움직이려는 자리가 유효한 자리인지 확인
         {
-            if(move < 0 || move > 9)
+            if(move < 0 || move > 9)        // 주어진 판 이외에 해당하는 값
             {
                 return false;
             }
-            else if (controlBoard.CheckBoard(move) == 'O' || controlBoard.CheckBoard(move) == 'X')
-            {
+            else if (controlBoard.CheckBoard(move) == 'O' || controlBoard.CheckBoard(move) == 'X')  
+            {               // 이미 돌이 놓여진 자리
                 return false;
             }
             else
@@ -122,8 +133,10 @@ namespace TicTacToe
             }
         }
 
-        public int ForWin(char player)
-        {
+        public int BlockUserWin(char player)        // 컴퓨터가 무조건 이기거나 비기게 하기 위하여 
+        {                                           // 유저가 이길 경우를 방어
+                                                    // 모든 경우의 수 
+
             if ((controlBoard.CheckBoard(0) == player && controlBoard.CheckBoard(1) == player) && IsvalidPart(2))
             {
                 return 2;

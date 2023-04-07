@@ -20,10 +20,10 @@ namespace TicTacToe
         public void VsUser()
         {
             Console.Clear();
-            while (true)
+            while (true)        // 무한 반복
             {
-                MoveUser1();
-                if (information.IsBoardFull())
+                MoveUser1();        // 유저 1이 선공
+                if (information.IsBoardFull())      // 돌을 놓는 행위마다 비기는지 승패를 확인
                 {
                     Console.Clear();
                     controlBoard.DisplayBoard();
@@ -31,7 +31,7 @@ namespace TicTacToe
                     Console.WriteLine("비겼습니다!");
                     break;
                 }
-                if (information.IsWinner(user1Mark) == true)
+                if (information.IsWinner(user1Mark) == true)    // 이겼을 경우
                 {
                     Console.Clear();
                     controlBoard.DisplayBoard();
@@ -40,8 +40,8 @@ namespace TicTacToe
                     information.PrintWinner();
                     break;
                 }
-                MoveUser2();
-                if (information.IsBoardFull())
+                MoveUser2();            // 유저 2가 후공
+                if (information.IsBoardFull())  
                 {
                     Console.Clear();
                     controlBoard.DisplayBoard();
@@ -71,15 +71,15 @@ namespace TicTacToe
             Console.WriteLine("돌을 둘 자리를 입력하세요.");
             Console.Write("> 입력: ");
             int select = 0;
-            do
+            do          // 예외 처리를 위해 무한반복문
             {
                 userChoice = Console.ReadLine();
-                if (handingException.DealWithException(userChoice) == true)
+                if (handingException.DealWithException(userChoice) == true) // 숫자일 경우
                 {
                     select = Convert.ToInt32(userChoice);
-                    if (select >= 1 && select <= 9)
+                    if (select >= 1 && select <= 9)     // 주어진 판 범위에 해당하는 값
                     {
-                        if (information.IsvalidPart(select - 1) == false)
+                        if (information.IsvalidPart(select - 1) == false)   // 그 자리에 돌을 놓을 수 없다면
                         {
 
                             Console.Clear();
@@ -89,9 +89,9 @@ namespace TicTacToe
                             Console.Write("> 입력: ");
                             continue;
                         }
-                        break;
+                        break;      // 돌을 놓을 수 있다면 탈출
                     }
-                    else
+                    else            // 주어진 판 범위에서 벗어난 값
                     {
                         Console.Clear();
                         controlBoard.DisplayBoard();
@@ -101,7 +101,7 @@ namespace TicTacToe
                         continue;
                     }
                 }
-                else if (select > 9 || select < 0)
+                else        // 문자라면
                 {
                     Console.Clear();
                     controlBoard.DisplayBoard();
@@ -110,34 +110,32 @@ namespace TicTacToe
                     Console.Write("> 입력: ");
                     continue;
                 }
-                else
-                {
-                    Console.Clear();
-                    controlBoard.DisplayBoard();
-                    Console.WriteLine();
-                    Console.WriteLine("잘못된 입력입니다. 1부터 9까지의 숫자 중 아직 선택되지 않은 자리의 수를 고르세요.");
-                    Console.Write("> 입력: ");
-                    continue;
-                }
+
             } while (true);
+
             Console.Clear();
-            controlBoard.InputBoard(select - 1, user1Mark);
+            controlBoard.InputBoard(select - 1, user1Mark); // 그 자리에 돌 놓기
         }
 
-        public void MoveUser2()
+        public void MoveUser2()     // MoverUser1과 같은 로직
         {
             controlBoard.DisplayBoard();
+
             Console.WriteLine();
             Console.WriteLine("User2의 차례입니다.");
             Console.WriteLine("돌을 둘 자리를 입력하세요.");
             Console.Write("> 입력: ");
+
             int select = 0;
+
             do
             {
                 userChoice = Console.ReadLine();
+
                 if (handingException.DealWithException(userChoice) == true)
                 {
                     select = Convert.ToInt32(userChoice);
+
                     if (select >= 1 && select <= 9)
                     {
                         if (information.IsvalidPart(select - 1) == false)
@@ -161,15 +159,6 @@ namespace TicTacToe
                         continue;
                     }
                 }
-                else if (select > 9 || select < 0)
-                {
-                    Console.Clear();
-                    controlBoard.DisplayBoard();
-                    Console.WriteLine();
-                    Console.WriteLine("잘못된 입력입니다. 1부터 9까지의 숫자 중 아직 선택되지 않은 자리의 수를 고르세요.");
-                    Console.Write("> 입력: ");
-                    continue;
-                }
                 else
                 {
                     Console.Clear();
@@ -179,6 +168,7 @@ namespace TicTacToe
                     continue;
                 }
             } while (true);
+
             Console.Clear();
             controlBoard.InputBoard(select - 1, user2Mark);
         }

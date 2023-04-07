@@ -8,14 +8,14 @@ namespace TicTacToe
 {
     class HandingException
     {
-        public bool DealWithException(string input)
+        public bool DealWithException(string input)     // 예외 처리 함수
         {
-            if (int.TryParse(input, out int result) == false)
+            if (int.TryParse(input, out int result) == false)       // 입력 값이 숫자로 변환되지 않을 때
             {
                 return false;
             }
 
-            else
+            else        // 숫자로 변환 가능
             {
                 return true;
             }

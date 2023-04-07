@@ -11,7 +11,7 @@ namespace TicTacToe
     {
         InformationForGame information = new InformationForGame();
         ControlBoard controlBoard = new ControlBoard();
-        public int CheckCorner()
+        public int CheckCorner()        // 모서리에 유효한 값이 있는지 찾는 함수
         {
             for(int i = 0;i < 9;i++)
             {
@@ -28,7 +28,7 @@ namespace TicTacToe
             return -1;
         }
 
-        public void CheckSide(char player)
+        public void CheckSide(char player)      // 모서리와 중앙을 제외한 자리에 유효한 자리가 있는지 확인하는 함수
         {
             for(int i = 0;i <  9;i++)
             {

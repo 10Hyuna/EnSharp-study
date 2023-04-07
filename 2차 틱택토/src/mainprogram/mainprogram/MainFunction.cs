@@ -11,7 +11,7 @@ namespace TicTacToe
         static void Main(string[] args)
         {
             StartTheGame startTheGame = new StartTheGame();
-            startTheGame.StartTheTicTacToe();
+            startTheGame.StartTheTicTacToe();       // 틱택토 게임 시작
         }
     }
 }

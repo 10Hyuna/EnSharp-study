@@ -31,12 +31,9 @@ namespace TicTacToe
                     {
                         break;
                     }
-                    else if (select>2||select<0)
+                    else if (select > 2||select < 0)
                     {
                         Console.Clear();
-                        controlBoard.DisplayBoard();
-                        informationForGame.PrintWinner(); 
-                        Console.WriteLine();
                         Console.WriteLine("1. 메뉴로 돌아가기 2. 종료하기");
                         Console.WriteLine("잘못된 입력입니다. 주어진 메뉴 1과 2 중에서 선택하세요.");
                         Console.Write("> 입력: ");
@@ -44,9 +41,6 @@ namespace TicTacToe
                     else
                     {
                         Console.Clear();
-                        controlBoard.DisplayBoard();
-                        informationForGame.PrintWinner(); 
-                        Console.WriteLine();
                         Console.WriteLine("1. 메뉴로 돌아가기 2. 종료하기");
                         Console.WriteLine("잘못된 입력입니다. 주어진 메뉴 1과 2 중에서 선택하세요.");
                         Console.Write("> 입력: ");
@@ -55,7 +49,7 @@ namespace TicTacToe
 
                 if (userChoice == "2")
                 {
-                    Console.WriteLine();
+                    Console.Clear();
                     Console.WriteLine("정말 종료하시겠습니까?");
                     Console.WriteLine("1. 메뉴로 돌아가기 2. 종료하기");
                     Console.Write("> 입력: ");
@@ -70,18 +64,14 @@ namespace TicTacToe
                         }
                         else if (select > 0 || select < 3)
                         {
-                            controlBoard.DisplayBoard();
-                            informationForGame.PrintWinner();
-                            Console.WriteLine();
+                            Console.Clear();
                             Console.WriteLine("1. 메뉴로 돌아가기 2. 종료하기");
                             Console.WriteLine("잘못된 입력입니다. 주어진 메뉴 1과 2 중에서 선택하세요.");
                             Console.Write("> 입력: ");
                         }
                         else
                         {
-                            controlBoard.DisplayBoard();
-                            informationForGame.PrintWinner();
-                            Console.WriteLine();
+                            Console.Clear();
                             Console.WriteLine("1. 메뉴로 돌아가기 2. 종료하기");
                             Console.WriteLine("잘못된 입력입니다. 주어진 메뉴 1과 2 중에서 선택하세요.");
                             Console.Write("> 입력: ");

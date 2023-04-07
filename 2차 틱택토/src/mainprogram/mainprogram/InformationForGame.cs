@@ -11,9 +11,9 @@ namespace TicTacToe
     class InformationForGame
     {
         ControlBoard controlBoard = new ControlBoard();
-        int computerWin = 0;
-        int user1Win = 0;
-        int user2Win = 0;
+        static int computerWin = 0;
+        static int user1Win = 0;
+        static int user2Win = 0;
 
         public string currentWinner = "Computer";
 
@@ -33,17 +33,35 @@ namespace TicTacToe
             Console.WriteLine("||  3. ScoreBoard    ||");
             Console.Write("||                   ||\n||                   ||\n");
             Console.WriteLine("=======================");
+            Console.Write("||                   ||\n||                   ||\n");
+            Console.WriteLine("||  4. Exit          ||");
+            Console.Write("||                   ||\n||                   ||\n");
+            Console.WriteLine("=======================");
         }
 
         public void DisplayScoreBoard()
         {
-
+            Console.Clear();
+            Console.WriteLine();
+            Console.WriteLine("=======================");
+            Console.Write("||                   ||\n||                   ||\n");
+            Console.WriteLine("||  1. Computer: {0}   ||", computerWin);
+            Console.Write("||                   ||\n||                   ||\n");
+            Console.WriteLine("=======================");
+            Console.Write("||                   ||\n||                   ||\n");
+            Console.WriteLine("||  2. User1: {0}      ||", user1Win);
+            Console.Write("||                   ||\n||                   ||\n");
+            Console.WriteLine("=======================");
+            Console.Write("||                   ||\n||                   ||\n");
+            Console.WriteLine("||  3. User2: {0}      ||", user2Win);
+            Console.Write("||                   ||\n||                   ||\n");
+            Console.WriteLine("=======================");
         }
 
         public void PrintWinner()
         {
             Console.WriteLine();
-            Console.WriteLine("{0} 이 이겼습니다!", currentWinner);
+            Console.WriteLine("{0} 이/가 이겼습니다!", currentWinner);
             AddWinCount();
         }
 

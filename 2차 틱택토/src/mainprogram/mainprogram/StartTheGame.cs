@@ -44,17 +44,17 @@ namespace TicTacToe
                     if (handingException.DealWithException(userChoice) == true)
                     {
                         select = Convert.ToInt32(userChoice);
-                        if(select >= 1 && select <= 3)
+                        if(select >= 1 && select <= 4)
                         {
                             break;
                         }
-                        else if (select > 3 || select < 1)
+                        else if (select > 4 || select < 1)
                         {
                             Console.Clear();
                             informationForGame.DisplayMenu();
                             Console.WriteLine();
                             Console.WriteLine("원하는 항목을 선택해 주세요.");
-                            Console.WriteLine("잘못된 입력입니다. 주어진 메뉴 1, 2, 3 중에서 고르세요.");
+                            Console.WriteLine("잘못된 입력입니다. 주어진 메뉴 1, 2, 3, 4 중에서 고르세요.");
                             Console.Write("> 입력: ");
                             continue;
                         }
@@ -81,6 +81,8 @@ namespace TicTacToe
                         break;
                     case 3:
                         informationForGame.DisplayScoreBoard();
+                        break;
+                    case 4:
                         break;
                 }
                 string returnOrEnd = GetReturnOrEnd.ReturnOrEndFunc();

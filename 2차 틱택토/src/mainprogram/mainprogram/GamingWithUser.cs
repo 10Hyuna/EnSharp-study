@@ -13,9 +13,12 @@ namespace TicTacToe
         private char user2Mark = 'X';
         private string userChoice;
 
+        private const int vaildRangeStart = 1;
+        private const int vaildRangeEnd = 9;
+
         InformationForGame information= new InformationForGame();
         HandingException handingException = new HandingException();
-        ControlBoard controlBoard = new ControlBoard();
+        BoardControl controlBoard = new BoardControl();
 
         public void VsUser()
         {
@@ -77,7 +80,7 @@ namespace TicTacToe
                 if (handingException.DealWithException(userChoice) == true) // 숫자일 경우
                 {
                     select = Convert.ToInt32(userChoice);
-                    if (select >= 1 && select <= 9)     // 주어진 판 범위에 해당하는 값
+                    if (select >= vaildRangeStart && select <= vaildRangeEnd)     // 주어진 판 범위에 해당하는 값
                     {
                         if (information.IsvalidPart(select - 1) == false)   // 그 자리에 돌을 놓을 수 없다면
                         {
@@ -136,7 +139,7 @@ namespace TicTacToe
                 {
                     select = Convert.ToInt32(userChoice);
 
-                    if (select >= 1 && select <= 9)
+                    if (select >= vaildRangeStart && select <= vaildRangeEnd)
                     {
                         if (information.IsvalidPart(select - 1) == false)
                         {

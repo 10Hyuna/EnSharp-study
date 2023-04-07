@@ -10,7 +10,7 @@ namespace TicTacToe
     class ForWin
     {
         InformationForGame information = new InformationForGame();
-        ControlBoard controlBoard = new ControlBoard();
+        BoardControl controlBoard = new BoardControl();
         public int CheckCorner()        // 모서리에 유효한 값이 있는지 찾는 함수
         {
             for(int i = 0;i < 9;i++)

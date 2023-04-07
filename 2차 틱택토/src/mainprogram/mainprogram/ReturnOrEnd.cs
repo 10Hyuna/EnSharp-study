@@ -10,11 +10,17 @@ namespace TicTacToe
 {
     class ReturnOrEnd
     {
-        ControlBoard controlBoard = new ControlBoard();
+        BoardControl controlBoard = new BoardControl();
         HandingException handingException = new HandingException();
         InformationForGame informationForGame = new InformationForGame();
 
         private string userChoice;
+
+        private const int returnMenu = 1;
+        private const int endProgram = 2;
+
+        private const string returnMenuString = "1";
+        private const string endProgramString = "2";
         public string ReturnOrEndFunc()
         {
             while (true)
@@ -29,7 +35,7 @@ namespace TicTacToe
                     if( handingException.DealWithException(userChoice) == true) // 입력 값이 숫자
                     {
                         select = int.Parse(userChoice);     // 정수 변환
-                        if(select == 1 || select == 2)      // 주어진 메뉴의 범위에 해당한다면 반복문 탈출
+                        if(select == returnMenu || select == endProgram)      // 주어진 메뉴의 범위에 해당한다면 반복문 탈출
                         {
                             break;
                         }
@@ -52,7 +58,7 @@ namespace TicTacToe
                     }
                 } while (true);
 
-                if (userChoice == "2")      // 종료 선택
+                if (userChoice == endProgramString)      // 종료 선택
                 {
                     Console.Clear();
                     Console.WriteLine("정말 종료하시겠습니까?");  // 종료를 의도하고 누른 건지 실수인지 구분하기 위해 다시 선택지 제공
@@ -66,7 +72,7 @@ namespace TicTacToe
                         if (handingException.DealWithException(userChoice) == true) // 입력 값이 숫자
                         {
                             select = int.Parse(userChoice);     // 정수 변환
-                            if (select == 1 || select == 2)      // 주어진 메뉴의 범위에 해당한다면 반복문 탈출
+                            if (select == returnMenu || select == endProgram)      // 주어진 메뉴의 범위에 해당한다면 반복문 탈출
                             {
                                 break;
                             }
@@ -90,7 +96,7 @@ namespace TicTacToe
                     } while (true);
                 }
 
-                if (userChoice == "1" || userChoice == "2")
+                if (userChoice == returnMenuString || userChoice == endProgramString)
                     break;
             }
             return userChoice;

@@ -11,11 +11,15 @@ namespace TicTacToe
         ForWin forWin = new ForWin();
         InformationForGame information = new InformationForGame();
         HandingException handingException = new HandingException();
-        ControlBoard controlBoard = new ControlBoard();
+        BoardControl controlBoard = new BoardControl();
 
         private char user1Mark = 'O';
         private char computerMark = 'X';
         private string userChoice;
+
+        private const int vaildRangeStart = 1;
+        private const int vaildRangeEnd = 9;
+        private const char centerNumValue = '5';
 
         public void VsComputer()        
         {
@@ -91,7 +95,7 @@ namespace TicTacToe
                 {
                     select = Convert.ToInt32(userChoice);       // 정수 변환
 
-                    if (select >= 1 && select <= 9)     // 유효한 범위 내의 값이라면
+                    if (select >= vaildRangeStart && select <= vaildRangeEnd)     // 유효한 범위 내의 값이라면
                     {
                         if (information.IsvalidPart(select - 1) == false)   // 돌을 놓을 수 있는 자리가 아니라면
                         {
@@ -161,7 +165,7 @@ namespace TicTacToe
                 controlBoard.InputBoard(forWin.CheckCorner(), 'X');     // 모서리에 유효한 자리가 있다면 선점
                 return;
             }
-            else if (controlBoard.CheckBoard(4) == '5') // 중앙에 값이 없을 때
+            else if (controlBoard.CheckBoard(4) == centerNumValue) // 중앙에 값이 없을 때
             {
                 controlBoard.DisplayBoard();
                 Console.WriteLine();

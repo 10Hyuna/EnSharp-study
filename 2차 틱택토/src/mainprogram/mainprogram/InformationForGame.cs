@@ -10,12 +10,15 @@ namespace TicTacToe
 {
     class InformationForGame
     {
-        ControlBoard controlBoard = new ControlBoard();
+        BoardControl controlBoard = new BoardControl();
         static int computerWin = 0;     // 클래스 내의 함수에 접근할 때마다
         static int user1Win = 0;        // 변수가 초기화되는 것을 막기 위하여
         static int user2Win = 0;        // static 변수로 선언
 
         public string currentWinner = null;
+
+        private const int vaildRangeStart = 1;
+        private const int vaildRangeEnd = 9;
 
         public void DisplayMenu()
         {
@@ -119,7 +122,7 @@ namespace TicTacToe
 
         public bool IsvalidPart(int move)   // 움직이려는 자리가 유효한 자리인지 확인
         {
-            if(move < 0 || move > 9)        // 주어진 판 이외에 해당하는 값
+            if (move < vaildRangeStart- 1 || move > vaildRangeEnd)        // 주어진 판 이외에 해당하는 값
             {
                 return false;
             }

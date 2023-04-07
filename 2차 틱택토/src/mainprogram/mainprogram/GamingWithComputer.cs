@@ -179,12 +179,12 @@ namespace TicTacToe
             {
                 int move = new Random().Next(0, 10);    // 0보다 크고 10보다 작은 난수 발생
 
-                if(information.IsvalidPart(move))       // 그 난수의 값이 유효한 자리를 뜻한다면
+                if(information.IsvalidPart(move - 1))       // 그 난수의 값이 유효한 자리를 뜻한다면
                 {
                     controlBoard.DisplayBoard();
                     Console.WriteLine();
                     Console.WriteLine("컴퓨터의 차례입니다.");
-                    controlBoard.InputBoard(move, computerMark);
+                    controlBoard.InputBoard(move - 1, computerMark);
                     return;
                 }
             }

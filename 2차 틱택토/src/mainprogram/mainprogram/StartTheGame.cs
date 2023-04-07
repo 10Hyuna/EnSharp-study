@@ -48,24 +48,28 @@ namespace TicTacToe
                         {
                             break;
                         }
-                    }
-                    else if(select > 4|| select < 0)
-                    {
-                        Console.Clear();
-                        informationForGame.DisplayMenu();
-                        Console.WriteLine("원하는 항목을 선택해 주세요.");
-                        Console.WriteLine("잘못된 입력입니다. 주어진 메뉴 1, 2, 3 중에서 고르세요.");
-                        Console.Write("> 입력: ");
+                        else if (select > 3 || select < 1)
+                        {
+                            Console.Clear();
+                            informationForGame.DisplayMenu();
+                            Console.WriteLine();
+                            Console.WriteLine("원하는 항목을 선택해 주세요.");
+                            Console.WriteLine("잘못된 입력입니다. 주어진 메뉴 1, 2, 3 중에서 고르세요.");
+                            Console.Write("> 입력: ");
+                            continue;
+                        }
                     }
                     else
                     {
                         Console.Clear();
                         informationForGame.DisplayMenu();
+                        Console.WriteLine();
                         Console.WriteLine("원하는 항목을 선택해 주세요.");
                         Console.WriteLine("잘못된 입력입니다. 주어진 메뉴 1, 2, 3 중에서 고르세요.");
                         Console.Write("> 입력: ");
+                        continue;
                     }
-                } while (handingException.DealWithException(userChoice) == false);
+                } while (true);
 
                 switch(select)
                 {

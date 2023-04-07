@@ -1,0 +1,34 @@
+클래스 1: MainFunction
+	메인함수
+
+클래스 2: StartingTheGame
+	게임 순서 구현
+
+클래스 3: GamingWithComputer
+	컴퓨터와 게임
+
+클래스 4: GamingWithUser
+	유저와 게임
+
+클래스 5: ReturnOrEnd
+	게임이 끝난 뒤 다시 할지 종료할지를 관리
+
+클래스 6: InformationForGame
+	게임을 하기 위해서 여러 차례 필요한 정보를 모두 저장
+
+클래스 7: BoardControl
+	InformationForGame 클래스 내에서 겹치는 함수를 따로 모아 저장
+
+클래스 8: ForWin
+	컴퓨터가 이기기 위하여 필요한 조건들을 저장
+
+클래스 9: HandingException
+	여러 클래스에서 입력을 받을 때마다 예외 처리를 용이하게 하기 위하여 클래스로 선언
+
+
+                                          <<관계도>>
+
+메인함수 -> StartingTheGame -> GamingWithComputer (-> ForWin) -> BoardControl -> ReturnOrEnd
+                          -> GamingWithUser -> BoardControl -> ReturnOrEnd
+                          -> InformationForGame.DisplayScoreBoard -> ReturnOrEnd
+				  -> ReturnOrEnd

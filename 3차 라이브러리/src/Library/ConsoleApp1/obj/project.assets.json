@@ -14,9 +14,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\현아\\Desktop\\Develop\\Study\\3차 라이브러리\\src\\Library\\ConsoleApp1\\ConsoleApp1.csproj",
-      "projectName": "ConsoleApp1",
-      "projectPath": "C:\\Users\\현아\\Desktop\\Develop\\Study\\3차 라이브러리\\src\\Library\\ConsoleApp1\\ConsoleApp1.csproj",
+      "projectUniqueName": "C:\\Users\\현아\\Desktop\\Develop\\Study\\3차 라이브러리\\src\\Library\\ConsoleApp1\\Library.csproj",
+      "projectName": "Library",
+      "projectPath": "C:\\Users\\현아\\Desktop\\Develop\\Study\\3차 라이브러리\\src\\Library\\ConsoleApp1\\Library.csproj",
       "packagesPath": "C:\\Users\\현아\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\현아\\Desktop\\Develop\\Study\\3차 라이브러리\\src\\Library\\ConsoleApp1\\obj\\",
       "projectStyle": "PackageReference",

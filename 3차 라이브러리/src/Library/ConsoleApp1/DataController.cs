@@ -37,7 +37,17 @@ namespace ConsoleApp1
 
     class UserData : MemberData
     {
+        public void InsertID(string id)
+        {
+            this.id.Add(id);
+        }
 
+        public void InsertPassword(string pw)
+        {
+            this.password.Add(pw);
+        }
+
+        public 
     }
 
     class ManagerData : MemberData

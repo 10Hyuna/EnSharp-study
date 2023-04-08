@@ -6,11 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp1
 {
-    class OnlineLibrary
+    internal class AboutBookFunction
     {
-        static void Main(string[] args)
-        {
-
-        }
     }
 }

@@ -6,11 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp1
 {
-    class OnlineLibrary
+    internal class UI
     {
-        static void Main(string[] args)
-        {
-
-        }
     }
 }

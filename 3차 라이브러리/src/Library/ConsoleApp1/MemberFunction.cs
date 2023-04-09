@@ -10,9 +10,14 @@ namespace Library
     class MemberFunction
     {
         HandlingException handlingException = new HandlingException();
+
+        public void SignInMember()
+        {
+
+        }
         public void SignUpMember()
         {
-            const int ConsoleInputRow = 71;
+            const int ConsoleInputRow = 77;
             const int ConsoleInputColumn = 22;
 
             bool isValidInput = false;
@@ -20,7 +25,6 @@ namespace Library
 
             Regex IDCheck = new Regex(@"^[0-9a-zA-Z]{8,20}");
             string ID = handlingException.IsValid(IDCheck, ConsoleInputRow, ConsoleInputColumn);
-            Regex PWCheck = new Regex(@"^[0-9a-zA-Z]{8,20}");
             string PW = handlingException.IsValid(IDCheck, ConsoleInputRow, ConsoleInputColumn + 1);
             while (!isSamePW)
             {
@@ -56,7 +60,7 @@ namespace Library
             }
             isValidInput = false;
 
-            Regex phoneNumCheck = new Regex(@"01{1}[016789]{1}-[0-9]{3,4}-[0,9]{4}");
+            Regex phoneNumCheck = new Regex(@"01{1}[016789]{1}-[0-9]{3,4}-[0-9]{4}");
             string phoneNumber = handlingException.IsValid(phoneNumCheck, ConsoleInputRow, ConsoleInputColumn + 5);
 
             Regex addressCheck = new Regex(@"[가-힣]{2,4}시 [가-힣]{2}구");

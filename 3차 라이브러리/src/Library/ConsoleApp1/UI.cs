@@ -122,6 +122,17 @@ namespace Library
             }
         }
 
+        public void PrintSuccessSignup()
+        {
+            const int WindowCenterRow = 55;
+            const int WindowCenterColumn = 17;
+
+            Console.SetCursorPosition(WindowCenterRow, WindowCenterColumn);
+            Console.WriteLine("회 원 가 입 성 공 !!");
+            Console.SetCursorPosition(WindowCenterRow, WindowCenterColumn + 2);
+            Console.WriteLine(" ENTER를 눌러주세요.");
+        }
+
         public void PrintRenttheBookUI()
         {
 

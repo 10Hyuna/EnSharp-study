@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -21,11 +21,11 @@ namespace Library
             Console.WriteLine("\t    ##          ##      ##      ###   ##      ##     ##         ##    ##       ##      ##");
             Console.WriteLine("\t   ########    ####    #########      ##       ###  ##           ##  ####       ###   ####");
             Console.WriteLine("\n\n");
-            Console.WriteLine("\t\t ENTER : 선택\t\t\t\tESC : 뒤로가기");
+            Console.WriteLine("\t\t\t\t ENTER : 선택\t\t\t\tESC : 뒤로가기");
             Console.WriteLine("\t\t________________________________________________________________________________________________\t\t");
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 6; i++)
             {
-                Console.WriteLine("|                                                                                               |");
+                Console.WriteLine("\t\t|                                                                                               |");
             }
             Console.WriteLine("\t\t________________________________________________________________________________________________\t\t");
         }
@@ -102,25 +102,13 @@ namespace Library
 
         }
 
-        public int SelectMenu(int selectMenu, int endMenu)
+        public int SelectKey(int endMenu, int selectedMenu)
         {
-            for(int i = 0; i < endMenu; i++)
-            {
-                if (i == selectMenu)
-                    return i;
-            }
-            Console.WriteLine("");
-            return -1;
-        }
-
-        public int SelectKey(int endMenu)
-        {
-            int selectedMenu = 0;
             ConsoleKeyInfo keyInfo;
 
             keyInfo = Console.ReadKey();
 
-            if (keyInfo.Key == ConsoleKey.PageUp)
+            if (keyInfo.Key == ConsoleKey.UpArrow)
             {
                 selectedMenu--;
                 if (selectedMenu < 0)
@@ -129,10 +117,10 @@ namespace Library
                 }
                 return selectedMenu;
             }
-            else if (keyInfo.Key == ConsoleKey.PageDown)
+            else if (keyInfo.Key == ConsoleKey.DownArrow)
             {
                 selectedMenu++;
-                if (selectedMenu >= endMenu)
+                if (selectedMenu > endMenu)
                 {
                     selectedMenu = 0;
                 }
@@ -140,7 +128,11 @@ namespace Library
             }
             else if (keyInfo.Key == ConsoleKey.Enter)
             {
-                return 1;
+                return 10;
+            }
+            else if(keyInfo.Key == ConsoleKey.Escape)
+            {
+                return 11;
             }
             else
             {

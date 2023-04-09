@@ -11,8 +11,10 @@ namespace Library
         public static int WindowRow = 120;
         public static int WindowColumn = 40;
         static void Main(string[] args)
-        {
+        { 
+            UsingLibrary library = new UsingLibrary();
             Console.SetWindowSize(WindowRow, WindowColumn);
+            library.MainLibrary();
         }
     }
 }

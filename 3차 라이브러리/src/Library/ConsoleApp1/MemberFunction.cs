@@ -11,13 +11,14 @@ namespace Library
     {
         HandlingException handlingException = new HandlingException();
 
-
-        public void SignInMember(DataController dataController, UI ui)
+        public void SignInMember(DataController dataController, UI ui, CurserController curser, BookFunction bookFunction)
         {
             const int ConsoleInputRow = 32;
             const int ConsoleInputColumn = 23;
 
             bool isValidAccount = false;
+
+            int index = 0;
 
             string ID;
             string PW;
@@ -36,6 +37,7 @@ namespace Library
                         if (dataController.members[i].password == PW)
                         {
                             isValidAccount = true;
+                            index = i;
                             break;
                         }
                     }
@@ -43,9 +45,9 @@ namespace Library
                 if(!isValidAccount)
                 {
                     ui.IsValidAccount(ConsoleInputRow - 10, ConsoleInputColumn + 2);
-                    break;
                 }
-            } 
+            }
+            SelectMenuInUserMode(index, dataController, ui, handlingException, curser, bookFunction);
         }
         public void SignUpMember(DataController dataController, UI ui)
         {
@@ -99,6 +101,123 @@ namespace Library
             string address = handlingException.IsValid(addressCheck, ConsoleInputRow, ConsoleInputColumn + 6);
             UserData userData = new UserData(ID, PW, name, age, phoneNumber, address);
         }
+        private void SelectMenuInUserMode(int index, DataController dataController, UI ui, HandlingException handlingException, CurserController curser, BookFunction bookFunction)
+        {
+            Console.Clear();
+            ui.PrintUserMenu();
+            int selectedMenu = 0;
 
+            const int findingTheBook = 0;
+            const int rentingTheBook = 1;
+            const int checkingTheRentalBook = 2;
+            const int returningTheBook = 3;
+            const int returningTheBookList = 4;
+            const int modifyingInformationOfUser = 5;
+            const int delectingAccount = 6;
+            const int exit = -1;
+
+            string[] menu = { "도서 찾기", "도서 대여", "도서 대여 확인", "도서 반납", "도서 반납 내역", "정보 수정", "계정 삭제" };
+            do
+            {
+                Console.Clear();
+                ui.PrintMain();
+                ui.PrintBox(10);
+
+                selectedMenu = curser.SelectCurser(menu, menu.Length, selectedMenu, ui);
+
+                if (selectedMenu == findingTheBook)
+                {
+                    Console.Clear();
+                    FindTheBook(ui, dataController);
+                }
+
+                else if (selectedMenu == rentingTheBook)
+                {
+                    RentTheBook(ui, dataController);
+                }
+
+                else if (selectedMenu == checkingTheRentalBook)
+                {
+                    CheckRentalBook(ui, dataController);
+                }
+
+                else if (selectedMenu == returningTheBook)
+                {
+                    ReturnTheBook(ui, dataController);
+                }
+
+                else if (selectedMenu == returningTheBookList)
+                {
+                    ReturnTheBookList(ui, dataController);
+                }
+
+                else if (selectedMenu == modifyingInformationOfUser)
+                {
+                    ModifyMyInformation(ui, dataController);
+                }
+
+                else if (selectedMenu == delectingAccount)
+                {
+                    DeleteMyAccount(ui, dataController);
+                }
+
+                else if (selectedMenu == exit)
+                {
+                    Console.Clear();
+                }
+            } while (selectedMenu != exit);
+        }
+
+        private void FindTheBook(UI ui, DataController dataController)
+        {
+
+            const int ConsoleInputRow = 19;
+            const int ConsoleInputColumn = 0;
+
+            string title;
+            string author;
+            string publisher;
+
+            ui.PrintFindingBookUI(dataController);
+
+            Console.SetCursorPosition(ConsoleInputRow, ConsoleInputColumn);
+            title = Console.ReadLine();
+            Console.SetCursorPosition(ConsoleInputRow, ConsoleInputColumn + 1);
+            author = Console.ReadLine();
+            Console.SetCursorPosition(ConsoleInputRow, ConsoleInputColumn + 2);
+            publisher = Console.ReadLine();
+
+
+        }
+
+        private void RentTheBook(UI ui, DataController dataController)
+        {
+
+        }
+
+        private void CheckRentalBook(UI ui, DataController dataController)
+        {
+
+        }
+
+        private void ReturnTheBook(UI ui, DataController dataController)
+        {
+
+        }
+
+        private void ReturnTheBookList(UI ui, DataController dataController)
+        {
+
+        }
+
+        private void ModifyMyInformation(UI ui, DataController dataController)
+        {
+
+        }
+
+        private void DeleteMyAccount(UI ui, DataController dataController)
+        {
+
+        }
     }
 }

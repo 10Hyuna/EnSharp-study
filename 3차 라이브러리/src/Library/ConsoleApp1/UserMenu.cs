@@ -9,7 +9,7 @@ namespace Library
     class UserMenu
     {
         MemberFunction memberFunction = new MemberFunction();
-        public void UsingUserMenu(UI ui, CurserController curser, DataController dataController)
+        public void UsingUserMenu(UI ui, CurserController curser, DataController dataController, MemberFunction memberFunction, BookFunction bookFunction)
         {
             int selectedMenu = 0;
 
@@ -30,6 +30,8 @@ namespace Library
 
                 Console.Clear();
                 ui.PrintMain();
+                ui.PrintBox(6);
+
                 selectedMenu = curser.SelectCurser(menu, menu.Length, selectedMenu, ui);
                 if (selectedMenu == signUp)
                 {
@@ -56,7 +58,7 @@ namespace Library
                     ui.PrintLogin();
                     while(!isExitCheck)
                     {
-                        memberFunction.SignInMember(dataController, ui);
+                        memberFunction.SignInMember(dataController, ui, curser, bookFunction);
 
                         keyInfo = Console.ReadKey();
 

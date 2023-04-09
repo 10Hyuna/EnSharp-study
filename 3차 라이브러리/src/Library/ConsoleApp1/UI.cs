@@ -23,18 +23,21 @@ namespace Library
             Console.WriteLine("\t\t   ########    ####    #########      ##       ###  ##           ##  ####       ###   ####");
             Console.WriteLine("\n\n");
             Console.WriteLine("\t\t\t\t ENTER : 선택\t\t\t\tESC : 뒤로가기");
+        }
+        
+        public void PrintBox(int index)
+        {
             Console.WriteLine("\t\t________________________________________________________________________________________________\t\t");
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < index; i++)
             {
                 Console.WriteLine("\t\t|                                                                                               |");
             }
             Console.WriteLine("\t\t________________________________________________________________________________________________\t\t");
         }
-
         public void PrintLogin()
         {
             PrintMain();
-
+            PrintBox(6);
             const int WindowCenterRow = 58;
             const int WindowCenterColumn = 17;
 
@@ -61,15 +64,42 @@ namespace Library
         }
         public void PrintUserMenu()
         {
-
+            PrintMain();
+            PrintBox(9);
         }
         public void PrintManagerMenu()
         {
 
         }
-        public void PrintFindingBookUI()
+        public void PrintFindingBookUI(DataController dataController)
         {
+            Console.WriteLine(" 제목으로 찾기   :");
+            Console.WriteLine(" 작가명으로 찾기 :");
+            Console.WriteLine(" 출판사로 찾기   :");
+            Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(" ESC : 뒤로가기");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine(" ENTER : 선택하기");
+            Console.ResetColor();
+            PrintBookList(dataController);
+        }
 
+        public void PrintBookList(DataController dataController)
+        {
+            for(int i = 0; i < dataController.books.Count; i++)
+            {
+                Console.WriteLine("\n=====================================================================================\n");
+                Console.WriteLine("책아이디  : ", dataController.books[i].ID);
+                Console.WriteLine("책 제목   : ", dataController.books[i].title);
+                Console.WriteLine("작가      : ", dataController.books[i].author);
+                Console.WriteLine("출판사    : ", dataController.books[i].publisher);
+                Console.WriteLine("수량      : ", dataController.books[i].amount);
+                Console.WriteLine("가격      : ", dataController.books[i].price);
+                Console.WriteLine("출시일    : ", dataController.books[i].publishDay);
+                Console.WriteLine("ISBN      : ", dataController.books[i].ISBN);
+                Console.WriteLine("책 정보   : ", dataController.books[i].information);
+            }
         }
 
         public void PrintAddTheBookUI()
@@ -106,6 +136,7 @@ namespace Library
             const int ConsoleInputColumn = 23;
 
             PrintMain();
+            PrintBox(6);
 
             Console.SetCursorPosition(WindowCenterRow, WindowCenterColumn);
             Console.WriteLine("회 원 가 입");
@@ -156,9 +187,17 @@ namespace Library
             Console.WriteLine(" ENTER를 눌러주세요.");
         }
 
-        public void PrintRenttheBookUI()
+        public void PrintRenttheBookUI(DataController dataController)
         {
-
+            Console.WriteLine(" 빌릴 책의 ID를 입력해 주세요.");
+            Console.WriteLine(" ID 값은 1부터 999 사이의 값입니다.");
+            Console.WriteLine("\n\n");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(" ESC : 뒤로가기");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine(" ENTER : 선택하기");
+            Console.ResetColor();
+            PrintBookList(dataController);
         }
 
         public void PrintReturnThebookUI()

@@ -12,6 +12,8 @@ namespace Library
         CurserController curser = new CurserController();
         UserMenu userMenu = new UserMenu();
         ManagerMenu managerMenu = new ManagerMenu();
+        BookFunction bookFunction = new BookFunction();
+        MemberFunction memberFunction = new MemberFunction();
         public void MainLibrary(DataController dataController)
         {
             int selectedMenu = 0;
@@ -25,16 +27,18 @@ namespace Library
             {
                 Console.Clear();
                 ui.PrintMain();
+                ui.PrintBox(6);
+
                 selectedMenu = curser.SelectCurser(menu, menu.Length, selectedMenu, ui);
 
                 if (selectedMenu == userMenuEnter)
                 {
-                    userMenu.UsingUserMenu(ui, curser, dataController);
+                    userMenu.UsingUserMenu(ui, curser, dataController, memberFunction, bookFunction);
                 }
 
                 else if (selectedMenu == managerMenuEnter)
                 {
-                    managerMenu.UsingManagerMenu(ui, curser, dataController);
+                    managerMenu.UsingManagerMenu(ui, curser, dataController, memberFunction, bookFunction);
                 }
                 else if (selectedMenu == exit)
                 {

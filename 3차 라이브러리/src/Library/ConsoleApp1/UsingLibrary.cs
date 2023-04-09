@@ -16,6 +16,10 @@ namespace Library
         {
             int selectedMenu = 0;
 
+            const int userMenuEnter = 0;
+            const int managerMenuEnter = 1;
+            const int exit = -1;
+
             string[] menu = { "유저 모드", "매니저 모드" };
             do
             {
@@ -23,18 +27,18 @@ namespace Library
                 ui.PrintMain();
                 selectedMenu = curser.SelectCurser(menu, menu.Length, selectedMenu, ui);
 
-                if (selectedMenu == 1)
+                if (selectedMenu == userMenuEnter)
                 {
                     Console.Clear();
-                    userMenu.UsingUserMenu(ui);
+                    userMenu.UsingUserMenu(ui, curser);
                 }
 
-                else if (selectedMenu == 2)
+                else if (selectedMenu == managerMenuEnter)
                 {
                     Console.Clear();
-                    managerMenu.UsingManagerMenu(ui);
+                    managerMenu.UsingManagerMenu(ui, curser);
                 }
-                else if (selectedMenu == -1)
+                else if (selectedMenu == exit)
                 {
                     Console.Clear();
                 }

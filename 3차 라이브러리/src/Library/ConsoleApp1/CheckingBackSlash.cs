@@ -6,11 +6,7 @@ using System.Threading.Tasks;
 
 namespace Library
 {
-    class ManagerMenu
+    internal class BackSlash
     {
-        public void UsingManagerMenu(UI ui, CurserController curser)
-        {
-            ui.PrintLogin();
-        }
     }
 }

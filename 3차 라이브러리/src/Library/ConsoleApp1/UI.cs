@@ -12,14 +12,14 @@ namespace Library
         public void PrintMain()
         {
             Console.WriteLine("\n\n");
-            Console.WriteLine("\t   ####        ####    ########      #######              ###        #######       ####   ####");
-            Console.WriteLine("\t    ##          ##      ##     ##     ##    ##            ###         ##     ##     ##     ##");
-            Console.WriteLine("\t    ##          ##      ##    ###     ##     ##          ## ##        ##      ##     ##   ##");
-            Console.WriteLine("\t    ##          ##      ##   ##       ##    ##          ##   ##       ##     ##       ## ##");
-            Console.WriteLine("\t    ##          ##      ##   ##       ## ###           #########      ##  ###          ###");
-            Console.WriteLine("\t    ##          ##      ##     ###    ##    ##        ##       ##     ####   ##        ##");
-            Console.WriteLine("\t    ##          ##      ##      ###   ##      ##     ##         ##    ##       ##      ##");
-            Console.WriteLine("\t   ########    ####    #########      ##       ###  ##           ##  ####       ###   ####");
+            Console.WriteLine("\t\t   ####        ####    ########      #######              ###        #######       ####   ####");
+            Console.WriteLine("\t\t    ##          ##      ##     ##     ##    ##            ###         ##     ##     ##     ##");
+            Console.WriteLine("\t\t    ##          ##      ##    ###     ##     ##          ## ##        ##      ##     ##   ##");
+            Console.WriteLine("\t\t    ##          ##      ##   ##       ##    ##          ##   ##       ##     ##       ## ##");
+            Console.WriteLine("\t\t    ##          ##      ##   ##       ## ###           #########      ##  ###          ###");
+            Console.WriteLine("\t\t    ##          ##      ##     ###    ##    ##        ##       ##     ####   ##        ##");
+            Console.WriteLine("\t\t    ##          ##      ##      ###   ##      ##     ##         ##    ##       ##      ##");
+            Console.WriteLine("\t\t   ########    ####    #########      ##       ###  ##           ##  ####       ###   ####");
             Console.WriteLine("\n\n");
             Console.WriteLine("\t\t\t\t ENTER : 선택\t\t\t\tESC : 뒤로가기");
             Console.WriteLine("\t\t________________________________________________________________________________________________\t\t");
@@ -28,6 +28,7 @@ namespace Library
                 Console.WriteLine("\t\t|                                                                                               |");
             }
             Console.WriteLine("\t\t________________________________________________________________________________________________\t\t");
+            Console.WriteLine("\t\t\t\t\t     ↑ 또는 ↓ 키를 눌러 메뉴를 이동하세요.");
         }
 
         public void PrintLogin()

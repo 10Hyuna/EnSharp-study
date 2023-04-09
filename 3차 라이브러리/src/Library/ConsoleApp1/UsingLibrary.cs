@@ -9,13 +9,17 @@ namespace Library
     class UsingLibrary
     {
         UI ui = new UI();
+        QurserController qurser = new QurserController();
         UserMenu userMenu = new UserMenu();
         ManagerMenu managerMenu = new ManagerMenu();
         private void UseLibrary()
         {
             int selectedMenu;
 
-            selectedMenu = ui.PrintMain();
+            string[] menu = { "유저 모드", "매니저 모드" };
+
+            ui.PrintMain();
+            selectedMenu = qurser.QurserSelect(menu, 2);
             
             if(selectedMenu == 1)
             {

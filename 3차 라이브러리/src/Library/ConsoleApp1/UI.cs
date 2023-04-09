@@ -9,10 +9,25 @@ namespace Library
 {
     class UI
     {
-        public int PrintMain()
+        public void PrintMain()
         {
             Console.WriteLine("\n\n");
-            console.WriteLine("\t")
+            Console.WriteLine("\t   ####        ####    ########      #######              ###        #######       ####   ####");
+            Console.WriteLine("\t    ##          ##      ##     ##     ##    ##            ###         ##     ##     ##     ##");
+            Console.WriteLine("\t    ##          ##      ##    ###     ##     ##          ## ##        ##      ##     ##   ##");
+            Console.WriteLine("\t    ##          ##      ##   ##       ##    ##          ##   ##       ##     ##       ## ##");
+            Console.WriteLine("\t    ##          ##      ##   ##       ## ###           #########      ##  ###          ###");
+            Console.WriteLine("\t    ##          ##      ##     ###    ##    ##        ##       ##     ####   ##        ##");
+            Console.WriteLine("\t    ##          ##      ##      ###   ##      ##     ##         ##    ##       ##      ##");
+            Console.WriteLine("\t   ########    ####    #########      ##       ###  ##           ##  ####       ###   ####");
+            Console.WriteLine("\n\n");
+            Console.WriteLine("\t\t ENTER : 선택\t\t\t\tESC : 뒤로가기");
+            Console.WriteLine("\t\t________________________________________________________________________________________________\t\t");
+            for (int i = 0; i < 5; i++)
+            {
+                Console.WriteLine("|                                                                                               |");
+            }
+            Console.WriteLine("\t\t________________________________________________________________________________________________\t\t");
         }
 
         public void PrintLogin()
@@ -94,7 +109,7 @@ namespace Library
                 if (i == selectMenu)
                     return i;
             }
-            Console.WriteLine("")
+            Console.WriteLine("");
             return -1;
         }
 

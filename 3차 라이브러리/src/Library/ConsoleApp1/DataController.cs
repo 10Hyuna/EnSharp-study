@@ -47,7 +47,6 @@ namespace Library
             this.password.Add(pw);
         }
 
-        public 
     }
 
     class ManagerData : MemberData

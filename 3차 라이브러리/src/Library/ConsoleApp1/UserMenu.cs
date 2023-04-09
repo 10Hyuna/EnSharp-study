@@ -8,7 +8,6 @@ namespace Library
 {
     class UserMenu
     {
-        MemberData memberData = new MemberData();
         MemberFunction memberFunction = new MemberFunction();
         public void UsingUserMenu(UI ui, CurserController curser)
         {
@@ -39,7 +38,7 @@ namespace Library
             {
                 Console.Clear();
                 ui.PrintSignUpUI();
-                memberFunction.SignUpMember(memberData);
+                memberFunction.SignUpMember();
             }
         }
     }

@@ -8,47 +8,44 @@ namespace Library
 {
     class DataController
     {
-
+        public List<BookData> books;
+        public List<MemberData> members;
     }
 
     class BookData
     {
 
-        public List<string> title { get; set; }
-        public List<string> author { get; set; }
-        public List<string> publisher { get; set; }
-        public List<int> amount { get; set; }
-        public List<int> price { get; set; }
-        public List<string> publishDay { get; set; }
-        public List<int> ISBN { get; set; }
-        public List<string> information { get; set; }
+        public string title { get; set; }
+        public string author { get; set; }
+        public string publisher { get; set; }
+        public string amount { get; set; }
+        public string price { get; set; }
+        public string publishDay { get; set; }
+        public string ISBN { get; set; }
+        public string information { get; set; }
     }
 
     class MemberData
     {
-        public List<string> id { get; set;}
-        public List<string> password { get; set;}
-        public List<string> name { get; set;}
-        public List<int> age { get; set;}
-        public List<string> phoneNumber { get; set;}
-        public List<string> address { get; set;}
-
-        public int amountData = 6;
-
+        public string id { get; set;}
+        public string password { get; set;}
+        public string name { get; set;}
+        public string age { get; set;}
+        public string phoneNumber { get; set;}
+        public string address { get; set;}
     }
 
     class UserData : MemberData
     {
-        public void InsertID(string id)
+        public UserData(string id, string password, string name, string age, string phoneNumber, string address)
         {
-            this.id.Add(id);
+            this.id = id;
+            this.password = password;
+            this.name = name;
+            this.age = age;
+            this.phoneNumber = phoneNumber;
+            this.address = address;
         }
-
-        public void InsertPassword(string pw)
-        {
-            this.password.Add(pw);
-        }
-
     }
 
     class ManagerData : MemberData

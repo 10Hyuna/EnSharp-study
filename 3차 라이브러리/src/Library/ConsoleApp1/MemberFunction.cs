@@ -10,29 +10,58 @@ namespace Library
     class MemberFunction
     {
         HandlingException handlingException = new HandlingException();
-        public void SignUpMember(MemberData memberData)
+        public void SignUpMember()
         {
             const int ConsoleInputRow = 71;
             const int ConsoleInputColumn = 22;
 
             bool isValidInput = false;
+            bool isSamePW = false;
 
             Regex IDCheck = new Regex(@"^[0-9a-zA-Z]{8,20}");
-            string ID;
+            string ID = handlingException.IsValid(IDCheck, ConsoleInputRow, ConsoleInputColumn);
+            Regex PWCheck = new Regex(@"^[0-9a-zA-Z]{8,20}");
+            string PW = handlingException.IsValid(IDCheck, ConsoleInputRow, ConsoleInputColumn + 1);
+            while (!isSamePW)
+            {
+                string checkPW = handlingException.IsValid(IDCheck, ConsoleInputRow, ConsoleInputColumn + 2);
+                if (PW == checkPW)
+                {
+                    isSamePW = true;
+                }
+                else
+                {
+                    Console.Write("비밀번호의 값이 서로 다릅니다.");
+                    PW = handlingException.IsValid(IDCheck, ConsoleInputRow, ConsoleInputColumn + 1);
+                }
+            }
+
+            isValidInput = false;
+            Regex nameCheck = new Regex(@"^[가-힣a-zA-Z]{1,}");
+            string name = handlingException.IsValid(nameCheck, ConsoleInputRow, ConsoleInputColumn + 3);
+
+            Regex ageCheck = new Regex(@"^[0-9]{1,3}");
+            string age = handlingException.IsValid(ageCheck, ConsoleInputRow, ConsoleInputColumn + 4);
             while (!isValidInput)
             {
-                Console.SetCursorPosition(ConsoleInputRow, ConsoleInputColumn);
-                ID = Console.ReadLine();
-                if(handlingException.CheckException(ID, IDCheck)==true)
+                if (int.Parse(age) <= 200)
                 {
                     isValidInput = true;
                 }
                 else
                 {
-                    Console.SetCursorPosition(ConsoleInputRow, ConsoleInputColumn);
                     Console.Write("주어진 조건에 맞는 값을 입력해 주세요.");
+                    age = handlingException.IsValid(ageCheck, ConsoleInputRow, ConsoleInputColumn + 4);
                 }
             }
+            isValidInput = false;
+
+            Regex phoneNumCheck = new Regex(@"01{1}[016789]{1}-[0-9]{3,4}-[0,9]{4}");
+            string phoneNumber = handlingException.IsValid(phoneNumCheck, ConsoleInputRow, ConsoleInputColumn + 5);
+
+            Regex addressCheck = new Regex(@"[가-힣]{2,4}시 [가-힣]{2}구");
+            string address = handlingException.IsValid(addressCheck, ConsoleInputRow, ConsoleInputColumn + 6);
+            UserData userData = new UserData(ID, PW, name, age, phoneNumber, address);
         }
     }
 }

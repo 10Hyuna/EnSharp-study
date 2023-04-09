@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace Library
 {
-    internal class UserMenu
+    class UserMenu
     {
+        public void UsingUserMenu(UI uI)
+        {
+
+        }
     }
 }

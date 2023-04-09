@@ -4,13 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleApp1
+namespace Library
 {
     class OnlineLibrary
     {
+        public static int WindowRow = 120;
+        public static int WindowColumn = 40;
         static void Main(string[] args)
         {
-
+            Console.SetWindowSize(WindowRow, WindowColumn);
         }
     }
 }

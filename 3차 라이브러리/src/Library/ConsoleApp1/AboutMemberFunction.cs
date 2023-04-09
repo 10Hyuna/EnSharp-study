@@ -4,9 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleApp1
+namespace Library
 {
-    internal class AboutMemberFunction
+    class AboutMemberFunction
     {
+        private void ManageAboutMemberInformation()
+        {
+
+        }
     }
 }

@@ -4,9 +4,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleApp1
+namespace Library
 {
-    internal class UsingLibrary
+    class UsingLibrary
     {
+        UI ui = new UI();
+        UserMenu userMenu = new UserMenu();
+        ManagerMenu managerMenu = new ManagerMenu();
+        private void UseLibrary()
+        {
+            int selectedMenu;
+
+            selectedMenu = ui.PrintMain();
+            
+            if(selectedMenu == 1)
+            {
+                userMenu.UsingUserMenu(ui);
+            }
+            
+            else if(selectedMenu == 2)
+            {
+                managerMenu.UsingManagerMenu(ui);
+            }
+        }
     }
 }

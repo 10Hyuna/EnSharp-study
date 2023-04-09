@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace Library
 {
-    internal class ManagetMenu
+    class ManagerMenu
     {
+        public void UsingManagerMenu(UI ui)
+        {
+            ui.PrintManagerMenu();
+        }
     }
 }

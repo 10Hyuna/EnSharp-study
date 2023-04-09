@@ -9,11 +9,14 @@ namespace Library
     class UserMenu
     {
         MemberFunction memberFunction = new MemberFunction();
-        public void UsingUserMenu(UI ui, CurserController curser)
+        public void UsingUserMenu(UI ui, CurserController curser, DataController dataController)
         {
             int selectedMenu = 0;
 
             bool isEnterCheck = false;
+            bool isExitCheck = false;
+
+            ConsoleKeyInfo keyInfo;
 
             const int signIn = 0;
             const int signUp = 1;
@@ -32,14 +35,14 @@ namespace Library
                 {
                     Console.Clear();
                     ui.PrintSignUpUI();
-                    memberFunction.SignUpMember();
+                    memberFunction.SignUpMember(dataController, ui);
                     while (!isEnterCheck)
                     {
                         Console.Clear();
                         ui.PrintMain();
                         ui.PrintSuccessSignup();
 
-                        ConsoleKeyInfo keyInfo = Console.ReadKey();
+                        keyInfo = Console.ReadKey();
 
                         if (keyInfo.Key == ConsoleKey.Enter)
                         {
@@ -51,7 +54,17 @@ namespace Library
                 {
                     Console.Clear();
                     ui.PrintLogin();
-                    curser.SelectCurser(menu, menu.Length, selectedMenu, ui);
+                    while(!isExitCheck)
+                    {
+                        memberFunction.SignInMember(dataController, ui);
+
+                        keyInfo = Console.ReadKey();
+
+                        if(keyInfo.Key == ConsoleKey.Escape)
+                        {
+                            isExitCheck = true;
+                        }
+                    }
                 }
             } while (selectedMenu != exit);
         }

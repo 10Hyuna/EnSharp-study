@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,8 +9,8 @@ namespace Library
 {
     class DataController
     {
-        public List<BookData> books;
-        public List<MemberData> members;
+        public List<BookData> books = new List<BookData>();
+        public List<MemberData> members = new List<MemberData>();
     }
 
     class BookData
@@ -37,6 +38,7 @@ namespace Library
 
     class UserData : MemberData
     {
+
         public UserData(string id, string password, string name, string age, string phoneNumber, string address)
         {
             this.id = id;
@@ -50,6 +52,10 @@ namespace Library
 
     class ManagerData : MemberData
     {
-
+        public ManagerData(string id, string password)
+        {
+            this.id = id;
+            this.password = password;
+        }
     }
 }

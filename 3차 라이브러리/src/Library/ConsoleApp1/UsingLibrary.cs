@@ -12,7 +12,7 @@ namespace Library
         CurserController curser = new CurserController();
         UserMenu userMenu = new UserMenu();
         ManagerMenu managerMenu = new ManagerMenu();
-        public void MainLibrary()
+        public void MainLibrary(DataController dataController)
         {
             int selectedMenu = 0;
 
@@ -29,12 +29,12 @@ namespace Library
 
                 if (selectedMenu == userMenuEnter)
                 {
-                    userMenu.UsingUserMenu(ui, curser);
+                    userMenu.UsingUserMenu(ui, curser, dataController);
                 }
 
                 else if (selectedMenu == managerMenuEnter)
                 {
-                    managerMenu.UsingManagerMenu(ui, curser);
+                    managerMenu.UsingManagerMenu(ui, curser, dataController);
                 }
                 else if (selectedMenu == exit)
                 {

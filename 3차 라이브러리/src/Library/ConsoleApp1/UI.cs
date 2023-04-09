@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -28,14 +29,36 @@ namespace Library
                 Console.WriteLine("\t\t|                                                                                               |");
             }
             Console.WriteLine("\t\t________________________________________________________________________________________________\t\t");
-            Console.WriteLine("\t\t\t\t\t     ↑ 또는 ↓ 키를 눌러 메뉴를 이동하세요.");
         }
 
         public void PrintLogin()
         {
+            PrintMain();
 
+            const int WindowCenterRow = 58;
+            const int WindowCenterColumn = 17;
+
+            const int ConsoleInputRow = 30;
+            const int ConsoleInputColumn = 23;
+
+            Console.SetCursorPosition(WindowCenterRow, WindowCenterColumn);
+            Console.WriteLine("  로 그 인");
+            Console.SetCursorPosition(WindowCenterRow - 8, WindowCenterColumn + 2);
+            Console.WriteLine("ESC : 뒤로 가기   ENTER : 입력하기");
+            Console.WriteLine("\n\n");
+            Console.WriteLine("\t\t    User ID   : ");
+            Console.WriteLine("\t\tUser Password : ");
         }
 
+        public void IsValidAccount(int row, int column)
+        {
+            Console.Clear();
+            PrintLogin();
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.SetCursorPosition(row, column);
+            Console.WriteLine("가입 정보가 없습니다.");
+            Console.ResetColor();
+        }
         public void PrintUserMenu()
         {
 

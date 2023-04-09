@@ -13,8 +13,10 @@ namespace Library
         static void Main(string[] args)
         { 
             UsingLibrary library = new UsingLibrary();
+            DataController dataController = new DataController();
+            SavedInformation saved = new SavedInformation(dataController);
             Console.SetWindowSize(WindowRow, WindowColumn);
-            library.MainLibrary();
+            library.MainLibrary(dataController);
         }
     }
 }

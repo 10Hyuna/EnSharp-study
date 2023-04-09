@@ -11,11 +11,43 @@ namespace Library
     {
         HandlingException handlingException = new HandlingException();
 
-        public void SignInMember()
-        {
 
+        public void SignInMember(DataController dataController, UI ui)
+        {
+            const int ConsoleInputRow = 32;
+            const int ConsoleInputColumn = 23;
+
+            bool isValidAccount = false;
+
+            string ID;
+            string PW;
+
+            while (!isValidAccount)
+            {
+                Console.SetCursorPosition(ConsoleInputRow, ConsoleInputColumn);
+                ID = Console.ReadLine();
+                Console.SetCursorPosition(ConsoleInputRow, ConsoleInputColumn + 1);
+                PW = Console.ReadLine();
+
+                for (int i = 0; i < dataController.members.Count; i++)
+                {
+                    if (dataController.members[i].id == ID)
+                    {
+                        if (dataController.members[i].password == PW)
+                        {
+                            isValidAccount = true;
+                            break;
+                        }
+                    }
+                }
+                if(!isValidAccount)
+                {
+                    ui.IsValidAccount(ConsoleInputRow - 10, ConsoleInputColumn + 2);
+                    break;
+                }
+            } 
         }
-        public void SignUpMember()
+        public void SignUpMember(DataController dataController, UI ui)
         {
             const int ConsoleInputRow = 77;
             const int ConsoleInputColumn = 22;
@@ -67,5 +99,6 @@ namespace Library
             string address = handlingException.IsValid(addressCheck, ConsoleInputRow, ConsoleInputColumn + 6);
             UserData userData = new UserData(ID, PW, name, age, phoneNumber, address);
         }
+
     }
 }

@@ -15,7 +15,6 @@ namespace Library
             UsingLibrary library = new UsingLibrary();
             Console.SetWindowSize(WindowRow, WindowColumn);
             library.MainLibrary();
-            Console.Write(" 프로그램을 종료합니다 . . .");
         }
     }
 }

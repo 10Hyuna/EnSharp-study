@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace Library
 {
-    internal class BackSlash
+    class CheckingBackSlash
     {
+        public void CheckTheButtonOfBackSlash()
+        {
+
+        }
     }
 }

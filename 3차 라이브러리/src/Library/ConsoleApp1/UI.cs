@@ -33,7 +33,13 @@ namespace Library
 
         public void PrintLogin()
         {
+            const int WindowCenterWidth = 53;
+            const int WindowCenterHeight = 18;
 
+            PrintMain();
+
+            Console.SetCursorPosition(WindowCenterHeight, WindowCenterHeight);
+            Console.WriteLine("\t\t\t\t");
         }
 
         public void PrintUserMenu()

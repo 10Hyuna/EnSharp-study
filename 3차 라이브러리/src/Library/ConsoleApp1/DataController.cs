@@ -33,6 +33,8 @@ namespace Library
         public List<string> phoneNumber { get; set;}
         public List<string> address { get; set;}
 
+        public int amountData = 6;
+
     }
 
     class UserData : MemberData

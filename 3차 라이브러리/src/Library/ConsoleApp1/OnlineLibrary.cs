@@ -9,7 +9,7 @@ namespace Library
     class OnlineLibrary
     {
         public static int WindowRow = 120;
-        public static int WindowColumn = 40;
+        public static int WindowColumn = 80;
         static void Main(string[] args)
         { 
             UsingLibrary library = new UsingLibrary();

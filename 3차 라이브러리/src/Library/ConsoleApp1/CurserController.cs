@@ -8,8 +8,8 @@ namespace Library
 {
     class CurserController
     {
-        const int WindowCenterWidth = 53;
-        const int WindowCenterHeight = 18;
+        const int WindowCenterWidth = 56;
+        const int WindowCenterHeight = 17;
         const int WindowAnnouce = 25;
 
         const int errorKey = -1;
@@ -50,6 +50,7 @@ namespace Library
                     return -1;
                 }
                 index = selectedMenu;
+
             } while (!isSelectedEnter);
 
             return index;

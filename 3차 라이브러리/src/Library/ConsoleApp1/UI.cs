@@ -11,7 +11,7 @@ namespace Library
     {
         public void PrintMain()
         {
-            Console.WriteLine("\n\n");
+            Console.WriteLine("\n");
             Console.WriteLine("\t\t   ####        ####    ########      #######              ###        #######       ####   ####");
             Console.WriteLine("\t\t    ##          ##      ##     ##     ##    ##            ###         ##     ##     ##     ##");
             Console.WriteLine("\t\t    ##          ##      ##    ###     ##     ##          ## ##        ##      ##     ##   ##");
@@ -33,13 +33,7 @@ namespace Library
 
         public void PrintLogin()
         {
-            const int WindowCenterWidth = 53;
-            const int WindowCenterHeight = 18;
 
-            PrintMain();
-
-            Console.SetCursorPosition(WindowCenterHeight, WindowCenterHeight);
-            Console.WriteLine("\t\t\t\t");
         }
 
         public void PrintUserMenu()
@@ -82,7 +76,50 @@ namespace Library
 
         public void PrintSignUpUI()
         {
+            const int WindowCenterRow = 55;
+            const int WindowCenterColumn = 17;
 
+            const int ConsoleInputRow = 30;
+            const int ConsoleInputColumn = 23;
+
+            PrintMain();
+
+            Console.SetCursorPosition(WindowCenterRow, WindowCenterColumn);
+            Console.WriteLine("회 원 가 입");
+            Console.SetCursorPosition(WindowCenterRow - 8, WindowCenterColumn + 2);
+            Console.WriteLine("ESC : 뒤로 가기   ENTER : 입력하기");
+            for (int i = 0; i < 7; i++)
+            {
+                Console.SetCursorPosition(ConsoleInputRow, i + ConsoleInputColumn);
+                if (i == 0)
+                {
+                    Console.WriteLine("User ID (8 ~ 15 글자 영어, 숫자 포함) : ");
+                }
+                else if (i == 1)
+                {
+                    Console.WriteLine("User PW (8 ~ 15 글자 영어, 숫자 포함) : ");
+                }
+                else if (i == 2)
+                {
+                    Console.WriteLine("User PW (  PW 확인  ) : ");
+                }
+                else if (i == 3)
+                {
+                    Console.WriteLine("User Name (  한글, 영어 포함 1글자 이상  ) : ");
+                }
+                else if (i == 4)
+                {
+                    Console.WriteLine("User Age (  자연수 0세 ~ 200세  ) : ");
+                }
+                else if (i == 5)
+                {
+                    Console.WriteLine("User PhoneNumber (  01x - xxxx - xxxx  ) : ");
+                }
+                else if (i == 6)
+                {
+                    Console.WriteLine("User Address (  도로명 주소 - 00시 00구  ) : ");
+                }
+            }
         }
 
         public void PrintRenttheBookUI()
@@ -113,6 +150,7 @@ namespace Library
         {
             ConsoleKeyInfo keyInfo;
 
+            
             keyInfo = Console.ReadKey();
 
             if (keyInfo.Key == ConsoleKey.UpArrow)

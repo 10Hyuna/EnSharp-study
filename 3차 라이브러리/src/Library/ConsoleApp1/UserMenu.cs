@@ -8,36 +8,38 @@ namespace Library
 {
     class UserMenu
     {
-        MemberData member = new MemberData();
+        MemberData memberData = new MemberData();
+        MemberFunction memberFunction = new MemberFunction();
         public void UsingUserMenu(UI ui, CurserController curser)
         {
             int selectedMenu = 0;
 
             const int signIn = 0;
             const int signup = 1;
-
-            Console.Clear();
-            ui.PrintMain();
+            const int exit = -1;
 
             string[] menu = { "로그인", "회원가입" };
 
             do
             {
+            
                 Console.Clear();
                 ui.PrintMain();
                 selectedMenu = curser.SelectCurser(menu, menu.Length, selectedMenu, ui);
 
-            } while (selectedMenu != -1);
+            } while (selectedMenu != 0 && selectedMenu != 1 && selectedMenu != -1);
 
             if(selectedMenu == signIn)
             {
+                Console.Clear();
                 ui.PrintLogin();
                 curser.SelectCurser(menu, menu.Length, selectedMenu, ui);
             }
             else if(selectedMenu == signup)
             {
+                Console.Clear();
                 ui.PrintSignUpUI();
-                curser.SelectCurser(menu, menu.Length, selectedMenu, ui);
+                memberFunction.SignUpMember(memberData);
             }
         }
     }

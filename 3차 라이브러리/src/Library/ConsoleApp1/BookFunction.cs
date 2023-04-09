@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Library
 {
-    class AboutMemberFunction
+    class BookFunction
     {
-        private void ManageAboutMemberInformation()
+        private void FindTheBook()
         {
 
         }

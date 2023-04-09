@@ -29,20 +29,18 @@ namespace Library
 
                 if (selectedMenu == userMenuEnter)
                 {
-                    Console.Clear();
                     userMenu.UsingUserMenu(ui, curser);
                 }
 
                 else if (selectedMenu == managerMenuEnter)
                 {
-                    Console.Clear();
                     managerMenu.UsingManagerMenu(ui, curser);
                 }
                 else if (selectedMenu == exit)
                 {
                     Console.Clear();
                 }
-            } while (selectedMenu != -1);
+            } while (selectedMenu != exit);
         }
     }
 }

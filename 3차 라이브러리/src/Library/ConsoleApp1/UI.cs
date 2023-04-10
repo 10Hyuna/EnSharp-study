@@ -90,15 +90,15 @@ namespace Library
             {
                 if (dataController.books[i].title.Contains(title) && dataController.books[i].author.Contains(author) && dataController.books[i].publisher.Contains(publisher))
                 Console.WriteLine("\n=====================================================================================\n");
-                Console.WriteLine("책아이디  : ", dataController.books[i].ID);
-                Console.WriteLine("책 제목   : ", dataController.books[i].title);
-                Console.WriteLine("작가      : ", dataController.books[i].author);
-                Console.WriteLine("출판사    : ", dataController.books[i].publisher);
-                Console.WriteLine("수량      : ", dataController.books[i].amount);
-                Console.WriteLine("가격      : ", dataController.books[i].price);
-                Console.WriteLine("출시일    : ", dataController.books[i].publishDay);
-                Console.WriteLine("ISBN      : ", dataController.books[i].ISBN);
-                Console.WriteLine("책 정보   : ", dataController.books[i].information);
+                Console.WriteLine("책아이디  : {0}", dataController.books[i].ID);
+                Console.WriteLine("책 제목   : {0}", dataController.books[i].title);
+                Console.WriteLine("작가      : {0}", dataController.books[i].author);
+                Console.WriteLine("출판사    : {0}", dataController.books[i].publisher);
+                Console.WriteLine("수량      : {0}", dataController.books[i].amount);
+                Console.WriteLine("가격      : {0}", dataController.books[i].price);
+                Console.WriteLine("출시일    : {0}", dataController.books[i].publishDay);
+                Console.WriteLine("ISBN      : {0}", dataController.books[i].ISBN);
+                Console.WriteLine("책 정보   : {0}", dataController.books[i].information);
             }
         }
 
@@ -107,15 +107,15 @@ namespace Library
             for (int i = 0; i < dataController.books.Count; i++)
             {
                 Console.WriteLine("\n=====================================================================================\n");
-                Console.WriteLine("책아이디  : ", dataController.books[i].ID);
-                Console.WriteLine("책 제목   : ", dataController.books[i].title);
-                Console.WriteLine("작가      : ", dataController.books[i].author);
-                Console.WriteLine("출판사    : ", dataController.books[i].publisher);
-                Console.WriteLine("수량      : ", dataController.books[i].amount);
-                Console.WriteLine("가격      : ", dataController.books[i].price);
-                Console.WriteLine("출시일    : ", dataController.books[i].publishDay);
-                Console.WriteLine("ISBN      : ", dataController.books[i].ISBN);
-                Console.WriteLine("책 정보   : ", dataController.books[i].information);
+                Console.WriteLine("책아이디  : {0}", dataController.books[i].ID);
+                Console.WriteLine("책 제목   : {0}", dataController.books[i].title);
+                Console.WriteLine("작가      : {0}", dataController.books[i].author);
+                Console.WriteLine("출판사    : {0}", dataController.books[i].publisher);
+                Console.WriteLine("수량      : {0}", dataController.books[i].amount);
+                Console.WriteLine("가격      : {0}", dataController.books[i].price);
+                Console.WriteLine("출시일    : {0}", dataController.books[i].publishDay);
+                Console.WriteLine("ISBN      : {0}", dataController.books[i].ISBN);
+                Console.WriteLine("책 정보   : {0}", dataController.books[i].information);
             }
         }
 

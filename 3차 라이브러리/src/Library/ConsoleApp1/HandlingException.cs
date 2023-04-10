@@ -9,7 +9,7 @@ namespace Library
 {
     class HandlingException
     {
-        public bool CheckException(string message, Regex regex)
+        public bool CheckException(string message, Regex regex)     // 정규식으로 문자열이 주어진 조건에 해당하는지 확인
         {
 
             if (regex.IsMatch(message))
@@ -20,13 +20,13 @@ namespace Library
             return false;
         }
 
-        public string IsValid(Regex regex, int ConsoleInputRow, int ConsoleInputColumn) 
+        public string IsValid(Regex regex, int ConsoleInputRow, int ConsoleInputColumn)     // 문자열이 주어진 조건에 해당하는 값이 아닐 때 계속 입력하도록 하는 함수
         {
 
             bool isValidInput = false;
             Console.SetCursorPosition(ConsoleInputRow, ConsoleInputColumn);
             string message = Console.ReadLine();
-            while (!isValidInput)
+            while (!isValidInput)   
             {
                 if (CheckException(message, regex) == true)
                 {
@@ -40,7 +40,7 @@ namespace Library
                     message = Console.ReadLine();
                 }
             }
-            return message;
+            return message;     // 반복문에서 나왔을 때, 정규식에 해당하는 값이라는 의미이므로 문자열 반환
         }
     }
 }

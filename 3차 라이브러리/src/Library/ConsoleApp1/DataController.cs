@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace Library
 {
-    class DataController
+    class DataController        // 데이터 관리
     {
         public List<BookData> books = new List<BookData>();
         public List<MemberData> members = new List<MemberData>();
     }
 
-    class BookData
+    class BookData          // 책 정보
     { 
         public int ID;
         public string title { get; set; }
@@ -24,26 +24,34 @@ namespace Library
         public string publishDay { get; set; }
         public string ISBN { get; set; }
         public string information { get; set; }
+
+        public BookData(int id, string title, string author, string publisher, string amount, string price, string publishDay, string ISBN, string information)   // 책 정보를 입력
+        {
+            this.ID = id;
+            this.title = title;
+            this.author = author;
+            this.publisher = publisher;
+            this.amount = amount;
+            this.price = price;
+            this.publishDay = publishDay;
+            this.ISBN = ISBN;
+            this.information = information;
+        }
     }
 
-    class MemberData
+    class MemberData        // 회원 정보
     {
-        public string id { get; set;}
-        public string password { get; set;}
-        public string name { get; set;}
-        public string age { get; set;}
-        public string phoneNumber { get; set;}
-        public string address { get; set;}
+        public string id { get; set; }
+        public string password { get; set; }
+        public string name { get; set; }
+        public string age { get; set; }
+        public string phoneNumber { get; set; }
+        public string address { get; set; }
 
         public List<BorrowData> borrowDatas = new List<BorrowData>();
 
         public List<ReturnData> returnDatas = new List<ReturnData>();
-    }
-
-    class UserData : MemberData 
-    {
-
-        public UserData(string id, string password, string name, string age, string phoneNumber, string address)
+        public MemberData(string id, string password, string name, string age, string phoneNumber, string address)  // 유저의 정보 입력
         {
             this.id = id;
             this.password = password;
@@ -52,23 +60,18 @@ namespace Library
             this.phoneNumber = phoneNumber;
             this.address = address;
         }
-    }
-
-    class ManagerData : MemberData
-    {
-        public ManagerData(string id, string password)
+        public MemberData(string id, string password)       // 매니저의 정보 입력
         {
             this.id = id;
             this.password = password;
         }
     }
 
-    class BorrowData : BookData
+    class BorrowData
     {
-
     }
 
-    class ReturnData : BookData
+    class ReturnData
     {
 
     }

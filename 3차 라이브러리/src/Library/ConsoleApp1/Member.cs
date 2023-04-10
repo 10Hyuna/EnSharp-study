@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Library
 {
-    class MemberFunction
+    class Member
     {
         HandlingException handlingException = new HandlingException();
 
@@ -133,31 +133,37 @@ namespace Library
 
                 else if (selectedMenu == rentingTheBook)
                 {
+                    Console.Clear();
                     RentTheBook(ui, dataController);
                 }
 
                 else if (selectedMenu == checkingTheRentalBook)
                 {
+                    Console.Clear();
                     CheckRentalBook(ui, dataController);
                 }
 
                 else if (selectedMenu == returningTheBook)
                 {
+                    Console.Clear();
                     ReturnTheBook(ui, dataController);
                 }
 
                 else if (selectedMenu == returningTheBookList)
                 {
+                    Console.Clear();
                     ReturnTheBookList(ui, dataController);
                 }
 
                 else if (selectedMenu == modifyingInformationOfUser)
                 {
+                    Console.Clear();
                     ModifyMyInformation(ui, dataController);
                 }
 
                 else if (selectedMenu == delectingAccount)
                 {
+                    Console.Clear();
                     DeleteMyAccount(ui, dataController);
                 }
 
@@ -168,30 +174,120 @@ namespace Library
             } while (selectedMenu != exit);
         }
 
+        private void SelectedBookList(DataController dataController, UI ui, int ConsoleInputRow, int ConsoleInputColumn) 
+        { 
+            string title;
+            string author;
+            string publisher;
+
+            ConsoleKeyInfo keyInfo;
+
+            bool isNullTitle = false;
+            bool isNullAuthor = false;
+            bool isNullPublisher = false;
+
+            bool isInputESC = false;
+            int selectedKey;
+
+            Console.SetCursorPosition(ConsoleInputRow, ConsoleInputColumn);
+            title = Console.ReadLine();
+            if (title == null)
+            {
+                isNullTitle = true;
+                title = "";
+            }
+            Console.SetCursorPosition(ConsoleInputRow, ConsoleInputColumn + 1);
+            author = Console.ReadLine();
+            if (author == null)
+            {
+                isNullAuthor = true;
+                author = "";
+            }
+            Console.SetCursorPosition(ConsoleInputRow, ConsoleInputColumn + 2);
+            publisher = Console.ReadLine();
+            if (publisher == null)
+            {
+                isNullPublisher = true;
+                publisher = "";
+            }
+
+            while (!isInputESC)
+            {
+                ui.PrintBookList(dataController, title, author, publisher);
+                selectedKey = ui.SelectKey(0, 0);
+                if (selectedKey == 11)
+                {
+                    isInputESC = true;
+                }
+            }
+            //if()
+            //{
+            //    Console.SetCursorPosition(1, 3);
+            //    Console.WriteLine("일치하는 항목이 없습니다.");
+            //}
+
+        }
         private void FindTheBook(UI ui, DataController dataController)
         {
 
             const int ConsoleInputRow = 19;
             const int ConsoleInputColumn = 0;
 
-            string title;
-            string author;
-            string publisher;
+            bool isCheckedExit = false;
 
-            ui.PrintFindingBookUI(dataController);
+            ConsoleKeyInfo keyInfo;
 
-            Console.SetCursorPosition(ConsoleInputRow, ConsoleInputColumn);
-            title = Console.ReadLine();
-            Console.SetCursorPosition(ConsoleInputRow, ConsoleInputColumn + 1);
-            author = Console.ReadLine();
-            Console.SetCursorPosition(ConsoleInputRow, ConsoleInputColumn + 2);
-            publisher = Console.ReadLine();
+            do
+            {
+                Console.Clear();
+                ui.PrintFindingBookUI(dataController);
+                ui.PrintAllBookList(dataController);
+                SelectedBookList(dataController, ui, ConsoleInputRow, ConsoleInputColumn);
+
+                keyInfo = Console.ReadKey();
+
+                if(keyInfo.Key == ConsoleKey.Escape)
+                {
+                    isCheckedExit = true;
+                }
+
+            } while (!isCheckedExit);
 
 
         }
 
         private void RentTheBook(UI ui, DataController dataController)
         {
+            const int ConsoleInputRow = 20;
+            const int ConsoleInputColumn = 0;
+
+            string bookID;
+
+            bool isCheckedExit = false;
+
+            ConsoleKeyInfo keyInfo;
+
+            do
+            {
+                Console.Clear();
+                ui.PrintFindingBookUI(dataController);
+                ui.PrintAllBookList(dataController);
+                SelectedBookList(dataController, ui, ConsoleInputRow, ConsoleInputColumn);
+
+                keyInfo = Console.ReadKey();
+
+                if (keyInfo.Key == ConsoleKey.Escape)
+                {
+                    isCheckedExit = true;
+                }
+
+            } while (!isCheckedExit);
+
+            FindTheBook(ui, dataController);
+            ui.PrintRenttheBookUI(dataController);
+
+            Console.SetCursorPosition(ConsoleInputRow, ConsoleInputColumn);
+            bookID = Console.ReadLine();
 
         }
 

@@ -8,8 +8,8 @@ namespace Library
 {
     class UserMenu
     {
-        MemberFunction memberFunction = new MemberFunction();
-        public void UsingUserMenu(UI ui, CurserController curser, DataController dataController, MemberFunction memberFunction, BookFunction bookFunction)
+        Member memberFunction = new Member();
+        public void UsingUserMenu(UI ui, CurserController curser, DataController dataController, Member memberFunction, BookFunction bookFunction)
         {
             int selectedMenu = 0;
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Library
 {
-    class OnlineLibrary
+    class LibraryStart
     {
         public static int WindowRow = 120;
         public static int WindowColumn = 80;

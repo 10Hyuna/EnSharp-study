@@ -8,7 +8,7 @@ namespace Library
 {
     class ManagerMenu
     {
-        public void UsingManagerMenu(UI ui, CurserController curser, DataController dataController, MemberFunction memberFunction, BookFunction bookFunction)
+        public void UsingManagerMenu(UI ui, CurserController curser, DataController dataController, Member memberFunction, BookFunction bookFunction)
         {
             ui.PrintLogin();
         }

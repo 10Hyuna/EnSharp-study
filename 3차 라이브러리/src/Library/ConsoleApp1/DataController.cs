@@ -14,8 +14,8 @@ namespace Library
     }
 
     class BookData
-    {
-        public string ID { get; set; }
+    { 
+        public int ID;
         public string title { get; set; }
         public string author { get; set; }
         public string publisher { get; set; }
@@ -34,9 +34,13 @@ namespace Library
         public string age { get; set;}
         public string phoneNumber { get; set;}
         public string address { get; set;}
+
+        public List<BorrowData> borrowDatas = new List<BorrowData>();
+
+        public List<ReturnData> returnDatas = new List<ReturnData>();
     }
 
-    class UserData : MemberData
+    class UserData : MemberData 
     {
 
         public UserData(string id, string password, string name, string age, string phoneNumber, string address)
@@ -57,5 +61,15 @@ namespace Library
             this.id = id;
             this.password = password;
         }
+    }
+
+    class BorrowData : BookData
+    {
+
+    }
+
+    class ReturnData : BookData
+    {
+
     }
 }

@@ -13,7 +13,7 @@ namespace Library
         UserMenu userMenu = new UserMenu();
         ManagerMenu managerMenu = new ManagerMenu();
         BookFunction bookFunction = new BookFunction();
-        MemberFunction memberFunction = new MemberFunction();
+        Member memberFunction = new Member();
         public void MainLibrary(DataController dataController)
         {
             int selectedMenu = 0;

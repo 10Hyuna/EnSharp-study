@@ -82,12 +82,29 @@ namespace Library
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(" ENTER : 선택하기");
             Console.ResetColor();
-            PrintBookList(dataController);
         }
 
-        public void PrintBookList(DataController dataController)
+        public void PrintBookList(DataController dataController, string title, string author, string publisher)
         {
             for(int i = 0; i < dataController.books.Count; i++)
+            {
+                if (dataController.books[i].title.Contains(title) && dataController.books[i].author.Contains(author) && dataController.books[i].publisher.Contains(publisher))
+                Console.WriteLine("\n=====================================================================================\n");
+                Console.WriteLine("책아이디  : ", dataController.books[i].ID);
+                Console.WriteLine("책 제목   : ", dataController.books[i].title);
+                Console.WriteLine("작가      : ", dataController.books[i].author);
+                Console.WriteLine("출판사    : ", dataController.books[i].publisher);
+                Console.WriteLine("수량      : ", dataController.books[i].amount);
+                Console.WriteLine("가격      : ", dataController.books[i].price);
+                Console.WriteLine("출시일    : ", dataController.books[i].publishDay);
+                Console.WriteLine("ISBN      : ", dataController.books[i].ISBN);
+                Console.WriteLine("책 정보   : ", dataController.books[i].information);
+            }
+        }
+
+        public void PrintAllBookList(DataController dataController)
+        {
+            for (int i = 0; i < dataController.books.Count; i++)
             {
                 Console.WriteLine("\n=====================================================================================\n");
                 Console.WriteLine("책아이디  : ", dataController.books[i].ID);
@@ -197,7 +214,6 @@ namespace Library
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(" ENTER : 선택하기");
             Console.ResetColor();
-            PrintBookList(dataController);
         }
 
         public void PrintReturnThebookUI()

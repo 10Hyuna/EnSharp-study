@@ -4,12 +4,15 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Library.Controller;
+using Library.Model;
+using Library.View;
 
-namespace Library
+namespace Library.Utility
 {
     class CheckingOverlapData
     {
-        DataController data = new DataController();
-        
+        TotalInformationStorage data = new TotalInformationStorage();
+
     }
 }

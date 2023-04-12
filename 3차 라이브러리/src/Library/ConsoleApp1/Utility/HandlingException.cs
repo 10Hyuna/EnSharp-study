@@ -4,8 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
+using Library.Controller;
+using Library.Model;
+using Library.View;
 
-namespace Library
+namespace Library.Utility
 {
     class HandlingException
     {
@@ -26,7 +29,7 @@ namespace Library
             bool isValidInput = false;
             Console.SetCursorPosition(ConsoleInputRow, ConsoleInputColumn);
             string message = Console.ReadLine();
-            while (!isValidInput)   
+            while (!isValidInput)
             {
                 if (CheckException(message, regex) == true)
                 {

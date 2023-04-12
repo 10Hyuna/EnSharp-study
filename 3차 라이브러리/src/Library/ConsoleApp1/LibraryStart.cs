@@ -23,7 +23,7 @@ namespace Library
         static void Main(string[] args)
         {
             UsingLibrary library = new UsingLibrary();
-            Console.SetWindowSize(WindowColumn, WindowRow);
+           // Console.SetWindowSize(WindowColumn, WindowRow);
             library.SelectModeOfUserOrManager();
         }
     }

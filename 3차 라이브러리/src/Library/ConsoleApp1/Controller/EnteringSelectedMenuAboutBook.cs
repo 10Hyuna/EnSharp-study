@@ -4,6 +4,7 @@ using Library.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -22,7 +23,37 @@ namespace Library.Controller
             this.totalInformationStorage = totalInformationStorage;
         }
 
-        public void SelectedBookList() // 찾고자 하는 책의 정보를 입력하는 함수
+        public void FindTheBookBySerching() // 찾고자 하는 책의 정보를 입력하는 함수
+        {
+            const int ConsoleInputRow = 19;
+            const int ConsoleInputColumn = 0;
+
+            List<string> book;
+
+            bool isInputESC = false;
+            int selectedKey;
+
+            ConsoleKeyInfo keyInfo;
+
+            while (!isInputESC)
+            { 
+                Console.Clear();
+
+                book = PrintTheAllBook();
+                printBookInformation.PrintFindingBookUI();
+                selectedBook(book[0], book[1], book[2]);
+
+                Console.SetCursorPosition(ConsoleInputRow, ConsoleInputColumn);
+                keyInfo = Console.ReadKey();
+                
+                if (keyInfo.Key == ConsoleKey.Escape)
+                {
+                    isInputESC = true;
+                }
+            }
+        }
+
+        public List<string> PrintTheAllBook()      // 책 찾기 메뉴에 진입했을 경우
         {
             const int ConsoleInputRow = 19;
             const int ConsoleInputColumn = 0;
@@ -31,85 +62,38 @@ namespace Library.Controller
             string author;
             string publisher;
 
-            bool isInputESC = false;
-            int selectedKey;
-
-            while (!isInputESC)
-            {
-                Console.Clear();
-                
-                FindTheBook();
-
-                Console.SetCursorPosition(ConsoleInputRow, ConsoleInputColumn);
-                title = Console.ReadLine();     // 제목 입력
-                Console.SetCursorPosition(ConsoleInputRow, ConsoleInputColumn + 1);
-                author = Console.ReadLine();    // 작가 입력
-                Console.SetCursorPosition(ConsoleInputRow, ConsoleInputColumn + 2);
-                publisher = Console.ReadLine();
-
-                Console.Clear();
-
-                printBookInformation.PrintFindingBookUI();
-
-                for (int i = 0; i < totalInformationStorage.books.Count; i++)
-                {
-                    if (totalInformationStorage.books[i].title.Contains(title) && totalInformationStorage.books[i].author.Contains(author) && totalInformationStorage.books[i].publisher.Contains(publisher))
-                    {
-                        printBookInformation.PrintBookList(totalInformationStorage.books[i].id, totalInformationStorage.books[i].title,
-                            totalInformationStorage.books[i].author, totalInformationStorage.books[i].publisher, totalInformationStorage.books[i].amount,
-                            totalInformationStorage.books[i].price, totalInformationStorage.books[i].publishDay, totalInformationStorage.books[i].ISBN,
-                            totalInformationStorage.books[i].information);
-                    }
-                }     // 입력받은 값과 일치하는 정보를 출력해 주는 함수
-
-                Console.SetCursorPosition(ConsoleInputRow, ConsoleInputColumn);
-                Console.ReadKey();
-
-                selectedKey = inputFromUser.SelectKey(0, 0);
-                if (selectedKey == 11)
-                {
-                    isInputESC = true;
-                }
-            }
-        }
-
-        public void FindTheBook()      // 책 찾기 메뉴에 진입했을 경우
-        {
-
-            const int ConsoleInputRow = 19;
-            const int ConsoleInputColumn = 0;
-
-            bool isCheckedExit = false;
-
-            ConsoleKeyInfo keyInfo;
-
+            Console.Clear();
             printBookInformation.PrintFindingBookUI();
+
             for (int i = 0; i < totalInformationStorage.books.Count; i++)
             {
                 printBookInformation.PrintBookList(totalInformationStorage.books[i].id, totalInformationStorage.books[i].title,
                         totalInformationStorage.books[i].author, totalInformationStorage.books[i].publisher, totalInformationStorage.books[i].amount,
                         totalInformationStorage.books[i].price, totalInformationStorage.books[i].publishDay, totalInformationStorage.books[i].ISBN,
                         totalInformationStorage.books[i].information);
-                //}
+            }
 
-                //while (!isCheckedExit)
-                //{
-                //    Console.Clear();
-                //    printBookInformation.PrintFindingBookUI();
-                //    for (int i = 0; i < totalInformationStorage.books.Count; i++)
-                //    {
-                //        printBookInformation.PrintBookList(totalInformationStorage.books[i].id, totalInformationStorage.books[i].title,
-                //                totalInformationStorage.books[i].author, totalInformationStorage.books[i].publisher, totalInformationStorage.books[i].amount,
-                //                totalInformationStorage.books[i].price, totalInformationStorage.books[i].publishDay, totalInformationStorage.books[i].ISBN,
-                //                totalInformationStorage.books[i].information);
-                //    }
+            Console.SetCursorPosition(ConsoleInputRow, ConsoleInputColumn);
+            title = inputFromUser.InputStringFromUser(20, false, ConsoleInputRow, ConsoleInputColumn);    // 제목 입력
+            author = inputFromUser.InputStringFromUser(20, false, ConsoleInputRow, ConsoleInputColumn + 1);    // 작가 입력
+            publisher = inputFromUser.InputStringFromUser(20, false, ConsoleInputRow, ConsoleInputColumn + 2);
 
-                //    keyInfo = Console.ReadKey();
+            Console.Clear();
 
-                //    if (keyInfo.Key == ConsoleKey.Escape)        // ESC 키를 입력한다면
-                //    {
-                //        isCheckedExit = true;
-                //    }
+            return new List<string>{ title, author, publisher };
+        }
+
+        public void selectedBook(string title, string author, string publisher)
+        {
+            for (int i = 0; i < totalInformationStorage.books.Count; i++)
+            {
+                if (totalInformationStorage.books[i].title.Contains(title) && totalInformationStorage.books[i].author.Contains(author) && totalInformationStorage.books[i].publisher.Contains(publisher))
+                {
+                    printBookInformation.PrintBookList(totalInformationStorage.books[i].id, totalInformationStorage.books[i].title,
+                        totalInformationStorage.books[i].author, totalInformationStorage.books[i].publisher, totalInformationStorage.books[i].amount,
+                        totalInformationStorage.books[i].price, totalInformationStorage.books[i].publishDay, totalInformationStorage.books[i].ISBN,
+                        totalInformationStorage.books[i].information);
+                }
             }
         }
 
@@ -120,22 +104,15 @@ namespace Library.Controller
 
             string bookID;
 
+            List<string> book;
+
             bool isCheckedExit = false;
 
             ConsoleKeyInfo keyInfo;
 
             while (!isCheckedExit)
             {
-                Console.Clear();
-                printBookInformation.PrintFindingBookUI();
-                for (int i = 0; i < totalInformationStorage.books.Count; i++)
-                {
-                    printBookInformation.PrintBookList(totalInformationStorage.books[i].id, totalInformationStorage.books[i].title,
-                            totalInformationStorage.books[i].author, totalInformationStorage.books[i].publisher, totalInformationStorage.books[i].amount,
-                            totalInformationStorage.books[i].price, totalInformationStorage.books[i].publishDay, totalInformationStorage.books[i].ISBN,
-                            totalInformationStorage.books[i].information);
-                }
-                SelectedBookList();
+                book = PrintTheAllBook();
 
                 keyInfo = Console.ReadKey();
 
@@ -146,7 +123,7 @@ namespace Library.Controller
 
             }                       // 반복문 탈출
 
-            FindTheBook();
+            PrintTheAllBook();
             printBookInformation.PrintRenttheBookUI();
 
             Console.SetCursorPosition(ConsoleInputRow, ConsoleInputColumn);

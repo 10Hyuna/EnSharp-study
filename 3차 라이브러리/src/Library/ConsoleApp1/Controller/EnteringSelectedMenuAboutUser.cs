@@ -8,6 +8,14 @@ namespace Library.Controller
 {
     class EnteringSelectedMenuAboutUser
     {
+        public void ModifyMyInformation()
+        {
 
+        }
+
+        public void DeleteMyAccount()
+        {
+
+        }
     }
 }

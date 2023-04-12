@@ -65,7 +65,7 @@ namespace Library.Controller
                 switch (selectedMenu)
                 {
                     case findingTheBook:
-                        selectedMenuAboutBook.SelectedBookList();
+                        selectedMenuAboutBook.FindTheBookBySerching();
                         break;
                     case rentingTheBook:
                         selectedMenuAboutBook.RentTheBook();

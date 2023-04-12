@@ -13,7 +13,7 @@ namespace Library.Model.DTO
 
         public BookInformation(int id, string title, string author, string publisher, string amount, string price, string publishDay, string ISBN, string information)   // 책 정보를 입력
         {
-           id = id;
+            this.id = id;
             this.title = title;
             this.author = author;
             this.publisher = publisher;

@@ -154,30 +154,5 @@ namespace Library.Controller
             totalInformationStorage.users.Add(new UserInformation(id, password, name, age, phoneNumber, address));    // 위의 조건을 모두 통과한 값일 경우 정보 저장
             return 0;
         }
-
-        private void CheckRentalBook(UI ui, TotalInformationStorage dataController)
-        {
-
-        }
-
-        private void ReturnTheBook(UI ui, TotalInformationStorage dataController)
-        {
-
-        }
-
-        private void ReturnTheBookList(UI ui, TotalInformationStorage dataController)
-        {
-
-        }
-
-        private void ModifyMyInformation(UI ui, TotalInformationStorage dataController)
-        {
-
-        }
-
-        private void DeleteMyAccount(UI ui, TotalInformationStorage dataController)
-        {
-
-        }
     }
 }

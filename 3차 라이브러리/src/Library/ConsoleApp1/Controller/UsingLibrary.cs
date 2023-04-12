@@ -23,6 +23,7 @@ namespace Library.Controller
         SelectingSignInOrUp choiceBetweenSignInAndSignUp;
         InputFromUser inputFromUser;
         ConstantNumber constantNumber;
+        RegexStorage regex;
 
         public UsingLibrary()
         {
@@ -30,11 +31,12 @@ namespace Library.Controller
             constantNumber = new ConstantNumber();
             bookInformation = new PrintingBookInformation();
             userInformation = new PrintingUserInformation();
+            regex = new RegexStorage();
             inputFromUser = new InputFromUser(constantNumber);
             ui = new UI(constantNumber);
             curser = new MovingCurserPosition(ui, inputFromUser, constantNumber);
             choiceBetweenSignInAndSignUp = new SelectingSignInOrUp(ui, curser, totalInformationStorage, 
-                userInformation, bookInformation, inputFromUser, constantNumber);
+                userInformation, bookInformation, inputFromUser, constantNumber, regex);
             enteringManagerMode = new EnteringManagerMode(ui, curser, totalInformationStorage, bookInformation, userInformation, inputFromUser);
         }
 

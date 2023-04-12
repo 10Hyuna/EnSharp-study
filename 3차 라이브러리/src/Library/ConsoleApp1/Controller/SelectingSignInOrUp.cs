@@ -21,9 +21,10 @@ namespace Library.Controller
         PrintingUserInformation printuserInformation;
         InputFromUser inputFromUser;
         ConstantNumber constantNumber;
+        RegexStorage regex;
         public SelectingSignInOrUp(UI ui, MovingCurserPosition curser, TotalInformationStorage totalInformationStorage, 
             PrintingUserInformation userInformation, PrintingBookInformation bookInformation, InputFromUser inputFromUser,
-            ConstantNumber constantNumber)
+            ConstantNumber constantNumber, RegexStorage regex)
         {
             this.ui = ui;
             this.curser = curser;
@@ -32,8 +33,10 @@ namespace Library.Controller
             this.printuserInformation = userInformation;
             this.inputFromUser = inputFromUser;
             this.constantNumber = constantNumber;
+            this.regex = regex;
             enteringUserMode = new EnteringUserMode(ui, totalInformationStorage, curser, inputFromUser, constantNumber, printbookInformation);
-            userMode = new SelectingMenuInUserMode(ui, curser, totalInformationStorage, userInformation, bookInformation, inputFromUser);
+            userMode = new SelectingMenuInUserMode(ui, curser, totalInformationStorage, userInformation, 
+                bookInformation, inputFromUser, constantNumber, regex);
         }
 
         public void UsingUserMenu()

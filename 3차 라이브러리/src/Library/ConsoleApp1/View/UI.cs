@@ -45,7 +45,7 @@ namespace Library.View
         {
             PrintMain();
             PrintBox(6);
-            const int WindowCenterRow = 58;
+            const int WindowCenterRow = 45;
             const int WindowCenterColumn = 17;
 
             const int ConsoleInputRow = 30;
@@ -142,13 +142,32 @@ namespace Library.View
 
         public void PrintException(int condition)
         {
-            if(condition==constantNumber.notMatchedCondition)
+            if(condition == constantNumber.notMatchedCondition)
             {
                 Console.WriteLine("주어진 조건에 맞는 값을 입력해 주세요.");
+
             }
-            if(condition==constantNumber.notMatchedCondition)
+            if(condition == constantNumber.notMatchedPassword)
             {
                 Console.WriteLine("비밀번호의 값이 서로 다릅니다.");
+                Console.WriteLine("다른 책을 입력하시려면 아무 키나 눌러 주세요.");
+            }
+            if (condition == constantNumber.invalidInformation)
+            {
+                Console.SetCursorPosition(0, 0);
+                Console.WriteLine("저장되어 있는 정보가 없습니다.");
+                Console.WriteLine("다른 책을 입력하시려면 아무 키나 눌러 주세요.");
+                Console.ReadKey();
+            }
+            if (condition == constantNumber.leakingbookAmount)
+            {
+                Console.WriteLine("책의 수량이 부족합니다.");
+                Console.WriteLine("다른 책을 입력하시려면 아무 키나 눌러 주세요.");
+                Console.ReadKey();
+            }
+            if(condition == constantNumber.successBorrowBook)
+            {
+                Console.WriteLine("책 빌리기 성공!\n");
             }
         }
     }

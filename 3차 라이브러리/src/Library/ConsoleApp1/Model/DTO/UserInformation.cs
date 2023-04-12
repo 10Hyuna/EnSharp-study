@@ -30,5 +30,6 @@ namespace Library.Model.DTO
         public List<BorrowBookList> borrowDatas = new List<BorrowBookList>();
 
         public List<BorrowBookList> returnDatas = new List<BorrowBookList>();
+
     }
 }

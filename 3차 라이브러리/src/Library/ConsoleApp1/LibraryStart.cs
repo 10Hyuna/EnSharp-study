@@ -22,6 +22,8 @@ namespace Library
         public static int WindowColumn = 112;
         static void Main(string[] args)
         {
+            string currentTime = DateTime.Now.ToString();
+            Console.WriteLine(currentTime);
             UsingLibrary library = new UsingLibrary();
            // Console.SetWindowSize(WindowColumn, WindowRow);
             library.SelectModeOfUserOrManager();

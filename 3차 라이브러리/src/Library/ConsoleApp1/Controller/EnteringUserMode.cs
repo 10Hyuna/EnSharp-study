@@ -64,6 +64,7 @@ namespace Library.Controller
                     {
                         if (totalInformationStorage.users[i].password == password)   // PW까지 일치한다면
                         {
+                            totalInformationStorage.loggedInUserId = id;
                             isValidAccount = true;      // 존재하는 계정의
                             index = i;                  // 인덱스 값을 저장해 두고
                             break;                      // 반복문 탈출

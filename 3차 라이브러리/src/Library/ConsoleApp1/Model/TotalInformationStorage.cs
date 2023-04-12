@@ -19,5 +19,6 @@ namespace Library.Model
         public List<BookInformation> books = new List<BookInformation>();
         public List<UserInformation> users = new List<UserInformation>();
         public List<ManagerInformation> manager = new List<ManagerInformation>();
+        public string loggedInUserId;
     }
 }

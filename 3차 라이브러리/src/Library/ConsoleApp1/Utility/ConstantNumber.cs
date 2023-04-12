@@ -12,5 +12,8 @@ namespace Library.Utility
         public int notMatchedCondition = 1;
         public int notMatchedPassword = 2;
         public int exit = -1;
+        public int invalidInformation = -1;
+        public int leakingbookAmount = 3;
+        public int successBorrowBook = 4;
     }
 }

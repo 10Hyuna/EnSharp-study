@@ -19,9 +19,12 @@ namespace Library.Controller
         PrintingBookInformation printbookInformation;
         InputFromUser inputFromUser;
         EnteringSelectedMenuAboutBook selectedMenuAboutBook;
+        ConstantNumber constantNumber;
+        RegexStorage regex;
 
         public SelectingMenuInUserMode(UI ui, MovingCurserPosition curser, TotalInformationStorage totalInformationStorage, 
-            PrintingUserInformation userInformation, PrintingBookInformation bookInformation, InputFromUser inputFromUser)
+            PrintingUserInformation userInformation, PrintingBookInformation bookInformation, InputFromUser inputFromUser,
+            ConstantNumber constantNumber, RegexStorage regex)
         {
             this.ui = ui;
             this.curser = curser;
@@ -29,7 +32,10 @@ namespace Library.Controller
             this.printuserInformation = userInformation;
             this.printbookInformation = bookInformation;
             this.inputFromUser = inputFromUser;
-            selectedMenuAboutBook = new EnteringSelectedMenuAboutBook(totalInformationStorage, bookInformation, inputFromUser);
+            this.constantNumber = constantNumber;
+            this.regex = regex;
+            selectedMenuAboutBook = new EnteringSelectedMenuAboutBook(totalInformationStorage, bookInformation,
+                inputFromUser, ui, constantNumber, regex);
         }
 
         public void SelectMenuInUserMode(int index)

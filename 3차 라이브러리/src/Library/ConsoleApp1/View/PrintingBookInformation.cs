@@ -37,7 +37,7 @@ namespace Library.View
             Console.WriteLine("책 정보   : {0}", information);
         }
 
-        public void PrintRenttheBookUI(TotalInformationStorage dataController)
+        public void PrintRenttheBookUI()
         {
             Console.WriteLine(" 빌릴 책의 ID를 입력해 주세요.");
             Console.WriteLine(" ID 값은 1부터 999 사이의 값입니다.");

@@ -28,11 +28,11 @@ namespace Library.Controller
         {
             totalInformationStorage = new TotalInformationStorage();
             constantNumber = new ConstantNumber();
-            ui = new UI(constantNumber);
             bookInformation = new PrintingBookInformation();
             userInformation = new PrintingUserInformation();
-            curser = new MovingCurserPosition(ui);
             inputFromUser = new InputFromUser();
+            ui = new UI(constantNumber);
+            curser = new MovingCurserPosition(ui, inputFromUser, constantNumber);
             choiceBetweenSignInAndSignUp = new SelectingSignInOrUp(ui, curser, totalInformationStorage, 
                 userInformation, bookInformation, inputFromUser, constantNumber);
             enteringManagerMode = new EnteringManagerMode(ui, curser, totalInformationStorage, bookInformation, userInformation, inputFromUser);

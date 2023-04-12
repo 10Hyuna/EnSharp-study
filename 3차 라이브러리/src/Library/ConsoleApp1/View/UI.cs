@@ -142,11 +142,11 @@ namespace Library.View
 
         public void PrintException(int condition)
         {
-            if(condition==constantNumber.isNotMatchedCondition)
+            if(condition==constantNumber.notMatchedCondition)
             {
                 Console.WriteLine("주어진 조건에 맞는 값을 입력해 주세요.");
             }
-            if(condition==constantNumber.isNotMatchedCondition)
+            if(condition==constantNumber.notMatchedCondition)
             {
                 Console.WriteLine("비밀번호의 값이 서로 다릅니다.");
             }

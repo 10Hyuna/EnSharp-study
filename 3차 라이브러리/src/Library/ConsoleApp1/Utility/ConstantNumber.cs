@@ -9,7 +9,7 @@ namespace Library.Utility
 {
     class ConstantNumber
     {
-        public int isNotMatchedCondition = 1;
-        public int isNotMatchedPassword = 2;
+        public int notMatchedCondition = 1;
+        public int notMatchedPassword = 2;
     }
 }

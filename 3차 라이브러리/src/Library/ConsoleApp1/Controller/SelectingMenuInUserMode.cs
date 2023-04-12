@@ -28,7 +28,7 @@ namespace Library.Controller
             this.printuserInformation = userInformation;
             this.printbookInformation = bookInformation;
             this.inputFromUser = inputFromUser;
-            selectedMenuAboutBook = new EnteringSelectedMenuAboutBook(totalInformationStorage, bookInformation);
+            selectedMenuAboutBook = new EnteringSelectedMenuAboutBook(totalInformationStorage, bookInformation, inputFromUser);
         }
         
         private void FindTheBook()

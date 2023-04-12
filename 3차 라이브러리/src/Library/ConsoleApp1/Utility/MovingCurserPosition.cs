@@ -12,9 +12,15 @@ namespace Library.Utility
     class MovingCurserPosition      // 커서를 이용해 입력을 받을 때나 사용자의 커서가 위치해 있는 메뉴를 표기하기 위해 커서의 위치를 컨트롤할 때 사용하는 클래스
     {
         UI ui;
-        public MovingCurserPosition(UI ui)
+        InputFromUser inputFromUser;
+        ConstantNumber constantNumber;
+
+
+        public MovingCurserPosition(UI ui, InputFromUser inputFromUser, ConstantNumber constantNumber)
         {
             this.ui = ui;
+            this.inputFromUser = inputFromUser;
+            this.constantNumber = constantNumber;
         }
 
         const int WindowCenterWidth = 50;
@@ -42,11 +48,13 @@ namespace Library.Utility
                     Console.WriteLine(menu[i]);
                     Console.ResetColor();
                 }
-                selectedMenu = ui.SelectKey(endMenu - 1, index);
+
+                selectedMenu = inputFromUser.SelectKey(endMenu - 1, index);
+
                 if (selectedMenu == errorKey)            // 사용자가 사용할 수 있는 키를 제외한 키를 눌렀을 때
                 {
                     Console.SetCursorPosition(WindowCenterWidth, WindowAnnouce);
-                    Console.WriteLine("잘못된 입력입니다");
+                    ui.PrintException(constantNumber.notMatchedCondition);
                     selectedMenu = index;
                 }
                 else if (selectedMenu == enterKey)       // 엔터키를 입력할 경우 메뉴에 진입하기 위해 반복문에서 탈출

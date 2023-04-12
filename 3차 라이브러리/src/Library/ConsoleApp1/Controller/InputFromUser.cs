@@ -15,7 +15,6 @@ namespace Library.Controller
         {
             ConsoleKeyInfo keyInfo;
 
-
             keyInfo = Console.ReadKey();
 
             if (keyInfo.Key == ConsoleKey.UpArrow)

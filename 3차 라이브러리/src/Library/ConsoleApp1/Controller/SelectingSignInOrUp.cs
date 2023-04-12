@@ -17,8 +17,8 @@ namespace Library.Controller
         TotalInformationStorage totalInformationStorage;
         EnteringUserMode enteringUserMode;
         SelectingMenuInUserMode userMode;
-        PrintingBookInformation bookInformation;
-        PrintingUserInformation userInformation;
+        PrintingBookInformation printbookInformation;
+        PrintingUserInformation printuserInformation;
         InputFromUser inputFromUser;
         ConstantNumber constantNumber;
         public SelectingSignInOrUp(UI ui, MovingCurserPosition curser, TotalInformationStorage totalInformationStorage, 
@@ -28,11 +28,11 @@ namespace Library.Controller
             this.ui = ui;
             this.curser = curser;
             this.totalInformationStorage = totalInformationStorage;
-            this.bookInformation = bookInformation;
-            this.userInformation = userInformation;
+            this.printbookInformation = bookInformation;
+            this.printuserInformation = userInformation;
             this.inputFromUser = inputFromUser;
             this.constantNumber = constantNumber;
-            enteringUserMode = new EnteringUserMode(ui, totalInformationStorage, curser, inputFromUser, constantNumber);
+            enteringUserMode = new EnteringUserMode(ui, totalInformationStorage, curser, inputFromUser, constantNumber, printbookInformation);
             userMode = new SelectingMenuInUserMode(ui, curser, totalInformationStorage, userInformation, bookInformation, inputFromUser);
         }
 

@@ -21,14 +21,16 @@ namespace Library.Controller
         HandlingException handlingException;
         InputFromUser inputFromUser;
         ConstantNumber constantNumber;
+        PrintingBookInformation printBookInformation;
         public EnteringUserMode(UI ui, TotalInformationStorage totalInformationStorage, MovingCurserPosition curser,
-            InputFromUser inputFromUser, ConstantNumber constantNumber)
+            InputFromUser inputFromUser, ConstantNumber constantNumber, PrintingBookInformation printBookInformation)
         {
             this.ui = ui;
             this.totalInformationStorage = totalInformationStorage;
             this.curser = curser;
             this.inputFromUser = inputFromUser;
             this.constantNumber = constantNumber;
+            this.printBookInformation = printBookInformation;
             regex = new RegexStorage();
             handlingException = new HandlingException();
         }
@@ -98,7 +100,7 @@ namespace Library.Controller
                 }
                 else
                 {
-                    ui.PrintException(constantNumber.isNotMatchedPassword);
+                    ui.PrintException(constantNumber.notMatchedPassword);
                     password = handlingException.IsValid(regex.idCheck, ConsoleInputRow, ConsoleInputColumn + 1);       // 비밀번호를 잘못 입력했을 경우를 대비
                 }
             }
@@ -115,7 +117,7 @@ namespace Library.Controller
                 }
                 else
                 {
-                    ui.PrintException(constantNumber.isNotMatchedCondition);
+                    ui.PrintException(constantNumber.notMatchedCondition);
                     age = handlingException.IsValid(regex.ageCheck, ConsoleInputRow, ConsoleInputColumn + 4);
                 }
             }
@@ -125,68 +127,6 @@ namespace Library.Controller
 
             address = handlingException.IsValid(regex.addressCheck, ConsoleInputRow, ConsoleInputColumn + 6);
             totalInformationStorage.users.Add(new UserInformation(id, password, name, age, phoneNumber, address));    // 위의 조건을 모두 통과한 값일 경우 정보 저장
-        }
-
-        private void FindTheBook(UI ui, TotalInformationStorage dataController)      // 책 찾기 메뉴에 진입했을 경우
-        {
-
-            const int ConsoleInputRow = 19;
-            const int ConsoleInputColumn = 0;
-
-            bool isCheckedExit = false;
-
-            ConsoleKeyInfo keyInfo;
-
-            while (!isCheckedExit) 
-            {
-                Console.Clear();
-                ui.PrintFindingBookUI(dataController);
-                ui.PrintAllBookList(dataController);
-                SelectedBookList(dataController, ui, ConsoleInputRow, ConsoleInputColumn);
-
-                keyInfo = Console.ReadKey();
-
-                if (keyInfo.Key == ConsoleKey.Escape)        // ESC 키를 입력한다면
-                {
-                    isCheckedExit = true;
-                }
-
-            }       // 반복문 탈출
-        }
-
-        private void RentTheBook(UI ui, TotalInformationStorage dataController)      // 책 대여 메뉴에 진입했을 때
-        {
-            const int ConsoleInputRow = 20;
-            const int ConsoleInputColumn = 0;
-
-            string bookID;
-
-            bool isCheckedExit = false;
-
-            ConsoleKeyInfo keyInfo;
-
-            while (!isCheckedExit) 
-            {
-                Console.Clear();
-                ui.PrintFindingBookUI(dataController);
-                ui.PrintAllBookList(dataController);
-                SelectedBookList(dataController, ui, ConsoleInputRow, ConsoleInputColumn);
-
-                keyInfo = Console.ReadKey();
-
-                if (keyInfo.Key == ConsoleKey.Escape)       // ESC를 입력한다면
-                {
-                    isCheckedExit = true;
-                }
-
-            }                       // 반복문 탈출
-
-            FindTheBook(ui, dataController);
-            ui.PrintRenttheBookUI(dataController);
-
-            Console.SetCursorPosition(ConsoleInputRow, ConsoleInputColumn);
-            bookID = Console.ReadLine();        // 빌리고자 하는 책의 아이디 입력
-
         }
 
         private void CheckRentalBook(UI ui, TotalInformationStorage dataController)

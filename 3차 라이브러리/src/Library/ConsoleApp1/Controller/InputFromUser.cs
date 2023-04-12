@@ -11,6 +11,18 @@ namespace Library.Controller
 {
     class InputFromUser
     {
+        ConstantNumber constantNumber = new ConstantNumber();
+        public InputFromUser(ConstantNumber constantNumber) 
+        {
+            this.constantNumber = constantNumber;
+        }
+
+        private bool isCharacterOrNumber(char input)
+        {
+            if (input >= 'A' && input <= 'Z' || input >= 'a' && input <= 'z' || input >= '0' || input <= '9')
+                return true;
+            return false;
+        }
         public int SelectKey(int endMenu, int selectedMenu)
         {
             ConsoleKeyInfo keyInfo;
@@ -47,6 +59,54 @@ namespace Library.Controller
             {
                 return -1;
             }
+        }
+
+        public string InputStringFromUser(int maxLength, bool ispassword, int consoleInputRow, int consoleInputColumn)
+        {
+            bool isEnter = false;
+            string input = "";
+            int i = 0;
+
+            ConsoleKeyInfo keyInfo;
+
+            while (!isEnter)
+            {
+                Console.SetCursorPosition(consoleInputRow + i, consoleInputColumn);
+                keyInfo = Console.ReadKey(true);
+                if (keyInfo.Key == ConsoleKey.Escape)
+                {
+                    return null;
+                }
+                else if (keyInfo.Key == ConsoleKey.Enter)
+                {
+                    isEnter = true;
+                }
+                else if (keyInfo.Key == ConsoleKey.Backspace && input.Length > 0)
+                {
+                    input = input.Substring(0, input.Length - 1);
+                    Console.SetCursorPosition(consoleInputRow + i - 1, consoleInputColumn);
+                    Console.Write(" ");
+                    i--;
+                }
+                else if(keyInfo.Key == ConsoleKey.Backspace && input.Length == 0)
+                {
+                    continue;
+                }
+                else if (input.Length <= maxLength && isCharacterOrNumber(keyInfo.KeyChar) && keyInfo.KeyChar != '\0')
+                {
+                    input += keyInfo.KeyChar;
+                    i++;
+                    if(ispassword)
+                    {
+                        Console.WriteLine("*");
+                    }
+                    else
+                    {
+                        Console.WriteLine(keyInfo.KeyChar);
+                    }
+                }
+            }
+            return input;
         }
     }
 }

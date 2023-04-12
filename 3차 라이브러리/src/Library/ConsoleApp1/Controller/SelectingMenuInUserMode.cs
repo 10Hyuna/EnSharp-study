@@ -19,6 +19,7 @@ namespace Library.Controller
         PrintingBookInformation printbookInformation;
         InputFromUser inputFromUser;
         EnteringSelectedMenuAboutBook selectedMenuAboutBook;
+
         public SelectingMenuInUserMode(UI ui, MovingCurserPosition curser, TotalInformationStorage totalInformationStorage, 
             PrintingUserInformation userInformation, PrintingBookInformation bookInformation, InputFromUser inputFromUser)
         {
@@ -30,45 +31,13 @@ namespace Library.Controller
             this.inputFromUser = inputFromUser;
             selectedMenuAboutBook = new EnteringSelectedMenuAboutBook(totalInformationStorage, bookInformation, inputFromUser);
         }
-        
-        private void FindTheBook()
-        {
 
-        }
-
-        private void RentTheBook()
-        {
-
-        }
-
-        private void CheckTheRentalBook()
-        {
-
-        }
-
-        private void ReturnTheBook()
-        {
-
-        }
-        private void ReturnTheBookList()
-        {
-
-        }
-        private void ModifyInformationOfUser()
-        {
-
-        }
-
-        private void DeleteAccount()
-        {
-
-        }
-        
         public void SelectMenuInUserMode(int index)
         {               // 유저 모드에서 로그인에 성공했을 경우, 사용할 수 있는 메뉴
             Console.Clear();
             ui.PrintUserMenu();
             int selectedMenu = 0;
+            bool isEnteredESC = false;
 
             const int findingTheBook = 0;
             const int rentingTheBook = 1;
@@ -80,33 +49,41 @@ namespace Library.Controller
             const int exit = -1;
 
             string[] menu = { "도서 찾기", "도서 대여", "도서 대여 확인", "도서 반납", "도서 반납 내역", "정보 수정", "계정 삭제" };
-
-            Console.Clear();
-            ui.PrintMain();
-            ui.PrintBox(10);
-
-            selectedMenu = curser.SelectCurser(menu, menu.Length, selectedMenu);
-
-            switch (selectedMenu)
+            while (!isEnteredESC)
             {
-                case findingTheBook:
-                    FindTheBook();
-                    break;
-                case rentingTheBook:
-                    RentTheBook();
-                    break;
-                case checkingTheRentalBook:
-                    CheckTheRentalBook();
-                    break;
-                case returningTheBookList:
-                    ReturnTheBook();
-                    break;
-                case modifyingInformationOfUser:
-                    ModifyInformationOfUser();
-                    break;
-                case delectingAccount:
-                    DeleteAccount();
-                    break;
+                Console.Clear();
+                ui.PrintMain();
+                ui.PrintBox(10);
+
+                selectedMenu = curser.SelectCurser(menu, menu.Length, selectedMenu);
+                
+                if(selectedMenu == -1)
+                {
+                    isEnteredESC = true;
+                }
+
+                switch (selectedMenu)
+                {
+                    case findingTheBook:
+                        selectedMenuAboutBook.SelectedBookList();
+                        break;
+                    case rentingTheBook:
+                        selectedMenuAboutBook.RentTheBook();
+                        break;
+                    case checkingTheRentalBook:
+                        selectedMenuAboutBook.CheckTheRentalBook();
+                        break;
+                    case returningTheBookList:
+                        selectedMenuAboutBook.ReturnTheBook();
+                        break;
+                    case modifyingInformationOfUser:
+
+                        break;
+                    case delectingAccount:
+
+                        break;
+                }
+
             }
         }
     }

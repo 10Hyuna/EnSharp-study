@@ -39,7 +39,8 @@ namespace Library.Controller
         public void UsingUserMenu()
         {       // 유저 모드에 진입했을 경우
             int selectedMenu = 0;
-            int index; 
+            int index;
+            int noError;
 
             bool isEnterCheck = false;
             bool isExitCheck = false;
@@ -66,7 +67,13 @@ namespace Library.Controller
                 {
                     Console.Clear();
                     ui.PrintSignUpUI();
-                    enteringUserMode.SignUpMember();        // 회원가입 함수로 진입
+                    noError = enteringUserMode.SignUpMember();        // 회원가입 함수로 진입
+                    
+                    if(noError == exit)
+                    {
+                        continue;
+                    }
+
                     while (!isEnterCheck)       // 엔터키를 입력하지 않는 동안 무한반복
                     {
                         Console.Clear();
@@ -86,6 +93,10 @@ namespace Library.Controller
                     Console.Clear();
                     ui.PrintLogin();
                     index = enteringUserMode.SignInMember();      // 로그인 함수로 진입
+                    if(index == exit)
+                    {
+                        continue;
+                    }
                     userMode.SelectMenuInUserMode(index);
                 }
             }

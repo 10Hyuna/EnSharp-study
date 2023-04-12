@@ -30,7 +30,7 @@ namespace Library.Controller
             constantNumber = new ConstantNumber();
             bookInformation = new PrintingBookInformation();
             userInformation = new PrintingUserInformation();
-            inputFromUser = new InputFromUser();
+            inputFromUser = new InputFromUser(constantNumber);
             ui = new UI(constantNumber);
             curser = new MovingCurserPosition(ui, inputFromUser, constantNumber);
             choiceBetweenSignInAndSignUp = new SelectingSignInOrUp(ui, curser, totalInformationStorage, 

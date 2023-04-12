@@ -11,5 +11,6 @@ namespace Library.Utility
     {
         public int notMatchedCondition = 1;
         public int notMatchedPassword = 2;
+        public int exit = -1;
     }
 }

@@ -128,7 +128,7 @@ namespace Library.View
 
         public void PrintSuccessSignup()
         {
-            const int WindowCenterRow = 55;
+            const int WindowCenterRow = 50;
             const int WindowCenterColumn = 17;
 
             Console.SetCursorPosition(WindowCenterRow, WindowCenterColumn);
@@ -139,43 +139,44 @@ namespace Library.View
 
         public void PrintException(int condition)
         {
-            if (condition == constantNumber.notMatchedCondition)
+            
+            if (condition == ConstantNumber.notMatchedCondition)
             {
+                Console.SetCursorPosition(34, 25);
                 Console.WriteLine("주어진 조건에 맞는 값을 입력해 주세요.");
 
             }
-            if (condition == constantNumber.notMatchedPassword)
-            {
+            if (condition == ConstantNumber.notMatchedPassword)
+            {   
                 Console.WriteLine("비밀번호의 값이 서로 다릅니다.");
-                Console.WriteLine("다른 책을 입력하시려면 아무 키나 눌러 주세요.");
             }
-            if (condition == constantNumber.invalidInformation)
+            if (condition == ConstantNumber.invalidInformation)
             {
                 Console.Clear();
                 Console.SetCursorPosition(0, 0);
                 Console.WriteLine("저장되어 있는 정보가 없습니다.");
                 Console.WriteLine("다른 책을 입력하시려면 아무 키나 눌러 주세요.");
-                Console.ReadKey();
+                Console.ReadKey(true);
             }
-            if (condition == constantNumber.leakingbookAmount)
+            if (condition == ConstantNumber.leakingbookAmount)
             {
                 Console.WriteLine("책의 수량이 부족합니다.");
                 Console.WriteLine("다른 책을 입력하시려면 아무 키나 눌러 주세요.");
-                Console.ReadKey();
+                Console.ReadKey(true);
             }
-            if(condition == constantNumber.successBorrowBook)
+            if(condition == ConstantNumber.successBorrowBook)
             {
                 Console.WriteLine("책 빌리기 성공!\n");
             }
-            if(condition == constantNumber.successReturnBook)
+            if(condition == ConstantNumber.successReturnBook)
             {
                 Console.WriteLine("책 반납 성공!\n");
             }
-            if(condition == constantNumber.alreadyRentBook)
+            if(condition == ConstantNumber.alreadyRentBook)
             {
                 Console.WriteLine("이미 대여 중인 책입니다.");
                 Console.WriteLine("다른 책을 입력하시려면 아무 키나 눌러 주세요.");
-                Console.ReadKey();
+                Console.ReadKey(true);
             }
         }
     }

@@ -19,13 +19,13 @@ namespace Library.Controller
         PrintingBookInformation printbookInformation;
         InputFromUser inputFromUser;
         EnteringSelectedMenuAboutBookInUser selectedMenuAboutBook;
-        ConstantNumber constantNumber;
         RegexStorage regex;
         HandlingException handlingException;
+        EnteringSelectedMenuAboutUserInUser selectedMenuAboutUserInUser;
 
         public SelectingMenuInUserMode(UI ui, MovingCurserPosition curser, TotalInformationStorage totalInformationStorage, 
             PrintingUserInformation userInformation, PrintingBookInformation bookInformation, InputFromUser inputFromUser,
-            ConstantNumber constantNumber, HandlingException handlingException, RegexStorage regex)
+            HandlingException handlingException, RegexStorage regex)
         {
             this.ui = ui;
             this.curser = curser;
@@ -33,18 +33,21 @@ namespace Library.Controller
             this.printuserInformation = userInformation;
             this.printbookInformation = bookInformation;
             this.inputFromUser = inputFromUser;
-            this.constantNumber = constantNumber;
             this.regex = regex;
             this.handlingException = handlingException;
             selectedMenuAboutBook = new EnteringSelectedMenuAboutBookInUser(totalInformationStorage, bookInformation,
-                inputFromUser, ui, constantNumber, handlingException, regex);
+                inputFromUser, ui, handlingException, regex);
+            selectedMenuAboutUserInUser = new EnteringSelectedMenuAboutUserInUser(totalInformationStorage, userInformation,
+                inputFromUser, ui, constantNumber, handlingException, regex, curser);
         }
         
-        public void SelectMenuInUserMode(int index)
+        public void SelectMenuInUserMode()
         {               // 유저 모드에서 로그인에 성공했을 경우, 사용할 수 있는 메뉴
             Console.Clear();
             ui.PrintUserMenu();
             int selectedMenu = 0;
+
+            int checkingBreak = -1;
             bool isEnteredESC = false;
 
             const int findingTheBook = 0;
@@ -88,11 +91,16 @@ namespace Library.Controller
                         selectedMenuAboutBook.ReturnTheBookList();
                         break;
                     case modifyingInformationOfUser:
-
+                        selectedMenuAboutUserInUser.ModifyMyInformation();
                         break;
                     case delectingAccount:
-
+                        checkingBreak = selectedMenuAboutUserInUser.DeleteMyAccount();
                         break;
+                }
+
+                if(checkingBreak != 0)
+                {
+                    isEnteredESC = true;
                 }
             }
         }

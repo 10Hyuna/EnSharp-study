@@ -30,17 +30,17 @@ namespace Library.Controller
         {
             totalInformationStorage = new TotalInformationStorage();
             constantNumber = new ConstantNumber();
+            ui = new UI(constantNumber);
             bookInformation = new PrintingBookInformation();
-            userInformation = new PrintingUserInformation();
+            userInformation = new PrintingUserInformation(ui);
             regex = new RegexStorage();
             inputFromUser = new InputFromUser(constantNumber);
-            ui = new UI(constantNumber);
             handlingException = new HandlingException(ui, inputFromUser, constantNumber, regex);
             curser = new MovingCurserPosition(ui, inputFromUser, constantNumber);
             choiceBetweenSignInAndSignUp = new SelectingSignInOrUp(ui, curser, totalInformationStorage, 
-                userInformation, bookInformation, inputFromUser, constantNumber, handlingException, regex);
+                userInformation, bookInformation, inputFromUser, handlingException, regex);
             enteringManagerMode = new EnteringManagerMode(ui, curser, totalInformationStorage, bookInformation, 
-                userInformation, inputFromUser);
+                userInformation, inputFromUser, handlingException, regex);
         }
 
         public void SelectModeOfUserOrManager()      // 메인 콘솔창

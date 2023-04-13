@@ -20,13 +20,12 @@ namespace Library.Controller
         PrintingBookInformation printbookInformation;
         PrintingUserInformation printuserInformation;
         InputFromUser inputFromUser;
-        ConstantNumber constantNumber;
         RegexStorage regex;
         HandlingException handlingException;
 
         public SelectingSignInOrUp(UI ui, MovingCurserPosition curser, TotalInformationStorage totalInformationStorage, 
             PrintingUserInformation userInformation, PrintingBookInformation bookInformation, InputFromUser inputFromUser,
-            ConstantNumber constantNumber, HandlingException handlingException, RegexStorage regex)
+            HandlingException handlingException, RegexStorage regex)
         {
             this.ui = ui;
             this.curser = curser;
@@ -34,13 +33,12 @@ namespace Library.Controller
             this.printbookInformation = bookInformation;
             this.printuserInformation = userInformation;
             this.inputFromUser = inputFromUser;
-            this.constantNumber = constantNumber;
             this.handlingException = handlingException;
             this.regex = regex;
-            enteringUserMode = new EnteringUserMode(ui, totalInformationStorage, curser, inputFromUser,
-                constantNumber, printbookInformation, handlingException);
+            enteringUserMode = new EnteringUserMode(ui, totalInformationStorage, curser, inputFromUser, 
+                printbookInformation, handlingException);
             userMode = new SelectingMenuInUserMode(ui, curser, totalInformationStorage, userInformation, 
-                bookInformation, inputFromUser, constantNumber, handlingException, regex);
+                bookInformation, inputFromUser, handlingException, regex);
         }
 
         public void UsingUserMenu()
@@ -86,7 +84,7 @@ namespace Library.Controller
                         ui.PrintMain();
                         ui.PrintSuccessSignup();
 
-                        keyInfo = Console.ReadKey();
+                        keyInfo = Console.ReadKey(true);
 
                         if (keyInfo.Key == ConsoleKey.Enter)
                         {
@@ -103,8 +101,7 @@ namespace Library.Controller
                     {
                         continue;
                     }
-                    userMode.SelectMenuInUserMode(index);
-                    int a = 0;
+                    userMode.SelectMenuInUserMode();
                 }
             }
         }

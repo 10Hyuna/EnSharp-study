@@ -20,17 +20,14 @@ namespace Library.Controller
         RegexStorage regex;
         HandlingException handlingException;
         InputFromUser inputFromUser;
-        ConstantNumber constantNumber;
         PrintingBookInformation printBookInformation;
         public EnteringUserMode(UI ui, TotalInformationStorage totalInformationStorage, MovingCurserPosition curser,
-            InputFromUser inputFromUser, ConstantNumber constantNumber, PrintingBookInformation printBookInformation,
-            HandlingException handlingException)
+            InputFromUser inputFromUser, PrintingBookInformation printBookInformation, HandlingException handlingException)
         {
             this.ui = ui;
             this.totalInformationStorage = totalInformationStorage;
             this.curser = curser;
             this.inputFromUser = inputFromUser;
-            this.constantNumber = constantNumber;
             this.printBookInformation = printBookInformation;
             this.handlingException = handlingException;
             regex = new RegexStorage();
@@ -105,7 +102,7 @@ namespace Library.Controller
 
             while (!isSamePW)       // 비밀번호를 확인하는 문자열을 입력받았을 때 그 문자열이 비밀번호와 같지 않다면 계속 반복
             {
-                checkPassword = handlingException.IsValid(regex.passwordCheck, ConsoleInputRow, ConsoleInputColumn + 2, 15, true);
+                checkPassword = handlingException.IsValid(regex.passwordCheck, ConsoleInputRow - 17, ConsoleInputColumn + 2, 15, true);
                 if (checkPassword == null)
                     return -1;
 
@@ -115,19 +112,21 @@ namespace Library.Controller
                 }
                 else
                 {
-                    ui.PrintException(constantNumber.notMatchedPassword);
-                    password = handlingException.IsValid(regex.idCheck, ConsoleInputRow, ConsoleInputColumn + 1, 15, false);       // 비밀번호를 잘못 입력했을 경우를 대비
+                    Console.SetCursorPosition(ConsoleInputRow, ConsoleInputColumn + 1);
+                    ui.PrintException(ConstantNumber.notMatchedPassword);
+                    password = handlingException.IsValid(regex.idCheck, ConsoleInputRow, ConsoleInputColumn + 1, 15, true);       // 비밀번호를 잘못 입력했을 경우를 대비
+                    
                     if (password == null)
                         return -1;
                 }
             }
 
             isValidInput = false;
-            name = handlingException.IsValid(regex.nameCheck, ConsoleInputRow, ConsoleInputColumn + 3, 20, false);
+            name = handlingException.IsValid(regex.nameCheck, ConsoleInputRow + 3, ConsoleInputColumn + 3, 20, false);
             if (name == null)
                 return -1;
 
-            age = handlingException.IsValid(regex.ageCheck, ConsoleInputRow, ConsoleInputColumn + 4, 20, false);
+            age = handlingException.IsValid(regex.ageCheck, ConsoleInputRow - 6, ConsoleInputColumn + 4, 20, false);
             if (age == null)
                 return -1;
 
@@ -139,17 +138,17 @@ namespace Library.Controller
                 }
                 else
                 {
-                    ui.PrintException(constantNumber.notMatchedCondition);
-                    age = handlingException.IsValid(regex.ageCheck, ConsoleInputRow, ConsoleInputColumn + 4, 20, false);
+                    ui.PrintException(ConstantNumber.notMatchedCondition);
+                    age = handlingException.IsValid(regex.ageCheck, ConsoleInputRow - 8, ConsoleInputColumn + 4, 20, false);
                 }
             }
             isValidInput = false;
 
-            phoneNumber = handlingException.IsValid(regex.phoneNumCheck, ConsoleInputRow, ConsoleInputColumn + 5, 20, false);
+            phoneNumber = handlingException.IsValid(regex.phoneNumCheck, ConsoleInputRow + 1, ConsoleInputColumn + 5, 20, false);
             if (phoneNumber == null)
                 return -1;
 
-            address = handlingException.IsValid(regex.addressCheck, ConsoleInputRow, ConsoleInputColumn + 6, 20, false);
+            address = handlingException.IsValid(regex.addressCheck, ConsoleInputRow + 3, ConsoleInputColumn + 6, 20, false);
             if (address == null)
                 return -1;
 

@@ -34,7 +34,7 @@ namespace Library.Utility
         {
             int selectedMenu = 0;
             bool isSelectedEnter = false;
-            do
+            while (!isSelectedEnter)
             {
                 for (int i = 0; i < endMenu; i++)
                 {
@@ -54,7 +54,7 @@ namespace Library.Utility
                 if (selectedMenu == errorKey)            // 사용자가 사용할 수 있는 키를 제외한 키를 눌렀을 때
                 {
                     Console.SetCursorPosition(WindowCenterWidth, WindowAnnouce);
-                    ui.PrintException(ConstantNumber.notMatchedCondition);
+                    ui.PrintException(ConstantNumber.NOTMATCHEDCONDITION);
                     selectedMenu = index;
                 }
                 else if (selectedMenu == enterKey)       // 엔터키를 입력할 경우 메뉴에 진입하기 위해 반복문에서 탈출
@@ -68,7 +68,7 @@ namespace Library.Utility
                 }
                 index = selectedMenu;
 
-            } while (!isSelectedEnter);     // 엔터키를 통해 메뉴에 진입하고자 할 때 반복문에서 탈출
+            }     // 엔터키를 통해 메뉴에 진입하고자 할 때 반복문에서 탈출
 
             return index;
         }

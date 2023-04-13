@@ -17,5 +17,6 @@ namespace Library.Utility
         public Regex addressCheck = new Regex(@"[가-힇]{2,4}시 [가-힇]{2}구");                 // 주소 정규식
         public Regex containedOneCharacter = new Regex(@"[가-힇a-zA-Z0-9]{1,}");
         public Regex containedOneNumber = new Regex(@"[0-9]{1,}");
+        public Regex korean = new Regex(@"[가-힇]{1,}");
     }
 }

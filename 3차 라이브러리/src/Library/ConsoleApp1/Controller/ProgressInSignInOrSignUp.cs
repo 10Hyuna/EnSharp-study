@@ -12,7 +12,7 @@ using Library.Model.DTO;
 
 namespace Library.Controller
 {
-    class EnteringUserMode
+    class ProgressInSignInOrSignUp
     {
         UI ui;
         TotalInformationStorage totalInformationStorage;
@@ -21,7 +21,7 @@ namespace Library.Controller
         HandlingException handlingException;
         InputFromUser inputFromUser;
         PrintingBookInformation printBookInformation;
-        public EnteringUserMode(UI ui, TotalInformationStorage totalInformationStorage, MovingCurserPosition curser,
+        public ProgressInSignInOrSignUp(UI ui, TotalInformationStorage totalInformationStorage, MovingCurserPosition curser,
             InputFromUser inputFromUser, PrintingBookInformation printBookInformation, HandlingException handlingException)
         {
             this.ui = ui;
@@ -33,7 +33,7 @@ namespace Library.Controller
             regex = new RegexStorage();
         }
 
-        public int SignInMember()  // 로그인
+        public int SignInMember(bool isManager)  // 로그인
         {
             const int ConsoleInputRow = 25;
             const int ConsoleInputColumn = 23;
@@ -56,19 +56,35 @@ namespace Library.Controller
                 if (password == null)
                     return -1;
 
-                for (int i = 0; i < totalInformationStorage.users.Count; i++)      // 저장되어 있는 회원 정보만큼 반복하며
+                if (!isManager)
                 {
-                    if (totalInformationStorage.users[i].id == id)     // 일치하는 ID가 있을 때
+                    for (int i = 0; i < totalInformationStorage.users.Count; i++)      // 저장되어 있는 회원 정보만큼 반복하며
                     {
-                        if (totalInformationStorage.users[i].password == password)   // PW까지 일치한다면
+                        if (totalInformationStorage.users[i].id == id)     // 일치하는 ID가 있을 때
                         {
-                            totalInformationStorage.loggedInUserId = id;
-                            isValidAccount = true;      // 존재하는 계정의
-                            index = i;                  // 인덱스 값을 저장해 두고
-                            break;                      // 반복문 탈출
+                            if (totalInformationStorage.users[i].password == password)   // PW까지 일치한다면
+                            {
+                                totalInformationStorage.loggedInUserId = id;
+                                isValidAccount = true;      // 존재하는 계정의
+                                index = i;                  // 인덱스 값을 저장해 두고
+                                break;                      // 반복문 탈출
+                            }
                         }
                     }
                 }
+                else
+                {
+                    if (totalInformationStorage.manager[0].id == id)
+                    {
+                        if (totalInformationStorage.manager[0].password == password)
+                        {
+                            totalInformationStorage.loggedInUserId = id;
+                            isValidAccount = true;          
+                            break;                      
+                        }
+                    }
+                }
+
                 if (!isValidAccount)
                 {
                     ui.IsValidAccount(ConsoleInputRow - 10, ConsoleInputColumn + 2);
@@ -113,7 +129,7 @@ namespace Library.Controller
                 else
                 {
                     Console.SetCursorPosition(ConsoleInputRow, ConsoleInputColumn + 1);
-                    ui.PrintException(ConstantNumber.notMatchedPassword);
+                    ui.PrintException(ConstantNumber.NOTMATCHEDPASSWORD);
                     password = handlingException.IsValid(regex.idCheck, ConsoleInputRow, ConsoleInputColumn + 1, 15, true);       // 비밀번호를 잘못 입력했을 경우를 대비
                     
                     if (password == null)
@@ -138,7 +154,7 @@ namespace Library.Controller
                 }
                 else
                 {
-                    ui.PrintException(ConstantNumber.notMatchedCondition);
+                    ui.PrintException(ConstantNumber.NOTMATCHEDCONDITION);
                     age = handlingException.IsValid(regex.ageCheck, ConsoleInputRow - 8, ConsoleInputColumn + 4, 20, false);
                 }
             }

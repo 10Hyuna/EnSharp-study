@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Library.Controller
 {
-    class EnteringSelectedMenuAboutUserInUser
+    class EnteringMenuOfBook
     {
         TotalInformationStorage totalInformationStorage;
         PrintingUserInformation userInformation;
@@ -21,10 +21,9 @@ namespace Library.Controller
         HandlingException handlingException;
         RegexStorage regex;
         MovingCurserPosition curser;
-        public EnteringSelectedMenuAboutUserInUser(TotalInformationStorage totalInformationStorage,
+        public EnteringMenuOfBook(TotalInformationStorage totalInformationStorage,
             PrintingUserInformation printingUserInformation, InputFromUser inputFromUser, UI ui,
-            ConstantNumber constantNumber, HandlingException handlingException, RegexStorage regex,
-            MovingCurserPosition curser)
+            HandlingException handlingException, RegexStorage regex, MovingCurserPosition curser)
         {
             this.totalInformationStorage = totalInformationStorage;
             this.userInformation = printingUserInformation;
@@ -120,7 +119,7 @@ namespace Library.Controller
                 }
                 else
                 {
-                    ui.PrintException(ConstantNumber.notMatchedCondition);
+                    ui.PrintException(ConstantNumber.NOTMATCHEDCONDITION);
                     continue;
                 }
 
@@ -135,7 +134,7 @@ namespace Library.Controller
                     else
                     {
                         Console.SetCursorPosition(40, 18);
-                        ui.PrintException(ConstantNumber.notMatchedCondition);
+                        ui.PrintException(ConstantNumber.NOTMATCHEDCONDITION);
                     }
                 }
             }

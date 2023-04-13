@@ -25,6 +25,7 @@ namespace Library.Controller
         ConstantNumber constantNumber;
         HandlingException handlingException;
         RegexStorage regex;
+        ProgressInSignInOrSignUp progressInSignInOrSignUp;
 
         public UsingLibrary()
         {
@@ -34,13 +35,16 @@ namespace Library.Controller
             bookInformation = new PrintingBookInformation();
             userInformation = new PrintingUserInformation(ui);
             regex = new RegexStorage();
-            inputFromUser = new InputFromUser(constantNumber);
             handlingException = new HandlingException(ui, inputFromUser, constantNumber, regex);
+            inputFromUser = new InputFromUser(regex, handlingException);
             curser = new MovingCurserPosition(ui, inputFromUser, constantNumber);
+            progressInSignInOrSignUp = new ProgressInSignInOrSignUp(ui, totalInformationStorage, curser,
+                inputFromUser, bookInformation, handlingException);
             choiceBetweenSignInAndSignUp = new SelectingSignInOrUp(ui, curser, totalInformationStorage, 
-                userInformation, bookInformation, inputFromUser, handlingException, regex);
+                userInformation, bookInformation, inputFromUser, handlingException, regex,
+                progressInSignInOrSignUp);
             enteringManagerMode = new EnteringManagerMode(ui, curser, totalInformationStorage, bookInformation, 
-                userInformation, inputFromUser, handlingException, regex);
+                userInformation, inputFromUser, handlingException, regex, progressInSignInOrSignUp);
         }
 
         public void SelectModeOfUserOrManager()      // 메인 콘솔창

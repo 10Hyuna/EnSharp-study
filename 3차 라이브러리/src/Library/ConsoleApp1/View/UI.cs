@@ -140,17 +140,21 @@ namespace Library.View
         public void PrintException(int condition)
         {
             
-            if (condition == ConstantNumber.notMatchedCondition)
+            if (condition == ConstantNumber.NOTMATCHEDCONDITION)
             {
                 Console.SetCursorPosition(34, 25);
                 Console.WriteLine("주어진 조건에 맞는 값을 입력해 주세요.");
 
             }
-            if (condition == ConstantNumber.notMatchedPassword)
+            if (condition == ConstantNumber.NOTMATCHEDPASSWORD)
             {   
                 Console.WriteLine("비밀번호의 값이 서로 다릅니다.");
             }
-            if (condition == ConstantNumber.invalidInformation)
+            if(condition == ConstantNumber.NOTMATCHEDID)
+            {
+                Console.WriteLine("저장된 아이디 정보가 없습니다. ");
+            }
+            if (condition == ConstantNumber.INVALIDINFORMATION)
             {
                 Console.Clear();
                 Console.SetCursorPosition(0, 0);
@@ -158,21 +162,21 @@ namespace Library.View
                 Console.WriteLine("다른 책을 입력하시려면 아무 키나 눌러 주세요.");
                 Console.ReadKey(true);
             }
-            if (condition == ConstantNumber.leakingbookAmount)
+            if (condition == ConstantNumber.LEAKINGBOOKAMOUNT)
             {
                 Console.WriteLine("책의 수량이 부족합니다.");
                 Console.WriteLine("다른 책을 입력하시려면 아무 키나 눌러 주세요.");
                 Console.ReadKey(true);
             }
-            if(condition == ConstantNumber.successBorrowBook)
+            if(condition == ConstantNumber.SUCCESSBORROWBOOK)
             {
                 Console.WriteLine("책 빌리기 성공!\n");
             }
-            if(condition == ConstantNumber.successReturnBook)
+            if(condition == ConstantNumber.SUCCESSRETURNBOOK)
             {
                 Console.WriteLine("책 반납 성공!\n");
             }
-            if(condition == ConstantNumber.alreadyRentBook)
+            if(condition == ConstantNumber.ALREADYRENTBOOK)
             {
                 Console.WriteLine("이미 대여 중인 책입니다.");
                 Console.WriteLine("다른 책을 입력하시려면 아무 키나 눌러 주세요.");

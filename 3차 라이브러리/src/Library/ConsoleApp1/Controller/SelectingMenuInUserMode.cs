@@ -18,10 +18,10 @@ namespace Library.Controller
         PrintingUserInformation printuserInformation;
         PrintingBookInformation printbookInformation;
         InputFromUser inputFromUser;
-        EnteringSelectedMenuAboutBookInUser selectedMenuAboutBook;
+        EnteringMenuOfUser selectedMenuAboutBook;
         RegexStorage regex;
         HandlingException handlingException;
-        EnteringSelectedMenuAboutUserInUser selectedMenuAboutUserInUser;
+        EnteringMenuOfBook selectedMenuAboutUserInUser;
 
         public SelectingMenuInUserMode(UI ui, MovingCurserPosition curser, TotalInformationStorage totalInformationStorage, 
             PrintingUserInformation userInformation, PrintingBookInformation bookInformation, InputFromUser inputFromUser,
@@ -35,10 +35,10 @@ namespace Library.Controller
             this.inputFromUser = inputFromUser;
             this.regex = regex;
             this.handlingException = handlingException;
-            selectedMenuAboutBook = new EnteringSelectedMenuAboutBookInUser(totalInformationStorage, bookInformation,
+            selectedMenuAboutBook = new EnteringMenuOfUser(totalInformationStorage, bookInformation,
                 inputFromUser, ui, handlingException, regex);
-            selectedMenuAboutUserInUser = new EnteringSelectedMenuAboutUserInUser(totalInformationStorage, userInformation,
-                inputFromUser, ui, constantNumber, handlingException, regex, curser);
+            selectedMenuAboutUserInUser = new EnteringMenuOfBook(totalInformationStorage, userInformation,
+                inputFromUser, ui, handlingException, regex, curser);
         }
         
         public void SelectMenuInUserMode()
@@ -49,15 +49,6 @@ namespace Library.Controller
 
             int checkingBreak = -1;
             bool isEnteredESC = false;
-
-            const int findingTheBook = 0;
-            const int rentingTheBook = 1;
-            const int checkingTheRentalBook = 2;
-            const int returningTheBook = 3;
-            const int returningTheBookList = 4;
-            const int modifyingInformationOfUser = 5;
-            const int delectingAccount = 6;
-            const int exit = -1;
 
             string[] menu = { "도서 찾기", "도서 대여", "도서 대여 확인", "도서 반납", "도서 반납 내역", "정보 수정", "계정 삭제" };
             while (!isEnteredESC)
@@ -75,25 +66,25 @@ namespace Library.Controller
 
                 switch (selectedMenu)
                 {
-                    case findingTheBook:
+                    case ConstantNumber.FINDTHEBOOK:
                         selectedMenuAboutBook.FindTheBookBySerching();
                         break;
-                    case rentingTheBook:
+                    case ConstantNumber.RENTTHEBOOK:
                         selectedMenuAboutBook.RentTheBook();
                         break;
-                    case checkingTheRentalBook:
+                    case ConstantNumber.CHECKTHERETALBOOK:
                         selectedMenuAboutBook.CheckTheRentalBook();
                         break;
-                    case returningTheBook:
+                    case ConstantNumber.RETURNTHEBOOK:
                         selectedMenuAboutBook.ReturnTheBook();
                         break;
-                    case returningTheBookList:
+                    case ConstantNumber.RETURNBOOKLIST:
                         selectedMenuAboutBook.ReturnTheBookList();
                         break;
-                    case modifyingInformationOfUser:
+                    case ConstantNumber.MODIFYMYINFORMATION:
                         selectedMenuAboutUserInUser.ModifyMyInformation();
                         break;
-                    case delectingAccount:
+                    case ConstantNumber.DELETEACCOUNT:
                         checkingBreak = selectedMenuAboutUserInUser.DeleteMyAccount();
                         break;
                 }

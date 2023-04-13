@@ -12,7 +12,7 @@ using Library.Utility;
 
 namespace Library.Controller
 {
-    class EnteringSelectedMenuAboutBookInUser
+    class EnteringMenuOfUser
     {
         TotalInformationStorage totalInformationStorage;
         PrintingBookInformation printBookInformation;
@@ -22,7 +22,7 @@ namespace Library.Controller
         HandlingException handlingException;
         RegexStorage regex;
 
-        public EnteringSelectedMenuAboutBookInUser(TotalInformationStorage totalInformationStorage,
+        public EnteringMenuOfUser(TotalInformationStorage totalInformationStorage,
             PrintingBookInformation printBookInformation, InputFromUser inputFromUser, UI ui,
             HandlingException handlingException, RegexStorage regex)
         {
@@ -174,7 +174,7 @@ namespace Library.Controller
                             {
                                 if (totalInformationStorage.users[i].borrowDatas[j].id == bookIdNum)
                                 {
-                                    ui.PrintException(ConstantNumber.alreadyRentBook);
+                                    ui.PrintException(ConstantNumber.ALREADYRENTBOOK);
                                     isAlreadyRentBook = true;
                                     break;
                                 }
@@ -189,7 +189,7 @@ namespace Library.Controller
                             if (int.Parse(totalInformationStorage.books[i].amount) <= 0)
                             {
                                 Console.Clear();
-                                ui.PrintException(ConstantNumber.leakingbookAmount);
+                                ui.PrintException(ConstantNumber.LEAKINGBOOKAMOUNT);
                                 isLeakedBookAmount = false;
                                 break;
                             }
@@ -211,7 +211,7 @@ namespace Library.Controller
 
                     if (bookIndex == -1)
                     {
-                        ui.PrintException(ConstantNumber.invalidInformation);
+                        ui.PrintException(ConstantNumber.INVALIDINFORMATION);
                         continue;
                     }
 
@@ -231,7 +231,7 @@ namespace Library.Controller
                 }
                 Console.Clear();
                 Console.SetCursorPosition(consoleInputRow, consoleInputColumn - 2);
-                ui.PrintException(ConstantNumber.successBorrowBook);
+                ui.PrintException(ConstantNumber.SUCCESSBORROWBOOK);
                 printBookInformation.PrintEsc();
 
                 keyInfo = Console.ReadKey(true);
@@ -352,12 +352,12 @@ namespace Library.Controller
                     }
                     if (!isValidBookInformation)
                     {
-                        ui.PrintException(ConstantNumber.invalidInformation);
+                        ui.PrintException(ConstantNumber.INVALIDINFORMATION);
                         continue;
                     }
 
                     Console.Clear();
-                    ui.PrintException(ConstantNumber.successReturnBook);
+                    ui.PrintException(ConstantNumber.SUCCESSRETURNBOOK);
                     printBookInformation.PrintEsc();
 
                     keyInfo = Console.ReadKey(true);
@@ -408,6 +408,20 @@ namespace Library.Controller
                     isInputESC = true;
                 }
             }
+        }
+        public void AddTheBook()
+        {
+
+        }
+
+        public void DeleteTheBook()
+        {
+
+        }
+
+        public void ModifyTheBook()
+        {
+
         }
     }
 }

@@ -11,10 +11,12 @@ namespace Library.Controller
 {
     class InputFromUser
     {
-        ConstantNumber constantNumber = new ConstantNumber();
-        public InputFromUser(ConstantNumber constantNumber) 
+        RegexStorage regex;
+        HandlingException handlingException;
+        public InputFromUser(RegexStorage regex, HandlingException handlingException) 
         {
-            this.constantNumber = constantNumber;
+            this.regex = regex;
+            this.handlingException = handlingException;
         }
 
         private bool isCharacterOrNumber(char input)
@@ -100,9 +102,14 @@ namespace Library.Controller
                     {
                         Console.WriteLine("*");
                     }
+                    else if(!handlingException.CheckException(input, regex.korean))
+                    {
+                        Console.Write(keyInfo.KeyChar);
+                    }
                     else
                     {
-                        Console.WriteLine(keyInfo.KeyChar);
+                        Console.Write(" ");
+                        Console.Write(keyInfo.KeyChar);
                     }
                 }
             }

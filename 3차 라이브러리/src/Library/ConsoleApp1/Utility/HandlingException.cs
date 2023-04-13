@@ -56,7 +56,7 @@ namespace Library.Utility
                 else
                 {
                     Console.SetCursorPosition(ConsoleInputRow, ConsoleInputColumn);
-                    ui.PrintException(ConstantNumber.notMatchedCondition);
+                    ui.PrintException(ConstantNumber.NOTMATCHEDCONDITION);
                     continue;
                 }
             }

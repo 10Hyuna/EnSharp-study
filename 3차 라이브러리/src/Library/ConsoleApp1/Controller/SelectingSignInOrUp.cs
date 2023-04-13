@@ -15,7 +15,7 @@ namespace Library.Controller
         UI ui;
         MovingCurserPosition curser;
         TotalInformationStorage totalInformationStorage;
-        EnteringUserMode enteringUserMode;
+        ProgressInSignInOrSignUp progressInSignInOrSignUp;
         SelectingMenuInUserMode userMode;
         PrintingBookInformation printbookInformation;
         PrintingUserInformation printuserInformation;
@@ -25,7 +25,7 @@ namespace Library.Controller
 
         public SelectingSignInOrUp(UI ui, MovingCurserPosition curser, TotalInformationStorage totalInformationStorage, 
             PrintingUserInformation userInformation, PrintingBookInformation bookInformation, InputFromUser inputFromUser,
-            HandlingException handlingException, RegexStorage regex)
+            HandlingException handlingException, RegexStorage regex, ProgressInSignInOrSignUp progressInSignInOrSignUp)
         {
             this.ui = ui;
             this.curser = curser;
@@ -35,8 +35,7 @@ namespace Library.Controller
             this.inputFromUser = inputFromUser;
             this.handlingException = handlingException;
             this.regex = regex;
-            enteringUserMode = new EnteringUserMode(ui, totalInformationStorage, curser, inputFromUser, 
-                printbookInformation, handlingException);
+            this.progressInSignInOrSignUp = progressInSignInOrSignUp;
             userMode = new SelectingMenuInUserMode(ui, curser, totalInformationStorage, userInformation, 
                 bookInformation, inputFromUser, handlingException, regex);
         }
@@ -58,7 +57,7 @@ namespace Library.Controller
 
             string[] menu = { "로그인", "회원가입" };
 
-            while (selectedMenu != exit)    // ESC를 누르지 않는 한 계속 반복
+            while (selectedMenu != ConstantNumber.EXIT)    // ESC를 누르지 않는 한 계속 반복
             {
                 Console.Clear();
                 ui.PrintMain();
@@ -71,7 +70,7 @@ namespace Library.Controller
                 {
                     Console.Clear();
                     ui.PrintSignUpUI();
-                    noError = enteringUserMode.SignUpMember();        // 회원가입 함수로 진입
+                    noError = progressInSignInOrSignUp.SignUpMember();        // 회원가입 함수로 진입
                     
                     if(noError == exit)
                     {
@@ -96,7 +95,7 @@ namespace Library.Controller
                 {
                     Console.Clear();
                     ui.PrintLogin();
-                    index = enteringUserMode.SignInMember();      // 로그인 함수로 진입
+                    index = progressInSignInOrSignUp.SignInMember(false);      // 로그인 함수로 진입
                     if(index == exit)
                     {
                         continue;

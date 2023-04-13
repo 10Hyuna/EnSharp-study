@@ -22,10 +22,12 @@ namespace Library.Controller
         InputFromUser inputFromUser;
         RegexStorage regex;
         HandlingException handlingException;
+        EnteringMenuOfUser menuOfUser;
 
         public SelectingSignInOrUp(UI ui, MovingCurserPosition curser, TotalInformationStorage totalInformationStorage, 
             PrintingUserInformation userInformation, PrintingBookInformation bookInformation, InputFromUser inputFromUser,
-            HandlingException handlingException, RegexStorage regex, ProgressInSignInOrSignUp progressInSignInOrSignUp)
+            HandlingException handlingException, RegexStorage regex, ProgressInSignInOrSignUp progressInSignInOrSignUp,
+            EnteringMenuOfUser menuOfUser)
         {
             this.ui = ui;
             this.curser = curser;
@@ -36,8 +38,9 @@ namespace Library.Controller
             this.handlingException = handlingException;
             this.regex = regex;
             this.progressInSignInOrSignUp = progressInSignInOrSignUp;
+            this.menuOfUser = menuOfUser;
             userMode = new SelectingMenuInUserMode(ui, curser, totalInformationStorage, userInformation, 
-                bookInformation, inputFromUser, handlingException, regex);
+                bookInformation, inputFromUser, handlingException, regex, menuOfUser);
         }
 
         public void UsingUserMenu()

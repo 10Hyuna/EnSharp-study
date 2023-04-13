@@ -14,9 +14,38 @@ namespace Library.View
             this.ui = ui;
         }
 
-        public void PrintManageAboutUserInformation()
+        public void PrintManageUser()
         {
+            int consoleInputRow = 53;
+            int consoleInputColumn = 3;
 
+            Console.WriteLine("\t\t\t\t----------------------------------------------------\n\n");
+            Console.WriteLine("\t\t\t\t               삭제할 유저 ID:\n\n");
+            Console.WriteLine("\t\t\t\t----------------------------------------------------");
+            Console.SetCursorPosition(37, 8);
+            Console.WriteLine("ESC : 뒤로 가기   ENTER : 입력하기");
+        }
+        public void PrintSuccessDeleteUser()
+        {
+            int consoleInputRow = 53;
+            int consoleInputColumn = 3;
+
+            Console.WriteLine("\t\t\t\t----------------------------------------------------\n\n");
+            Console.WriteLine("\t\t\t\t                    유저 정보 삭제!\n\n");
+            Console.WriteLine("\t\t\t\t----------------------------------------------------");
+            Console.SetCursorPosition(consoleInputRow, consoleInputColumn + 5);
+            Console.Write("ESC : 뒤로가기");
+        }
+
+        public void PrintUserList(string id, string name, string age,
+            string phoneNumber, string address)
+        {
+            Console.WriteLine("\n=====================================================================================\n");
+            Console.WriteLine("유저의 ID          : {0}", id);
+            Console.WriteLine("유저의 Name        : {0}", name);
+            Console.WriteLine("유저의 Age         : {0}", age);
+            Console.WriteLine("유저의 PhoneNumber : {0}", phoneNumber);
+            Console.WriteLine("유저의 Address     : {0}", address);
         }
 
         public void PrintRentalStateUI()

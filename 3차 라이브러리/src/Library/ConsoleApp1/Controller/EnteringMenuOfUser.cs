@@ -1,427 +1,216 @@
 ﻿using Library.Model;
 using Library.Model.DTO;
+using Library.Utility;
 using Library.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using System.Reflection.Metadata;
+using System.Runtime.CompilerServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Library.Utility;
 
 namespace Library.Controller
 {
     class EnteringMenuOfUser
     {
         TotalInformationStorage totalInformationStorage;
-        PrintingBookInformation printBookInformation;
+        PrintingUserInformation userInformation;
         InputFromUser inputFromUser;
         UI ui;
-        ConstantNumber constantNumber;
         HandlingException handlingException;
         RegexStorage regex;
-
+        MovingCurserPosition curser;
         public EnteringMenuOfUser(TotalInformationStorage totalInformationStorage,
-            PrintingBookInformation printBookInformation, InputFromUser inputFromUser, UI ui,
-            HandlingException handlingException, RegexStorage regex)
+            PrintingUserInformation printingUserInformation, InputFromUser inputFromUser, UI ui,
+            HandlingException handlingException, RegexStorage regex, MovingCurserPosition curser)
         {
-            this.printBookInformation = printBookInformation;
-            this.inputFromUser = inputFromUser;
             this.totalInformationStorage = totalInformationStorage;
+            this.userInformation = printingUserInformation;
+            this.inputFromUser = inputFromUser;
             this.ui = ui;
             this.handlingException = handlingException;
             this.regex = regex;
+            this.curser = curser;
         }
 
         ConsoleKeyInfo keyInfo;
-        bool isInputESC = false;
 
-        public int FindTheBookBySerching() // 찾고자 하는 책의 정보를 입력하는 함수
+        public void ModifyMyInformation()
         {
-            const int ConsoleInputRow = 19;
-            const int ConsoleInputColumn = 0;
+            int index = 0;
+            int selectedMenu = 0;
 
-            List<string> book;
-            isInputESC = false;
+            bool isInputEnter = false;
 
+            string[] menu = {"User ID (8~ 15글자 영어, 숫자 포함) :", "User PW (8~ 15글자 영어, 숫자 포함) :",
+                "User Name (한글, 영어 포함 2글자 이상 :", "User Age( 자연수 0 ~ 200세 ) :",
+                "User PhoneNumber ( 01x-xxxx-xxxx ) :","User Address ( 도로명 주소 형식 ) :", "회원 정보 수정하기"};
+            string id;
+            string password;
+            string name;
+            string age;
+            string phoneNumber;
+            string address;
+
+            for (int i = 0; i < totalInformationStorage.users.Count; i++)
+            {
+                if (totalInformationStorage.users[i].id == totalInformationStorage.loggedInUserId)
+                {
+                    index = i;
+                    break;
+                }
+            }
+
+            while (!isInputEnter)
+            {
+                Console.Clear();
+                ui.PrintBox(4);
+                userInformation.PrintModifyMyInformationUI();
+                selectedMenu = curser.SelectCurser(menu, menu.Length, selectedMenu);
+
+
+            }
+        }
+
+        public int DeleteMyAccount()
+        {
             ConsoleKeyInfo keyInfo;
 
-            while (!isInputESC)
-            {
-                Console.Clear();
-
-                book = PrintTheAllBook();
-                if (book == null)
-                    return -1;
-
-                printBookInformation.PrintFindingBookUI();
-                selectedBook(book[0], book[1], book[2]);
-
-                Console.SetCursorPosition(ConsoleInputRow, ConsoleInputColumn);
-
-                keyInfo = Console.ReadKey(true);
-
-                if (keyInfo.Key == ConsoleKey.Escape)
-                {
-                    isInputESC = true;
-                }
-            }
-            return 0;
-        }
-
-        public List<string> PrintTheAllBook()      // 책 찾기 메뉴에 진입했을 경우
-        {
-            const int ConsoleInputRow = 19;
-            const int ConsoleInputColumn = 0;
-
-            string title;
-            string author;
-            string publisher;
-
-            Console.Clear();
-            printBookInformation.PrintFindingBookUI();
-
-            for (int i = 0; i < totalInformationStorage.books.Count; i++)
-            {
-                printBookInformation.PrintBookList(totalInformationStorage.books[i].id, totalInformationStorage.books[i].title,
-                        totalInformationStorage.books[i].author, totalInformationStorage.books[i].publisher, totalInformationStorage.books[i].amount,
-                        totalInformationStorage.books[i].price, totalInformationStorage.books[i].publishDay, totalInformationStorage.books[i].ISBN,
-                        totalInformationStorage.books[i].information);
-            }
-
-            Console.SetCursorPosition(ConsoleInputRow, ConsoleInputColumn);
-            title = handlingException.IsValid(regex.containedOneCharacter, ConsoleInputRow, ConsoleInputColumn, 20, false);// 제목 입력
-            if (title == null)
-                return null;
-
-            author = handlingException.IsValid(regex.containedOneCharacter, ConsoleInputRow, ConsoleInputColumn + 1, 20, false);    // 작가 입력
-            if (author == null)
-                return null;
-
-            publisher = handlingException.IsValid(regex.containedOneCharacter, ConsoleInputRow, ConsoleInputColumn + 2, 20, false);
-            if (publisher == null)
-                return null;
-
-            Console.Clear();
-
-            return new List<string> { title, author, publisher };
-        }
-
-        public void selectedBook(string title, string author, string publisher)
-        {
-            for (int i = 0; i < totalInformationStorage.books.Count; i++)
-            {
-                if (totalInformationStorage.books[i].title.Contains(title) && totalInformationStorage.books[i].author.Contains(author) && totalInformationStorage.books[i].publisher.Contains(publisher))
-                {
-                    printBookInformation.PrintBookList(totalInformationStorage.books[i].id, totalInformationStorage.books[i].title,
-                        totalInformationStorage.books[i].author, totalInformationStorage.books[i].publisher, totalInformationStorage.books[i].amount,
-                        totalInformationStorage.books[i].price, totalInformationStorage.books[i].publishDay, totalInformationStorage.books[i].ISBN,
-                        totalInformationStorage.books[i].information);
-                }
-            }
-        }
-
-        public int RentTheBook()      // 책 대여 메뉴에 진입했을 때
-        {
-            const int consoleInputRow = 9;
-            const int consoleInputColumn = 2;
-
-            int bookIndex = -1;
-            int userIndex = 0;
-
-            int bookIdNum;
-            int amount;
-
-            string bookId;
-            string amountBook;
-
-            List<string> book;
-
-            isInputESC = false;
-            bool isLeakedBookAmount = false;
-            bool isAlreadyRentBook = false;
-
-            while (!isInputESC)
-            {
-                while (bookIndex == -1)
-                {
-                    Console.Clear();
-
-                    book = PrintTheAllBook();
-
-                    if (book == null)
-                        return -1;
-
-                    isLeakedBookAmount = true;
-
-                    printBookInformation.PrintRenttheBookUI();
-
-                    selectedBook(book[0], book[1], book[2]);
-                    Console.SetCursorPosition(consoleInputRow, consoleInputColumn - 2);
-                    bookId = handlingException.IsValid(regex.containedOneNumber, consoleInputRow, consoleInputColumn, 10, false);
-                    if (bookId == null)
-                        return -1;
-
-                    bookIdNum = int.Parse(bookId);
-
-                    for (int i = 0; i < totalInformationStorage.users.Count; i++)
-                    {
-                        if (totalInformationStorage.users[i].id == totalInformationStorage.loggedInUserId)
-                        {
-                            userIndex = i;
-                            for (int j = 0; j < totalInformationStorage.users[i].borrowDatas.Count; j++)
-                            {
-                                if (totalInformationStorage.users[i].borrowDatas[j].id == bookIdNum)
-                                {
-                                    ui.PrintException(ConstantNumber.ALREADYRENTBOOK);
-                                    isAlreadyRentBook = true;
-                                    break;
-                                }
-                            }
-                        }
-                    }
-
-                    for (int i = 0; i < totalInformationStorage.books.Count; i++)
-                    {
-                        if (bookIdNum == totalInformationStorage.books[i].id)
-                        {
-                            if (int.Parse(totalInformationStorage.books[i].amount) <= 0)
-                            {
-                                Console.Clear();
-                                ui.PrintException(ConstantNumber.LEAKINGBOOKAMOUNT);
-                                isLeakedBookAmount = false;
-                                break;
-                            }
-
-                            isLeakedBookAmount = true;
-                            bookIndex = i;
-                            amount = int.Parse(totalInformationStorage.books[i].amount);
-                            amount -= 1;
-                            amountBook = Convert.ToString(amount);
-                            totalInformationStorage.books[i].amount = amountBook;
-                            break;
-                        }
-                    }
-
-                    if (!isLeakedBookAmount)
-                    {
-                        continue;
-                    }
-
-                    if (bookIndex == -1)
-                    {
-                        ui.PrintException(ConstantNumber.INVALIDINFORMATION);
-                        continue;
-                    }
-
-                    for (int i = 0; i < totalInformationStorage.users.Count; i++)
-                    {
-                        if (totalInformationStorage.users[i].id == totalInformationStorage.loggedInUserId)
-                        {
-                            totalInformationStorage.users[userIndex].borrowDatas.Add(new BorrowBookList(totalInformationStorage.books[bookIndex].id,
-                                totalInformationStorage.books[bookIndex].title, totalInformationStorage.books[bookIndex].author,
-                                totalInformationStorage.books[bookIndex].publisher, totalInformationStorage.books[bookIndex].amount,
-                                totalInformationStorage.books[bookIndex].price, totalInformationStorage.books[bookIndex].publishDay,
-                                totalInformationStorage.books[bookIndex].ISBN, totalInformationStorage.books[bookIndex].information,
-                                DateTime.Now.ToString()));
-                            break;
-                        }
-                    }
-                }
-                Console.Clear();
-                Console.SetCursorPosition(consoleInputRow, consoleInputColumn - 2);
-                ui.PrintException(ConstantNumber.SUCCESSBORROWBOOK);
-                printBookInformation.PrintEsc();
-
-                keyInfo = Console.ReadKey(true);
-
-                if (keyInfo.Key == ConsoleKey.Escape)       // ESC를 입력한다면
-                {
-                    isInputESC = true;
-                }
-            }                       // 반복문 탈출
-            return 0;
-        }
-
-        public void CheckTheRentalBook()
-        {
-            isInputESC = false;
-            int userIndex = 0;
+            bool isSuccessDelete = true;
+            bool isInputEnter = false;
+            int index = 0;
+            int breakNumber = -1;
 
             for (int i = 0; i < totalInformationStorage.users.Count; i++)
             {
                 if (totalInformationStorage.users[i].id == totalInformationStorage.loggedInUserId)
                 {
-                    userIndex = i;
+                    index = i;
                     break;
                 }
             }
 
-            while (!isInputESC)
+            while (!isInputEnter)
             {
                 Console.Clear();
-                printBookInformation.PrintRentalBookTitle();
-
-                for (int j = 0; j < totalInformationStorage.users[userIndex].borrowDatas.Count; j++)
-                {
-                    printBookInformation.PrintRentalBookListUI(totalInformationStorage.users[userIndex].borrowDatas[j].id,
-                        totalInformationStorage.users[userIndex].borrowDatas[j].title, totalInformationStorage.users[userIndex].borrowDatas[j].author,
-                        totalInformationStorage.users[userIndex].borrowDatas[j].publisher, totalInformationStorage.users[userIndex].borrowDatas[j].amount,
-                        totalInformationStorage.users[userIndex].borrowDatas[j].price, totalInformationStorage.users[userIndex].borrowDatas[j].publishDay,
-                        totalInformationStorage.users[userIndex].borrowDatas[j].ISBN, totalInformationStorage.users[userIndex].borrowDatas[j].information,
-                        totalInformationStorage.users[userIndex].borrowDatas[j].borrowTime);
-                }
-                Console.SetCursorPosition(0, 0);
+                userInformation.PrintDeleteAccountUI();
 
                 keyInfo = Console.ReadKey(true);
 
-                if (keyInfo.Key == ConsoleKey.Escape)
+                if (keyInfo.Key == ConsoleKey.Enter)
                 {
-                    isInputESC = true;
+                    if (totalInformationStorage.users[index].borrowDatas.Count == 0)
+                    {
+                        ProgressDeletingAccount(index);
+                        isInputEnter = true;
+                        Console.Clear();
+                        userInformation.PrintSuccessDeleteAccount();
+                    }
+                    else
+                    {
+                        userInformation.PrintNotWorkedDeleteAccout();
+                        isSuccessDelete = false;
+                    }
                 }
-            }
-        }
-
-        public int ReturnTheBook()
-        {
-            const int consoleInputRow = 8;
-            const int consoleInputColumn = 2;
-
-            isInputESC = false;
-            bool isValidBookInformation = false;
-
-            string returnBookID;
-            int returnBookIDNumber;
-            int returnBookAmount = 0;
-            int userIndex = 0;
-
-            for (int i = 0; i < totalInformationStorage.users.Count; i++)
-            {
-                if (totalInformationStorage.users[i].id == totalInformationStorage.loggedInUserId)
+                else if (keyInfo.Key == ConsoleKey.Escape)
                 {
-                    userIndex = i;
+                    breakNumber = 0;
                     break;
                 }
-            }
-
-            while (!isInputESC)
-            {
-                Console.Clear();
-
-                printBookInformation.PrintReturnTheBookUI();
-                for (int j = 0; j < totalInformationStorage.users[userIndex].borrowDatas.Count; j++)
+                else
                 {
-                    printBookInformation.PrintReturnBookListUI(totalInformationStorage.users[userIndex].borrowDatas[j].id,
-                        totalInformationStorage.users[userIndex].borrowDatas[j].title, totalInformationStorage.users[userIndex].borrowDatas[j].author,
-                        totalInformationStorage.users[userIndex].borrowDatas[j].publisher, totalInformationStorage.users[userIndex].borrowDatas[j].amount,
-                        totalInformationStorage.users[userIndex].borrowDatas[j].price, totalInformationStorage.users[userIndex].borrowDatas[j].publishDay,
-                        totalInformationStorage.users[userIndex].borrowDatas[j].ISBN, totalInformationStorage.users[userIndex].borrowDatas[j].information,
-                        totalInformationStorage.users[userIndex].borrowDatas[j].borrowTime, DateTime.Now.ToString());
-                }
-                Console.SetCursorPosition(consoleInputRow, consoleInputColumn);
-                returnBookID = inputFromUser.InputStringFromUser(4, false, consoleInputRow, consoleInputColumn);
-                if (returnBookID == null)
-                {
-                    return -1;
+                    ui.PrintException(ConstantNumber.NOTMATCHEDCONDITION);
+                    continue;
                 }
 
-                returnBookIDNumber = int.Parse(returnBookID);
-
-                for (int j = totalInformationStorage.users[userIndex].borrowDatas.Count - 1; j >= 0; j--)
+                if (!isSuccessDelete)
                 {
-                    if (totalInformationStorage.users[userIndex].borrowDatas[j].id == returnBookIDNumber)
-                    {
-                        returnBookAmount = int.Parse(totalInformationStorage.users[userIndex].borrowDatas[j].amount);
-                        returnBookAmount++;
-                        totalInformationStorage.users[userIndex].borrowDatas[j].amount = Convert.ToString(returnBookAmount);
-
-                        isValidBookInformation = true;
-
-                        totalInformationStorage.users[userIndex].returnDatas.Add(new ReturnBookList(totalInformationStorage.users[userIndex].borrowDatas[j].id,
-                            totalInformationStorage.users[userIndex].borrowDatas[j].title, totalInformationStorage.users[userIndex].borrowDatas[j].author,
-                            totalInformationStorage.users[userIndex].borrowDatas[j].publisher, totalInformationStorage.users[userIndex].borrowDatas[j].amount,
-                            totalInformationStorage.users[userIndex].borrowDatas[j].price, totalInformationStorage.users[userIndex].borrowDatas[j].publishDay,
-                            totalInformationStorage.users[userIndex].borrowDatas[j].ISBN, totalInformationStorage.users[userIndex].borrowDatas[j].information,
-                            totalInformationStorage.users[userIndex].borrowDatas[j].borrowTime, DateTime.Now.ToString()));
-                        totalInformationStorage.users[userIndex].borrowDatas.Remove(totalInformationStorage.users[userIndex].borrowDatas[j]);
-                    }
-                    if (totalInformationStorage.books[userIndex].id == returnBookIDNumber)
-                    {
-                        totalInformationStorage.books[userIndex].amount = Convert.ToString(returnBookAmount);
-                    }
-                    if (!isValidBookInformation)
-                    {
-                        ui.PrintException(ConstantNumber.INVALIDINFORMATION);
-                        continue;
-                    }
-
-                    Console.Clear();
-                    ui.PrintException(ConstantNumber.SUCCESSRETURNBOOK);
-                    printBookInformation.PrintEsc();
-
                     keyInfo = Console.ReadKey(true);
-
                     if (keyInfo.Key == ConsoleKey.Escape)
                     {
-                        isInputESC = true;
+                        isInputEnter = true;
+                        continue;
+                    }
+                    else
+                    {
+                        Console.SetCursorPosition(40, 18);
+                        ui.PrintException(ConstantNumber.NOTMATCHEDCONDITION);
                     }
                 }
             }
-            return 0;
+            return breakNumber;
         }
-        public void ReturnTheBookList()
+
+        private void ProgressDeletingAccount(int index)
         {
-            isInputESC = false;
+            totalInformationStorage.users.RemoveAt(index);
+        }
 
-            int userIndex = 0;
+        public void ManageUserInformation()
+        {
+            int consoleInputRow = 60;
+            int consoleInputColumn = 10;
 
-            for (int i = 0; i < totalInformationStorage.users.Count; i++)
-            {
-                if (totalInformationStorage.users[i].id == totalInformationStorage.loggedInUserId)
-                {
-                    userIndex = i;
-                    break;
-                }
-            }
+            bool isInputESC = false;
+            bool isInvalidId = false;
+
+            string userId = "";
 
             while (!isInputESC)
             {
                 Console.Clear();
-                printBookInformation.PrintReturnBookTitle();
+                userInformation.PrintManageUser();
 
-                for (int j = 0; j < totalInformationStorage.users[userIndex].returnDatas.Count; j++)
+                Console.SetCursorPosition(consoleInputRow, consoleInputColumn);
+                for(int i=0; i < totalInformationStorage.users.Count; i++)
                 {
-                    printBookInformation.PrintReturnBookListUI(totalInformationStorage.users[userIndex].returnDatas[j].id,
-                        totalInformationStorage.users[userIndex].returnDatas[j].title, totalInformationStorage.users[userIndex].returnDatas[j].author,
-                        totalInformationStorage.users[userIndex].returnDatas[j].publisher, totalInformationStorage.users[userIndex].returnDatas[j].amount,
-                        totalInformationStorage.users[userIndex].returnDatas[j].price, totalInformationStorage.users[userIndex].returnDatas[j].publishDay,
-                        totalInformationStorage.users[userIndex].returnDatas[j].ISBN, totalInformationStorage.users[userIndex].returnDatas[j].information,
-                        totalInformationStorage.users[userIndex].returnDatas[j].borrowTime, totalInformationStorage.users[userIndex].returnDatas[j].returnTime);
+                    userInformation.PrintUserList(totalInformationStorage.users[i].id, totalInformationStorage.users[i].name,
+                        totalInformationStorage.users[i].age, totalInformationStorage.users[i].phoneNumber,
+                        totalInformationStorage.users[i].address);
+
+                }
+                userId = handlingException.IsValid(regex.idCheck, consoleInputRow + 3, consoleInputColumn - 7, 20, false);
+
+                for(int i = 0; i<totalInformationStorage.users.Count; i++)
+                {
+                    if (totalInformationStorage.users[i].id == userId)
+                    {
+                        isInvalidId = true;
+                        totalInformationStorage.users.RemoveAt(i);
+                    }
                 }
 
-                Console.SetCursorPosition(0, 0);
+                if(!isInvalidId)
+                {
+                    Console.SetCursorPosition(consoleInputRow, consoleInputColumn);
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    ui.PrintException(ConstantNumber.INVALIDUSERID);
+                    Console.ResetColor();
+                    continue;
+                }
+
+                Console.Clear();
+                userInformation.PrintSuccessDeleteUser();
+
+                for (int i = 0; i < totalInformationStorage.users.Count; i++)
+                {
+                    userInformation.PrintUserList(totalInformationStorage.users[i].id, totalInformationStorage.users[i].name,
+                        totalInformationStorage.users[i].age, totalInformationStorage.users[i].phoneNumber,
+                        totalInformationStorage.users[i].address);
+                }
+
                 keyInfo = Console.ReadKey(true);
 
                 if (keyInfo.Key == ConsoleKey.Escape)
                 {
                     isInputESC = true;
                 }
+                else
+                {
+                    ui.PrintException(ConstantNumber.NOTMATCHEDCONDITION);
+                }
             }
-        }
-        public void AddTheBook()
-        {
-
-        }
-
-        public void DeleteTheBook()
-        {
-
-        }
-
-        public void ModifyTheBook()
-        {
-
         }
     }
 }

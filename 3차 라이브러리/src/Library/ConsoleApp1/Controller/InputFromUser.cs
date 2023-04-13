@@ -13,6 +13,8 @@ namespace Library.Controller
     {
         RegexStorage regex;
         HandlingException handlingException;
+
+        public InputFromUser() { }
         public InputFromUser(RegexStorage regex, HandlingException handlingException) 
         {
             this.regex = regex;
@@ -102,14 +104,11 @@ namespace Library.Controller
                     {
                         Console.WriteLine("*");
                     }
-                    else if(!handlingException.CheckException(input, regex.korean))
-                    {
-                        Console.Write(keyInfo.KeyChar);
-                    }
                     else
                     {
-                        Console.Write(" ");
-                        Console.Write(keyInfo.KeyChar);
+                        Console.WriteLine();
+                        Console.SetCursorPosition(consoleInputRow, consoleInputColumn);
+                        Console.Write(input);
                     }
                 }
             }

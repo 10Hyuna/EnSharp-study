@@ -20,6 +20,8 @@ namespace Library.Controller
         PrintingUserInformation userInformation;
         MovingCurserPosition curser;
         EnteringManagerMode enteringManagerMode;
+        EnteringMenuOfUser menuOfUser;
+        EnteringMenuOfBook menuOfBook;
         SelectingSignInOrUp choiceBetweenSignInAndSignUp;
         InputFromUser inputFromUser;
         ConstantNumber constantNumber;
@@ -35,16 +37,19 @@ namespace Library.Controller
             bookInformation = new PrintingBookInformation();
             userInformation = new PrintingUserInformation(ui);
             regex = new RegexStorage();
+            inputFromUser = new InputFromUser();
             handlingException = new HandlingException(ui, inputFromUser, constantNumber, regex);
             inputFromUser = new InputFromUser(regex, handlingException);
             curser = new MovingCurserPosition(ui, inputFromUser, constantNumber);
             progressInSignInOrSignUp = new ProgressInSignInOrSignUp(ui, totalInformationStorage, curser,
                 inputFromUser, bookInformation, handlingException);
+            menuOfUser = new EnteringMenuOfUser(totalInformationStorage, userInformation, inputFromUser, ui, handlingException, regex, curser);
+            menuOfBook = new EnteringMenuOfBook(totalInformationStorage, bookInformation, inputFromUser, ui, handlingException, regex, curser);
             choiceBetweenSignInAndSignUp = new SelectingSignInOrUp(ui, curser, totalInformationStorage, 
                 userInformation, bookInformation, inputFromUser, handlingException, regex,
-                progressInSignInOrSignUp);
+                progressInSignInOrSignUp, menuOfUser);
             enteringManagerMode = new EnteringManagerMode(ui, curser, totalInformationStorage, bookInformation, 
-                userInformation, inputFromUser, handlingException, regex, progressInSignInOrSignUp);
+                userInformation, inputFromUser, handlingException, regex, progressInSignInOrSignUp, menuOfBook, menuOfUser);
         }
 
         public void SelectModeOfUserOrManager()      // 메인 콘솔창

@@ -18,14 +18,14 @@ namespace Library.Controller
         PrintingUserInformation printuserInformation;
         PrintingBookInformation printbookInformation;
         InputFromUser inputFromUser;
-        EnteringMenuOfUser selectedMenuAboutBook;
+        EnteringMenuOfBook menuOfBook;
         RegexStorage regex;
         HandlingException handlingException;
-        EnteringMenuOfBook selectedMenuAboutUserInUser;
+        EnteringMenuOfUser menuOfUser;
 
         public SelectingMenuInUserMode(UI ui, MovingCurserPosition curser, TotalInformationStorage totalInformationStorage, 
             PrintingUserInformation userInformation, PrintingBookInformation bookInformation, InputFromUser inputFromUser,
-            HandlingException handlingException, RegexStorage regex)
+            HandlingException handlingException, RegexStorage regex, EnteringMenuOfUser menuOfUser)
         {
             this.ui = ui;
             this.curser = curser;
@@ -35,10 +35,10 @@ namespace Library.Controller
             this.inputFromUser = inputFromUser;
             this.regex = regex;
             this.handlingException = handlingException;
-            selectedMenuAboutBook = new EnteringMenuOfUser(totalInformationStorage, bookInformation,
-                inputFromUser, ui, handlingException, regex);
-            selectedMenuAboutUserInUser = new EnteringMenuOfBook(totalInformationStorage, userInformation,
+            this.menuOfUser = menuOfUser;
+            menuOfBook = new EnteringMenuOfBook(totalInformationStorage, bookInformation,
                 inputFromUser, ui, handlingException, regex, curser);
+            
         }
         
         public void SelectMenuInUserMode()
@@ -67,25 +67,25 @@ namespace Library.Controller
                 switch (selectedMenu)
                 {
                     case ConstantNumber.FINDTHEBOOK:
-                        selectedMenuAboutBook.FindTheBookBySerching();
+                        menuOfBook.FindTheBookBySerching();
                         break;
                     case ConstantNumber.RENTTHEBOOK:
-                        selectedMenuAboutBook.RentTheBook();
+                        menuOfBook.RentTheBook();
                         break;
                     case ConstantNumber.CHECKTHERETALBOOK:
-                        selectedMenuAboutBook.CheckTheRentalBook();
+                        menuOfBook.CheckTheRentalBook();
                         break;
                     case ConstantNumber.RETURNTHEBOOK:
-                        selectedMenuAboutBook.ReturnTheBook();
+                        menuOfBook.ReturnTheBook();
                         break;
                     case ConstantNumber.RETURNBOOKLIST:
-                        selectedMenuAboutBook.ReturnTheBookList();
+                        menuOfBook.ReturnTheBookList();
                         break;
                     case ConstantNumber.MODIFYMYINFORMATION:
-                        selectedMenuAboutUserInUser.ModifyMyInformation();
+                        menuOfUser.ModifyMyInformation();
                         break;
                     case ConstantNumber.DELETEACCOUNT:
-                        checkingBreak = selectedMenuAboutUserInUser.DeleteMyAccount();
+                        checkingBreak = menuOfUser.DeleteMyAccount();
                         break;
                 }
 

@@ -142,9 +142,11 @@ namespace Library.View
             
             if (condition == ConstantNumber.NOTMATCHEDCONDITION)
             {
-                Console.SetCursorPosition(34, 25);
                 Console.WriteLine("주어진 조건에 맞는 값을 입력해 주세요.");
-
+            }
+            if(condition == ConstantNumber.VALIDVALUE)
+            {
+                Console.WriteLine("유효하지 않은 값입니다.");
             }
             if (condition == ConstantNumber.NOTMATCHEDPASSWORD)
             {   
@@ -180,6 +182,12 @@ namespace Library.View
             {
                 Console.WriteLine("이미 대여 중인 책입니다.");
                 Console.WriteLine("다른 책을 입력하시려면 아무 키나 눌러 주세요.");
+                Console.ReadKey(true);
+            }
+            if(condition == ConstantNumber.INVALIDBOOKID)
+            {
+                Console.WriteLine(" 삭제하려는 책의 아이디가 존재하지 않습니다.");
+                Console.WriteLine("\t\t\t\t\t\t\t     다른 책을 입력하시려면 아무 키나 눌러 주세요.");
                 Console.ReadKey(true);
             }
         }

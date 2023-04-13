@@ -23,11 +23,13 @@ namespace Library.Controller
         RegexStorage regex;
         ProgressInSignInOrSignUp progressInSignInOrSignUp;
         SelectingMenuInManagerMode managerMode;
-        EnteringMenuOfUser bookMenuSelect;
+        EnteringMenuOfBook menuOfBook;
+        EnteringMenuOfUser menuOfUser;
 
         public EnteringManagerMode(UI ui, MovingCurserPosition curser, TotalInformationStorage totalInformationStorage, 
             PrintingBookInformation bookInformation, PrintingUserInformation userInformation, InputFromUser inputFromUser,
-            HandlingException handlingException, RegexStorage regex, ProgressInSignInOrSignUp progressInSignInOrSignUp)
+            HandlingException handlingException, RegexStorage regex, ProgressInSignInOrSignUp progressInSignInOrSignUp,
+            EnteringMenuOfBook menuOfBook, EnteringMenuOfUser menuOfUser)
         {
             this.ui = ui;
             this.curser = curser;
@@ -38,8 +40,10 @@ namespace Library.Controller
             this.handlingException = handlingException;
             this.regex = regex;
             this.progressInSignInOrSignUp = progressInSignInOrSignUp;
+            this.menuOfBook = menuOfBook;
+            this.menuOfUser = menuOfUser;
             managerMode = new SelectingMenuInManagerMode(ui, totalInformationStorage, curser, regex, handlingException,
-                inputFromUser, bookInformation, userInformation);
+                inputFromUser, bookInformation, userInformation, menuOfBook, menuOfUser);
         }
         public void UsingManagerMenu()
         {

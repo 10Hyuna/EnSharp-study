@@ -1,6 +1,8 @@
 ﻿using Library.Model;
+using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -114,14 +116,80 @@ namespace Library.View
 
         public void PrintAddTheBookUI()
         {
+            int consoleInputRow = 53;
+            int consoleInputColumn = 3;
+            Console.SetCursorPosition(consoleInputRow, consoleInputColumn);
+            Console.WriteLine("도서 추가");
+            Console.SetCursorPosition(consoleInputRow - 15, consoleInputColumn + 2);
+            PrintEnter();
+            Console.SetCursorPosition(consoleInputRow + 2, consoleInputColumn + 2);
+            PrintEsc();
+            Console.WriteLine("\n\n\n");
+            Console.WriteLine("\t\t\t\t----------------------------------------------------\n");
+            Console.WriteLine("\t\t\t\t책 제목   : ");
+            Console.WriteLine("\t\t\t\t작가      : ");
+            Console.WriteLine("\t\t\t\t출판사    : ");
+            Console.WriteLine("\t\t\t\t수량      : ");
+            Console.WriteLine("\t\t\t\t가격      : ");
+            Console.WriteLine("\t\t\t\t출시일    : ");
+            Console.WriteLine("\t\t\t\tISBN      : ");
+            Console.WriteLine("\t\t\t\t책 정보   : \n");
+            Console.WriteLine("\t\t\t\t----------------------------------------------------\n");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("\t\t\t책 제목 - 영어, 한글, 숫자 ?!+= 1개 이상");
+            Console.WriteLine("\t\t\t작가    - 영어, 한글 1글자 이상");
+            Console.WriteLine("\t\t\t출판사  - 영어, 한글, 숫자 1개 이상");
+            Console.WriteLine("\t\t\t수량    - 1 ~ 999 사이의 자연수");
+            Console.WriteLine("\t\t\t가격    - 1 ~ 9999999 사이의 자연수");
+            Console.WriteLine("\t\t\t출시일  - 19xx or 20xx-xx-xx");
+            Console.WriteLine("\t\t\tISBN    - 정수 9개 + 영어 1개 + 공백 + 정수 13개");
+            Console.Write("\t\t\t정보    - 최소 1개의 문자 (공백 포함)");
+            Console.ResetColor();
+            Console.SetCursorPosition(0, 0);
+        }
 
+        public void PrintSuccessAddBook()
+        {
+            int consoleInputRow = 53;
+            int consoleInputColumn = 3;
+
+            Console.SetCursorPosition(consoleInputRow, consoleInputColumn);
+            Console.WriteLine("도서 추가");
+            Console.SetCursorPosition(consoleInputRow - 15, consoleInputColumn + 2);
+            PrintEnter();
+            Console.SetCursorPosition(consoleInputRow + 2, consoleInputColumn + 2);
+            PrintEsc();
+            Console.WriteLine("\n\n\n");
+            Console.WriteLine("\t\t\t\t----------------------------------------------------\n\n");
+            Console.WriteLine("\t\t\t\t                   책 추가 성공!\n\n");
+            Console.WriteLine("\t\t\t\t----------------------------------------------------\n");
         }
 
         public void PrintDeleteTheBookUI()
         {
+            int consoleInputRow = 53;
+            int consoleInputColumn = 3;
 
+            Console.WriteLine("\t\t\t\t----------------------------------------------------\n\n");
+            Console.WriteLine("\t\t\t\t               삭제할 책 ID:\n\n");
+            Console.WriteLine("\t\t\t\t----------------------------------------------------");
+            Console.SetCursorPosition(consoleInputRow - 15, consoleInputColumn + 5);
+            PrintEnter();
+            Console.SetCursorPosition(consoleInputRow + 2, consoleInputColumn + 5);
+            PrintEsc();
         }
 
+        public void PrintSuccessDeleteBook()
+        {
+            int consoleInputRow = 53;
+            int consoleInputColumn = 3;
+
+            Console.WriteLine("\t\t\t\t----------------------------------------------------\n\n");
+            Console.WriteLine("\t\t\t\t                    삭제 성공!\n\n");
+            Console.WriteLine("\t\t\t\t----------------------------------------------------");
+            Console.SetCursorPosition(consoleInputRow, consoleInputColumn + 5);
+            PrintEsc();
+        }
         public void PrintModifyAboutBookInformationUI()
         {
 

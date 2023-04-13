@@ -20,10 +20,12 @@ namespace Library.Controller
         InputFromUser inputFromUser;
         PrintingBookInformation printBookInformation;
         PrintingUserInformation printUserInformation;
-        EnteringMenuOfUser bookMenuSelect;
+        EnteringMenuOfBook menuOfBook;
+        EnteringMenuOfUser menuOfUser;
         public SelectingMenuInManagerMode(UI ui, TotalInformationStorage totalInformationStorage, MovingCurserPosition curser,
             RegexStorage regex, HandlingException handlingException, InputFromUser inputFromUser, 
-            PrintingBookInformation printBookInformation, PrintingUserInformation printUserInformation)
+            PrintingBookInformation printBookInformation, PrintingUserInformation printUserInformation, 
+            EnteringMenuOfBook menuOfBook, EnteringMenuOfUser menuOfUser)
         {
             this.ui = ui;
             this.totalInformationStorage = totalInformationStorage;
@@ -33,8 +35,8 @@ namespace Library.Controller
             this.inputFromUser = inputFromUser;
             this.printBookInformation = printBookInformation;
             this.printUserInformation = printUserInformation;
-            bookMenuSelect = new EnteringMenuOfUser(totalInformationStorage, printBookInformation,
-                inputFromUser, ui, handlingException, regex);
+            this.menuOfBook = menuOfBook;
+            this.menuOfUser = menuOfUser;
         }
 
         public void SelecMenuManagerMode()
@@ -62,11 +64,24 @@ namespace Library.Controller
 
                 switch(selectedMenu)
                 {
-                    //case ConstantNumber.FINDTHEBOOK:
-                    //    bookMenuSelect.FindTheBookBySerching();
-                    //    break;
-                    //case ConstantNumber.ADDTHEBOOK:
-                    //    bookMenuSelect.
+                    case ConstantNumber.FINDTHEBOOK:
+                        menuOfBook.FindTheBookBySerching();
+                        break;
+                    case ConstantNumber.ADDTHEBOOK:
+                        menuOfBook.AddTheBook();
+                        break;
+                    case ConstantNumber.DELETETHEBOOK:
+                        menuOfBook.DeleteTheBook();
+                        break;
+                    case ConstantNumber.MODIFYBOKKINFORMATION:
+                        menuOfBook.ModifyTheBook();
+                        break;
+                    case ConstantNumber.MANAGEUSER:
+                        menuOfUser.ManageUserInformation();
+                        break;
+                    case ConstantNumber.RENTALSTATE:
+                        menuOfBook.RentalState();
+                        break;
                 }
             }
         }

@@ -23,6 +23,7 @@ namespace Library.Controller
         SelectingSignInOrUp choiceBetweenSignInAndSignUp;
         InputFromUser inputFromUser;
         ConstantNumber constantNumber;
+        HandlingException handlingException;
         RegexStorage regex;
 
         public UsingLibrary()
@@ -34,10 +35,12 @@ namespace Library.Controller
             regex = new RegexStorage();
             inputFromUser = new InputFromUser(constantNumber);
             ui = new UI(constantNumber);
+            handlingException = new HandlingException(ui, inputFromUser, constantNumber, regex);
             curser = new MovingCurserPosition(ui, inputFromUser, constantNumber);
             choiceBetweenSignInAndSignUp = new SelectingSignInOrUp(ui, curser, totalInformationStorage, 
-                userInformation, bookInformation, inputFromUser, constantNumber, regex);
-            enteringManagerMode = new EnteringManagerMode(ui, curser, totalInformationStorage, bookInformation, userInformation, inputFromUser);
+                userInformation, bookInformation, inputFromUser, constantNumber, handlingException, regex);
+            enteringManagerMode = new EnteringManagerMode(ui, curser, totalInformationStorage, bookInformation, 
+                userInformation, inputFromUser);
         }
 
         public void SelectModeOfUserOrManager()      // 메인 콘솔창

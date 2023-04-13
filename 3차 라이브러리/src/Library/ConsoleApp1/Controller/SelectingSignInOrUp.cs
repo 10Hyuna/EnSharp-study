@@ -22,9 +22,11 @@ namespace Library.Controller
         InputFromUser inputFromUser;
         ConstantNumber constantNumber;
         RegexStorage regex;
+        HandlingException handlingException;
+
         public SelectingSignInOrUp(UI ui, MovingCurserPosition curser, TotalInformationStorage totalInformationStorage, 
             PrintingUserInformation userInformation, PrintingBookInformation bookInformation, InputFromUser inputFromUser,
-            ConstantNumber constantNumber, RegexStorage regex)
+            ConstantNumber constantNumber, HandlingException handlingException, RegexStorage regex)
         {
             this.ui = ui;
             this.curser = curser;
@@ -33,10 +35,12 @@ namespace Library.Controller
             this.printuserInformation = userInformation;
             this.inputFromUser = inputFromUser;
             this.constantNumber = constantNumber;
+            this.handlingException = handlingException;
             this.regex = regex;
-            enteringUserMode = new EnteringUserMode(ui, totalInformationStorage, curser, inputFromUser, constantNumber, printbookInformation);
+            enteringUserMode = new EnteringUserMode(ui, totalInformationStorage, curser, inputFromUser,
+                constantNumber, printbookInformation, handlingException);
             userMode = new SelectingMenuInUserMode(ui, curser, totalInformationStorage, userInformation, 
-                bookInformation, inputFromUser, constantNumber, regex);
+                bookInformation, inputFromUser, constantNumber, handlingException, regex);
         }
 
         public void UsingUserMenu()
@@ -46,7 +50,6 @@ namespace Library.Controller
             int noError;
 
             bool isEnterCheck = false;
-            bool isExitCheck = false;
 
             ConsoleKeyInfo keyInfo;
 
@@ -101,6 +104,7 @@ namespace Library.Controller
                         continue;
                     }
                     userMode.SelectMenuInUserMode(index);
+                    int a = 0;
                 }
             }
         }

@@ -23,7 +23,8 @@ namespace Library.Controller
         ConstantNumber constantNumber;
         PrintingBookInformation printBookInformation;
         public EnteringUserMode(UI ui, TotalInformationStorage totalInformationStorage, MovingCurserPosition curser,
-            InputFromUser inputFromUser, ConstantNumber constantNumber, PrintingBookInformation printBookInformation)
+            InputFromUser inputFromUser, ConstantNumber constantNumber, PrintingBookInformation printBookInformation,
+            HandlingException handlingException)
         {
             this.ui = ui;
             this.totalInformationStorage = totalInformationStorage;
@@ -31,8 +32,8 @@ namespace Library.Controller
             this.inputFromUser = inputFromUser;
             this.constantNumber = constantNumber;
             this.printBookInformation = printBookInformation;
+            this.handlingException = handlingException;
             regex = new RegexStorage();
-            handlingException = new HandlingException(inputFromUser, ui, constantNumber);
         }
 
         public int SignInMember()  // 로그인

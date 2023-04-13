@@ -37,21 +37,23 @@ namespace Library.Model.DTO
     }
     class BorrowBookList : BookInformation
     {
-        public string time { get; set; }
+        public string borrowTime { get; set; }
         
-        public BorrowBookList(int id, string title, string author, string publisher, string amount, string price, string publishDay, string ISBN, string information, string time) : base(id, title, author, publisher, amount, price, publishDay, ISBN, information) 
+        public BorrowBookList(int id, string title, string author, string publisher, string amount, string price, string publishDay, string ISBN, string information, string borrowTime) : base(id, title, author, publisher, amount, price, publishDay, ISBN, information) 
         {
-            this.time = time;
+            this.borrowTime = borrowTime;
         }
     }
 
     class ReturnBookList : BorrowBookList
     {
-        public string time { get; set; }
+        public string returnTime { get; set; }
 
-        public ReturnBookList(int id, string title, string author, string publisher, string amount, string price, string publishDay, string ISBN, string information, string time) : base(id, title, author, publisher, amount, price, publishDay, ISBN, information, time)
+        public ReturnBookList(int id, string title, string author, string publisher, string amount, 
+            string price, string publishDay, string ISBN, string information, string borrowTime, string returnTime) 
+            : base(id, title, author, publisher, amount, price, publishDay, ISBN, information, borrowTime)
         {
-            this.time = time;
+            this.returnTime = returnTime;
         }
     }
 }

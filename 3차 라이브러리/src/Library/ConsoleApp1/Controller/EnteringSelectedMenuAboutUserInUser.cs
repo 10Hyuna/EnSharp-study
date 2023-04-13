@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Library.Controller
 {
-    class EnteringSelectedMenuAboutUser
+    class EnteringSelectedMenuAboutUserInUser
     {
         public void ModifyMyInformation()
         {

@@ -18,13 +18,14 @@ namespace Library.Controller
         PrintingUserInformation printuserInformation;
         PrintingBookInformation printbookInformation;
         InputFromUser inputFromUser;
-        EnteringSelectedMenuAboutBook selectedMenuAboutBook;
+        EnteringSelectedMenuAboutBookInUser selectedMenuAboutBook;
         ConstantNumber constantNumber;
         RegexStorage regex;
+        HandlingException handlingException;
 
         public SelectingMenuInUserMode(UI ui, MovingCurserPosition curser, TotalInformationStorage totalInformationStorage, 
             PrintingUserInformation userInformation, PrintingBookInformation bookInformation, InputFromUser inputFromUser,
-            ConstantNumber constantNumber, RegexStorage regex)
+            ConstantNumber constantNumber, HandlingException handlingException, RegexStorage regex)
         {
             this.ui = ui;
             this.curser = curser;
@@ -34,10 +35,11 @@ namespace Library.Controller
             this.inputFromUser = inputFromUser;
             this.constantNumber = constantNumber;
             this.regex = regex;
-            selectedMenuAboutBook = new EnteringSelectedMenuAboutBook(totalInformationStorage, bookInformation,
-                inputFromUser, ui, constantNumber, regex);
+            this.handlingException = handlingException;
+            selectedMenuAboutBook = new EnteringSelectedMenuAboutBookInUser(totalInformationStorage, bookInformation,
+                inputFromUser, ui, constantNumber, handlingException, regex);
         }
-
+        
         public void SelectMenuInUserMode(int index)
         {               // 유저 모드에서 로그인에 성공했을 경우, 사용할 수 있는 메뉴
             Console.Clear();
@@ -79,8 +81,11 @@ namespace Library.Controller
                     case checkingTheRentalBook:
                         selectedMenuAboutBook.CheckTheRentalBook();
                         break;
-                    case returningTheBookList:
+                    case returningTheBook:
                         selectedMenuAboutBook.ReturnTheBook();
+                        break;
+                    case returningTheBookList:
+                        selectedMenuAboutBook.ReturnTheBookList();
                         break;
                     case modifyingInformationOfUser:
 
@@ -89,7 +94,6 @@ namespace Library.Controller
 
                         break;
                 }
-
             }
         }
     }

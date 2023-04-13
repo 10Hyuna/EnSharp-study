@@ -15,5 +15,7 @@ namespace Library.Utility
         public int invalidInformation = -1;
         public int leakingbookAmount = 3;
         public int successBorrowBook = 4;
+        public int successReturnBook = 5;
+        public int alreadyRentBook = 6;
     }
 }

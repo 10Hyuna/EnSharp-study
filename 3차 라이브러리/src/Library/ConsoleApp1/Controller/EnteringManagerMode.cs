@@ -57,14 +57,14 @@ namespace Library.Controller
                 Console.Clear();
                 ui.PrintLogin();
 
-                index = progressInSignInOrSignUp.SignInMember(true);
-                if(index == ConstantNumber.EXIT)
+                index = progressInSignInOrSignUp.SignInMember(true);        // 로그인 함수에 진입
+                if(index == ConstantNumber.EXIT)        // 도중에 ESC를 눌러 반환된 값이 온다면
                 {
-                    selectedMenu = ConstantNumber.EXIT;
+                    selectedMenu = ConstantNumber.EXIT;     
                 }
-                else
+                else            // ESC를 누르지 않았다면
                 {
-                    managerMode.SelecMenuManagerMode();
+                    managerMode.SelecMenuManagerMode();     // 매니저 모드에 진입
                 }
             }
         }

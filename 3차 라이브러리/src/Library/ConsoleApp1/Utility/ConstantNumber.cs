@@ -9,8 +9,9 @@ namespace Library.Utility
 {
     class ConstantNumber
     {
-        const int USERMENUENTER = 0;
-        const int MANAGERMENUENTER = 1;
+        public const int USERMENUENTER = 0;
+        public const int MANAGERMENUENTER = 1;
+        public const int OverlapData = 11;
 
         public const int NOTMATCHEDCONDITION = 1;
         public const int NOTMATCHEDPASSWORD = 2;
@@ -19,12 +20,13 @@ namespace Library.Utility
         public const int EXIT = -1;
         public const int SUCCESS = 0;
         public const int INVALIDINFORMATION = -1;
-        public const int LEAKINGBOOKAMOUNT = 3;
+        public const int LEAKINGBOOKAMOUNT = 30;
         public const int SUCCESSBORROWBOOK = 4;
         public const int SUCCESSRETURNBOOK = 5;
         public const int ALREADYRENTBOOK = 6;
         public const int INVALIDBOOKID = 7;
         public const int INVALIDUSERID = 8;
+        public const int SERCHEDBOOK = 20;
 
         public const int FINDTHEBOOK = 0;
         public const int RENTTHEBOOK = 1;

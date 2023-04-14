@@ -42,9 +42,15 @@ namespace Library.Controller
             userMode = new SelectingMenuInUserMode(ui, curser, totalInformationStorage, userInformation, 
                 bookInformation, inputFromUser, handlingException, regex, menuOfUser);
         }
+        static void Console_CancelKeyPress(object sender, ConsoleCancelEventArgs e) //ctrl + z 등 단축키를 통해
+        {
+            e.Cancel = true;
+        }
 
         public void UsingUserMenu()
         {       // 유저 모드에 진입했을 경우
+            Console.CancelKeyPress += new ConsoleCancelEventHandler(Console_CancelKeyPress);
+
             int WindowCenterWidth = 50;
             int WindowCenterHeight = 17;
 

@@ -13,10 +13,12 @@ namespace Library.View
     class UI
     {
         ConstantNumber constantNumber;
-        public UI(ConstantNumber constant)
+
+        static void Console_CancelKeyPress(object sender, ConsoleCancelEventArgs e) //ctrl + z 등 단축키를 통해
         {
-            this.constantNumber = constant;
+            e.Cancel = true;
         }
+
         public void PrintMain()
         {
             Console.WriteLine("\n");
@@ -139,7 +141,8 @@ namespace Library.View
 
         public void PrintException(int condition)
         {
-            
+            Console.CancelKeyPress += new ConsoleCancelEventHandler(Console_CancelKeyPress);
+
             if (condition == ConstantNumber.NOTMATCHEDCONDITION)
             {
                 Console.WriteLine("주어진 조건에 맞는 값을 입력해 주세요.");
@@ -189,6 +192,14 @@ namespace Library.View
                 Console.WriteLine(" 삭제하려는 책의 아이디가 존재하지 않습니다.");
                 Console.WriteLine("\t\t\t\t\t\t\t     다른 책을 입력하시려면 아무 키나 눌러 주세요.");
                 Console.ReadKey(true);
+            }
+            if(condition == ConstantNumber.OverlapData)
+            {
+                Console.WriteLine("이미 존재하는 아이디입니다.");
+            }
+            if(condition == ConstantNumber.SERCHEDBOOK)
+            {
+                Console.WriteLine("검색 결과에 없습니다.");
             }
         }
     }

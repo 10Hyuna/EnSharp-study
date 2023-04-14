@@ -15,8 +15,8 @@ namespace Library.Model.VO
             this.id = id;
             this.password = password;
         }
-        public string id { get; set;  }
-        public string password { get; set; }
+        public string id { get; }
+        public string password { get; }
 
     }
 }

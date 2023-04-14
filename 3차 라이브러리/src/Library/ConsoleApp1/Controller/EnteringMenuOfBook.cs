@@ -37,6 +37,11 @@ namespace Library.Controller
             this.regex = regex;
             this.curser = curser;
         }
+        static void Console_CancelKeyPress(object sender, ConsoleCancelEventArgs e) //ctrl + z 등 단축키를 통해
+        {
+            e.Cancel = true;
+        }
+
         int consoleInputRow = 0;
         int consoleInputColumn = 0;
 
@@ -45,6 +50,8 @@ namespace Library.Controller
 
         public int FindTheBookBySerching() // 찾고자 하는 책의 정보를 입력하는 함수
         {
+            Console.CancelKeyPress += new ConsoleCancelEventHandler(Console_CancelKeyPress);
+
             const int ConsoleInputRow = 19;
             const int ConsoleInputColumn = 0;
 
@@ -123,7 +130,7 @@ namespace Library.Controller
             if (inputAuthor == null)
                 return null;
 
-            inputPublisher = handlingException.IsValid(regex.containedOneValue, ConsoleInputRow, ConsoleInputColumn + 2, 20, false)     // 출판사 입력
+            inputPublisher = handlingException.IsValid(regex.containedOneValue, ConsoleInputRow, ConsoleInputColumn + 2, 20, false);     // 출판사 입력
             if (inputPublisher == null)
                 return null;
 
@@ -169,8 +176,20 @@ namespace Library.Controller
 
         public int RentTheBook()      // 책 대여 메뉴에 진입했을 때
         {
-            const int consoleInputRow = 9;
-            const int consoleInputColumn = 2;
+            Console.CancelKeyPress += new ConsoleCancelEventHandler(Console_CancelKeyPress);
+
+            int consoleInputRow = 9;
+            int consoleInputColumn = 2;
+
+            int id = 0;
+            string title = "";
+            string author = "";
+            string publisher = "";
+            string amount = "";
+            string price = "";
+            string publishDay = "";
+            string ISBN = "";
+            string information = "";
 
             int bookIndex = -1;
             int userIndex = 0;
@@ -186,6 +205,7 @@ namespace Library.Controller
             isInputESC = false;
             bool isLeakedBookAmount = false;
             bool isAlreadyRentBook = false;
+            bool isSerchedBook;
 
             for(int i = 0; i < totalInformationStorage.users.Count; i++)
             {
@@ -200,6 +220,7 @@ namespace Library.Controller
             {
                 while (bookIndex == -1)
                 {
+                    isSerchedBook = false;
                     Console.Clear();
 
                     book = PrintTheAllBook();       // 책의 정보 입력
@@ -219,6 +240,25 @@ namespace Library.Controller
                         return -1;
 
                     bookIdNum = int.Parse(bookId);  // 숫자로 변환
+
+                    for(int i = 0; i < totalInformationStorage.books.Count; i++)
+                    {
+                        if (totalInformationStorage.books[i].id == bookIdNum)
+                        {
+                            if (totalInformationStorage.books[i].title.Contains(book[0])
+                                && totalInformationStorage.books[i].author.Contains(book[1])
+                                && totalInformationStorage.books[i].publisher.Contains(book[2]))
+                            {
+                                isSerchedBook = true;
+                            }
+                        }
+                    }
+
+                    if(isSerchedBook)
+                    {
+                        ui.PrintException(ConstantNumber.SERCHEDBOOK);
+                        continue;
+                    }
 
                     for (int i = 0; i < totalInformationStorage.users[userIndex].borrowDatas.Count; i++)    
                     {
@@ -274,18 +314,14 @@ namespace Library.Controller
                             title = totalInformationStorage.books[bookIndex].title;
                             author = totalInformationStorage.books[bookIndex].author;
                             publisher = totalInformationStorage.books[bookIndex].publisher;
-                            inputAmount = totalInformationStorage.books[bookIndex].amount;
+                            amount = totalInformationStorage.books[bookIndex].amount;
                             price = totalInformationStorage.books[bookIndex].price;
                             publishDay = totalInformationStorage.books[bookIndex].publishDay;
-                            ISBN = totalInformationStorage.books[i].ISBN;
-                            information = totalInformationStorage.books[i].information;
+                            ISBN = totalInformationStorage.books[bookIndex].ISBN;
+                            information = totalInformationStorage.books[bookIndex].information;
 
-                            totalInformationStorage.users[userIndex].borrowDatas.Add(new BorrowBookList(totalInformationStorage.books[bookIndex].id,
-                                totalInformationStorage.books[bookIndex].title, totalInformationStorage.books[bookIndex].author,
-                                totalInformationStorage.books[bookIndex].publisher, totalInformationStorage.books[bookIndex].amount,
-                                totalInformationStorage.books[bookIndex].price, totalInformationStorage.books[bookIndex].publishDay,
-                                totalInformationStorage.books[bookIndex].ISBN, totalInformationStorage.books[bookIndex].information,
-                                DateTime.Now.ToString()));
+                            totalInformationStorage.users[userIndex].borrowDatas.Add(new BorrowBookList(id, title, author, publisher, amount, price,
+                                publishDay, ISBN, information, DateTime.Now.ToString()));
                             break;
                         }
                     }
@@ -307,6 +343,8 @@ namespace Library.Controller
 
         public void CheckTheRentalBook()
         {
+            Console.CancelKeyPress += new ConsoleCancelEventHandler(Console_CancelKeyPress);
+
             isInputESC = false;
             int userIndex = 0;
 
@@ -364,6 +402,8 @@ namespace Library.Controller
 
         public int ReturnTheBook()
         {
+            Console.CancelKeyPress += new ConsoleCancelEventHandler(Console_CancelKeyPress);
+
             const int consoleInputRow = 8;
             const int consoleInputColumn = 2;
 
@@ -482,6 +522,8 @@ namespace Library.Controller
         }
         public void ReturnTheBookList()
         {
+            Console.CancelKeyPress += new ConsoleCancelEventHandler(Console_CancelKeyPress);
+
             isInputESC = false;
 
             int userIndex = 0;
@@ -541,6 +583,8 @@ namespace Library.Controller
         }
         public void AddTheBook()
         {
+            Console.CancelKeyPress += new ConsoleCancelEventHandler(Console_CancelKeyPress);
+
             const int ConsoleInputRow = 44;
             const int ConsoleInputColumn = 12;
 
@@ -599,7 +643,7 @@ namespace Library.Controller
             if (information == null)
                 return;
 
-            keyInfo = Console.ReadKey();
+            keyInfo = Console.ReadKey(true);
 
             if (keyInfo.Key == ConsoleKey.Enter)
             {
@@ -627,6 +671,8 @@ namespace Library.Controller
 
         public void DeleteTheBook()
         {
+            Console.CancelKeyPress += new ConsoleCancelEventHandler(Console_CancelKeyPress);
+
             bool isValidId = false;
 
             int consoleInputRow = 60;

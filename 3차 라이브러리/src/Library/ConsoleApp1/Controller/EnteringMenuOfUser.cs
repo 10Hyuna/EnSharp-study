@@ -36,6 +36,11 @@ namespace Library.Controller
             this.regex = regex;
             this.curser = curser;
         }
+        static void Console_CancelKeyPress(object sender, ConsoleCancelEventArgs e) //ctrl + z 등 단축키를 통해
+        {
+            e.Cancel = true;
+        }
+
         bool isInputESC;
         ConsoleKeyInfo keyInfo;
 
@@ -225,6 +230,8 @@ namespace Library.Controller
 
         public int DeleteMyAccount()
         {
+            Console.CancelKeyPress += new ConsoleCancelEventHandler(Console_CancelKeyPress);
+
             ConsoleKeyInfo keyInfo;
 
             bool isSuccessDelete = true;
@@ -403,6 +410,8 @@ namespace Library.Controller
         }
         public void RentalState()
         {
+            Console.CancelKeyPress += new ConsoleCancelEventHandler(Console_CancelKeyPress);
+
             isInputESC = false;
 
             while (!isInputESC)
@@ -413,11 +422,10 @@ namespace Library.Controller
 
                 for(int i =0; i < totalInformationStorage.users.Count;i++)
                 {
-                    userInformation.PrintUserId(totalInformationStorage.users[i].id);
                     RentalStateInBorrowBook(i);
                 }
 
-                if(Console.ReadKey().Key == ConsoleKey.Escape)
+                if(Console.ReadKey(true).Key == ConsoleKey.Escape)
                 {
                     isInputESC = true;
                 }

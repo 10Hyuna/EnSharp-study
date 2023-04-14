@@ -20,6 +20,10 @@ namespace Library.Controller
             this.regex = regex;
             this.handlingException = handlingException;
         }
+        static void Console_CancelKeyPress(object sender, ConsoleCancelEventArgs e) //ctrl + z 등 단축키를 통해
+        {
+            e.Cancel = true;
+        }
 
         private bool isCharacterOrNumber(char input)
         {
@@ -27,8 +31,11 @@ namespace Library.Controller
                 return true;
             return false;
         }
+
         public int SelectKey(int endMenu, int selectedMenu)
         {
+            Console.CancelKeyPress += new ConsoleCancelEventHandler(Console_CancelKeyPress);
+
             ConsoleKeyInfo keyInfo;
 
             keyInfo = Console.ReadKey(true);
@@ -67,6 +74,8 @@ namespace Library.Controller
 
         public string InputStringFromUser(int maxLength, bool ispassword, int consoleInputRow, int consoleInputColumn)
         {
+            Console.CancelKeyPress += new ConsoleCancelEventHandler(Console_CancelKeyPress);
+
             bool isEnter = false;
             string input = "";
             int i = 0;

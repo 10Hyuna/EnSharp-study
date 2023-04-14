@@ -32,8 +32,7 @@ namespace Library.Controller
         public UsingLibrary()
         {
             totalInformationStorage = new TotalInformationStorage();
-            constantNumber = new ConstantNumber();
-            ui = new UI(constantNumber);
+            ui = new UI();
             bookInformation = new PrintingBookInformation();
             userInformation = new PrintingUserInformation(ui);
             regex = new RegexStorage();
@@ -63,10 +62,6 @@ namespace Library.Controller
 
             bool isEnterESC = false;
 
-            const int userMenuEnter = 0;        // 클래스로 모으기
-            const int managerMenuEnter = 1;
-            const int exit = -1;
-
             string[] menu = { "유저 모드", "매니저 모드" };
             while (!isEnterESC)
             {   
@@ -76,20 +71,19 @@ namespace Library.Controller
 
                 selectedMenu = curser.SelectCurser(menu, menu.Length, selectedMenu, WindowCenterWidth, WindowCenterHeight);        // 키보드를 통해 선택한 메뉴의 값이 무엇인지 보고 
 
-                if (selectedMenu == userMenuEnter)      // 유저 모드를 선택했다면
+                switch(selectedMenu)
                 {
-                    choiceBetweenSignInAndSignUp.UsingUserMenu();       // 유저 모드로 진입
+                    case ConstantNumber.USERMENUENTER:                      // 유저 모드를 선택했다면
+                        choiceBetweenSignInAndSignUp.UsingUserMenu();       // 유저 모드로 진입
+                        break;
+                    case ConstantNumber.MANAGERMENUENTER:             // 매니저 모드를 선택했다면
+                        enteringManagerMode.UsingManagerMenu(); // 매니저 모드로 진입
+                        break;
+                    case ConstantNumber.EXIT:                   // ESC를 눌렀다면
+                        Console.Clear();
+                        isEnterESC = true;
+                        break;
                 }
-
-                else if (selectedMenu == managerMenuEnter)      // 매니저 모드를 선택했다면
-                {
-                    enteringManagerMode.UsingManagerMenu(); // 매니저 모드로 진입
-                }
-                else if (selectedMenu == exit)      // ESC를 눌렀다면
-                {
-                    Console.Clear();
-                    isEnterESC = true;
-                }       // switch-case
             }
         }
 

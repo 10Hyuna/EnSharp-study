@@ -60,7 +60,7 @@ namespace Library.Controller
 
                 selectedMenu = curser.SelectCurser(menu, menu.Length, selectedMenu, WindowCenterWidth, WindowCenterHeight);
 
-                if(selectedMenu == -1)
+                if(selectedMenu == ConstantNumber.EXIT)      // 중도에 ESC를 눌러 반환된 값이 있다면
                 {
                     isEnteredESC = true;
                 }

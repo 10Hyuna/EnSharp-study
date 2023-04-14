@@ -9,6 +9,7 @@ using Library.Utility;
 using Library.View;
 using Library.Model.VO;
 using Library.Model.DTO;
+using System.Reflection.Metadata.Ecma335;
 
 namespace Library.Controller
 {
@@ -94,13 +95,14 @@ namespace Library.Controller
         }
         public int SignUpMember()      // 회원가입
         {
-            const int ConsoleInputRow = 72;
-            const int ConsoleInputColumn = 23;
+            int ConsoleInputRow = 72;
+            int ConsoleInputColumn = 23;
 
             bool isValidInput = false;
+            bool isOverlapData = false;
             bool isSamePW = false;
 
-            string id;
+            string id = "";
             string password;
             string checkPassword;
             string name;
@@ -108,10 +110,27 @@ namespace Library.Controller
             string phoneNumber;
             string address;
 
-            id = handlingException.IsValid(regex.idCheck, ConsoleInputRow, ConsoleInputColumn, 15, false);
-            if (id == null)
-                return -1;
-
+            while (!isOverlapData)
+            {
+                id = handlingException.IsValid(regex.idCheck, ConsoleInputRow, ConsoleInputColumn, 15, false);
+                if (id == null)
+                    return -1;
+                for (int i = 0; i < totalInformationStorage.users.Count; i++)
+                {
+                    if (totalInformationStorage.users[i].id == id)
+                    {
+                        isOverlapData = true;
+                        break;
+                    }
+                }
+                if (isOverlapData)
+                {
+                    Console.SetCursorPosition(ConsoleInputRow, ConsoleInputColumn);
+                    ui.PrintException(ConstantNumber.OverlapData);
+                    ConsoleInputColumn--;
+                    continue;
+                }
+            }
             password = handlingException.IsValid(regex.passwordCheck, ConsoleInputRow, ConsoleInputColumn + 1, 15, true);
             if (password == null)
                 return -1;

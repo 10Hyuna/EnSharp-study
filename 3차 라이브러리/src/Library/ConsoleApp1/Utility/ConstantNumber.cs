@@ -9,6 +9,9 @@ namespace Library.Utility
 {
     class ConstantNumber
     {
+        const int USERMENUENTER = 0;
+        const int MANAGERMENUENTER = 1;
+
         public const int NOTMATCHEDCONDITION = 1;
         public const int NOTMATCHEDPASSWORD = 2;
         public const int NOTMATCHEDID = 3;

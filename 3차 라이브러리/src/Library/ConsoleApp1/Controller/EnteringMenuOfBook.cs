@@ -10,6 +10,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Library.Utility;
 using System.Data;
+using Microsoft.VisualBasic;
+using System.Diagnostics;
 
 namespace Library.Controller
 {
@@ -46,7 +48,7 @@ namespace Library.Controller
             const int ConsoleInputRow = 19;
             const int ConsoleInputColumn = 0;
 
-            List<string> book;
+            List<string> book;          // 찾을 책의 정보를 저장할 리스트
             isInputESC = false;
 
             ConsoleKeyInfo keyInfo;
@@ -55,16 +57,16 @@ namespace Library.Controller
             {
                 Console.Clear();
 
-                book = PrintTheAllBook();
-                if (book == null)
+                book = PrintTheAllBook();      
+                if (book == null)       // ESC를 눌러 반환값이 null이라면
                     return -1;
 
                 printBookInformation.PrintFindingBookUI();
-                selectedBook(book[0], book[1], book[2]);
+                selectedBook(book[0], book[1], book[2]);    // 찾고자 하는 책의 정보를 기반으로 책을 찾음
 
                 Console.SetCursorPosition(ConsoleInputRow, ConsoleInputColumn);
 
-                keyInfo = Console.ReadKey(true);
+                keyInfo = Console.ReadKey(true);        
 
                 if (keyInfo.Key == ConsoleKey.Escape)
                 {
@@ -113,15 +115,15 @@ namespace Library.Controller
             }
 
             Console.SetCursorPosition(ConsoleInputRow, ConsoleInputColumn);
-            inputTitle = handlingException.IsValid(regex.containedOneValue, ConsoleInputRow, ConsoleInputColumn, 20, false);// 제목 입력
-            if (inputTitle == null)
+            inputTitle = handlingException.IsValid(regex.containedOneValue, ConsoleInputRow, ConsoleInputColumn, 20, false); // 제목 입력
+            if (inputTitle == null)     // ESC를 눌러 반환값이 null이라면
                 return null;
 
             inputAuthor = handlingException.IsValid(regex.containedOneValue, ConsoleInputRow, ConsoleInputColumn + 1, 20, false);    // 작가 입력
             if (inputAuthor == null)
                 return null;
 
-            inputPublisher = handlingException.IsValid(regex.containedOneValue, ConsoleInputRow, ConsoleInputColumn + 2, 20, false);
+            inputPublisher = handlingException.IsValid(regex.containedOneValue, ConsoleInputRow, ConsoleInputColumn + 2, 20, false)     // 출판사 입력
             if (inputPublisher == null)
                 return null;
 
@@ -130,7 +132,8 @@ namespace Library.Controller
             return new List<string> { inputTitle, inputAuthor, inputPublisher };
         }
 
-        public void selectedBook(string inputTitle, string inputAuthor, string inputPublisher)
+        public void selectedBook(string inputTitle, string inputAuthor, string inputPublisher)      // 주어진 책의 정보들과 일치하는
+                                                                                                    // 문자가 있는 책 출력
         {
             int id = 0;
             string title = "";
@@ -173,7 +176,7 @@ namespace Library.Controller
             int userIndex = 0;
 
             int bookIdNum;
-            int amount;
+            int inputAmount;
 
             string bookId;
             string amountBook;
@@ -184,9 +187,9 @@ namespace Library.Controller
             bool isLeakedBookAmount = false;
             bool isAlreadyRentBook = false;
 
-            for(int i=0;i<totalInformationStorage.users.Count;i++)
+            for(int i = 0; i < totalInformationStorage.users.Count; i++)
             {
-                if (totalInformationStorage.users[i].id == totalInformationStorage.loggedInUserId)
+                if (totalInformationStorage.users[i].id == totalInformationStorage.loggedInUserId)      // 로그인되어 있는 정보가 어느 인덱스인지 찾음
                 {
                     userIndex = i;
                     break;
@@ -199,28 +202,30 @@ namespace Library.Controller
                 {
                     Console.Clear();
 
-                    book = PrintTheAllBook();
+                    book = PrintTheAllBook();       // 책의 정보 입력
 
                     if (book == null)
                         return -1;
 
-                    isLeakedBookAmount = true;
+                    isLeakedBookAmount = true;      // 책의 수량이 부족할 경우의 수 확인 용도
 
                     printBookInformation.PrintRenttheBookUI();
 
                     selectedBook(book[0], book[1], book[2]);
                     Console.SetCursorPosition(consoleInputRow, consoleInputColumn - 2);
-                    bookId = handlingException.IsValid(regex.containedOneNumber, consoleInputRow, consoleInputColumn, 10, false);
-                    if (bookId == null)
+                    bookId = handlingException.IsValid(regex.containedOneNumber, consoleInputRow, consoleInputColumn, 10, false);   
+                    
+                    if (bookId == null)     // 중도에 ESC를 눌러 반환값이 null이라면
                         return -1;
 
-                    bookIdNum = int.Parse(bookId);
+                    bookIdNum = int.Parse(bookId);  // 숫자로 변환
 
-                    for (int i = 0; i < totalInformationStorage.users[userIndex].borrowDatas.Count; i++)
+                    for (int i = 0; i < totalInformationStorage.users[userIndex].borrowDatas.Count; i++)    
                     {
-                         if (totalInformationStorage.users[userIndex].borrowDatas[i].id == bookIdNum)
+                         if (totalInformationStorage.users[userIndex].borrowDatas[i].id == bookIdNum)   // 빌린 책 리스트 중 찾는 책의 아이디와
+                                                                                                        // 일치하는 아이디를 가진 책이 있다면
                          {
-                                 ui.PrintException(ConstantNumber.ALREADYRENTBOOK);
+                                 ui.PrintException(ConstantNumber.ALREADYRENTBOOK);     // 이미 대여 중인 책
                                  isAlreadyRentBook = true;
                                  break;
                          }
@@ -230,30 +235,32 @@ namespace Library.Controller
                     {
                         if (bookIdNum == totalInformationStorage.books[i].id)
                         {
-                            if (int.Parse(totalInformationStorage.books[i].amount) <= 0)
+                            if (int.Parse(totalInformationStorage.books[i].amount) <= 0)    // 수량이 0 이하인 경우
                             {
                                 Console.Clear();
-                                ui.PrintException(ConstantNumber.LEAKINGBOOKAMOUNT);
+                                ui.PrintException(ConstantNumber.LEAKINGBOOKAMOUNT);    // 책의 수량이 부족함을 출력
                                 isLeakedBookAmount = false;
                                 break;
                             }
-
-                            isLeakedBookAmount = true;
-                            bookIndex = i;
-                            amount = int.Parse(totalInformationStorage.books[i].amount);
-                            amount -= 1;
-                            amountBook = Convert.ToString(amount);
-                            totalInformationStorage.books[i].amount = amountBook;
-                            break;
+                            else
+                            {
+                                isLeakedBookAmount = true;      
+                                bookIndex = i;
+                                inputAmount = int.Parse(totalInformationStorage.books[i].amount);
+                                inputAmount -= 1;
+                                amountBook = Convert.ToString(inputAmount);
+                                totalInformationStorage.books[i].amount = amountBook;
+                                break;
+                            }
                         }
                     }
 
-                    if (!isLeakedBookAmount)
+                    if (!isLeakedBookAmount)    // 책의 수량이 부족할 경우 다른 책을 대여하도록 유도
                     {
                         continue;
                     }
 
-                    if (bookIndex == -1)
+                    if (bookIndex == -1)    // 유효하지 않은 값이 찾는 책의 인덱스일 경우
                     {
                         ui.PrintException(ConstantNumber.INVALIDINFORMATION);
                         continue;
@@ -263,6 +270,16 @@ namespace Library.Controller
                     {
                         if (totalInformationStorage.users[i].id == totalInformationStorage.loggedInUserId)
                         {
+                            id = totalInformationStorage.books[bookIndex].id;
+                            title = totalInformationStorage.books[bookIndex].title;
+                            author = totalInformationStorage.books[bookIndex].author;
+                            publisher = totalInformationStorage.books[bookIndex].publisher;
+                            inputAmount = totalInformationStorage.books[bookIndex].amount;
+                            price = totalInformationStorage.books[bookIndex].price;
+                            publishDay = totalInformationStorage.books[bookIndex].publishDay;
+                            ISBN = totalInformationStorage.books[i].ISBN;
+                            information = totalInformationStorage.books[i].information;
+
                             totalInformationStorage.users[userIndex].borrowDatas.Add(new BorrowBookList(totalInformationStorage.books[bookIndex].id,
                                 totalInformationStorage.books[bookIndex].title, totalInformationStorage.books[bookIndex].author,
                                 totalInformationStorage.books[bookIndex].publisher, totalInformationStorage.books[bookIndex].amount,

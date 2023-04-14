@@ -9,6 +9,7 @@ using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 using Library.Utility;
+using System.Data;
 
 namespace Library.Controller
 {
@@ -76,49 +77,87 @@ namespace Library.Controller
             const int ConsoleInputRow = 19;
             const int ConsoleInputColumn = 0;
 
-            string title;
-            string author;
-            string publisher;
+            string inputTitle;
+            string inputAuthor;
+            string inputPublisher;
+
+            int id = 0;
+            string title = "";
+            string author = "";
+            string publisher = "";
+            string amount = "";
+            string price = "";
+            string publishDay = "";
+            string ISBN = "";
+            string information = "";
 
             Console.Clear();
             printBookInformation.PrintFindingBookUI();
 
             for (int i = 0; i < totalInformationStorage.books.Count; i++)
             {
-                printBookInformation.PrintBookList(totalInformationStorage.books[i].id, totalInformationStorage.books[i].title,
-                        totalInformationStorage.books[i].author, totalInformationStorage.books[i].publisher, totalInformationStorage.books[i].amount,
-                        totalInformationStorage.books[i].price, totalInformationStorage.books[i].publishDay, totalInformationStorage.books[i].ISBN,
-                        totalInformationStorage.books[i].information);
+                id = totalInformationStorage.books[i].id;
+                title = totalInformationStorage.books[i].title;
+                author = totalInformationStorage.books[i].author;
+                publisher = totalInformationStorage.books[i].publisher;
+                amount = totalInformationStorage.books[i].amount;
+                price = totalInformationStorage.books[i].price;
+                publishDay = totalInformationStorage.books[i].publishDay;
+                ISBN = totalInformationStorage.books[i].ISBN;
+                information = totalInformationStorage.books[i].information;
+
+                printBookInformation.PrintBookList(id, title, author, publisher, amount,
+                    price, publishDay, ISBN, information);
             }
 
             Console.SetCursorPosition(ConsoleInputRow, ConsoleInputColumn);
-            title = handlingException.IsValid(regex.containedOneValue, ConsoleInputRow, ConsoleInputColumn, 20, false);// 제목 입력
-            if (title == null)
+            inputTitle = handlingException.IsValid(regex.containedOneValue, ConsoleInputRow, ConsoleInputColumn, 20, false);// 제목 입력
+            if (inputTitle == null)
                 return null;
 
-            author = handlingException.IsValid(regex.containedOneValue, ConsoleInputRow, ConsoleInputColumn + 1, 20, false);    // 작가 입력
-            if (author == null)
+            inputAuthor = handlingException.IsValid(regex.containedOneValue, ConsoleInputRow, ConsoleInputColumn + 1, 20, false);    // 작가 입력
+            if (inputAuthor == null)
                 return null;
 
-            publisher = handlingException.IsValid(regex.containedOneValue, ConsoleInputRow, ConsoleInputColumn + 2, 20, false);
-            if (publisher == null)
+            inputPublisher = handlingException.IsValid(regex.containedOneValue, ConsoleInputRow, ConsoleInputColumn + 2, 20, false);
+            if (inputPublisher == null)
                 return null;
 
             Console.Clear();
 
-            return new List<string> { title, author, publisher };
+            return new List<string> { inputTitle, inputAuthor, inputPublisher };
         }
 
-        public void selectedBook(string title, string author, string publisher)
+        public void selectedBook(string inputTitle, string inputAuthor, string inputPublisher)
         {
+            int id = 0;
+            string title = "";
+            string author = "";
+            string publisher = "";
+            string amount = "";
+            string price = "";
+            string publishDay = "";
+            string ISBN = "";
+            string information = "";
+
             for (int i = 0; i < totalInformationStorage.books.Count; i++)
             {
-                if (totalInformationStorage.books[i].title.Contains(title) && totalInformationStorage.books[i].author.Contains(author) && totalInformationStorage.books[i].publisher.Contains(publisher))
+                if (totalInformationStorage.books[i].title.Contains(inputTitle) 
+                    && totalInformationStorage.books[i].author.Contains(inputAuthor) 
+                    && totalInformationStorage.books[i].publisher.Contains(inputPublisher))
                 {
-                    printBookInformation.PrintBookList(totalInformationStorage.books[i].id, totalInformationStorage.books[i].title,
-                        totalInformationStorage.books[i].author, totalInformationStorage.books[i].publisher, totalInformationStorage.books[i].amount,
-                        totalInformationStorage.books[i].price, totalInformationStorage.books[i].publishDay, totalInformationStorage.books[i].ISBN,
-                        totalInformationStorage.books[i].information);
+                    id = totalInformationStorage.books[i].id;
+                    title = totalInformationStorage.books[i].title;
+                    author = totalInformationStorage.books[i].author;
+                    publisher = totalInformationStorage.books[i].publisher;
+                    amount = totalInformationStorage.books[i].amount;
+                    price = totalInformationStorage.books[i].price;
+                    publishDay = totalInformationStorage.books[i].publishDay;
+                    ISBN = totalInformationStorage.books[i].ISBN;
+                    information = totalInformationStorage.books[i].information;
+
+                    printBookInformation.PrintBookList(id, title, author, publisher,
+                        amount, price, publishDay, ISBN, information);
                 }
             }
         }
@@ -250,6 +289,17 @@ namespace Library.Controller
             isInputESC = false;
             int userIndex = 0;
 
+            int id = 0;
+            string title = "";
+            string author = "";
+            string publisher = "";
+            string amount = "";
+            string price = "";
+            string publishDay = "";
+            string ISBN = "";
+            string information = "";
+            string borrowTime = "";
+
             for (int i = 0; i < totalInformationStorage.users.Count; i++)
             {
                 if (totalInformationStorage.users[i].id == totalInformationStorage.loggedInUserId)
@@ -266,12 +316,19 @@ namespace Library.Controller
 
                 for (int j = 0; j < totalInformationStorage.users[userIndex].borrowDatas.Count; j++)
                 {
-                    printBookInformation.PrintRentalBookListUI(totalInformationStorage.users[userIndex].borrowDatas[j].id,
-                        totalInformationStorage.users[userIndex].borrowDatas[j].title, totalInformationStorage.users[userIndex].borrowDatas[j].author,
-                        totalInformationStorage.users[userIndex].borrowDatas[j].publisher, totalInformationStorage.users[userIndex].borrowDatas[j].amount,
-                        totalInformationStorage.users[userIndex].borrowDatas[j].price, totalInformationStorage.users[userIndex].borrowDatas[j].publishDay,
-                        totalInformationStorage.users[userIndex].borrowDatas[j].ISBN, totalInformationStorage.users[userIndex].borrowDatas[j].information,
-                        totalInformationStorage.users[userIndex].borrowDatas[j].borrowTime);
+                    id = totalInformationStorage.users[userIndex].borrowDatas[j].id;
+                    title = totalInformationStorage.users[userIndex].borrowDatas[j].title;
+                    author = totalInformationStorage.users[userIndex].borrowDatas[j].author;
+                    publisher = totalInformationStorage.users[userIndex].borrowDatas[j].publisher;
+                    amount = totalInformationStorage.users[userIndex].borrowDatas[j].amount;
+                    price = totalInformationStorage.users[userIndex].borrowDatas[j].price;
+                    publishDay = totalInformationStorage.users[userIndex].borrowDatas[j].publishDay;
+                    ISBN = totalInformationStorage.users[userIndex].borrowDatas[j].ISBN;
+                    information = totalInformationStorage.users[userIndex].borrowDatas[j].information;
+                    borrowTime = totalInformationStorage.users[userIndex].borrowDatas[j].borrowTime;
+
+                    printBookInformation.PrintRentalBookListUI(id, title, author, publisher, amount, 
+                        price, publishDay, ISBN, information, borrowTime);
                 }
                 Console.SetCursorPosition(0, 0);
 
@@ -297,6 +354,18 @@ namespace Library.Controller
             int returnBookAmount = 0;
             int userIndex = 0;
 
+            int id = 0;
+            string title = "";
+            string author = "";
+            string publisher = "";
+            string amount = "";
+            string price = "";
+            string publishDay = "";
+            string ISBN = "";
+            string information = "";
+            string borrowTime = "";
+            string returnTime = "";
+
             for (int i = 0; i < totalInformationStorage.users.Count; i++)
             {
                 if (totalInformationStorage.users[i].id == totalInformationStorage.loggedInUserId)
@@ -313,12 +382,20 @@ namespace Library.Controller
                 printBookInformation.PrintReturnTheBookUI();
                 for (int j = 0; j < totalInformationStorage.users[userIndex].borrowDatas.Count; j++)
                 {
-                    printBookInformation.PrintReturnBookListUI(totalInformationStorage.users[userIndex].borrowDatas[j].id,
-                        totalInformationStorage.users[userIndex].borrowDatas[j].title, totalInformationStorage.users[userIndex].borrowDatas[j].author,
-                        totalInformationStorage.users[userIndex].borrowDatas[j].publisher, totalInformationStorage.users[userIndex].borrowDatas[j].amount,
-                        totalInformationStorage.users[userIndex].borrowDatas[j].price, totalInformationStorage.users[userIndex].borrowDatas[j].publishDay,
-                        totalInformationStorage.users[userIndex].borrowDatas[j].ISBN, totalInformationStorage.users[userIndex].borrowDatas[j].information,
-                        totalInformationStorage.users[userIndex].borrowDatas[j].borrowTime, DateTime.Now.ToString());
+                    id = totalInformationStorage.users[userIndex].borrowDatas[j].id;
+                    title = totalInformationStorage.users[userIndex].borrowDatas[j].title;
+                    author = totalInformationStorage.users[userIndex].borrowDatas[j].author;
+                    publisher = totalInformationStorage.users[userIndex].borrowDatas[j].publisher;
+                    amount = totalInformationStorage.users[userIndex].borrowDatas[j].amount;
+                    price = totalInformationStorage.users[userIndex].borrowDatas[j].price;
+                    publishDay = totalInformationStorage.users[userIndex].borrowDatas[j].publishDay;
+                    ISBN = totalInformationStorage.users[userIndex].borrowDatas[j].ISBN;
+                    information = totalInformationStorage.users[userIndex].borrowDatas[j].information;
+                    borrowTime = totalInformationStorage.users[userIndex].borrowDatas[j].borrowTime;
+                    returnTime = DateTime.Now.ToString();
+
+                    printBookInformation.PrintReturnBookListUI(id, title, author, publisher, amount, 
+                        price, publishDay, ISBN, information, borrowTime, returnTime);
                 }
                 Console.SetCursorPosition(consoleInputRow, consoleInputColumn);
                 returnBookID = inputFromUser.InputStringFromUser(4, false, consoleInputRow, consoleInputColumn);
@@ -333,24 +410,35 @@ namespace Library.Controller
                 {
                     if (totalInformationStorage.users[userIndex].borrowDatas[j].id == returnBookIDNumber)
                     {
-                        returnBookAmount = int.Parse(totalInformationStorage.users[userIndex].borrowDatas[j].amount);
+                        id = totalInformationStorage.users[userIndex].borrowDatas[j].id;
+                        title = totalInformationStorage.users[userIndex].borrowDatas[j].title;
+                        author = totalInformationStorage.users[userIndex].borrowDatas[j].author;
+                        publisher = totalInformationStorage.users[userIndex].borrowDatas[j].publisher;
+                        amount = totalInformationStorage.users[userIndex].borrowDatas[j].amount;
+                        price = totalInformationStorage.users[userIndex].borrowDatas[j].price;
+                        publishDay = totalInformationStorage.users[userIndex].borrowDatas[j].publishDay;
+                        ISBN = totalInformationStorage.users[userIndex].borrowDatas[j].ISBN;
+                        information = totalInformationStorage.users[userIndex].borrowDatas[j].information;
+                        borrowTime = totalInformationStorage.users[userIndex].borrowDatas[j].borrowTime;
+                        returnTime = DateTime.Now.ToString();
+
+                        returnBookAmount = int.Parse(amount);
                         returnBookAmount++;
-                        totalInformationStorage.users[userIndex].borrowDatas[j].amount = Convert.ToString(returnBookAmount);
+
+                        amount = Convert.ToString(returnBookAmount);
 
                         isValidBookInformation = true;
+                        totalInformationStorage.users[userIndex].returnDatas.Add(new ReturnBookList(id, title, author, 
+                            publisher, amount, price, publishDay, ISBN, information, borrowTime, returnTime));
 
-                        totalInformationStorage.users[userIndex].returnDatas.Add(new ReturnBookList(totalInformationStorage.users[userIndex].borrowDatas[j].id,
-                            totalInformationStorage.users[userIndex].borrowDatas[j].title, totalInformationStorage.users[userIndex].borrowDatas[j].author,
-                            totalInformationStorage.users[userIndex].borrowDatas[j].publisher, totalInformationStorage.users[userIndex].borrowDatas[j].amount,
-                            totalInformationStorage.users[userIndex].borrowDatas[j].price, totalInformationStorage.users[userIndex].borrowDatas[j].publishDay,
-                            totalInformationStorage.users[userIndex].borrowDatas[j].ISBN, totalInformationStorage.users[userIndex].borrowDatas[j].information,
-                            totalInformationStorage.users[userIndex].borrowDatas[j].borrowTime, DateTime.Now.ToString()));
                         totalInformationStorage.users[userIndex].borrowDatas.Remove(totalInformationStorage.users[userIndex].borrowDatas[j]);
                     }
+
                     if (totalInformationStorage.books[userIndex].id == returnBookIDNumber)
                     {
                         totalInformationStorage.books[userIndex].amount = Convert.ToString(returnBookAmount);
                     }
+
                     if (!isValidBookInformation)
                     {
                         ui.PrintException(ConstantNumber.INVALIDINFORMATION);
@@ -377,6 +465,18 @@ namespace Library.Controller
 
             int userIndex = 0;
 
+            int id = 0;
+            string title = "";
+            string author = "";
+            string publisher = "";
+            string amount = "";
+            string price = "";
+            string publishDay = "";
+            string ISBN = "";
+            string information = "";
+            string borrowTime = "";
+            string returnTime = "";
+
             for (int i = 0; i < totalInformationStorage.users.Count; i++)
             {
                 if (totalInformationStorage.users[i].id == totalInformationStorage.loggedInUserId)
@@ -393,12 +493,20 @@ namespace Library.Controller
 
                 for (int j = 0; j < totalInformationStorage.users[userIndex].returnDatas.Count; j++)
                 {
-                    printBookInformation.PrintReturnBookListUI(totalInformationStorage.users[userIndex].returnDatas[j].id,
-                        totalInformationStorage.users[userIndex].returnDatas[j].title, totalInformationStorage.users[userIndex].returnDatas[j].author,
-                        totalInformationStorage.users[userIndex].returnDatas[j].publisher, totalInformationStorage.users[userIndex].returnDatas[j].amount,
-                        totalInformationStorage.users[userIndex].returnDatas[j].price, totalInformationStorage.users[userIndex].returnDatas[j].publishDay,
-                        totalInformationStorage.users[userIndex].returnDatas[j].ISBN, totalInformationStorage.users[userIndex].returnDatas[j].information,
-                        totalInformationStorage.users[userIndex].returnDatas[j].borrowTime, totalInformationStorage.users[userIndex].returnDatas[j].returnTime);
+                    id = totalInformationStorage.users[userIndex].returnDatas[j].id;
+                    title = totalInformationStorage.users[userIndex].returnDatas[j].title;
+                    author = totalInformationStorage.users[userIndex].returnDatas[j].author;
+                    publisher = totalInformationStorage.users[userIndex].returnDatas[j].publisher;
+                    amount = totalInformationStorage.users[userIndex].returnDatas[j].amount;
+                    price = totalInformationStorage.users[userIndex].returnDatas[j].price;
+                    publishDay = totalInformationStorage.users[userIndex].returnDatas[j].publishDay;
+                    ISBN = totalInformationStorage.users[userIndex].returnDatas[j].ISBN;
+                    information = totalInformationStorage.users[userIndex].returnDatas[j].information;
+                    borrowTime = totalInformationStorage.users[userIndex].returnDatas[j].borrowTime;
+                    returnTime = totalInformationStorage.users[userIndex].returnDatas[j].returnTime;
+
+                    printBookInformation.PrintReturnBookListUI(id, title, author, publisher, amount,
+                        price, publishDay, ISBN, information, borrowTime, returnTime);
                 }
 
                 Console.SetCursorPosition(0, 0);
@@ -503,16 +611,35 @@ namespace Library.Controller
             int consoleInputRow = 60;
             int consoleInputColumn = 3;
             string deleteBookId = "";
+
+            int id = 0;
+            string title = "";
+            string author = "";
+            string publisher = "";
+            string amount = "";
+            string price = "";
+            string publishDay = "";
+            string ISBN = "";
+            string information = "";
+
             while (!isInputESC)
             {
                 Console.Clear();
                 printBookInformation.PrintDeleteTheBookUI();
                 for (int i = 0; i < totalInformationStorage.books.Count; i++)
                 {
-                    printBookInformation.PrintBookList(totalInformationStorage.books[i].id, totalInformationStorage.books[i].title,
-                            totalInformationStorage.books[i].author, totalInformationStorage.books[i].publisher, totalInformationStorage.books[i].amount,
-                            totalInformationStorage.books[i].price, totalInformationStorage.books[i].publishDay, totalInformationStorage.books[i].ISBN,
-                            totalInformationStorage.books[i].information);
+                    id = totalInformationStorage.books[i].id;
+                    title = totalInformationStorage.books[i].title;
+                    author = totalInformationStorage.books[i].author;
+                    publisher = totalInformationStorage.books[i].publisher;
+                    amount = totalInformationStorage.books[i].amount;
+                    price = totalInformationStorage.books[i].price;
+                    publishDay = totalInformationStorage.books[i].publishDay;
+                    ISBN = totalInformationStorage.books[i].ISBN;
+                    information = totalInformationStorage.books[i].information;
+
+                    printBookInformation.PrintBookList(id, title, author, publisher, amount,
+                        price, publishDay, ISBN, information);
                 }
                 Console.SetCursorPosition(0, 0);
                 deleteBookId = handlingException.IsValid(regex.containedOneValue, consoleInputRow, consoleInputColumn, 4, false);
@@ -540,10 +667,18 @@ namespace Library.Controller
 
                 for (int i = 0; i < totalInformationStorage.books.Count; i++)
                 {
-                    printBookInformation.PrintBookList(totalInformationStorage.books[i].id, totalInformationStorage.books[i].title,
-                            totalInformationStorage.books[i].author, totalInformationStorage.books[i].publisher, totalInformationStorage.books[i].amount,
-                            totalInformationStorage.books[i].price, totalInformationStorage.books[i].publishDay, totalInformationStorage.books[i].ISBN,
-                            totalInformationStorage.books[i].information);
+                    id = totalInformationStorage.books[i].id;
+                    title = totalInformationStorage.books[i].title;
+                    author = totalInformationStorage.books[i].author;
+                    publisher = totalInformationStorage.books[i].publisher;
+                    amount = totalInformationStorage.books[i].amount;
+                    price = totalInformationStorage.books[i].price;
+                    publishDay = totalInformationStorage.books[i].publishDay;
+                    ISBN = totalInformationStorage.books[i].ISBN;
+                    information = totalInformationStorage.books[i].information;
+
+                    printBookInformation.PrintBookList(id, title, author, publisher, amount,
+                        price, publishDay, ISBN, information);
                 }
 
                 keyInfo = Console.ReadKey(true);
@@ -558,15 +693,207 @@ namespace Library.Controller
                 }
             }
         }
-
-        public void ModifyTheBook()
+        private int EnterEsc(string input)
         {
-
+            if (input == null)
+            {
+                return ConstantNumber.EXIT;
+            }
+            return ConstantNumber.SUCCESS;
         }
-
-        public void RentalState()
+        private string ModifyTitle()
         {
+            string input = "";
 
+            return input;
+        }
+        private string ModifyAuthor()
+        {
+            string input = "";
+
+            return input;
+        }
+        private string ModifyPublisher()
+        {
+            string input = "";
+
+            return input;
+        }
+        private string ModifyAmount()
+        {
+            string input = "";
+
+            return input;
+        }
+        private string ModifyPrice()
+        {
+            string input = "";
+
+            return input;
+        }
+        private string ModifyPublishDay()
+        {
+            string input = "";
+
+            return input;
+        }
+        public void ModifyBook(int bookIndex)
+        {
+            int index = 0;
+            int selectedMenu = 0;
+            int validInput = 0;
+
+            bool isInputEnter = false;
+
+            string[] menu = {"책 제목 (영어, 한글, 숫자 1개 이상 ) :", "작가 (영어, 한글 1개 이상) :",
+                "출판사 (영어, 한글, 숫자 1개 이상) :", "수량 ( 1 ~ 999 ) :",
+                "가격 ( 1 ~ 9999999 ) :","출시일 ( 19xx or 20xx-xx-xx ) :", "책 정보 수정하기"};
+
+            string title = "";
+            string author = "";
+            string publisher = "";
+            string amount = "";
+            string price = "";
+            string publishDay = "";
+
+            while (!isInputEnter)
+            {
+                validInput = 0;
+
+                selectedMenu = curser.SelectCurser(menu, menu.Length, selectedMenu);
+
+                switch (selectedMenu)
+                {
+                    case ConstantNumber.MODIFYTITLE:
+                        title = ModifyTitle();
+                        validInput = EnterEsc(title);
+                        break;
+                    case ConstantNumber.MODIFYAUTHOR:
+                        author = ModifyAuthor();
+                        validInput = EnterEsc(author);
+                        break;
+                    case ConstantNumber.MODIFYPUBLISHER:
+                        publisher = ModifyPublisher();
+                        validInput = EnterEsc(publisher);
+                        break;
+                    case ConstantNumber.MODIFYAMOUNT:
+                        amount = ModifyAmount();
+                        validInput = EnterEsc(amount);
+                        break;
+                    case ConstantNumber.MODIFYPRICE:
+                        price = ModifyPrice();
+                        validInput = EnterEsc(price);
+                        break;
+                    case ConstantNumber.MODIFTPUBLISHDAY:
+                        publishDay = ModifyPublishDay();
+                        validInput = EnterEsc(publishDay);
+                        break;
+                    case ConstantNumber.MODIFYSUCCESS:
+                        isInputEnter = true;
+                        break;
+                }
+                if (isInputEnter)
+                {
+                    if (title != "")
+                    {
+                        totalInformationStorage.books[index].title = title;
+                    }
+                    if (author != "")
+                    {
+                        totalInformationStorage.books[index].author = author;
+                    }
+                    if (publisher != "")
+                    {
+                        totalInformationStorage.books[index].publisher = publisher;
+                    }
+                    if (amount != "")
+                    {
+                        totalInformationStorage.books[index].amount = amount;
+                    }
+                    if (price != "")
+                    {
+                        totalInformationStorage.books[index].price = price;
+                    }
+                    if (publishDay != "")
+                    {
+                        totalInformationStorage.books[index].publishDay = publishDay;
+                    }
+                }
+
+                if (validInput == ConstantNumber.EXIT)
+                {
+                    isInputEnter = true;
+                }
+            }
+        }
+        public void EnterMenuModifyTheBook()
+        {
+            bool isValidId = false;
+
+            int consoleInputRow = 60;
+            int consoleInputColumn = 3;
+            int bookIndex = 0;
+
+            string modifyBookId = "";
+            int modifyBookIdNumber = 0;
+
+            int id = 0;
+            string title = "";
+            string author = "";
+            string publisher = "";
+            string amount = "";
+            string price = "";
+            string publishDay = "";
+            string ISBN = "";
+            string information = "";
+
+            while(isInputESC)
+            {
+                Console.Clear();
+                printBookInformation.PrintModifyBookInformationUI();
+
+                for (int i = 0; i < totalInformationStorage.books.Count; i++)
+                {
+                    id = totalInformationStorage.books[i].id;
+                    title = totalInformationStorage.books[i].title;
+                    author = totalInformationStorage.books[i].author;
+                    publisher = totalInformationStorage.books[i].publisher;
+                    amount = totalInformationStorage.books[i].amount;
+                    price = totalInformationStorage.books[i].price;
+                    publishDay = totalInformationStorage.books[i].publishDay;
+                    ISBN = totalInformationStorage.books[i].ISBN;
+                    information = totalInformationStorage.books[i].information;
+
+                    printBookInformation.PrintBookList(id, title, author, publisher, amount,
+                        price, publishDay, ISBN, information);
+
+                }
+
+                Console.SetCursorPosition(0, 0);
+                modifyBookId = handlingException.IsValid(regex.containedOneValue, consoleInputRow, consoleInputColumn, 20, false);
+                modifyBookIdNumber = int.Parse(modifyBookId);
+
+                for (int i = 0; i < totalInformationStorage.books.Count; i++)
+                {
+                    if (totalInformationStorage.books[i].id == modifyBookIdNumber)
+                    {
+                        bookIndex = i;
+                        isValidId = true;
+                        break;
+                    }
+                }
+
+                if (!isValidId)
+                {
+                    Console.SetCursorPosition(consoleInputRow, consoleInputColumn);
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    ui.PrintException(ConstantNumber.INVALIDBOOKID);
+                    Console.ResetColor();
+                    continue;
+                }
+
+                ModifyBook(bookIndex);
+            }
         }
     }
 }

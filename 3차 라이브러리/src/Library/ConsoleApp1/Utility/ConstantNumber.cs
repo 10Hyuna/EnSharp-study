@@ -14,6 +14,7 @@ namespace Library.Utility
         public const int NOTMATCHEDID = 3;
         public const int VALIDVALUE = 4;
         public const int EXIT = -1;
+        public const int SUCCESS = 0;
         public const int INVALIDINFORMATION = -1;
         public const int LEAKINGBOOKAMOUNT = 3;
         public const int SUCCESSBORROWBOOK = 4;
@@ -34,5 +35,20 @@ namespace Library.Utility
         public const int RENTALSTATE = 5;
         public const int MODIFYMYINFORMATION = 5;
         public const int DELETEACCOUNT = 6;
+
+        public const int MODIFYID = 0;
+        public const int MODIFYPASSWORD = 1;
+        public const int MODIFYNAME = 2;
+        public const int MODIFYAGE = 3;
+        public const int MODIFYPHONENUMBER = 4;
+        public const int MODIFTADDRESS = 5;
+        public const int MODIFYSUCCESS = 6;
+
+        public const int MODIFYTITLE = 0;
+        public const int MODIFYAUTHOR = 1;
+        public const int MODIFYPUBLISHER = 2;
+        public const int MODIFYAMOUNT = 3;
+        public const int MODIFYPRICE = 4;
+        public const int MODIFTPUBLISHDAY = 5;
     }
 }

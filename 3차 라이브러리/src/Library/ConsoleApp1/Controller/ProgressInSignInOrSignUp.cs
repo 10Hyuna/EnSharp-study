@@ -160,7 +160,7 @@ namespace Library.Controller
             }
             isValidInput = false;
 
-            phoneNumber = handlingException.IsValid(regex.phoneNumCheck, ConsoleInputRow + 1, ConsoleInputColumn + 5, 20, false);
+            phoneNumber = handlingException.IsValid(regex.phoneNumberCheck, ConsoleInputRow + 1, ConsoleInputColumn + 5, 20, false);
             if (phoneNumber == null)
                 return -1;
 

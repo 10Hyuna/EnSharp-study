@@ -16,8 +16,6 @@ namespace Library.View
 
         public void PrintManageUser()
         {
-            int consoleInputRow = 53;
-            int consoleInputColumn = 3;
 
             Console.WriteLine("\t\t\t\t----------------------------------------------------\n\n");
             Console.WriteLine("\t\t\t\t               삭제할 유저 ID:\n\n");
@@ -50,7 +48,37 @@ namespace Library.View
 
         public void PrintRentalStateUI()
         {
+            Console.SetCursorPosition(0, 2);
+            Console.WriteLine("\t\t\t\t\t\t     대 여 상 황");
+            Console.WriteLine("\t\t\t\tESC : 뒤로가기     ENTER : 선택하기\n\n");
+        }
 
+        public void PrintUserId(string id)
+        {
+            Console.WriteLine("\n=====================================================================================\n");
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
+            Console.WriteLine (id);
+            Console.ResetColor();
+        }
+
+        public void PrintRentalList(int id, string title, string author, string publisher, 
+            string amount, string price, string publishDay, string ISBN, string information,
+            string borrowTime, string returnTime)
+        {
+            Console.WriteLine("\n=====================================================================================\n");
+            Console.WriteLine("책 아이디  : {0}", id);
+            Console.WriteLine("책 제목    : {0}", title);
+            Console.WriteLine("작가       : {0}", author);
+            Console.WriteLine("출판사     : {0}", publisher);
+            Console.WriteLine("수량       : {0}", amount);
+            Console.WriteLine("가격       : {0}", price);
+            Console.WriteLine("출시일     : {0}", publishDay);
+            Console.WriteLine("ISBN       : {0}", ISBN);
+            Console.WriteLine("책 정보    : {0}", information);
+            Console.WriteLine("빌린 시간  : {0}", borrowTime);
+            if (returnTime == "")
+                return;
+            Console.WriteLine("반납 시간  : {0}", returnTime);
         }
         public void PrintModifyMyInformationUI()
         {

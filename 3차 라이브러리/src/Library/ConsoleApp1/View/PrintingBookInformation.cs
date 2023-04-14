@@ -190,9 +190,30 @@ namespace Library.View
             Console.SetCursorPosition(consoleInputRow, consoleInputColumn + 5);
             PrintEsc();
         }
-        public void PrintModifyAboutBookInformationUI()
+        public void PrintModifyBookInformationUI()
         {
+            int consoleInputRow = 53;
+            int consoleInputColumn = 3;
 
+            Console.WriteLine("\t\t\t\t----------------------------------------------------\n\n");
+            Console.WriteLine("\t\t\t\t               수정할 책 ID:\n\n");
+            Console.WriteLine("\t\t\t\t----------------------------------------------------");
+            Console.SetCursorPosition(consoleInputRow - 15, consoleInputColumn + 5);
+            PrintEnter();
+            Console.SetCursorPosition(consoleInputRow + 2, consoleInputColumn + 5);
+            PrintEsc();
+        }
+
+        public void PrintSuccessModifyBook()
+        {
+            int consoleInputRow = 53;
+            int consoleInputColumn = 3;
+
+            Console.WriteLine("\t\t\t\t----------------------------------------------------\n\n");
+            Console.WriteLine("\t\t\t\t                    삭제 성공!\n\n");
+            Console.WriteLine("\t\t\t\t----------------------------------------------------");
+            Console.SetCursorPosition(consoleInputRow, consoleInputColumn + 5);
+            PrintEsc();
         }
     }
 }

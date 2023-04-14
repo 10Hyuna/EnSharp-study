@@ -74,13 +74,13 @@ namespace Library.Controller
                         menuOfBook.DeleteTheBook();
                         break;
                     case ConstantNumber.MODIFYBOKKINFORMATION:
-                        menuOfBook.ModifyTheBook();
+                        menuOfBook.EnterMenuModifyTheBook();
                         break;
                     case ConstantNumber.MANAGEUSER:
                         menuOfUser.ManageUserInformation();
                         break;
                     case ConstantNumber.RENTALSTATE:
-                        menuOfBook.RentalState();
+                        menuOfUser.RentalState();
                         break;
                 }
             }

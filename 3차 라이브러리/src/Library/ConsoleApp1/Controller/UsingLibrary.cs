@@ -56,6 +56,9 @@ namespace Library.Controller
         {   
             SaveInformationPreviously();
 
+            int WindowCenterWidth = 50;
+            int WindowCenterHeight = 17;
+
             int selectedMenu = 0;
 
             bool isEnterESC = false;
@@ -71,7 +74,7 @@ namespace Library.Controller
                 ui.PrintMain();
                 ui.PrintBox(6);
 
-                selectedMenu = curser.SelectCurser(menu, menu.Length, selectedMenu);        // 키보드를 통해 선택한 메뉴의 값이 무엇인지 보고 
+                selectedMenu = curser.SelectCurser(menu, menu.Length, selectedMenu, WindowCenterWidth, WindowCenterHeight);        // 키보드를 통해 선택한 메뉴의 값이 무엇인지 보고 
 
                 if (selectedMenu == userMenuEnter)      // 유저 모드를 선택했다면
                 {

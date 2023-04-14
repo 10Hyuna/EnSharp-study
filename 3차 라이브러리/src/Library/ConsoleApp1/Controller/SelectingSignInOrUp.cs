@@ -45,6 +45,9 @@ namespace Library.Controller
 
         public void UsingUserMenu()
         {       // 유저 모드에 진입했을 경우
+            int WindowCenterWidth = 50;
+            int WindowCenterHeight = 17;
+
             int selectedMenu = 0;
             int index;
             int noError;
@@ -66,8 +69,9 @@ namespace Library.Controller
                 ui.PrintMain();
                 ui.PrintBox(6);
 
-                selectedMenu = curser.SelectCurser(menu, menu.Length, selectedMenu);        // 키보드를 통한 진입과 선택으로 최종 엔터키를 입력한 뒤
-                                                                                                // 선택된 인덱스가 무엇인지 출력
+                selectedMenu = curser.SelectCurser(menu, menu.Length, selectedMenu, WindowCenterWidth, WindowCenterHeight);        
+                // 키보드를 통한 진입과 선택으로 최종 엔터키를 입력한 뒤
+                // 선택된 인덱스가 무엇인지 출력
 
                 if (selectedMenu == signUp)             // 회원가입을 선택했을 경우
                 {

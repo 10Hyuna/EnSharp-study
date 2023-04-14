@@ -41,6 +41,9 @@ namespace Library.Controller
 
         public void SelecMenuManagerMode()
         {
+            int WindowCenterWidth = 50;
+            int WindowCenterHeight = 17;
+
             Console.Clear();
             ui.PrintManagerMenu();
             int selectedMenu = 0;
@@ -55,7 +58,7 @@ namespace Library.Controller
                 ui.PrintMain();
                 ui.PrintBox(9);
 
-                selectedMenu = curser.SelectCurser(menu, menu.Length, selectedMenu);
+                selectedMenu = curser.SelectCurser(menu, menu.Length, selectedMenu, WindowCenterWidth, WindowCenterHeight);
 
                 if(selectedMenu == -1)
                 {

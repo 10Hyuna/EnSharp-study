@@ -43,8 +43,8 @@ namespace Library.Controller
         int consoleInputColumn;
         private string ModifyId()
         {
-            consoleInputRow = 40;
-            consoleInputColumn = 15;
+            consoleInputRow = 68;
+            consoleInputColumn = 7;
 
             string input = "";
 
@@ -54,8 +54,8 @@ namespace Library.Controller
         }
         private string ModifyPassword()
         {
-            consoleInputRow = 40;
-            consoleInputColumn = 16;
+            consoleInputRow = 68;
+            consoleInputColumn = 8;
 
             string input = "";
 
@@ -65,8 +65,8 @@ namespace Library.Controller
         }
         private string ModifyName()
         {
-            consoleInputRow = 40;
-            consoleInputColumn = 17;
+            consoleInputRow = 68;
+            consoleInputColumn = 9;
 
             string input = "";
 
@@ -76,8 +76,8 @@ namespace Library.Controller
         }
         private string ModifyAge()
         {
-            consoleInputRow = 40;
-            consoleInputColumn = 18;
+            consoleInputRow = 68;
+            consoleInputColumn = 10;
 
             string input = "";
 
@@ -87,8 +87,8 @@ namespace Library.Controller
         }
         private string ModifyPhoneNumber()
         {
-            consoleInputRow = 40;
-            consoleInputColumn = 19;
+            consoleInputRow = 68;
+            consoleInputColumn = 11;
 
             string input = "";
 
@@ -99,8 +99,8 @@ namespace Library.Controller
         }
         private string ModifyAddress()
         {
-            consoleInputRow = 40;
-            consoleInputColumn = 20;
+            consoleInputRow = 68;
+            consoleInputColumn = 12;
 
             string input = "";
 
@@ -119,6 +119,9 @@ namespace Library.Controller
         }
         public void ModifyMyInformation()
         {
+            int WindowCenterWidth = 30;
+            int WindowCenterHeight = 7;
+
             int index = 0;
             int selectedMenu = 0;
             int validInput = 0;
@@ -153,7 +156,7 @@ namespace Library.Controller
                 ui.PrintBox(4);
                 userInformation.PrintModifyMyInformationUI();
 
-                selectedMenu = curser.SelectCurser(menu, menu.Length, selectedMenu);
+                selectedMenu = curser.SelectCurser(menu, menu.Length, selectedMenu, WindowCenterWidth, WindowCenterHeight);
 
                 switch(selectedMenu)
                 {
@@ -412,6 +415,11 @@ namespace Library.Controller
                 {
                     userInformation.PrintUserId(totalInformationStorage.users[i].id);
                     RentalStateInBorrowBook(i);
+                }
+
+                if(Console.ReadKey().Key == ConsoleKey.Escape)
+                {
+                    isInputESC = true;
                 }
             }
         }

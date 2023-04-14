@@ -35,6 +35,8 @@ namespace Library.Controller
             this.regex = regex;
             this.curser = curser;
         }
+        int consoleInputRow = 0;
+        int consoleInputColumn = 0;
 
         ConsoleKeyInfo keyInfo;
         bool isInputESC = false;
@@ -182,6 +184,15 @@ namespace Library.Controller
             bool isLeakedBookAmount = false;
             bool isAlreadyRentBook = false;
 
+            for(int i=0;i<totalInformationStorage.users.Count;i++)
+            {
+                if (totalInformationStorage.users[i].id == totalInformationStorage.loggedInUserId)
+                {
+                    userIndex = i;
+                    break;
+                }
+            }
+
             while (!isInputESC)
             {
                 while (bookIndex == -1)
@@ -205,21 +216,14 @@ namespace Library.Controller
 
                     bookIdNum = int.Parse(bookId);
 
-                    for (int i = 0; i < totalInformationStorage.users.Count; i++)
+                    for (int i = 0; i < totalInformationStorage.users[userIndex].borrowDatas.Count; i++)
                     {
-                        if (totalInformationStorage.users[i].id == totalInformationStorage.loggedInUserId)
-                        {
-                            userIndex = i;
-                            for (int j = 0; j < totalInformationStorage.users[i].borrowDatas.Count; j++)
-                            {
-                                if (totalInformationStorage.users[i].borrowDatas[j].id == bookIdNum)
-                                {
-                                    ui.PrintException(ConstantNumber.ALREADYRENTBOOK);
-                                    isAlreadyRentBook = true;
-                                    break;
-                                }
-                            }
-                        }
+                         if (totalInformationStorage.users[userIndex].borrowDatas[i].id == bookIdNum)
+                         {
+                                 ui.PrintException(ConstantNumber.ALREADYRENTBOOK);
+                                 isAlreadyRentBook = true;
+                                 break;
+                         }
                     }
 
                     for (int i = 0; i < totalInformationStorage.books.Count; i++)
@@ -703,37 +707,67 @@ namespace Library.Controller
         }
         private string ModifyTitle()
         {
+            consoleInputRow = 68;
+            consoleInputColumn = 7;
+
             string input = "";
+
+            input = handlingException.IsValid(regex.title, consoleInputRow, consoleInputColumn, 20, false);
 
             return input;
         }
         private string ModifyAuthor()
         {
+            consoleInputRow = 68;
+            consoleInputColumn = 8;
+
             string input = "";
+
+            input = handlingException.IsValid(regex.author, consoleInputRow, consoleInputColumn, 20, false);
 
             return input;
         }
         private string ModifyPublisher()
         {
+            consoleInputRow = 68;
+            consoleInputColumn = 9;
+
             string input = "";
+
+            input = handlingException.IsValid(regex.containedOneValue, consoleInputRow, consoleInputColumn, 20, false);
 
             return input;
         }
         private string ModifyAmount()
         {
+            consoleInputRow = 68;
+            consoleInputColumn = 10;
+
             string input = "";
+
+            input = handlingException.IsValid(regex.amount, consoleInputRow, consoleInputColumn, 20, false);
 
             return input;
         }
         private string ModifyPrice()
         {
+            consoleInputRow = 68;
+            consoleInputColumn = 11;
+
             string input = "";
+
+            input = handlingException.IsValid(regex.price, consoleInputRow, consoleInputColumn, 20, false);
 
             return input;
         }
         private string ModifyPublishDay()
         {
+            consoleInputRow = 68;
+            consoleInputColumn = 12;
+
             string input = "";
+
+            input = handlingException.IsValid(regex.publishDay, consoleInputRow, consoleInputColumn, 20, false);
 
             return input;
         }
@@ -742,6 +776,9 @@ namespace Library.Controller
             int index = 0;
             int selectedMenu = 0;
             int validInput = 0;
+
+            int WindowCenterWidth = 30;
+            int WindowCenterHeight = 7;
 
             bool isInputEnter = false;
 
@@ -760,7 +797,7 @@ namespace Library.Controller
             {
                 validInput = 0;
 
-                selectedMenu = curser.SelectCurser(menu, menu.Length, selectedMenu);
+                selectedMenu = curser.SelectCurser(menu, menu.Length, selectedMenu, WindowCenterWidth, WindowCenterHeight);
 
                 switch (selectedMenu)
                 {
@@ -847,7 +884,7 @@ namespace Library.Controller
             string ISBN = "";
             string information = "";
 
-            while(isInputESC)
+            while(!isInputESC)
             {
                 Console.Clear();
                 printBookInformation.PrintModifyBookInformationUI();
@@ -891,8 +928,8 @@ namespace Library.Controller
                     Console.ResetColor();
                     continue;
                 }
-
                 ModifyBook(bookIndex);
+                break;
             }
         }
     }

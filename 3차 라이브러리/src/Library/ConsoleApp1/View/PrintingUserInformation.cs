@@ -55,7 +55,7 @@ namespace Library.View
 
         public void PrintUserId(string id)
         {
-            Console.WriteLine("\n=====================================================================================\n");
+            Console.WriteLine("\n\t=====================================================================================\n");
             Console.ForegroundColor = ConsoleColor.DarkGreen;
             Console.WriteLine (id);
             Console.ResetColor();

@@ -12,7 +12,7 @@ namespace Library.Utility
         public const int NOTMATCHEDCONDITION = 1;
         public const int NOTMATCHEDPASSWORD = 2;
         public const int NOTMATCHEDID = 3;
-        public const int VALIDVALUE = 4;
+        public const int VALIDVALUE = 10;
         public const int EXIT = -1;
         public const int SUCCESS = 0;
         public const int INVALIDINFORMATION = -1;

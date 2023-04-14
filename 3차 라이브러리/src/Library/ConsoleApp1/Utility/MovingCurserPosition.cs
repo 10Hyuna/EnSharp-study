@@ -23,14 +23,12 @@ namespace Library.Utility
             this.constantNumber = constantNumber;
         }
 
-        const int WindowCenterWidth = 50;
-        const int WindowCenterHeight = 17;
         const int WindowAnnouce = 25;
 
         const int errorKey = -1;
         const int enterKey = 10;
         const int exitKey = 11;
-        public int SelectCurser(string[] menu, int endMenu, int index)       // 메뉴를 전달받아 사용
+        public int SelectCurser(string[] menu, int endMenu, int index, int WindowCenterWidth, int WindowCenterHeight)       // 메뉴를 전달받아 사용
         {
             int selectedMenu = 0;
             bool isSelectedEnter = false;

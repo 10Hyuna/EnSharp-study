@@ -43,6 +43,9 @@ namespace Library.Controller
         
         public void SelectMenuInUserMode()
         {               // 유저 모드에서 로그인에 성공했을 경우, 사용할 수 있는 메뉴
+            int WindowCenterWidth = 50;
+            int WindowCenterHeight = 17;
+
             Console.Clear();
             ui.PrintUserMenu();
             int selectedMenu = 0;
@@ -53,11 +56,12 @@ namespace Library.Controller
             string[] menu = { "도서 찾기", "도서 대여", "도서 대여 확인", "도서 반납", "도서 반납 내역", "정보 수정", "계정 삭제" };
             while (!isEnteredESC)
             {
+                checkingBreak = -1;
                 Console.Clear();
                 ui.PrintMain();
                 ui.PrintBox(10);
 
-                selectedMenu = curser.SelectCurser(menu, menu.Length, selectedMenu);
+                selectedMenu = curser.SelectCurser(menu, menu.Length, selectedMenu, WindowCenterWidth, WindowCenterHeight);
                 
                 if(selectedMenu == -1)
                 {
@@ -89,7 +93,7 @@ namespace Library.Controller
                         break;
                 }
 
-                if(checkingBreak != 0)
+                if(checkingBreak == 0)
                 {
                     isEnteredESC = true;
                 }

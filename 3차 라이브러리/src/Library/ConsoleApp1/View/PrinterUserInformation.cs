@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Library.View
 {
-    class PrintingUserInformation
+    class PrinterUserInformation
     {
         UI ui;
-        public PrintingUserInformation(UI ui)
+        public PrinterUserInformation(UI ui)
         {
             this.ui = ui;
         }

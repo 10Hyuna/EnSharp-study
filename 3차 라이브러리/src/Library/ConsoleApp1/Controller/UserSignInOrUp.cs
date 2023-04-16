@@ -10,22 +10,26 @@ using Library.View;
 using Library.Model.VO;
 using Library.Model.DTO;
 using System.Reflection.Metadata.Ecma335;
+using System.Reflection;
 
 namespace Library.Controller
 {
-    class ProgressInSignInOrSignUp
+    class UserSignInOrUp
     {
         UI ui;
         TotalStorage totalStorage;
         User user;
-        MovingCurserPosition cursor;
+        MovingCursorPosition cursor;
         RegexStorage regex;
         HandlingException handlingException;
         InputFromUser inputFromUser;
-        PrintingBookInformation printBookInformation;
+        PrinterBookInformation printBookInformation;
         Manager manager;
-        public ProgressInSignInOrSignUp(UI ui, TotalStorage totalStorage, User user, MovingCurserPosition cursor,
-            InputFromUser inputFromUser, PrintingBookInformation printBookInformation, HandlingException handlingException)
+
+        public UserSignInOrUp() { }
+
+        public UserSignInOrUp(UI ui, TotalStorage totalStorage, User user, MovingCursorPosition cursor,
+            InputFromUser inputFromUser, PrinterBookInformation printBookInformation, HandlingException handlingException)
         {
             this.ui = ui;
             this.totalStorage = totalStorage;
@@ -38,7 +42,7 @@ namespace Library.Controller
             manager = new Manager();
         }
 
-        public int SignInMember(bool isManager)  // 로그인
+        public int SignInMember()  // 로그인
         {
             const int ConsoleInputRow = 25;
             const int ConsoleInputColumn = 23;
@@ -47,10 +51,11 @@ namespace Library.Controller
             bool isNotPassword = false;
             bool isValidAccount = false;
 
-            int index = 0;
+            int userIndex = 0;
+            int managerIndex = 0;
 
-            string id;
-            string password;
+            string id = "";
+            string password = "";
 
             while (!isValidAccount)     // 계정 정보가 유효하지 않을 경우 계속 반복
             {
@@ -63,50 +68,64 @@ namespace Library.Controller
                 if (password == null)
                     return -1;
 
-                if (!isManager)
+                userIndex = SerchValidAccount(id, password);
+            }
+            return userIndex;
+        }
+
+        private int SerchValidAccount(string id, string password)
+        {
+            const int ConsoleInputRow = 15;
+            const int ConsoleInputColumn = 21;
+
+            int userIndex = 0;
+
+            bool isValidAccount = false;
+
+            while (!isValidAccount)
+            {
+                for (int i = 0; i < totalStorage.users.Count; i++)      // 저장되어 있는 회원 정보만큼 반복하며
                 {
-                    for (int i = 0; i < totalStorage.users.Count; i++)      // 저장되어 있는 회원 정보만큼 반복하며
+                    if (totalStorage.users[i].GetUserId() == id && totalStorage.users[i].GetUserPassword() == password)     // 일치하는 ID가 있을 때
                     {
-                        if (user.GetUserId() == id)     // 일치하는 ID가 있을 때
-                        {
-                            if (user.GetUserPassword() == password)   // PW까지 일치한다면
-                            {
-                                totalStorage.loggedInUserId = id;
-                                isValidAccount = true;      // 존재하는 계정의
-                                index = i;                  // 인덱스 값을 저장해 두고
-                                break;                      // 반복문 탈출
-                            }
-                        }
+                        totalStorage.loggedInUserId = id;
+                        isValidAccount = true;      // 존재하는 계정의
+                        userIndex = i;                  // 인덱스 값을 저장해 두고
+                        break;                      // 반복문 탈출
                     }
                 }
-                else
+
+                if(!isValidAccount)
                 {
-                    if (manager.GetManagerId() == id)
+                    if (totalStorage.manager[0].GetManagerId() == id && totalStorage.manager[0].GetManagerPassword() == password)
                     {
-                        if (manager.GetManagerPassword() == password)
-                        {
-                            totalStorage.loggedInUserId = id;
-                            isValidAccount = true;          
-                            break;                      
-                        }
+                        isValidAccount = true;
                     }
                 }
 
                 if (!isValidAccount)
                 {
-                    ui.IsValidAccount(ConsoleInputRow - 10, ConsoleInputColumn + 2);
+                    ui.IsValidAccount(ConsoleInputRow, ConsoleInputColumn);
                 }
             }
-            return index;
+            return userIndex;
         }
         public int SignUpMember()      // 회원가입
         {
             int ConsoleInputRow = 72;
-            int ConsoleInputColumn = 23;
+            int ConsoleInputColumn = 22;
 
             bool isValidInput = false;
             bool isOverlapData = false;
             bool isSamePW = false;
+
+            string id = "";
+            string password;
+            string checkPassword;
+            string name;
+            string age;
+            string phoneNumber;
+            string address;
 
             while (!isOverlapData)
             {
@@ -115,7 +134,7 @@ namespace Library.Controller
                     return -1;
                 for (int i = 0; i < totalStorage.users.Count; i++)
                 {
-                    if (totalStorage.users[i].id == id)
+                    if (totalStorage.users[i].GetUserId() == id)
                     {
                         isOverlapData = true;
                         break;
@@ -124,20 +143,20 @@ namespace Library.Controller
                 if (isOverlapData)
                 {
                     Console.SetCursorPosition(ConsoleInputRow, ConsoleInputColumn);
-                    ui.PrintException(ConstantNumber.OVERLAPDATA);
-                    ConsoleInputColumn--;
+                    ui.PrintException(ConstantNumber.OVERLAP_DATA);
                     continue;
                 }
             }
+
             password = handlingException.IsValid(regex.passwordCheck, ConsoleInputRow, ConsoleInputColumn + 1, 15, true);
             if (password == null)
-                return -1;
+                return ConstantNumber.EXIT;
 
             while (!isSamePW)       // 비밀번호를 확인하는 문자열을 입력받았을 때 그 문자열이 비밀번호와 같지 않다면 계속 반복
             {
                 checkPassword = handlingException.IsValid(regex.passwordCheck, ConsoleInputRow - 17, ConsoleInputColumn + 2, 15, true);
                 if (checkPassword == null)
-                    return -1;
+                    return ConstantNumber.EXIT;
 
                 if (password == checkPassword)      // 비밀번호와 같다면
                 {
@@ -146,22 +165,22 @@ namespace Library.Controller
                 else
                 {
                     Console.SetCursorPosition(ConsoleInputRow, ConsoleInputColumn + 1);
-                    ui.PrintException(ConstantNumber.NOTMATCHEDPASSWORD);
+                    ui.PrintException(ConstantNumber.NOT_MATCHED_PASSWORD);
                     password = handlingException.IsValid(regex.idCheck, ConsoleInputRow, ConsoleInputColumn + 1, 15, true);       // 비밀번호를 잘못 입력했을 경우를 대비
                     
                     if (password == null)
-                        return -1;
+                        return ConstantNumber.EXIT;
                 }
             }
 
             isValidInput = false;
             name = handlingException.IsValid(regex.nameCheck, ConsoleInputRow + 3, ConsoleInputColumn + 3, 20, false);
             if (name == null)
-                return -1;
+                return ConstantNumber.EXIT;
 
             age = handlingException.IsValid(regex.ageCheck, ConsoleInputRow - 6, ConsoleInputColumn + 4, 20, false);
             if (age == null)
-                return -1;
+                return ConstantNumber.EXIT;
 
             while (!isValidInput)       // 200세 이상을 정규식으로 확인하지 못해 따로 확인
             {
@@ -171,7 +190,7 @@ namespace Library.Controller
                 }
                 else
                 {
-                    ui.PrintException(ConstantNumber.NOTMATCHEDCONDITION);
+                    ui.PrintException(ConstantNumber.NOT_MATCHED_CONDITION);
                     age = handlingException.IsValid(regex.ageCheck, ConsoleInputRow - 8, ConsoleInputColumn + 4, 20, false);
                 }
             }
@@ -179,14 +198,15 @@ namespace Library.Controller
 
             phoneNumber = handlingException.IsValid(regex.phoneNumberCheck, ConsoleInputRow + 1, ConsoleInputColumn + 5, 20, false);
             if (phoneNumber == null)
-                return -1;
+                return ConstantNumber.EXIT;
 
             address = handlingException.IsValid(regex.addressCheck, ConsoleInputRow + 3, ConsoleInputColumn + 6, 20, false);
             if (address == null)
-                return -1;
+                return ConstantNumber.EXIT;
 
             totalStorage.users.Add(new User(id, password, name, age, phoneNumber, address));    // 위의 조건을 모두 통과한 값일 경우 정보 저장
-            return 0;
+
+            return ConstantNumber.SUCCESS;
         }
     }
 }

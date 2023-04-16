@@ -14,17 +14,17 @@ namespace Library.Controller
     {
         UI ui;
         TotalStorage totalInformationStorage;
-        MovingCurserPosition curser;
+        MovingCursorPosition curser;
         RegexStorage regex;
         HandlingException handlingException;
         InputFromUser inputFromUser;
-        PrintingBookInformation printBookInformation;
-        PrintingUserInformation printUserInformation;
+        PrinterBookInformation printBookInformation;
+        PrinterUserInformation printUserInformation;
         EnteringMenuOfBook menuOfBook;
         EnteringMenuOfUser menuOfUser;
-        public SelectingMenuInManagerMode(UI ui, TotalStorage totalInformationStorage, MovingCurserPosition curser,
+        public SelectingMenuInManagerMode(UI ui, TotalStorage totalInformationStorage, MovingCursorPosition curser,
             RegexStorage regex, HandlingException handlingException, InputFromUser inputFromUser, 
-            PrintingBookInformation printBookInformation, PrintingUserInformation printUserInformation, 
+            PrinterBookInformation printBookInformation, PrinterUserInformation printUserInformation, 
             EnteringMenuOfBook menuOfBook, EnteringMenuOfUser menuOfUser)
         {
             this.ui = ui;

@@ -18,16 +18,16 @@ namespace Library.Controller
     class EnteringMenuOfBook
     {
         TotalStorage totalInformationStorage;
-        PrintingBookInformation printBookInformation;
+        PrinterBookInformation printBookInformation;
         InputFromUser inputFromUser;
         UI ui;
         HandlingException handlingException;
         RegexStorage regex;
-        MovingCurserPosition curser;
+        MovingCursorPosition curser;
 
         public EnteringMenuOfBook(TotalStorage totalInformationStorage,
-            PrintingBookInformation printBookInformation, InputFromUser inputFromUser, UI ui,
-            HandlingException handlingException, RegexStorage regex, MovingCurserPosition curser)
+            PrinterBookInformation printBookInformation, InputFromUser inputFromUser, UI ui,
+            HandlingException handlingException, RegexStorage regex, MovingCursorPosition curser)
         {
             this.printBookInformation = printBookInformation;
             this.inputFromUser = inputFromUser;

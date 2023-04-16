@@ -46,74 +46,18 @@ namespace Library.Controller
 
         int consoleInputRow;
         int consoleInputColumn;
-        private string ModifyId()
+
+        private string ModifyInformation(int column, Regex regex)
         {
             consoleInputRow = 68;
-            consoleInputColumn = 7;
+            consoleInputColumn = 7 + column;
 
             string input = "";
 
-            input = handlingException.IsValid(regex.idCheck, consoleInputRow, consoleInputColumn, 20, false);
+            input = handlingException.IsValid(regex, consoleInputRow, consoleInputColumn, 20, false);
 
             return input;
         }
-        private string ModifyPassword()
-        {
-            consoleInputRow = 68;
-            consoleInputColumn = 8;
-
-            string input = "";
-
-            input = handlingException.IsValid(regex.passwordCheck, consoleInputRow, consoleInputColumn, 20, false);
-
-            return input;
-        }
-        private string ModifyName()
-        {
-            consoleInputRow = 68;
-            consoleInputColumn = 9;
-
-            string input = "";
-
-            input = handlingException.IsValid(regex.nameCheck, consoleInputRow, consoleInputColumn, 20, false);
-
-            return input;
-        }
-        private string ModifyAge()
-        {
-            consoleInputRow = 68;
-            consoleInputColumn = 10;
-
-            string input = "";
-
-            input = handlingException.IsValid(regex.ageCheck, consoleInputRow, consoleInputColumn, 20, false);
-
-            return input;
-        }
-        private string ModifyPhoneNumber()
-        {
-            consoleInputRow = 68;
-            consoleInputColumn = 11;
-
-            string input = "";
-
-            input = handlingException.IsValid(regex.phoneNumberCheck, consoleInputRow, consoleInputColumn, 20, false);
-
-            return input;
-
-        }
-        private string ModifyAddress()
-        {
-            consoleInputRow = 68;
-            consoleInputColumn = 12;
-
-            string input = "";
-
-            input = handlingException.IsValid(regex.addressCheck, consoleInputRow, consoleInputColumn, 20, false);
-
-            return input;
-        }
-
         private int EnterEsc(string input)
         {
             if(input == null)
@@ -165,31 +109,31 @@ namespace Library.Controller
 
                 switch(selectedMenu)
                 {
-                    case ConstantNumber.MODIFYID:
-                        id = ModifyId();
+                    case (int)(USERINFORMATION.ID):
+                        id = ModifyInformation(0, regex.idCheck);
                         validInput = EnterEsc(id);
                         break;
-                    case ConstantNumber.MODIFYPASSWORD:
-                        password = ModifyPassword();
+                    case (int)(USERINFORMATION.PASSWORD):
+                        password = ModifyInformation(1, regex.passwordCheck);
                         validInput = EnterEsc(password);
                         break;
-                    case ConstantNumber.MODIFYNAME:
-                        name = ModifyName();
+                    case (int)(USERINFORMATION.NAME):
+                        name = ModifyInformation(2, regex.nameCheck);
                         validInput = EnterEsc(name);
                         break;
-                    case ConstantNumber.MODIFYAGE:
-                        age = ModifyAge();
+                    case (int)(USERINFORMATION.AGE):
+                        age = ModifyInformation(3, regex.ageCheck);
                         validInput = EnterEsc(age);
                         break;
-                    case ConstantNumber.MODIFYPHONENUMBER:
-                        phoneNumber = ModifyPhoneNumber();
+                    case (int)(USERINFORMATION.PHONENUMBER):
+                        phoneNumber = ModifyInformation(4, regex.phoneNumberCheck);
                         validInput = EnterEsc(phoneNumber);
                         break;
-                    case ConstantNumber.MODIFTADDRESS:
-                        address = ModifyAddress();
+                    case (int)(USERINFORMATION.ADDRESS):
+                        address = ModifyInformation(5, regex.addressCheck);
                         validInput = EnterEsc(address);
                         break;
-                    case ConstantNumber.MODIFYSUCCESS:
+                    case (int)(USERINFORMATION.SUCCESS):
                         isInputEnter = true;
                         break;
                 }

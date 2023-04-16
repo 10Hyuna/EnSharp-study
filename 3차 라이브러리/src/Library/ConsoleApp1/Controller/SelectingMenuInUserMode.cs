@@ -15,8 +15,8 @@ namespace Library.Controller
         UI ui;
         MovingCursorPosition cursor;
         TotalStorage totalStorage;
-        PrintingUserInformation printuserInformation;
-        PrintingBookInformation printbookInformation;
+        PrinterUserInformation printuserInformation;
+        PrinterBookInformation printbookInformation;
         InputFromUser inputFromUser;
         RegexStorage regex;
         HandlingException handlingException;
@@ -24,7 +24,7 @@ namespace Library.Controller
         BookAccessInUser bookAccessInUser;
 
         public SelectingMenuInUserMode(UI ui, MovingCursorPosition cursor, TotalStorage totalStorage, 
-            PrintingUserInformation userInformation, PrintingBookInformation bookInformation, InputFromUser inputFromUser,
+            PrinterUserInformation userInformation, PrinterBookInformation bookInformation, InputFromUser inputFromUser,
             HandlingException handlingException, RegexStorage regex)
         {
             this.ui = ui;
@@ -35,7 +35,8 @@ namespace Library.Controller
             this.inputFromUser = inputFromUser;
             this.regex = regex;
             this.handlingException = handlingException;
-            memberAccessInUser = new MemberAccessInUser(ui, )
+            memberAccessInUser = new MemberAccessInUser(ui, cursor, totalStorage, userInformation, bookInformation, inputFromUser, handlingException, regex);
+            bookAccessInUser = new BookAccessInUser(ui, cursor, totalStorage, userInformation, bookInformation, inputFromUser, handlingException, regex);
         }
         
         public void SelectMenuInUserMode()

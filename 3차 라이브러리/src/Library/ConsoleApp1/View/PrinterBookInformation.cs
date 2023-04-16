@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Library.View
 {
-    class PrintingBookInformation
+    class PrinterBookInformation
     {
         public void PrintEsc()
         {

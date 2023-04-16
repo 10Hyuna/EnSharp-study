@@ -14,20 +14,20 @@ namespace Library.Controller
     class SeleterSignInOrUp
     {
         UI ui;
-        MovingCurserPosition curser;
+        MovingCursorPosition curser;
         TotalStorage totalStorage;
-        ProgressInSignInOrSignUp progressInSignInOrSignUp;
+        UserSignInOrUp progressInSignInOrSignUp;
         SelectingMenuInUserMode userMode;
-        PrintingBookInformation printbookInformation;
-        PrintingUserInformation printuserInformation;
+        PrinterBookInformation printbookInformation;
+        PrinterUserInformation printuserInformation;
         InputFromUser inputFromUser;
         RegexStorage regex;
         HandlingException handlingException;
         EnteringMenuOfUser menuOfUser;
 
-        public SeleterSignInOrUp(UI ui, MovingCurserPosition curser, TotalStorage totalStorage,
-            PrintingUserInformation userInformation, PrintingBookInformation bookInformation, InputFromUser inputFromUser,
-            HandlingException handlingException, RegexStorage regex, ProgressInSignInOrSignUp progressInSignInOrSignUp,
+        public SeleterSignInOrUp(UI ui, MovingCursorPosition curser, TotalStorage totalStorage,
+            PrinterUserInformation userInformation, PrinterBookInformation bookInformation, InputFromUser inputFromUser,
+            HandlingException handlingException, RegexStorage regex, UserSignInOrUp progressInSignInOrSignUp,
             EnteringMenuOfUser menuOfUser)
         {
             this.ui = ui;
@@ -71,7 +71,7 @@ namespace Library.Controller
                 // 키보드를 통한 진입과 선택으로 최종 엔터키를 입력한 뒤
                 // 선택된 인덱스가 무엇인지 출력
 
-                if (selectedMenu == (int)Sign.SignIn)   // 로그인을 선택했을 경우
+                if (selectedMenu == (int)(Sign.SIGNIN))   // 로그인을 선택했을 경우
                 {
                     isEnteredESC = EnteringSignUp(modeIndex);
                     
@@ -82,9 +82,10 @@ namespace Library.Controller
                     userMode.SelectMenuInUserMode();
                 }
                 
-                else
+                else if(selectedMenu == (int)(Sign.SIGNUP))
                 {
                     isEnteredESC = EnteringSignIn(modeIndex);
+
                     if (isEnteredESC == false)
                     {
                         continue;
@@ -97,7 +98,7 @@ namespace Library.Controller
         {
             Console.Clear();
             ui.PrintLogin();
-            modeIndex = progressInSignInOrSignUp.SignInMember(false);      // 로그인 함수로 진입
+            modeIndex = progressInSignInOrSignUp.SignInMember();      // 로그인 함수로 진입
 
             if (modeIndex == ConstantNumber.EXIT)      // 로그인 함수 속에서 ESC를 입력받았을 경우
             {

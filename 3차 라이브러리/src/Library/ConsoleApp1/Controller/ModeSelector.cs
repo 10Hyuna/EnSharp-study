@@ -18,18 +18,18 @@ namespace Library.Controller
         Book book;
         User user;
         UI ui;
-        PrintingBookInformation bookInformation;
-        PrintingUserInformation userInformation;
-        MovingCurserPosition curser;
+        PrinterBookInformation bookInformation;
+        PrinterUserInformation userInformation;
+        MovingCursorPosition curser;
         EnteringManagerMode enteringManagerMode;
         EnteringMenuOfUser menuOfUser;
         EnteringMenuOfBook menuOfBook;
-        SeleterSignInOrUp choiceBetweenSignInAndSignUp;
+        SeleterSignInOrUp selecterSignInOrUp;
         InputFromUser inputFromUser;
         ConstantNumber constantNumber;
         HandlingException handlingException;
         RegexStorage regex;
-        ProgressInSignInOrSignUp progressInSignInOrSignUp;
+        UserSignInOrUp progressInSignInOrSignUp;
 
         public ModeSelector()
         {
@@ -37,18 +37,18 @@ namespace Library.Controller
             user = new User();
             book = new Book();
             ui = new UI();
-            bookInformation = new PrintingBookInformation();
-            userInformation = new PrintingUserInformation(ui);
+            bookInformation = new PrinterBookInformation();
+            userInformation = new PrinterUserInformation(ui);
             regex = new RegexStorage();
             inputFromUser = new InputFromUser();
             handlingException = new HandlingException(ui, inputFromUser, regex);
             inputFromUser = new InputFromUser(regex, handlingException);
-            curser = new MovingCurserPosition(ui, inputFromUser);
-            progressInSignInOrSignUp = new ProgressInSignInOrSignUp(ui, totalStorage, user, curser,
+            curser = new MovingCursorPosition(ui, inputFromUser);
+            progressInSignInOrSignUp = new UserSignInOrUp(ui, totalStorage, user, curser,
                 inputFromUser, bookInformation, handlingException);
             menuOfUser = new EnteringMenuOfUser(totalStorage, userInformation, inputFromUser, ui, handlingException, regex, curser);
             menuOfBook = new EnteringMenuOfBook(totalStorage, bookInformation, inputFromUser, ui, handlingException, regex, curser);
-            choiceBetweenSignInAndSignUp = new SeleterSignInOrUp(ui, curser, totalStorage, 
+            selecterSignInOrUp = new SeleterSignInOrUp(ui, curser, totalStorage, 
                 userInformation, bookInformation, inputFromUser, handlingException, regex,
                 progressInSignInOrSignUp, menuOfUser);
             enteringManagerMode = new EnteringManagerMode(ui, curser, totalStorage, bookInformation, 
@@ -77,10 +77,10 @@ namespace Library.Controller
 
                 switch(selectedMenu)
                 {
-                    case (int)(Mode.User):                      // 유저 모드를 선택했다면
-                        choiceBetweenSignInAndSignUp.UsingUserMenu();       // 유저 모드로 진입
+                    case (int)(Mode.USER):                      // 유저 모드를 선택했다면
+                        selecterSignInOrUp.SeleteSignInUp();       // 유저 모드로 진입
                         break;
-                    case (int)(Mode.Manager):             // 매니저 모드를 선택했다면
+                    case (int)(Mode.MANAGER):             // 매니저 모드를 선택했다면
                         enteringManagerMode.UsingManagerMenu(); // 매니저 모드로 진입
                         break;
                     case ConstantNumber.EXIT:                   // ESC를 눌렀다면

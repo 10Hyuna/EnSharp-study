@@ -9,12 +9,12 @@ using Library.View;
 
 namespace Library.Utility
 {
-    class MovingCurserPosition      // 커서를 이용해 입력을 받을 때나 사용자의 커서가 위치해 있는 메뉴를 표기하기 위해 커서의 위치를 컨트롤할 때 사용하는 클래스
+    class MovingCursorPosition      // 커서를 이용해 입력을 받을 때나 사용자의 커서가 위치해 있는 메뉴를 표기하기 위해 커서의 위치를 컨트롤할 때 사용하는 클래스
     {
         UI ui;
         InputFromUser inputFromUser;
 
-        public MovingCurserPosition(UI ui, InputFromUser inputFromUser)
+        public MovingCursorPosition(UI ui, InputFromUser inputFromUser)
         {
             this.ui = ui;
             this.inputFromUser = inputFromUser;

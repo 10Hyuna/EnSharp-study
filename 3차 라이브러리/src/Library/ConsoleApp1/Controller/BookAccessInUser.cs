@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Library.Controller
 {
-    internal class BookAccessInUser
+    class BookAccessInUser
     {
+
     }
 }

@@ -143,21 +143,25 @@ namespace Library.View
         {
             Console.CancelKeyPress += new ConsoleCancelEventHandler(Console_CancelKeyPress);
 
-            if (condition == ConstantNumber.NOTMATCHEDCONDITION)
+            if (condition == ConstantNumber.NOT_MATCHED_CONDITION)
             {
                 Console.WriteLine("주어진 조건에 맞는 값을 입력해 주세요.");
+                ErasePrint();
             }
-            if(condition == ConstantNumber.VALIDVALUE)
+            if(condition == ConstantNumber.VALID_VALUE)
             {
                 Console.WriteLine("유효하지 않은 값입니다.");
+                ErasePrint();
             }
-            if (condition == ConstantNumber.NOTMATCHEDPASSWORD)
+            if (condition == ConstantNumber.NOT_MATCHED_PASSWORD)
             {   
                 Console.WriteLine("비밀번호의 값이 서로 다릅니다.");
+                ErasePrint();
             }
-            if(condition == ConstantNumber.NOTMATCHEDID)
+            if(condition == ConstantNumber.NOT_MATCHED_ID)
             {
                 Console.WriteLine("저장된 아이디 정보가 없습니다. ");
+                ErasePrint();
             }
             if (condition == ConstantNumber.INVALIDINFORMATION)
             {
@@ -167,39 +171,57 @@ namespace Library.View
                 Console.WriteLine("다른 책을 입력하시려면 아무 키나 눌러 주세요.");
                 Console.ReadKey(true);
             }
-            if (condition == ConstantNumber.LEAKINGBOOKAMOUNT)
+            if (condition == ConstantNumber.LEAKING_BOOK_AMOUNT)
             {
                 Console.WriteLine("책의 수량이 부족합니다.");
                 Console.WriteLine("다른 책을 입력하시려면 아무 키나 눌러 주세요.");
                 Console.ReadKey(true);
             }
-            if(condition == ConstantNumber.SUCCESSBORROWBOOK)
+            if(condition == ConstantNumber.SUCCESS_BORROW_BOOK)
             {
                 Console.WriteLine("책 빌리기 성공!\n");
             }
-            if(condition == ConstantNumber.SUCCESSRETURNBOOK)
+            if(condition == ConstantNumber.SUCCESS_RETURN_BOOK)
             {
                 Console.WriteLine("책 반납 성공!\n");
             }
-            if(condition == ConstantNumber.ALREADYRENTBOOK)
+            if(condition == ConstantNumber.ALREADY_RENT_BOOK)
             {
                 Console.WriteLine("이미 대여 중인 책입니다.");
                 Console.WriteLine("다른 책을 입력하시려면 아무 키나 눌러 주세요.");
                 Console.ReadKey(true);
             }
-            if(condition == ConstantNumber.INVALIDBOOKID)
+            if(condition == ConstantNumber.INVALID_BOOK_ID)
             {
                 Console.WriteLine(" 삭제하려는 책의 아이디가 존재하지 않습니다.");
                 Console.WriteLine("\t\t\t\t\t\t\t     다른 책을 입력하시려면 아무 키나 눌러 주세요.");
                 Console.ReadKey(true);
             }
-            if(condition == ConstantNumber.OVERLAPDATA)
+            if(condition == ConstantNumber.OVERLAP_DATA)
             {
                 Console.WriteLine("이미 존재하는 아이디입니다.");
+                ErasePrint();
             }
-            if(condition == ConstantNumber.SERCHEDBOOK)
+            if(condition == ConstantNumber.SERCHED_BOOK)
             {
                 Console.WriteLine("검색 결과에 없습니다.");
+                ErasePrint();
+            }
+        }
+        private void ErasePrint()
+        {
+            ConsoleKeyInfo keyInfo;
+
+            bool isEnteredESC = false;
+
+            while(isEnteredESC)
+            {
+                keyInfo = Console.ReadKey(true);
+
+                if(keyInfo.Key == ConsoleKey.Enter)
+                {
+                    Console.Write("                                           ");
+                }
             }
         }
     }

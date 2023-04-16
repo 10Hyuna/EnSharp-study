@@ -17,7 +17,7 @@ namespace Library.Controller
 {
     class EnteringMenuOfBook
     {
-        TotalInformationStorage totalInformationStorage;
+        TotalStorage totalInformationStorage;
         PrintingBookInformation printBookInformation;
         InputFromUser inputFromUser;
         UI ui;
@@ -25,7 +25,7 @@ namespace Library.Controller
         RegexStorage regex;
         MovingCurserPosition curser;
 
-        public EnteringMenuOfBook(TotalInformationStorage totalInformationStorage,
+        public EnteringMenuOfBook(TotalStorage totalInformationStorage,
             PrintingBookInformation printBookInformation, InputFromUser inputFromUser, UI ui,
             HandlingException handlingException, RegexStorage regex, MovingCurserPosition curser)
         {
@@ -647,7 +647,7 @@ namespace Library.Controller
 
             if (keyInfo.Key == ConsoleKey.Enter)
             {
-                totalInformationStorage.books.Add(new BookInformation(totalInformationStorage.books.Count, title, author, publisher,
+                totalInformationStorage.books.Add(new Book(totalInformationStorage.books.Count, title, author, publisher,
                     amount, price, publishDay, ISBN, information));
             }
             Console.Clear();

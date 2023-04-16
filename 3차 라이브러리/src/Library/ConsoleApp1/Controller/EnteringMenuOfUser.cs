@@ -17,24 +17,24 @@ namespace Library.Controller
 {
     class EnteringMenuOfUser
     {
-        TotalInformationStorage totalInformationStorage;
-        PrintingUserInformation userInformation;
+        TotalStorage totalStorage;
+        PrinterUserInformation printerUserInformation;
         InputFromUser inputFromUser;
         UI ui;
         HandlingException handlingException;
         RegexStorage regex;
-        MovingCurserPosition curser;
-        public EnteringMenuOfUser(TotalInformationStorage totalInformationStorage,
-            PrintingUserInformation printingUserInformation, InputFromUser inputFromUser, UI ui,
-            HandlingException handlingException, RegexStorage regex, MovingCurserPosition curser)
+        MovingCursorPosition cursor;
+        public EnteringMenuOfUser(TotalStorage totalStorage,
+            PrinterUserInformation printerUserInformation, InputFromUser inputFromUser, UI ui,
+            HandlingException handlingException, RegexStorage regex, MovingCursorPosition cursor)
         {
-            this.totalInformationStorage = totalInformationStorage;
-            this.userInformation = printingUserInformation;
+            this.totalStorage = totalStorage;
+            this.printerUserInformation = printerUserInformation;
             this.inputFromUser = inputFromUser;
             this.ui = ui;
             this.handlingException = handlingException;
             this.regex = regex;
-            this.curser = curser;
+            this.cursor = cursor;
         }
         static void Console_CancelKeyPress(object sender, ConsoleCancelEventArgs e) //ctrl + z 등 단축키를 통해
         {
@@ -144,9 +144,9 @@ namespace Library.Controller
             string phoneNumber = "";
             string address = "";
 
-            for (int i = 0; i < totalInformationStorage.users.Count; i++)
+            for (int i = 0; i < totalStorage.users.Count; i++)
             {
-                if (totalInformationStorage.users[i].id == totalInformationStorage.loggedInUserId)
+                if (totalStorage.users[i].id == totalStorage.loggedInUserId)
                 {
                     index = i;
                     break;
@@ -159,9 +159,9 @@ namespace Library.Controller
 
                 Console.Clear();
                 ui.PrintBox(4);
-                userInformation.PrintModifyMyInformationUI();
+                printerUserInformation.PrintModifyMyInformationUI();
 
-                selectedMenu = curser.SelectCurser(menu, menu.Length, selectedMenu, WindowCenterWidth, WindowCenterHeight);
+                selectedMenu = cursor.SelectCurser(menu, menu.Length, selectedMenu, WindowCenterWidth, WindowCenterHeight);
 
                 switch(selectedMenu)
                 {
@@ -197,27 +197,27 @@ namespace Library.Controller
                 {
                     if (id != "")
                     {
-                        totalInformationStorage.users[index].id = id;
+                        totalStorage.users[index].id = id;
                     }
                     if(password != "")
                     {
-                        totalInformationStorage.users[index].password = password;
+                        totalStorage.users[index].password = password;
                     }
                     if(name != "")
                     {
-                        totalInformationStorage.users[index].name = name;
+                        totalStorage.users[index].name = name;
                     }
                     if(age != "")
                     {
-                        totalInformationStorage.users[index].age = age;
+                        totalStorage.users[index].age = age;
                     }
                     if(phoneNumber != "")
                     {
-                        totalInformationStorage.users[index].phoneNumber = phoneNumber;
+                        totalStorage.users[index].phoneNumber = phoneNumber;
                     }
                     if(address != "")
                     {
-                        totalInformationStorage.users[index].address = address;
+                        totalStorage.users[index].address = address;
                     }
                 }
 
@@ -239,9 +239,9 @@ namespace Library.Controller
             int index = 0;
             int breakNumber = -1;
 
-            for (int i = 0; i < totalInformationStorage.users.Count; i++)
+            for (int i = 0; i < totalStorage.users.Count; i++)
             {
-                if (totalInformationStorage.users[i].id == totalInformationStorage.loggedInUserId)
+                if (totalStorage.users[i].id == totalStorage.loggedInUserId)
                 {
                     index = i;
                     break;
@@ -251,22 +251,22 @@ namespace Library.Controller
             while (!isInputEnter)
             {
                 Console.Clear();
-                userInformation.PrintDeleteAccountUI();
+                printerUserInformation.PrintDeleteAccountUI();
 
                 keyInfo = Console.ReadKey(true);
 
                 if (keyInfo.Key == ConsoleKey.Enter)
                 {
-                    if (totalInformationStorage.users[index].borrowDatas.Count == 0)
+                    if (totalStorage.users[index].borrowDatas.Count == 0)
                     {
-                        totalInformationStorage.users.RemoveAt(index);
+                        totalStorage.users.RemoveAt(index);
                         isInputEnter = true;
                         Console.Clear();
-                        userInformation.PrintSuccessDeleteAccount();
+                        printerUserInformation.PrintSuccessDeleteAccount();
                     }
                     else
                     {
-                        userInformation.PrintNotWorkedDeleteAccout();
+                        printerUserInformation.PrintNotWorkedDeleteAccout();
                         isSuccessDelete = false;
                     }
                 }
@@ -318,30 +318,30 @@ namespace Library.Controller
             while (!isInputESC)
             {
                 Console.Clear();
-                userInformation.PrintManageUser();
+                printerUserInformation.PrintManageUser();
 
                 Console.SetCursorPosition(consoleInputRow, consoleInputColumn);
-                for(int i=0; i < totalInformationStorage.users.Count; i++)
+                for(int i=0; i < totalStorage.users.Count; i++)
                 {
-                    id = totalInformationStorage.users[i].id;
-                    name = totalInformationStorage.users[i].name;
-                    age = totalInformationStorage.users[i].age;
-                    phoneNumber = totalInformationStorage.users[i].phoneNumber;
-                    address = totalInformationStorage.users[i].address;
+                    id = totalStorage.users[i].id;
+                    name = totalStorage.users[i].name;
+                    age = totalStorage.users[i].age;
+                    phoneNumber = totalStorage.users[i].phoneNumber;
+                    address = totalStorage.users[i].address;
 
-                    userInformation.PrintUserList(id, name, age, phoneNumber, address);
+                    printerUserInformation.PrintUserList(id, name, age, phoneNumber, address);
 
                 }
                 userId = handlingException.IsValid(regex.idCheck, consoleInputRow + 3, consoleInputColumn - 7, 20, false);
                 if (userId == null)
                     return;
 
-                for(int i = 0; i<totalInformationStorage.users.Count; i++)
+                for(int i = 0; i<totalStorage.users.Count; i++)
                 {
-                    if (totalInformationStorage.users[i].id == userId)
+                    if (totalStorage.users[i].id == userId)
                     {
                         isInvalidId = true;
-                        totalInformationStorage.users.RemoveAt(i);
+                        totalStorage.users.RemoveAt(i);
                     }
                 }
 
@@ -355,13 +355,13 @@ namespace Library.Controller
                 }
 
                 Console.Clear();
-                userInformation.PrintSuccessDeleteUser();
+                printerUserInformation.PrintSuccessDeleteUser();
 
-                for (int i = 0; i < totalInformationStorage.users.Count; i++)
+                for (int i = 0; i < totalStorage.users.Count; i++)
                 {
-                    userInformation.PrintUserList(totalInformationStorage.users[i].id, totalInformationStorage.users[i].name,
-                        totalInformationStorage.users[i].age, totalInformationStorage.users[i].phoneNumber,
-                        totalInformationStorage.users[i].address);
+                    printerUserInformation.PrintUserList(totalStorage.users[i].id, totalStorage.users[i].name,
+                        totalStorage.users[i].age, totalStorage.users[i].phoneNumber,
+                        totalStorage.users[i].address);
                 }
 
                 keyInfo = Console.ReadKey(true);
@@ -390,21 +390,21 @@ namespace Library.Controller
             string borrowTime = "";
             string returnTime = "";
 
-            for (int j = 0; j < totalInformationStorage.users[index].borrowDatas.Count; j++)
+            for (int j = 0; j < totalStorage.users[index].borrowDatas.Count; j++)
             {
-                id = totalInformationStorage.users[index].borrowDatas[j].id;
-                title = totalInformationStorage.users[index].borrowDatas[j].title;
-                author = totalInformationStorage.users[index].borrowDatas[j].author;
-                publisher = totalInformationStorage.users[index].borrowDatas[j].publisher;
-                amount = totalInformationStorage.users[index].borrowDatas[j].amount;
-                price = totalInformationStorage.users[index].borrowDatas[j].price;
-                publishDay = totalInformationStorage.users[index].borrowDatas[j].publishDay;
-                ISBN = totalInformationStorage.users[index].borrowDatas[j].ISBN;
-                information = totalInformationStorage.users[index].borrowDatas[j].information;
-                borrowTime = totalInformationStorage.users[index].borrowDatas[j].borrowTime;
+                id = totalStorage.users[index].borrowDatas[j].id;
+                title = totalStorage.users[index].borrowDatas[j].title;
+                author = totalStorage.users[index].borrowDatas[j].author;
+                publisher = totalStorage.users[index].borrowDatas[j].publisher;
+                amount = totalStorage.users[index].borrowDatas[j].amount;
+                price = totalStorage.users[index].borrowDatas[j].price;
+                publishDay = totalStorage.users[index].borrowDatas[j].publishDay;
+                ISBN = totalStorage.users[index].borrowDatas[j].ISBN;
+                information = totalStorage.users[index].borrowDatas[j].information;
+                borrowTime = totalStorage.users[index].borrowDatas[j].borrowTime;
 
-                userInformation.PrintUserId(totalInformationStorage.users[j].id);
-                userInformation.PrintRentalList(id, title, author, publisher, amount, price, publishDay,
+                printerUserInformation.PrintUserId(totalStorage.users[j].id);
+                printerUserInformation.PrintRentalList(id, title, author, publisher, amount, price, publishDay,
                     ISBN, information, borrowTime, returnTime);
             }
         }
@@ -418,9 +418,9 @@ namespace Library.Controller
             {
                 Console.Clear();
                 ui.PrintBox(4);
-                userInformation.PrintRentalStateUI();
+                printerUserInformation.PrintRentalStateUI();
 
-                for(int i =0; i < totalInformationStorage.users.Count;i++)
+                for(int i =0; i < totalStorage.users.Count;i++)
                 {
                     RentalStateInBorrowBook(i);
                 }

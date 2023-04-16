@@ -13,32 +13,29 @@ namespace Library.Controller
     class SelectingMenuInUserMode
     {
         UI ui;
-        MovingCurserPosition curser;
-        TotalInformationStorage totalInformationStorage;
+        MovingCursorPosition cursor;
+        TotalStorage totalStorage;
         PrintingUserInformation printuserInformation;
         PrintingBookInformation printbookInformation;
         InputFromUser inputFromUser;
-        EnteringMenuOfBook menuOfBook;
         RegexStorage regex;
         HandlingException handlingException;
-        EnteringMenuOfUser menuOfUser;
+        MemberAccessInUser memberAccessInUser;
+        BookAccessInUser bookAccessInUser;
 
-        public SelectingMenuInUserMode(UI ui, MovingCurserPosition curser, TotalInformationStorage totalInformationStorage, 
+        public SelectingMenuInUserMode(UI ui, MovingCursorPosition cursor, TotalStorage totalStorage, 
             PrintingUserInformation userInformation, PrintingBookInformation bookInformation, InputFromUser inputFromUser,
-            HandlingException handlingException, RegexStorage regex, EnteringMenuOfUser menuOfUser)
+            HandlingException handlingException, RegexStorage regex)
         {
             this.ui = ui;
-            this.curser = curser;
-            this.totalInformationStorage = totalInformationStorage;
+            this.cursor = cursor;
+            this.totalStorage = totalStorage;
             this.printuserInformation = userInformation;
             this.printbookInformation = bookInformation;
             this.inputFromUser = inputFromUser;
             this.regex = regex;
             this.handlingException = handlingException;
-            this.menuOfUser = menuOfUser;
-            menuOfBook = new EnteringMenuOfBook(totalInformationStorage, bookInformation,
-                inputFromUser, ui, handlingException, regex, curser);
-            
+            memberAccessInUser = new MemberAccessInUser(ui, )
         }
         
         public void SelectMenuInUserMode()
@@ -61,7 +58,7 @@ namespace Library.Controller
                 ui.PrintMain();
                 ui.PrintBox(10);
 
-                selectedMenu = curser.SelectCurser(menu, menu.Length, selectedMenu, WindowCenterWidth, WindowCenterHeight);
+                selectedMenu = cursor.SelectCurser(menu, menu.Length, selectedMenu, WindowCenterWidth, WindowCenterHeight);
                 
                 if(selectedMenu == -1)
                 {
@@ -70,25 +67,25 @@ namespace Library.Controller
 
                 switch (selectedMenu)
                 {
-                    case ConstantNumber.FINDTHEBOOK:
+                    case (int)(USERMODE.FIND_BOOK):
                         menuOfBook.FindTheBookBySerching();
                         break;
-                    case ConstantNumber.RENTTHEBOOK:
+                    case (int)(USERMODE.RENT_BOOK):
                         menuOfBook.RentTheBook();
                         break;
-                    case ConstantNumber.CHECKTHERETALBOOK:
+                    case (int)(USERMODE.RENT_BOOK_LIST):
                         menuOfBook.CheckTheRentalBook();
                         break;
-                    case ConstantNumber.RETURNTHEBOOK:
+                    case (int)(USERMODE.RETURN_BOOK):
                         menuOfBook.ReturnTheBook();
                         break;
-                    case ConstantNumber.RETURNBOOKLIST:
+                    case (int)(USERMODE.RETURN_BOOK_LIST):
                         menuOfBook.ReturnTheBookList();
                         break;
-                    case ConstantNumber.MODIFYMYINFORMATION:
+                    case (int)(USERMODE.MODIFY_MY_INFORMATION):
                         menuOfUser.ModifyMyInformation();
                         break;
-                    case ConstantNumber.DELETEACCOUNT:
+                    case (int)(USERMODE.DELETE_ACCOUNT):
                         checkingBreak = menuOfUser.DeleteMyAccount();
                         break;
                 }

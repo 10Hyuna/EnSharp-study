@@ -193,7 +193,7 @@ namespace Library.View
                 Console.WriteLine("\t\t\t\t\t\t\t     다른 책을 입력하시려면 아무 키나 눌러 주세요.");
                 Console.ReadKey(true);
             }
-            if(condition == ConstantNumber.OverlapData)
+            if(condition == ConstantNumber.OVERLAPDATA)
             {
                 Console.WriteLine("이미 존재하는 아이디입니다.");
             }

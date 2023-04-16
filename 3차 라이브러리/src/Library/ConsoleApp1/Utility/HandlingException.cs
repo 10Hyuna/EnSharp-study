@@ -19,11 +19,10 @@ namespace Library.Utility
         RegexStorage regex;
         UI ui;
 
-        public HandlingException(UI ui, InputFromUser inputFromUser, ConstantNumber constantNumber, RegexStorage regex)
+        public HandlingException(UI ui, InputFromUser inputFromUser, RegexStorage regex)
         {
             this.ui = ui;
             this.inputFromUser = inputFromUser;
-            this.constantNumber = constantNumber;
             this.regex = regex;
         }
         public bool CheckException(string message, Regex regex)     // 정규식으로 문자열이 주어진 조건에 해당하는지 확인

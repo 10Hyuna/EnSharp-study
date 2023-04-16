@@ -1,0 +1,349 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
+using System.Text;
+using System.Threading.Tasks;
+using Library.Model;
+
+namespace Library.Model.DTO
+{
+    class Book          // 책 정보
+    {
+        public Book() { }
+
+        protected int id;
+        protected string title;
+        protected string author;
+        protected string publisher;
+        protected string amount;
+        protected string price;
+        protected string publishDay;
+        protected string ISBN;
+        protected string information;
+
+        public void SetBookId(int id)
+        {
+            this.id = id;
+        }
+
+        public void SetBooktitle(string title)
+        {
+            this.title = title;
+        }
+
+        public void SetBookAuthor(string author)
+        {
+            this.author = author;
+        }
+
+        public void SetBookPublisher(string publisher)
+        {
+            this.publisher = publisher;
+        }
+
+        public void SetBookAmount(string Amount)
+        {
+            this.amount = Amount;
+        }
+
+        public void SetBookPrice(string Price)
+        {
+            this.price = Price;
+        }
+
+        public void SetBookPublishDay(string PublishDay)
+        {
+            this.publishDay = PublishDay;
+        }
+
+        public void SetBookISBN(string ISBN)
+        {
+            this.ISBN = ISBN;
+        }
+
+        public void SetBookInformation(string Information)
+        {
+            this.information = Information;
+        }
+
+        public int GetBookId()
+        {
+            return this.id;
+        }
+
+        public string GetBookTitle()
+        {
+            return this.title;
+        }
+
+        public string GetBookAuthor()
+        {
+            return this.author;
+        }
+
+        public string GetBookPublisher()
+        {
+            return this.publisher;
+        }
+
+        public string GetBookAmount()
+        {
+            return this.amount;
+        }
+
+        public string GetBookPrice()
+        {
+            return this.price;
+        }
+
+        public string GetBookPublishDay()
+        {
+            return this.publishDay;
+        }
+
+        public string GetBookISBN()
+        {
+            return this.ISBN;
+        }
+
+        public string GetBookInformation()
+        {
+            return this.information;
+        }
+        public Book(int id, string title, string author, string publisher, string amount, string price, string publishDay, string ISBN, string information)   // 책 정보를 입력
+        {
+            this.id = id;
+            this.title = title;
+            this.author = author;
+            this.publisher = publisher;
+            this.amount = amount;
+            this.price = price;
+            this.publishDay = publishDay;
+            this.ISBN = ISBN;
+            this.information = information;
+        }
+
+    }
+    class BorrowBookList : Book
+    {
+        protected string borrowTime;
+        
+        public BorrowBookList() { }
+
+
+        public void SetBorrowId(int id)
+        {
+            this.id = id;
+        }
+
+        public void SetBorrowTitle(string title)
+        {
+            this.title = title;
+        }
+
+        public void SetBorrowAuthor(string author)
+        {
+            this.author = author;
+        }
+
+        public void SetBorrowPublisher(string publisher)
+        {
+            this.publisher = publisher;
+        }
+
+        public void SetBorrowAmount(string amount)
+        {
+            this.amount = amount;
+        }
+
+        public void SetBorrowPrice(string price)
+        {
+            this.price = price;
+        }
+
+        public void SetBorrowPublishDay(string publishDay)
+        {
+            this.publishDay = publishDay;
+        }
+
+        public void SetBorrowISBN(string ISBN)
+        {
+            this.ISBN = ISBN;
+        }
+
+        public void SetBorrowInformation(string information)
+        {
+            this.information = information;
+        }
+
+        public void SetBorrowBorrowTime(string borrowTime)
+        {
+            this.borrowTime = borrowTime;
+        }
+
+        public int GetBorrowId()
+        {
+            return this.id;
+        }
+
+        public string GetBorrowTitle()
+        {
+            return this.title;
+        }
+
+        public string GetBorrowAuthor()
+        {
+            return this.author;
+        }
+
+        public string GetBorrowPublisher()
+        {
+            return this.publisher;
+        }
+
+        public string GetBorrowAmount()
+        {
+            return this.amount;
+        }
+
+        public string GetBorrowPrice()
+        {
+            return this.price;
+        }
+
+        public string GetBorrowPublishDay()
+        {
+            return this.publishDay;
+        }
+
+        public string GetBorrowISBN()
+        {
+            return this.ISBN;
+        }
+
+        public string GetBorrowInformation()
+        {
+            return this.information;
+        }
+
+        public string GetBorrowBorrowTime()
+        {
+            return this.borrowTime;
+        }
+    }
+
+    class ReturnBookList : BorrowBookList
+    {
+        private string returnTime;
+
+        public void SetReturnId(int id)
+        {
+            this.id = id;
+        }
+
+        public void SetReturnTitle(string title)
+        {
+            this.title = title;
+        }
+
+        public void SetReturnAuthor(string author)
+        {
+            this.author = author;
+        }
+
+        public void SetReturnPublisher(string publisher)
+        {
+            this.publisher = publisher;
+        }
+
+        public void SetReturnAmount(string amount)
+        {
+            this.amount = amount;
+        }
+
+        public void SetReturnPublishDay(string publishDay)
+        {
+            this.publishDay = publishDay;
+        }
+
+        public void SetReturnPrice(string price)
+        {
+            this.price = price;
+        }
+
+        public void SetReturnISBN(string ISBN)
+        {
+            this.ISBN = ISBN;
+        }
+
+        public void SetReturnInformation(string information)
+        {
+            this.information = information;
+        }
+
+        public void SetReturnBorrowTime(string borrowTime)
+        {
+            this.borrowTime = borrowTime;
+        }
+
+        public void SetReturnReturnTime(string returnTime)
+        {
+            this.returnTime = returnTime;
+        }
+        public int GetReturnId()
+        {
+            return id;
+        }
+
+        public string GetReturnTitle()
+        {
+            return title;
+        }
+
+        public string GetReturnAuthor()
+        {
+            return author;
+        }
+
+        public string GetReturnPublisher()
+        {
+            return publisher;
+        }
+
+        public string GetReturnAmount()
+        {
+            return amount;
+        }
+
+        public string GetReturnPrice()
+        {
+            return price;
+        }
+
+        public string GetReturnPublishDay()
+        {
+            return publishDay;
+        }
+
+        public string GetReturnISBN()
+        {
+            return ISBN;
+        }
+
+        public string GetReturnInformation()
+        {
+            return information;
+        }
+
+        public string GetReturnBorrowTime()
+        {
+            return borrowTime;
+        }
+        
+        public string GetReturnReturnTime()
+        {
+            return returnTime;
+        }
+    }
+}

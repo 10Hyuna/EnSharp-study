@@ -9,51 +9,77 @@ namespace Library.Utility
 {
     class ConstantNumber
     {
-        public const int USERMENUENTER = 0;
-        public const int MANAGERMENUENTER = 1;
-        public const int OverlapData = 11;
+        public const bool isPassword = true;
+        public const bool isNotPassword = false;
 
-        public const int NOTMATCHEDCONDITION = 1;
-        public const int NOTMATCHEDPASSWORD = 2;
-        public const int NOTMATCHEDID = 3;
-        public const int VALIDVALUE = 10;
+        public const int OVERLAP_DATA = 11;
+
+        public const int INVALIDINFORMATION = -2;
         public const int EXIT = -1;
         public const int SUCCESS = 0;
-        public const int INVALIDINFORMATION = -1;
-        public const int LEAKINGBOOKAMOUNT = 30;
-        public const int SUCCESSBORROWBOOK = 4;
-        public const int SUCCESSRETURNBOOK = 5;
-        public const int ALREADYRENTBOOK = 6;
-        public const int INVALIDBOOKID = 7;
-        public const int INVALIDUSERID = 8;
-        public const int SERCHEDBOOK = 20;
+        public const int NOT_MATCHED_CONDITION = 1;
+        public const int NOT_MATCHED_PASSWORD = 2;
+        public const int NOT_MATCHED_ID = 3;
+        public const int SUCCESS_BORROW_BOOK = 4;
+        public const int SUCCESS_RETURN_BOOK = 5;
+        public const int ALREADY_RENT_BOOK = 6;
+        public const int INVALID_BOOK_ID = 7;
+        public const int INVALID_USER_ID = 8;
 
-        public const int FINDTHEBOOK = 0;
-        public const int RENTTHEBOOK = 1;
-        public const int ADDTHEBOOK = 1;
-        public const int CHECKTHERETALBOOK = 2;
-        public const int DELETETHEBOOK = 2;
-        public const int MODIFYBOKKINFORMATION = 3;
-        public const int RETURNTHEBOOK = 3;
-        public const int MANAGEUSER = 4;
-        public const int RETURNBOOKLIST = 4;
-        public const int RENTALSTATE = 5;
-        public const int MODIFYMYINFORMATION = 5;
-        public const int DELETEACCOUNT = 6;
+        public const int VALID_VALUE = 10;
+        public const int SERCHED_BOOK = 20;
+        public const int LEAKING_BOOK_AMOUNT = 30;
+    }
 
-        public const int MODIFYID = 0;
-        public const int MODIFYPASSWORD = 1;
-        public const int MODIFYNAME = 2;
-        public const int MODIFYAGE = 3;
-        public const int MODIFYPHONENUMBER = 4;
-        public const int MODIFTADDRESS = 5;
-        public const int MODIFYSUCCESS = 6;
+    enum Mode
+    {
+        USER,
+        MANAGER
+    }
 
-        public const int MODIFYTITLE = 0;
-        public const int MODIFYAUTHOR = 1;
-        public const int MODIFYPUBLISHER = 2;
-        public const int MODIFYAMOUNT = 3;
-        public const int MODIFYPRICE = 4;
-        public const int MODIFTPUBLISHDAY = 5;
+    enum Sign
+    {
+        SIGNIN,
+        SIGNUP
+    }
+    enum MANAGERMODE
+    {
+        FIND_BOOK,
+        ADD_BOOK,
+        DLETE_BOOK,
+        MODIFY_BOOK_INFORMATION,
+        MANAGE_USER,
+        RENTAL_STATE
+    }
+
+    enum USERMODE
+    {
+        FIND_BOOK,
+        RENT_BOOK,
+        RENT_BOOK_LIST,
+        RETURN_BOOK,
+        RETURN_BOOK_LIST,
+        MODIFY_MY_INFORMATION,
+        DELETE_ACCOUNT
+    }
+    enum USERINFORMATION
+    {
+        ID,
+        PASSWORD,
+        NAME,
+        AGE,
+        PHONENUMBER,
+        ADDRESS,
+        SUCCESS
+    }
+
+    enum BOOKINFORMATION
+    {
+        TITLE,
+        AUTHOR,
+        PUBLISHER,
+        AMOUNT,
+        PRICE,
+        PUBLISHDAY
     }
 }

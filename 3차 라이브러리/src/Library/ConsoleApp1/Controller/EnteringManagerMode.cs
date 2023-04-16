@@ -14,8 +14,8 @@ namespace Library.Controller
     class EnteringManagerMode
     {
         UI ui;
-        MovingCurserPosition curser;
-        TotalInformationStorage totalInformationStorage;
+        MovingCursorPosition cursor;
+        TotalStorage totalStorage;
         PrintingBookInformation bookInformation;
         PrintingUserInformation userInformation;
         InputFromUser inputFromUser;
@@ -25,15 +25,16 @@ namespace Library.Controller
         SelectingMenuInManagerMode managerMode;
         EnteringMenuOfBook menuOfBook;
         EnteringMenuOfUser menuOfUser;
+        ManagerSignIn managerSignIn;
 
-        public EnteringManagerMode(UI ui, MovingCurserPosition curser, TotalInformationStorage totalInformationStorage, 
+        public EnteringManagerMode(UI ui, MovingCursorPosition cursor, TotalStorage totalInformationStorage, 
             PrintingBookInformation bookInformation, PrintingUserInformation userInformation, InputFromUser inputFromUser,
             HandlingException handlingException, RegexStorage regex, ProgressInSignInOrSignUp progressInSignInOrSignUp,
             EnteringMenuOfBook menuOfBook, EnteringMenuOfUser menuOfUser)
         {
             this.ui = ui;
-            this.curser = curser;
-            this.totalInformationStorage = totalInformationStorage;
+            this.cursor = cursor;
+            this.totalStorage = totalInformationStorage;
             this.bookInformation = bookInformation;
             this.userInformation = userInformation;
             this.inputFromUser = inputFromUser;
@@ -42,8 +43,9 @@ namespace Library.Controller
             this.progressInSignInOrSignUp = progressInSignInOrSignUp;
             this.menuOfBook = menuOfBook;
             this.menuOfUser = menuOfUser;
-            managerMode = new SelectingMenuInManagerMode(ui, totalInformationStorage, curser, regex, handlingException,
+            managerMode = new SelectingMenuInManagerMode(ui, totalInformationStorage, cursor, regex, handlingException,
                 inputFromUser, bookInformation, userInformation, menuOfBook, menuOfUser);
+            managerSignIn = new(ui, total)
         }
         public void UsingManagerMenu()
         {
@@ -57,7 +59,7 @@ namespace Library.Controller
                 Console.Clear();
                 ui.PrintLogin();
 
-                index = progressInSignInOrSignUp.SignInMember(true);        // 로그인 함수에 진입
+                index = progressInSignInOrSignUp.ManagerSignIn();        // 로그인 함수에 진입
                 if(index == ConstantNumber.EXIT)        // 도중에 ESC를 눌러 반환된 값이 온다면
                 {
                     selectedMenu = ConstantNumber.EXIT;     

@@ -13,7 +13,7 @@ namespace Library.Controller
     class SelectingMenuInManagerMode
     {
         UI ui;
-        TotalInformationStorage totalInformationStorage;
+        TotalStorage totalInformationStorage;
         MovingCurserPosition curser;
         RegexStorage regex;
         HandlingException handlingException;
@@ -22,7 +22,7 @@ namespace Library.Controller
         PrintingUserInformation printUserInformation;
         EnteringMenuOfBook menuOfBook;
         EnteringMenuOfUser menuOfUser;
-        public SelectingMenuInManagerMode(UI ui, TotalInformationStorage totalInformationStorage, MovingCurserPosition curser,
+        public SelectingMenuInManagerMode(UI ui, TotalStorage totalInformationStorage, MovingCurserPosition curser,
             RegexStorage regex, HandlingException handlingException, InputFromUser inputFromUser, 
             PrintingBookInformation printBookInformation, PrintingUserInformation printUserInformation, 
             EnteringMenuOfBook menuOfBook, EnteringMenuOfUser menuOfUser)

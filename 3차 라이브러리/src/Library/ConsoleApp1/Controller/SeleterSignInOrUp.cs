@@ -23,7 +23,6 @@ namespace Library.Controller
         InputFromUser inputFromUser;
         RegexStorage regex;
         HandlingException handlingException;
-        EnteringMenuOfUser menuOfUser;
 
         public SeleterSignInOrUp(UI ui, MovingCursorPosition curser, TotalStorage totalStorage,
             PrinterUserInformation userInformation, PrinterBookInformation bookInformation, InputFromUser inputFromUser,
@@ -39,9 +38,8 @@ namespace Library.Controller
             this.handlingException = handlingException;
             this.regex = regex;
             this.userSignInOrUp = userSignInOrUp;
-            this.menuOfUser = menuOfUser;
             userMode = new SelectingMenuInUserMode(ui, curser, totalStorage, userInformation,
-                bookInformation, inputFromUser, handlingException, regex, menuOfUser);
+                bookInformation, inputFromUser, handlingException, regex);
         }
         static void Console_CancelKeyPress(object sender, ConsoleCancelEventArgs e) //ctrl + z 등 단축키를 통해
         {
@@ -97,16 +95,21 @@ namespace Library.Controller
         private bool EnteringSignUp(int modeIndex)
         {
             List<string> account;
+            bool isSuccessLogin = false;
 
-            Console.Clear();
-            ui.PrintLogin();
-            account = userSignInOrUp.SignInMember();      // 로그인 함수로 진입
-            if (modeIndex == ConstantNumber.EXIT)      // 로그인 함수 속에서 ESC를 입력받았을 경우
+            while (!isSuccessLogin)
             {
-                return false;
-            }
+                Console.Clear();
+                ui.PrintLogin();
 
-            userSignInOrUp.SerchValidAccount(account);
+                account = userSignInOrUp.SignInMember();      // 로그인 함수로 진입
+                if (account == null)      // 로그인 함수 속에서 ESC를 입력받았을 경우
+                {
+                    return false;
+                }
+
+                isSuccessLogin = userSignInOrUp.SerchValidAccount(account);
+            }
 
             userMode.SelectMenuInUserMode();
 

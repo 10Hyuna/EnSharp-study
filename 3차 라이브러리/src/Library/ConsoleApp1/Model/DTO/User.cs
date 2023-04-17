@@ -65,7 +65,7 @@ namespace Library.Model.DTO
             return this.name;
         }
 
-        public string GetUSerAge()
+        public string GetUserAge()
         {
             return this.age;
         }
@@ -78,6 +78,32 @@ namespace Library.Model.DTO
         public string GetUserAddress()
         {
             return this.address;
+        }
+
+        public List<BorrowBookList> BorrowDatas
+        {
+            get
+            {
+                return this.borrowDatas;
+            }
+
+            set
+            { 
+                this.borrowDatas = value;
+            }
+        }
+
+        public List<ReturnBookList> RetrunDatas
+        {
+            get
+            {
+                return this.returnDatas;
+            }
+
+            set
+            {
+                this.returnDatas = value;
+            }
         }
         public User(string id, string password, string name, string age, string phoneNumber, string address)  // 유저의 정보 입력
         {

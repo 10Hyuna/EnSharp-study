@@ -24,6 +24,14 @@ namespace Library.Controller
         {
             e.Cancel = true;
         }
+        public int EnterEsc(string input)
+        {
+            if (input == null)
+            {
+                return ConstantNumber.EXIT;
+            }
+            return ConstantNumber.SUCCESS;
+        }
 
         private bool isCharacterOrNumber(char input)
         {

@@ -15,8 +15,8 @@ namespace Library.Controller
         UI ui;
         MovingCursorPosition cursor;
         TotalStorage totalStorage;
-        PrinterUserInformation printuserInformation;
-        PrinterBookInformation printbookInformation;
+        PrinterUserInformation printUserInformation;
+        PrinterBookInformation printBookInformation;
         InputFromUser inputFromUser;
         RegexStorage regex;
         HandlingException handlingException;
@@ -30,13 +30,15 @@ namespace Library.Controller
             this.ui = ui;
             this.cursor = cursor;
             this.totalStorage = totalStorage;
-            this.printuserInformation = userInformation;
-            this.printbookInformation = bookInformation;
+            this.printUserInformation = userInformation;
+            this.printBookInformation = bookInformation;
             this.inputFromUser = inputFromUser;
             this.regex = regex;
             this.handlingException = handlingException;
-            memberAccessInUser = new MemberAccessInUser(ui, cursor, totalStorage, userInformation, bookInformation, inputFromUser, handlingException, regex);
-            bookAccessInUser = new BookAccessInUser(ui, cursor, totalStorage, userInformation, bookInformation, inputFromUser, handlingException, regex);
+            memberAccessInUser = new MemberAccessInUser(ui, cursor, totalStorage, userInformation, 
+                inputFromUser, handlingException, regex);
+            bookAccessInUser = new BookAccessInUser(ui, totalStorage, bookInformation, 
+                inputFromUser, handlingException, regex);
         }
         
         public void SelectMenuInUserMode()
@@ -69,25 +71,25 @@ namespace Library.Controller
                 switch (selectedMenu)
                 {
                     case (int)(USERMODE.FIND_BOOK):
-                        menuOfBook.FindTheBookBySerching();
+                        bookAccessInUser.FindTheBookBySerching();
                         break;
                     case (int)(USERMODE.RENT_BOOK):
-                        menuOfBook.RentTheBook();
+                        bookAccessInUser.RentTheBook();
                         break;
                     case (int)(USERMODE.RENT_BOOK_LIST):
-                        menuOfBook.CheckTheRentalBook();
+                        bookAccessInUser.CheckTheRentalBook();
                         break;
                     case (int)(USERMODE.RETURN_BOOK):
-                        menuOfBook.ReturnTheBook();
+                        bookAccessInUser.ReturnTheBook();
                         break;
                     case (int)(USERMODE.RETURN_BOOK_LIST):
-                        menuOfBook.ReturnTheBookList();
+                        bookAccessInUser.ReturnTheBookList();
                         break;
                     case (int)(USERMODE.MODIFY_MY_INFORMATION):
-                        menuOfUser.ModifyMyInformation();
+                        memberAccessInUser.ModifyMyInformation();
                         break;
                     case (int)(USERMODE.DELETE_ACCOUNT):
-                        checkingBreak = menuOfUser.DeleteMyAccount();
+                        checkingBreak = memberAccessInUser.DeleteMyAccount();
                         break;
                 }
 

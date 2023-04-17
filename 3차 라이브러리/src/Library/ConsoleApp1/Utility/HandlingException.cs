@@ -36,8 +36,9 @@ namespace Library.Utility
             return false;
         }
 
-        public string IsValid(Regex regex, int ConsoleInputRow, int ConsoleInputColumn, int maxLength, bool isPassword)     // 문자열이 주어진 조건에 해당하는 값이 아닐 때 계속 입력하도록 하는 함수
+        public string IsValid(string regex, int ConsoleInputRow, int ConsoleInputColumn, int maxLength, bool isPassword)     // 문자열이 주어진 조건에 해당하는 값이 아닐 때 계속 입력하도록 하는 함수
         {
+            Regex regexForm = new Regex(regex);
             bool isValidInput = false;
             Console.SetCursorPosition(ConsoleInputRow, ConsoleInputColumn);
             string message = "";
@@ -48,14 +49,14 @@ namespace Library.Utility
                 {
                     isValidInput = true;
                 }
-                else if (CheckException(message, regex) == true || message == "")
+                else if (CheckException(message, regexForm) == true || message == "")
                 {
                     isValidInput = true;
                 }
                 else
                 {
                     Console.SetCursorPosition(ConsoleInputRow, ConsoleInputColumn);
-                    ui.PrintException(ConstantNumber.NOTMATCHEDCONDITION);
+                    ui.PrintException(ConstantNumber.NOT_MATCHED_CONDITION);
                     continue;
                 }
             }

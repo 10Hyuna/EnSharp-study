@@ -18,8 +18,8 @@ namespace Library.Controller
         Book book;
         User user;
         UI ui;
-        PrinterBookInformation bookInformation;
-        PrinterUserInformation userInformation;
+        PrinterBookInformation printerBookInformation;
+        PrinterUserInformation printerUserInformation;
         MovingCursorPosition curser;
         EnteringManagerMode enteringManagerMode;
         EnteringMenuOfUser menuOfUser;
@@ -29,7 +29,8 @@ namespace Library.Controller
         ConstantNumber constantNumber;
         HandlingException handlingException;
         RegexStorage regex;
-        UserSignInOrUp progressInSignInOrSignUp;
+        UserSignInOrUp userSingInOrUp;
+        FindBook findBook;
 
         public ModeSelector()
         {
@@ -37,22 +38,21 @@ namespace Library.Controller
             user = new User();
             book = new Book();
             ui = new UI();
-            bookInformation = new PrinterBookInformation();
-            userInformation = new PrinterUserInformation(ui);
+            printerBookInformation = new PrinterBookInformation();
+            printerUserInformation = new PrinterUserInformation(ui);
             regex = new RegexStorage();
             inputFromUser = new InputFromUser();
             handlingException = new HandlingException(ui, inputFromUser, regex);
             inputFromUser = new InputFromUser(regex, handlingException);
             curser = new MovingCursorPosition(ui, inputFromUser);
-            progressInSignInOrSignUp = new UserSignInOrUp(ui, totalStorage, user, curser,
-                inputFromUser, bookInformation, handlingException);
-            menuOfUser = new EnteringMenuOfUser(totalStorage, userInformation, inputFromUser, ui, handlingException, regex, curser);
-            menuOfBook = new EnteringMenuOfBook(totalStorage, bookInformation, inputFromUser, ui, handlingException, regex, curser);
+            userSingInOrUp = new UserSignInOrUp(ui, totalStorage, user, curser,
+                inputFromUser, printerBookInformation, handlingException);
+            findBook = new FindBook(totalStorage, handlingException, printerBookInformation);
             selecterSignInOrUp = new SeleterSignInOrUp(ui, curser, totalStorage, 
-                userInformation, bookInformation, inputFromUser, handlingException, regex,
-                progressInSignInOrSignUp, menuOfUser);
-            enteringManagerMode = new EnteringManagerMode(ui, curser, totalStorage, bookInformation, 
-                userInformation, inputFromUser, handlingException, regex, progressInSignInOrSignUp, menuOfBook, menuOfUser);
+                printerUserInformation, printerBookInformation, inputFromUser, 
+                handlingException, regex, userSingInOrUp, findBook);
+            enteringManagerMode = new EnteringManagerMode(ui, curser, totalStorage, printerBookInformation, 
+                printerUserInformation, inputFromUser, handlingException, regex, userSingInOrUp, findBook);
         }
 
         public void SelectModeOfUserOrManager()      // 메인 콘솔창

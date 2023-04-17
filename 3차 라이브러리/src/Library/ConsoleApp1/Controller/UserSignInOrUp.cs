@@ -42,10 +42,13 @@ namespace Library.Controller
             manager = new Manager();
         }
 
-        public int SignInMember()  // 로그인
+        public List<string> SignInMember()  // 로그인
         {
-            const int ConsoleInputRow = 25;
-            const int ConsoleInputColumn = 23;
+            const int id = 0;
+            const int password = 1;
+
+            int ConsoleInputRow = 25;
+            int ConsoleInputColumn = 23;
 
             bool isPassword = true;
             bool isNotPassword = false;
@@ -54,26 +57,22 @@ namespace Library.Controller
             int userIndex = 0;
             int managerIndex = 0;
 
-            string id = "";
-            string password = "";
+            List<string> accounts = new List<string>();
 
-            while (!isValidAccount)     // 계정 정보가 유효하지 않을 경우 계속 반복
-            {
-                Console.SetCursorPosition(ConsoleInputRow, ConsoleInputColumn);
-                id = inputFromUser.InputStringFromUser(15, isNotPassword, ConsoleInputRow, ConsoleInputColumn);
-                if (id == null)
-                    return -1;
-                Console.SetCursorPosition(ConsoleInputRow, ConsoleInputColumn + 1);
-                password = inputFromUser.InputStringFromUser(15, isPassword, ConsoleInputRow, ConsoleInputColumn + 1);
-                if (password == null)
-                    return -1;
+            Console.SetCursorPosition(ConsoleInputRow, ConsoleInputColumn);
+            accounts[(int)(USERINFORMATION.ID)] = inputFromUser.InputStringFromUser(15, isNotPassword, ConsoleInputRow, ConsoleInputColumn);
+            if (accounts[(int)(USERINFORMATION.ID)] == null)
+                return null;
 
-                userIndex = SerchValidAccount(id, password);
-            }
-            return userIndex;
+            Console.SetCursorPosition(ConsoleInputRow, ConsoleInputColumn + 1);
+            accounts[(int)(USERINFORMATION.PASSWORD)] = inputFromUser.InputStringFromUser(15, isPassword, ConsoleInputRow, ConsoleInputColumn + 1);
+            if (accounts[(int)(USERINFORMATION.PASSWORD)] == null)
+                return null;
+
+            return accounts;
         }
 
-        private int SerchValidAccount(string id, string password)
+        public bool SerchValidAccount(List<string> account)
         {
             const int ConsoleInputRow = 15;
             const int ConsoleInputColumn = 21;
@@ -82,33 +81,24 @@ namespace Library.Controller
 
             bool isValidAccount = false;
 
-            while (!isValidAccount)
+            for (int i = 0; i < totalStorage.users.Count; i++)      // 저장되어 있는 회원 정보만큼 반복하며
             {
-                for (int i = 0; i < totalStorage.users.Count; i++)      // 저장되어 있는 회원 정보만큼 반복하며
+                if (totalStorage.users[i].GetUserId() == account[(int)(USERINFORMATION.ID)] &&
+                    totalStorage.users[i].GetUserPassword() == account[(int)(USERINFORMATION.PASSWORD)])   // 일치하는 ID가 있을 때
                 {
-                    if (totalStorage.users[i].GetUserId() == id && totalStorage.users[i].GetUserPassword() == password)     // 일치하는 ID가 있을 때
-                    {
-                        totalStorage.loggedInUserId = id;
-                        isValidAccount = true;      // 존재하는 계정의
-                        userIndex = i;                  // 인덱스 값을 저장해 두고
-                        break;                      // 반복문 탈출
-                    }
-                }
-
-                if(!isValidAccount)
-                {
-                    if (totalStorage.manager[0].GetManagerId() == id && totalStorage.manager[0].GetManagerPassword() == password)
-                    {
-                        isValidAccount = true;
-                    }
-                }
-
-                if (!isValidAccount)
-                {
-                    ui.IsValidAccount(ConsoleInputRow, ConsoleInputColumn);
+                    totalStorage.loggedInUserId = account[(int)(USERINFORMATION.ID)];
+                    isValidAccount = true;      // 존재하는 계정의
+                    userIndex = i;                  // 인덱스 값을 저장해 두고
+                    break;                      // 반복문 탈출
                 }
             }
-            return userIndex;
+
+            if (!isValidAccount)
+            {
+                ui.IsValidAccount(ConsoleInputRow, ConsoleInputColumn);
+            }
+
+            return isValidAccount;
         }
         public int SignUpMember()      // 회원가입
         {

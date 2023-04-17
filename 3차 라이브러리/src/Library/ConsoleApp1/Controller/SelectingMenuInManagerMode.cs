@@ -20,12 +20,14 @@ namespace Library.Controller
         InputFromUser inputFromUser;
         PrinterBookInformation printBookInformation;
         PrinterUserInformation printUserInformation;
-        EnteringMenuOfBook menuOfBook;
-        EnteringMenuOfUser menuOfUser;
+        FindBook findBook;
+        MemberAccessInManager memberAccessInManager;
+        BookAccessInManager bookAccessInManager;
+
         public SelectingMenuInManagerMode(UI ui, TotalStorage totalInformationStorage, MovingCursorPosition curser,
             RegexStorage regex, HandlingException handlingException, InputFromUser inputFromUser, 
             PrinterBookInformation printBookInformation, PrinterUserInformation printUserInformation, 
-            EnteringMenuOfBook menuOfBook, EnteringMenuOfUser menuOfUser)
+            FindBook findBook, MemberAccessInManager memberAccessInManager, BookAccessInManager bookAccessInManager)
         {
             this.ui = ui;
             this.totalInformationStorage = totalInformationStorage;
@@ -35,8 +37,9 @@ namespace Library.Controller
             this.inputFromUser = inputFromUser;
             this.printBookInformation = printBookInformation;
             this.printUserInformation = printUserInformation;
-            this.menuOfBook = menuOfBook;
-            this.menuOfUser = menuOfUser;
+            this.findBook = findBook;
+            this.memberAccessInManager = memberAccessInManager;
+            this.bookAccessInManager = bookAccessInManager;
         }
 
         public void SelecMenuManagerMode()
@@ -67,23 +70,23 @@ namespace Library.Controller
 
                 switch(selectedMenu)
                 {
-                    case ConstantNumber.FINDTHEBOOK:
-                        menuOfBook.FindTheBookBySerching();
+                    case (int)(MANAGERMODE.FIND_BOOK):
+                        findBook.FindTheBookBySerching();
                         break;
-                    case ConstantNumber.ADDTHEBOOK:
-                        menuOfBook.AddTheBook();
+                    case (int)(MANAGERMODE.ADD_BOOK):
+                        bookAccessInManager.AddTheBook();
                         break;
-                    case ConstantNumber.DELETETHEBOOK:
-                        menuOfBook.DeleteTheBook();
+                    case (int)(MANAGERMODE.DLETE_BOOK):
+                        bookAccessInManager.DeleteTheBook();
                         break;
-                    case ConstantNumber.MODIFYBOKKINFORMATION:
-                        menuOfBook.EnterMenuModifyTheBook();
+                    case (int)(MANAGERMODE.MODIFY_BOOK_INFORMATION):
+                        bookAccessInManager.EnterMenuModifyTheBook();
                         break;
-                    case ConstantNumber.MANAGEUSER:
-                        menuOfUser.ManageUserInformation();
+                    case (int)(MANAGERMODE.MANAGE_USER):
+                        memberAccessInManager.ManageUserInformation();
                         break;
-                    case ConstantNumber.RENTALSTATE:
-                        menuOfUser.RentalState();
+                    case (int)(MANAGERMODE.RENTAL_STATE):
+                        memberAccessInManager.RentalState();
                         break;
                 }
             }

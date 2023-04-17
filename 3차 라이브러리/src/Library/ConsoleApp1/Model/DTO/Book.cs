@@ -111,7 +111,8 @@ namespace Library.Model.DTO
         {
             return this.information;
         }
-        public Book(int id, string title, string author, string publisher, string amount, string price, string publishDay, string ISBN, string information)   // 책 정보를 입력
+        public Book(int id, string title, string author, string publisher, string amount, 
+            string price, string publishDay, string ISBN, string information)   // 책 정보를 입력
         {
             this.id = id;
             this.title = title;
@@ -127,6 +128,21 @@ namespace Library.Model.DTO
     }
     class BorrowBookList : Book
     {
+        public BorrowBookList(int id, string title, string author, string publisher, string amount,
+            string price, string publishDay, string ISBN, string information, string borrowTime)
+        {
+            this.id = id;
+            this.title = title;
+            this.author = author;
+            this.publisher = publisher;
+            this.amount = amount;
+            this.price = price;
+            this.publishDay = publishDay;
+            this.ISBN = ISBN;
+            this.information = information;
+            this.borrowTime = borrowTime;
+        }
+
         protected string borrowTime;
         
         public BorrowBookList() { }
@@ -235,6 +251,22 @@ namespace Library.Model.DTO
 
     class ReturnBookList : BorrowBookList
     {
+        public ReturnBookList(int id, string title, string author, string publisher, string amount,
+            string price, string publishDay, string ISBN, string information, string borrowTime, string returnTime)
+        {
+            this.id = id;
+            this.title = title;
+            this.author = author;
+            this.publisher = publisher;
+            this.amount = amount;
+            this.price = price;
+            this.publishDay = publishDay;
+            this.ISBN = ISBN;
+            this.information = information;
+            this.borrowTime = borrowTime;
+            this.returnTime = returnTime;
+        }
+
         private string returnTime;
 
         public void SetReturnId(int id)

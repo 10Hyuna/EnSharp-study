@@ -1,4 +1,5 @@
 ﻿using Library.Model;
+using Library.Utility;
 using Library.View;
 using System;
 using System.Collections.Generic;
@@ -18,9 +19,32 @@ namespace Library.Controller
             this.totalStorage = totalStorage;
         }
 
-        public int SignInManager()
+        public bool SignInManager()
         {
-            return base.SignInMember();
+            List<string> account;
+            bool isSuccessLogin = false;
+
+            while(!isSuccessLogin)
+            {
+                account =  base.SignInMember();
+                if(account == null)
+                {
+                    return false;
+                }
+
+                isSuccessLogin = IsValidAccount(account);
+            }
+            return isSuccessLogin;
+        }
+
+        private bool IsValidAccount(List<string> account)
+        {
+            if (account[(int)(ACCOUNT.ID)] == totalStorage.manager[0].GetManagerId()
+                && account[(int)(ACCOUNT.PASSWORD)] == totalStorage.manager[0].GetManagerPassword())
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

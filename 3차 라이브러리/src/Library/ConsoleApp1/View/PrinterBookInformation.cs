@@ -21,7 +21,7 @@ namespace Library.View
         public void PrintEnter()
         {
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine(" ENTER : 선택하기");
+            Console.WriteLine(" ENTER : 선택하기 / 다시 선택");
             Console.ResetColor();
         }
         public void PrintFindingBookUI()
@@ -68,7 +68,7 @@ namespace Library.View
         public void PrintRentalBookListUI(int id, string title, string author, string publisher, string amount,
              string price, string publishDay, string ISBN, string information, string borrowTime)
         {
-            Console.WriteLine("\n=====================================================================================\n");
+            Console.WriteLine("\n\t\t=====================================================================================\n");
             Console.WriteLine("책아이디  : {0}", id);
             Console.WriteLine("책 제목   : {0}", title);
             Console.WriteLine("작가      : {0}", author);
@@ -120,7 +120,7 @@ namespace Library.View
             int consoleInputColumn = 3;
             Console.SetCursorPosition(consoleInputRow, consoleInputColumn);
             Console.WriteLine("도서 추가");
-            Console.SetCursorPosition(consoleInputRow - 15, consoleInputColumn + 2);
+            Console.SetCursorPosition(consoleInputRow - 22, consoleInputColumn + 2);
             PrintEnter();
             Console.SetCursorPosition(consoleInputRow + 2, consoleInputColumn + 2);
             PrintEsc();
@@ -155,9 +155,7 @@ namespace Library.View
 
             Console.SetCursorPosition(consoleInputRow, consoleInputColumn);
             Console.WriteLine("도서 추가");
-            Console.SetCursorPosition(consoleInputRow - 15, consoleInputColumn + 2);
-            PrintEnter();
-            Console.SetCursorPosition(consoleInputRow + 2, consoleInputColumn + 2);
+            Console.SetCursorPosition(consoleInputRow, consoleInputColumn + 2);
             PrintEsc();
             Console.WriteLine("\n\n\n");
             Console.WriteLine("\t\t\t\t----------------------------------------------------\n\n");

@@ -14,41 +14,40 @@ namespace Library.Controller
     class SeleterSignInOrUp
     {
         UI ui;
-        MovingCursorPosition curser;
+        MovingCursorPosition cursror;
         TotalStorage totalStorage;
-        UserSignInOrUp userSignInOrUp;
+        UserSignUp userSignInOrUp;
         SelectingMenuInUserMode userMode;
         PrinterBookInformation printbookInformation;
         PrinterUserInformation printuserInformation;
         InputFromUser inputFromUser;
-        RegexStorage regex;
         HandlingException handlingException;
-
-        public SeleterSignInOrUp(UI ui, MovingCursorPosition curser, TotalStorage totalStorage,
-            PrinterUserInformation userInformation, PrinterBookInformation bookInformation, InputFromUser inputFromUser,
-            HandlingException handlingException, RegexStorage regex, UserSignInOrUp userSignInOrUp,
-            EnteringMenuOfUser menuOfUser)
+        FindBook findBook;
+        ModificationUserInformation modificationUserInformation;
+        LogIn logIn;
+        public SeleterSignInOrUp(UI ui, MovingCursorPosition cursor, TotalStorage totalStorage,
+            PrinterUserInformation userInformation, PrinterBookInformation bookInformation, 
+            InputFromUser inputFromUser, HandlingException handlingException,
+            UserSignUp userSignInOrUp, FindBook findBook, ModificationUserInformation modificationUserInformation,
+            LogIn logIn)
         {
             this.ui = ui;
-            this.curser = curser;
+            this.cursror = cursor;
             this.totalStorage = totalStorage;
             this.printbookInformation = bookInformation;
             this.printuserInformation = userInformation;
             this.inputFromUser = inputFromUser;
             this.handlingException = handlingException;
-            this.regex = regex;
             this.userSignInOrUp = userSignInOrUp;
-            userMode = new SelectingMenuInUserMode(ui, curser, totalStorage, userInformation,
-                bookInformation, inputFromUser, handlingException, regex);
-        }
-        static void Console_CancelKeyPress(object sender, ConsoleCancelEventArgs e) //ctrl + z 등 단축키를 통해
-        {
-            e.Cancel = true;
+            this.findBook = findBook;
+            this.modificationUserInformation = modificationUserInformation;
+            this.logIn = logIn;
+            userMode = new SelectingMenuInUserMode(ui, cursor, totalStorage, userInformation,
+                bookInformation, inputFromUser, handlingException, findBook, modificationUserInformation);
         }
 
         public void SeleteSignInUp()
         {       // 유저 모드에 진입했을 경우
-            Console.CancelKeyPress += new ConsoleCancelEventHandler(Console_CancelKeyPress);
 
             int WindowCenterWidth = 50;
             int WindowCenterHeight = 17;
@@ -65,7 +64,7 @@ namespace Library.Controller
                 ui.PrintMain();
                 ui.PrintBox(6);
 
-                selectedMenu = curser.SelectCurser(menu, menu.Length, selectedMenu, WindowCenterWidth, WindowCenterHeight);
+                selectedMenu = cursror.SelectCurser(menu, menu.Length, selectedMenu, WindowCenterWidth, WindowCenterHeight);
                 // 키보드를 통한 진입과 선택으로 최종 엔터키를 입력한 뒤
                 // 선택된 인덱스가 무엇인지 출력
 
@@ -73,10 +72,11 @@ namespace Library.Controller
                 {
                     isEnteredESC = EnteringSignUp(modeIndex);
                     
-                    if (isEnteredESC == false)
+                    if (!isEnteredESC)
                     {
                         continue;
-                    }    
+                    }
+
                     userMode.SelectMenuInUserMode();
                 }
                 
@@ -102,16 +102,16 @@ namespace Library.Controller
                 Console.Clear();
                 ui.PrintLogin();
 
-                account = userSignInOrUp.SignInMember();      // 로그인 함수로 진입
+                account = logIn.SignInMember();      // 로그인 함수로 진입
                 if (account == null)      // 로그인 함수 속에서 ESC를 입력받았을 경우
                 {
                     return false;
                 }
 
-                isSuccessLogin = userSignInOrUp.SerchValidAccount(account);
+                isSuccessLogin = logIn.SerchValidAccount(account);      // 유효한 계정이라면 true가 리턴되어 반복문 탈출
             }
 
-            userMode.SelectMenuInUserMode();
+            userMode.SelectMenuInUserMode();        // 유저 모드로 진입
 
             return true;
         }

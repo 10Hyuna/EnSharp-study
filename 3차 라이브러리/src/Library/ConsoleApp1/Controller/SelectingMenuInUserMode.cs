@@ -18,14 +18,15 @@ namespace Library.Controller
         PrinterUserInformation printUserInformation;
         PrinterBookInformation printBookInformation;
         InputFromUser inputFromUser;
-        RegexStorage regex;
         HandlingException handlingException;
         MemberAccessInUser memberAccessInUser;
         BookAccessInUser bookAccessInUser;
+        FindBook findBook;
+        ModificationUserInformation modificationUserInformation;
 
         public SelectingMenuInUserMode(UI ui, MovingCursorPosition cursor, TotalStorage totalStorage, 
             PrinterUserInformation userInformation, PrinterBookInformation bookInformation, InputFromUser inputFromUser,
-            HandlingException handlingException, RegexStorage regex)
+            HandlingException handlingException, FindBook findBook, ModificationUserInformation modificationUserInformation)
         {
             this.ui = ui;
             this.cursor = cursor;
@@ -33,14 +34,15 @@ namespace Library.Controller
             this.printUserInformation = userInformation;
             this.printBookInformation = bookInformation;
             this.inputFromUser = inputFromUser;
-            this.regex = regex;
             this.handlingException = handlingException;
-            memberAccessInUser = new MemberAccessInUser(ui, cursor, totalStorage, userInformation, 
-                inputFromUser, handlingException, regex);
-            bookAccessInUser = new BookAccessInUser(ui, totalStorage, bookInformation, 
-                inputFromUser, handlingException, regex);
+            this.findBook = findBook;
+            this.modificationUserInformation = modificationUserInformation;
+            memberAccessInUser = new MemberAccessInUser(ui, cursor, totalStorage, userInformation,
+                inputFromUser, handlingException);
+            bookAccessInUser = new BookAccessInUser(ui, totalStorage, bookInformation,
+                inputFromUser, handlingException, findBook);
         }
-        
+
         public void SelectMenuInUserMode()
         {               // 유저 모드에서 로그인에 성공했을 경우, 사용할 수 있는 메뉴
             int WindowCenterWidth = 50;
@@ -54,6 +56,7 @@ namespace Library.Controller
             bool isEnteredESC = false;
 
             string[] menu = { "도서 찾기", "도서 대여", "도서 대여 확인", "도서 반납", "도서 반납 내역", "정보 수정", "계정 삭제" };
+
             while (!isEnteredESC)
             {
                 checkingBreak = -1;
@@ -63,15 +66,15 @@ namespace Library.Controller
 
                 selectedMenu = cursor.SelectCurser(menu, menu.Length, selectedMenu, WindowCenterWidth, WindowCenterHeight);
                 
-                if(selectedMenu == -1)
+                if(selectedMenu == -1)          // esc를 눌렀다면
                 {
                     isEnteredESC = true;
                 }
 
-                switch (selectedMenu)
+                switch (selectedMenu)       // 선택한 메뉴의 인덱스가 무엇인지에 따라
                 {
-                    case (int)(USERMODE.FIND_BOOK):
-                        bookAccessInUser.FindTheBookBySerching();
+                    case (int)(USERMODE.FIND_BOOK):     // 케이스문 안으로 진입
+                        findBook.FindTheBookBySerching();
                         break;
                     case (int)(USERMODE.RENT_BOOK):
                         bookAccessInUser.RentTheBook();
@@ -86,16 +89,16 @@ namespace Library.Controller
                         bookAccessInUser.ReturnTheBookList();
                         break;
                     case (int)(USERMODE.MODIFY_MY_INFORMATION):
-                        memberAccessInUser.ModifyMyInformation();
+                        modificationUserInformation.ModifyInformation();
                         break;
                     case (int)(USERMODE.DELETE_ACCOUNT):
                         checkingBreak = memberAccessInUser.DeleteMyAccount();
                         break;
                 }
 
-                if(checkingBreak == 0)
+                if(checkingBreak == 0)      // 계정을 삭제했다면
                 {
-                    isEnteredESC = true;
+                    isEnteredESC = true;        // 반복문을 탈출함과 동시에 유저 모드에서 나가짐
                 }
             }
         }

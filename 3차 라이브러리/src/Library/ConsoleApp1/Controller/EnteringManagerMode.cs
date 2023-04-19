@@ -20,16 +20,19 @@ namespace Library.Controller
         PrinterUserInformation userInformation;
         InputFromUser inputFromUser;
         HandlingException handlingException;
-        RegexStorage regex;
-        UserSignInOrUp progressInSignInOrSignUp;
+        UserSignUp progressInSignInOrSignUp;
         SelectingMenuInManagerMode managerMode;
         ManagerSignIn managerSignIn;
         FindBook findBook;
-
+        BookAccessInManager bookAccessInManager;
+        MemberAccessInManager memberAccessInManager;
+        ModificationUserInformation modificationUserInforamtion;
+        LogIn logIn;
         public EnteringManagerMode(UI ui, MovingCursorPosition cursor, TotalStorage totalInformationStorage, 
             PrinterBookInformation bookInformation, PrinterUserInformation userInformation, InputFromUser inputFromUser,
-            HandlingException handlingException, RegexStorage regex, UserSignInOrUp progressInSignInOrSignUp,
-            FindBook findBook)
+            HandlingException handlingException, UserSignUp progressInSignInOrSignUp,
+            FindBook findBook, BookAccessInManager bookAccessInManager, MemberAccessInManager memberAccessInManager,
+            ModificationUserInformation modificationUserInforamtion, LogIn logIn)
         {
             this.ui = ui;
             this.cursor = cursor;
@@ -38,11 +41,15 @@ namespace Library.Controller
             this.userInformation = userInformation;
             this.inputFromUser = inputFromUser;
             this.handlingException = handlingException;
-            this.regex = regex;
             this.findBook = findBook;
-            managerMode = new SelectingMenuInManagerMode(ui, totalInformationStorage, cursor, regex, handlingException,
-                inputFromUser, bookInformation, userInformation, findBook);
-            managerSignIn = new ManagerSignIn(ui, totalStorage);
+            this.bookAccessInManager = bookAccessInManager;
+            this.memberAccessInManager = memberAccessInManager;
+            this.modificationUserInforamtion = modificationUserInforamtion;
+            this.logIn = logIn;
+            managerMode = new SelectingMenuInManagerMode(ui, totalInformationStorage, cursor,
+                handlingException, inputFromUser, bookInformation, userInformation, findBook,
+                bookAccessInManager, memberAccessInManager, modificationUserInforamtion);
+            managerSignIn = new ManagerSignIn(ui, totalStorage, logIn);
         }
         public void UsingManagerMenu()
         {
@@ -60,6 +67,10 @@ namespace Library.Controller
                 if(isInputEnter)     // ESC를 누르지 않았다면
                 {
                     managerMode.SelecMenuManagerMode();     // 매니저 모드에 진입
+                }
+                else
+                {
+                    ui.PrintException(ConstantNumber.NOT_MATCHED_INFORMATION, 20, 26);
                 }
             }
         }

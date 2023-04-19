@@ -20,62 +20,62 @@ namespace Library.Model.DTO
         protected List<BorrowBookList> borrowDatas = new List<BorrowBookList>();
         protected List<ReturnBookList> returnDatas = new List<ReturnBookList>();
 
-        public void SetUserId(string id)
+        public void SetId(string id)
         {
             this.id = id;
         }
 
-        public void SetUserPassword(string password)
+        public void SetPassword(string password)
         {
             this.password = password;
         }
 
-        public void SetUserName(string Name)
+        public void SetName(string Name)
         {
             this.name = name;
         }
 
-        public void SetUserAge(string Age)
+        public void SetAge(string Age)
         {
             this.age = Age;
         }
 
-        public void SetUserPhoneNumber(string phoneNumber)
+        public void SetPhoneNumber(string phoneNumber)
         {
             this.phoneNumber = phoneNumber;
         }
 
-        public void SetUserAddress(string Address)
+        public void SetAddress(string Address)
         {
             this.address = Address;
         }
 
-        public string GetUserId()
+        public string GetId()
         {
             return this.id;
         }
 
-        public string GetUserPassword()
+        public string GetPassword()
         {
             return this.password;
         }
 
-        public string GetUserName()
+        public string GetName()
         {
             return this.name;
         }
 
-        public string GetUserAge()
+        public string GetAge()
         {
             return this.age;
         }
 
-        public string GetUserPhoneNumber()
+        public string GetPhoneNumber()
         {
             return this.phoneNumber;
         }
 
-        public string GetUserAddress()
+        public string GetAddress()
         {
             return this.address;
         }
@@ -93,7 +93,7 @@ namespace Library.Model.DTO
             }
         }
 
-        public List<ReturnBookList> RetrunDatas
+        public List<ReturnBookList> ReturnDatas
         {
             get
             {

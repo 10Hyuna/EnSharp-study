@@ -79,7 +79,7 @@ namespace Library.Controller
             return 0;
         }
 
-        private List<string> PrintTheAllBook()      // 책 찾기 메뉴에 진입했을 경우
+        public List<string> PrintTheAllBook()      // 책 찾기 메뉴에 진입했을 경우
         {
             const int ConsoleInputRow = 19;
             const int ConsoleInputColumn = 0;
@@ -94,15 +94,15 @@ namespace Library.Controller
             for (int i = 0; i < totalStorage.books.Count; i++)
             {
                 Book findBook = totalStorage.books[i];
-                id = findBook.GetBookId();
-                title = findBook.GetBookTitle();
-                author = findBook.GetBookAuthor();
-                publisher = findBook.GetBookPublisher();
-                amount = findBook.GetBookAmount();
-                price = findBook.GetBookPrice();
-                publishDay = findBook.GetBookPublishDay();
-                ISBN = findBook.GetBookISBN();
-                information = findBook.GetBookInformation();
+                id = findBook.GetId();
+                title = findBook.GeTitle();
+                author = findBook.GetAuthor();
+                publisher = findBook.GetPublisher();
+                amount = findBook.GetAmount();
+                price = findBook.GetPrice();
+                publishDay = findBook.GetPublishDay();
+                ISBN = findBook.GetISBN();
+                information = findBook.GetInformation();
 
                 printerBookInformation.PrintBookList(id, title, author, publisher, amount,
                     price, publishDay, ISBN, information);
@@ -126,27 +126,27 @@ namespace Library.Controller
             return new List<string> { inputTitle, inputAuthor, inputPublisher };
         }
 
-        private void selectedBook(string inputTitle, string inputAuthor, string inputPublisher)      // 주어진 책의 정보들과 일치하는
+        public void selectedBook(string inputTitle, string inputAuthor, string inputPublisher)      // 주어진 책의 정보들과 일치하는
                                                                                                      // 문자가 있는 책 출력
         {
             for (int i = 0; i < totalStorage.books.Count; i++)
             {
                 
-                title = totalStorage.books[i].GetBookTitle();
-                author = totalStorage.books[i].GetBookAuthor();
-                publisher = totalStorage.books[i].GetBookPublisher();
+                title = totalStorage.books[i].GeTitle();
+                author = totalStorage.books[i].GetAuthor();
+                publisher = totalStorage.books[i].GetPublisher();
 
                 if (title.Contains(inputTitle)
                     && author.Contains(inputAuthor)
                     && publisher.Contains(inputPublisher))
                 {
-                    id = totalStorage.books[i].GetBookId();
-                    publisher = totalStorage.books[i].GetBookPublisher();
-                    amount = totalStorage.books[i].GetBookAmount();
-                    price = totalStorage.books[i].GetBookPrice();
-                    publishDay = totalStorage.books[i].GetBookPublishDay();
-                    ISBN = totalStorage.books[i].GetBookISBN();
-                    information = totalStorage.books[i].GetBookInformation();
+                    id = totalStorage.books[i].GetId();
+                    publisher = totalStorage.books[i].GetPublisher();
+                    amount = totalStorage.books[i].GetAmount();
+                    price = totalStorage.books[i].GetPrice();
+                    publishDay = totalStorage.books[i].GetPublishDay();
+                    ISBN = totalStorage.books[i].GetISBN();
+                    information = totalStorage.books[i].GetInformation();
                     printerBookInformation.PrintBookList(id, title, author, publisher,
                         amount, price, publishDay, ISBN, information);
                 }

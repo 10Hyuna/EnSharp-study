@@ -2,8 +2,10 @@
 using Library.Model.DTO;
 using Library.Utility;
 using Library.View;
+using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -16,15 +18,13 @@ namespace Library.Controller
         PrinterUserInformation printerUserInformation;
         TotalStorage totalStorage;
         HandlingException handlingException;
-        RegexStorage regex;
         UI ui;
-        public MemberAccessInManager(PrinterUserInformation printerUserInformation, TotalStorage totalStorage, 
-            HandlingException handlingException, RegexStorage regex, UI ui)
+        public MemberAccessInManager(PrinterUserInformation printerUserInformation, TotalStorage totalStorage,
+            HandlingException handlingException, UI ui)
         {
             this.printerUserInformation = printerUserInformation;
             this.totalStorage = totalStorage;
             this.handlingException = handlingException;
-            this.regex = regex;
             this.ui = ui;
         }
 
@@ -32,121 +32,40 @@ namespace Library.Controller
 
         bool isInputESC = false;
 
-        public void ManageUserInformation()
+        int id = 0;
+        string title = "";
+        string author = "";
+        string publisher = "";
+        string amount = "";
+        string price = "";
+        string publishDay = "";
+        string ISBN = "";
+        string information = "";
+        string borrowTime = "";
+        string returnTime = "";
+
+        private void RentalStateInBorrowBook(int index)         // 유저의 대여 현황을 확인하게 해 주는 함수
         {
-            int consoleInputRow = 60;
-            int consoleInputColumn = 10;
-
-            isInputESC = false;
-            bool isInvalidId = false;
-
-            string userId = "";
-            string id = "";
-            string name = "";
-            string age = "";
-            string phoneNumber = "";
-            string address = "";
-
-            while (!isInputESC)
-            {
-                Console.Clear();
-                printerUserInformation.PrintManageUser();
-
-                Console.SetCursorPosition(consoleInputRow, consoleInputColumn);
-                for (int i = 0; i < totalStorage.users.Count; i++)
-                {
-                    User modifyInformation = totalStorage.users[i];
-
-                    id = modifyInformation.GetUserId();
-                    name = modifyInformation.GetUserName();
-                    age = modifyInformation.GetUserAge();
-                    phoneNumber = modifyInformation.GetUserPhoneNumber();
-                    address = modifyInformation.GetUserAddress();
-
-                    printerUserInformation.PrintUserList(id, name, age, phoneNumber, address);
-
-                }
-                userId = handlingException.IsValid(ConstantNumber.idCheck, consoleInputRow + 3, consoleInputColumn - 7, 20, false);
-                if (userId == null)
-                    return;
-
-                for (int i = 0; i < totalStorage.users.Count; i++)
-                {
-                    if (totalStorage.users[i].GetUserId() == userId)
-                    {
-                        isInvalidId = true;
-                        totalStorage.users.RemoveAt(i);
-                    }
-                }
-
-                if (!isInvalidId)
-                {
-                    Console.SetCursorPosition(consoleInputRow, consoleInputColumn);
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    ui.PrintException(ConstantNumber.INVALID_USER_ID);
-                    Console.ResetColor();
-                    continue;
-                }
-
-                Console.Clear();
-                printerUserInformation.PrintSuccessDeleteUser();
-
-                for (int i = 0; i < totalStorage.users.Count; i++)
-                {
-                    User findUser = totalStorage.users[i];
-
-                    printerUserInformation.PrintUserList(findUser.GetUserId(), findUser.GetUserName(),
-                    findUser.GetUserAge(), findUser.GetUserPhoneNumber(),
-                        findUser.GetUserAddress());
-                }
-
-                keyInfo = Console.ReadKey(true);
-
-                if (keyInfo.Key == ConsoleKey.Escape)
-                {
-                    isInputESC = true;
-                }
-                else
-                {
-                    ui.PrintException(ConstantNumber.NOT_MATCHED_CONDITION);
-                }
-            }
-        }
-
-        private void RentalStateInBorrowBook(int index)
-        {
-            int id = 0;
-            string title = "";
-            string author = "";
-            string publisher = "";
-            string amount = "";
-            string price = "";
-            string publishDay = "";
-            string ISBN = "";
-            string information = "";
-            string borrowTime = "";
-            string returnTime = "";
-
             for (int j = 0; j < totalStorage.users[index].BorrowDatas.Count; j++)
             {
                 BorrowBookList rentalBook = totalStorage.users[index].BorrowDatas[j];
-                id = rentalBook.GetBorrowId();
-                title = rentalBook.GetBorrowTitle();
-                author = rentalBook.GetBorrowAuthor();
-                publisher = rentalBook.GetBorrowPublisher();
-                amount = rentalBook.GetBorrowAmount();
-                price = rentalBook.GetBorrowPrice();
-                publishDay = rentalBook.GetBorrowPublishDay();
-                ISBN = rentalBook.GetBorrowISBN();
-                information = rentalBook.GetBorrowInformation();
-                borrowTime = rentalBook.GetBorrowBorrowTime();
+                id = rentalBook.GetId();
+                title = rentalBook.GetTitle();
+                author = rentalBook.GetAuthor();
+                publisher = rentalBook.GetPublisher();
+                amount = rentalBook.GetAmount();
+                price = rentalBook.GetPrice();
+                publishDay = rentalBook.GetPublishDay();
+                ISBN = rentalBook.GetISBN();
+                information = rentalBook.GetInformation();
+                borrowTime = rentalBook.GetBorrowTime();
 
-                printerUserInformation.PrintUserId(totalStorage.users[index].GetUserId());
+                printerUserInformation.PrintUserId(totalStorage.users[index].GetId());      // 유저의 아이디 우선 출력
                 printerUserInformation.PrintRentalList(id, title, author, publisher, amount, price, publishDay,
-                    ISBN, information, borrowTime, returnTime);
+                    ISBN, information, borrowTime, returnTime);     // 그 유저의 대여 책의 정보 출력
             }
         }
-        public void RentalState()
+        public void RentalState()       // 대여 상황을 알려 주는 함수
         {
             isInputESC = false;
 

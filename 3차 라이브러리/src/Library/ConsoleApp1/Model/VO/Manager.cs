@@ -13,12 +13,12 @@ namespace Library.Model.VO
         protected string id;
         protected string password;
 
-        public string GetManagerId()
+        public string GetId()
         {
             return this.id;
         }
 
-        public string GetManagerPassword()
+        public string GetPassword()
         {
             return this.password;
         }

@@ -90,10 +90,10 @@ namespace Library.View
             PrintMain();
             PrintBox(6);
 
-            Console.SetCursorPosition(WindowCenterRow, WindowCenterColumn);
+            Console.SetCursorPosition(WindowCenterRow - 8, WindowCenterColumn);
             Console.WriteLine("회 원 가 입");
-            Console.SetCursorPosition(WindowCenterRow - 8, WindowCenterColumn + 2);
-            Console.WriteLine("ESC : 뒤로 가기   ENTER : 입력하기");
+            Console.SetCursorPosition(WindowCenterRow - 23, WindowCenterColumn + 2);
+            Console.WriteLine("ESC : 뒤로 가기   ENTER : 입력하기 / 다시 입력하기");
             for (int i = 0; i < 7; i++)
             {
                 Console.SetCursorPosition(ConsoleInputRow, i + ConsoleInputColumn);
@@ -139,34 +139,46 @@ namespace Library.View
             Console.WriteLine(" ENTER를 눌러주세요.");
         }
 
-        public void PrintException(int condition)
+        public void PrintException(int condition, int consoleInputRow, int consoleInputColumn)
         {
             Console.CancelKeyPress += new ConsoleCancelEventHandler(Console_CancelKeyPress);
 
+            Console.ForegroundColor = ConsoleColor.Red;
+
             if (condition == ConstantNumber.NOT_MATCHED_CONDITION)
             {
+                Console.SetCursorPosition(consoleInputRow, consoleInputColumn);
                 Console.WriteLine("주어진 조건에 맞는 값을 입력해 주세요.");
+                Console.SetCursorPosition(consoleInputRow, consoleInputColumn);
                 ErasePrint();
             }
             if(condition == ConstantNumber.VALID_VALUE)
             {
+                Console.SetCursorPosition(consoleInputRow, consoleInputColumn);
                 Console.WriteLine("유효하지 않은 값입니다.");
+                Console.SetCursorPosition(consoleInputRow, consoleInputColumn);
                 ErasePrint();
             }
             if (condition == ConstantNumber.NOT_MATCHED_PASSWORD)
-            {   
-                Console.WriteLine("비밀번호의 값이 서로 다릅니다.");
-                ErasePrint();
-            }
-            if(condition == ConstantNumber.NOT_MATCHED_ID)
             {
-                Console.WriteLine("저장된 아이디 정보가 없습니다. ");
+                Console.SetCursorPosition(consoleInputRow - 18, consoleInputColumn + 1);
+                Console.Write("                           ");
+                Console.SetCursorPosition(consoleInputRow, consoleInputColumn);
+                Console.WriteLine("비밀번호의 값이 서로 다릅니다.");
+                Console.SetCursorPosition(consoleInputRow, consoleInputColumn);
                 ErasePrint();
             }
-            if (condition == ConstantNumber.INVALIDINFORMATION)
+            if(condition == ConstantNumber.NOT_MATCHED_INFORMATION)
+            {
+                Console.SetCursorPosition(consoleInputRow, consoleInputColumn);
+                Console.WriteLine("저장된 정보가 없습니다. ");
+                Console.SetCursorPosition(consoleInputRow, consoleInputColumn);
+                ErasePrint();
+            }
+            if (condition == ConstantNumber.INVALID_INFORMATION)
             {
                 Console.Clear();
-                Console.SetCursorPosition(0, 0);
+                Console.SetCursorPosition(consoleInputRow, consoleInputColumn);
                 Console.WriteLine("저장되어 있는 정보가 없습니다.");
                 Console.WriteLine("다른 책을 입력하시려면 아무 키나 눌러 주세요.");
                 Console.ReadKey(true);
@@ -199,27 +211,33 @@ namespace Library.View
             }
             if(condition == ConstantNumber.OVERLAP_DATA)
             {
+                Console.SetCursorPosition(consoleInputRow, consoleInputColumn);
                 Console.WriteLine("이미 존재하는 아이디입니다.");
+                Console.SetCursorPosition(consoleInputRow, consoleInputColumn);
                 ErasePrint();
             }
             if(condition == ConstantNumber.SERCHED_BOOK)
             {
+                Console.SetCursorPosition(consoleInputRow, consoleInputColumn);
                 Console.WriteLine("검색 결과에 없습니다.");
+                Console.SetCursorPosition(consoleInputRow, consoleInputColumn);
                 ErasePrint();
             }
+            Console.ResetColor();
         }
-        private void ErasePrint()
+        public void ErasePrint()
         {
             ConsoleKeyInfo keyInfo;
 
             bool isEnteredESC = false;
 
-            while(isEnteredESC)
+            while(!isEnteredESC)
             {
                 keyInfo = Console.ReadKey(true);
 
                 if(keyInfo.Key == ConsoleKey.Enter)
                 {
+                    isEnteredESC = true;
                     Console.Write("                                           ");
                 }
             }

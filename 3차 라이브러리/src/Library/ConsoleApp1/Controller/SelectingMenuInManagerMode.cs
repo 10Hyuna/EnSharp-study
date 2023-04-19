@@ -14,8 +14,7 @@ namespace Library.Controller
     {
         UI ui;
         TotalStorage totalInformationStorage;
-        MovingCursorPosition curser;
-        RegexStorage regex;
+        MovingCursorPosition cursor;
         HandlingException handlingException;
         InputFromUser inputFromUser;
         PrinterBookInformation printBookInformation;
@@ -23,16 +22,17 @@ namespace Library.Controller
         FindBook findBook;
         MemberAccessInManager memberAccessInManager;
         BookAccessInManager bookAccessInManager;
+        ModificationUserInformation modificationUserInformation;
 
-        public SelectingMenuInManagerMode(UI ui, TotalStorage totalInformationStorage, MovingCursorPosition curser,
-            RegexStorage regex, HandlingException handlingException, InputFromUser inputFromUser, 
+        public SelectingMenuInManagerMode(UI ui, TotalStorage totalInformationStorage, MovingCursorPosition cursor,
+            HandlingException handlingException, InputFromUser inputFromUser, 
             PrinterBookInformation printBookInformation, PrinterUserInformation printUserInformation, 
-            FindBook findBook, MemberAccessInManager memberAccessInManager, BookAccessInManager bookAccessInManager)
+            FindBook findBook, BookAccessInManager bookAccessInManager, MemberAccessInManager memberAccessInManager,
+            ModificationUserInformation modificationUserInformation)
         {
             this.ui = ui;
             this.totalInformationStorage = totalInformationStorage;
-            this.curser = curser;
-            this.regex = regex;
+            this.cursor = cursor;
             this.handlingException = handlingException;
             this.inputFromUser = inputFromUser;
             this.printBookInformation = printBookInformation;
@@ -40,6 +40,7 @@ namespace Library.Controller
             this.findBook = findBook;
             this.memberAccessInManager = memberAccessInManager;
             this.bookAccessInManager = bookAccessInManager;
+            this.modificationUserInformation = modificationUserInformation;
         }
 
         public void SelecMenuManagerMode()
@@ -61,16 +62,16 @@ namespace Library.Controller
                 ui.PrintMain();
                 ui.PrintBox(9);
 
-                selectedMenu = curser.SelectCurser(menu, menu.Length, selectedMenu, WindowCenterWidth, WindowCenterHeight);
+                selectedMenu = cursor.SelectCurser(menu, menu.Length, selectedMenu, WindowCenterWidth, WindowCenterHeight);
 
                 if(selectedMenu == ConstantNumber.EXIT)      // 중도에 ESC를 눌러 반환된 값이 있다면
                 {
                     isEnteredESC = true;
                 }
 
-                switch(selectedMenu)
+                switch(selectedMenu)        // 엔터를 입력한 최종 인덱스가 무엇인지에 따라
                 {
-                    case (int)(MANAGERMODE.FIND_BOOK):
+                    case (int)(MANAGERMODE.FIND_BOOK):      // 케이스문 진입
                         findBook.FindTheBookBySerching();
                         break;
                     case (int)(MANAGERMODE.ADD_BOOK):
@@ -83,7 +84,7 @@ namespace Library.Controller
                         bookAccessInManager.EnterMenuModifyTheBook();
                         break;
                     case (int)(MANAGERMODE.MANAGE_USER):
-                        memberAccessInManager.ManageUserInformation();
+                        modificationUserInformation.ManageUserInformation();
                         break;
                     case (int)(MANAGERMODE.RENTAL_STATE):
                         memberAccessInManager.RentalState();

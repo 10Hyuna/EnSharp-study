@@ -13,101 +13,106 @@ namespace Library.Controller
 {
     class BookAccessInManager
     {
-        public BookAccessInManager()
+        TotalStorage totalStorage;
+        PrinterBookInformation printerBookInformation;
+        UI ui;
+        HandlingException handlingException;
+        MovingCursorPosition cursor;
+        public BookAccessInManager(TotalStorage totalStorage, PrinterBookInformation printerBookInformation, UI ui,
+            HandlingException handlingException, MovingCursorPosition cursor)
         {
-
+            this.totalStorage = totalStorage;
+            this.printerBookInformation = printerBookInformation;
+            this.ui = ui;
+            this.handlingException = handlingException;
+            this.cursor = cursor;
         }
 
-        private void RentalStateInBorrowBook(int index)
-        {
-            int id = 0;
-            string title = "";
-            string author = "";
-            string publisher = "";
-            string amount = "";
-            string price = "";
-            string publishDay = "";
-            string ISBN = "";
-            string information = "";
-            string borrowTime = "";
-            string returnTime = "";
+        int consoleInputRow;
+        int consoleInputColumn;
 
-            for (int j = 0; j < totalStorage.users[index].BorrowDatas.Count; j++)
-            {
-                BorrowBookList rentalBook = totalStorage.users[index].BorrowDatas[j];
-                id = rentalBook.GetBorrowId();
-                title = rentalBook.GetBorrowTitle();
-                author = rentalBook.GetBorrowAuthor();
-                publisher = rentalBook.GetBorrowPublisher();
-                amount = rentalBook.GetBorrowAmount();
-                price = rentalBook.GetBorrowPrice();
-                publishDay = rentalBook.GetBorrowPublishDay();
-                ISBN = rentalBook.GetBorrowISBN();
-                information = rentalBook.GetBorrowInformation();
-                borrowTime = rentalBook.GetBorrowBorrowTime();
+        int id = 0;
+        string title = "";
+        string author = "";
+        string publisher = "";
+        string amount = "";
+        string price = "";
+        string publishDay = "";
+        string ISBN = "";
+        string information = "";
+        string borrowTime = "";
+        string returnTime = "";
 
-                printerUserInformation.PrintUserId(totalStorage.users[index].GetUserId());
-                printerUserInformation.PrintRentalList(id, title, author, publisher, amount, price, publishDay,
-                    ISBN, information, borrowTime, returnTime);
-            }
-        }
+        bool isInputESC = false;
+
+        ConsoleKeyInfo keyInfo;
 
         public void AddTheBook()
         {
-            Console.CancelKeyPress += new ConsoleCancelEventHandler(Console_CancelKeyPress);
-
-            const int ConsoleInputRow = 44;
-            const int ConsoleInputColumn = 12;
+            consoleInputRow = 44;
+            consoleInputColumn = 12;
 
             isInputESC = false;
-
-            string title;
-            string author;
-            string publisher;
-            string amount;
-            string price;
-            string publishDay;
-            string ISBN;
-            string information;
+            bool isValidAmount = false;
+            bool isValidPrice = false;
 
             Console.Clear();
             ui.PrintBox(6);
-            printBookInformation.PrintAddTheBookUI();
+            printerBookInformation.PrintAddTheBookUI();
 
-            title = handlingException.IsValid(regex.title, ConsoleInputRow, ConsoleInputColumn, 20, false);
+            title = handlingException.IsValid(ConstantNumber.title, consoleInputRow, consoleInputColumn, 20, false);
+            // 추가하고자 하는 책의 정보들 입력
             if (title == null)
+                // 중간에 esc를 눌렀을 경우
                 return;
 
-            author = handlingException.IsValid(regex.author, ConsoleInputRow, ConsoleInputColumn + 1, 20, false);
+            author = handlingException.IsValid(ConstantNumber.author, consoleInputRow, consoleInputColumn + 1, 20, false);
             if (author == null)
                 return;
-            publisher = handlingException.IsValid(regex.containedOneValue, ConsoleInputRow, ConsoleInputColumn + 2, 20, false);
+            publisher = handlingException.IsValid(ConstantNumber.containedOneValue, consoleInputRow, consoleInputColumn + 2, 20, false);
             if (publisher == null)
                 return;
-
-            amount = handlingException.IsValid(regex.amount, ConsoleInputRow, ConsoleInputColumn + 3, 20, false);
-            if (amount == null)
-                return;
-            if (int.Parse(amount) <= 0 || int.Parse(amount) >= 1000)
+            while (!isValidAmount)
             {
-                ui.PrintException(ConstantNumber.VALIDVALUE);
+                amount = handlingException.IsValid(ConstantNumber.amount, consoleInputRow, consoleInputColumn + 3, 20, false);
+                if (amount == null)
+                    return;
+                if (int.Parse(amount) <= 0 || int.Parse(amount) >= 1000)
+                    // 양이 주어진 값에 해당하지 않는다면
+                {
+                    ui.PrintException(ConstantNumber.VALID_VALUE, this.consoleInputRow, this.consoleInputColumn + 3);
+                }
+                else
+                {
+                    isValidAmount = true;
+                }
             }
 
-            price = handlingException.IsValid(regex.price, ConsoleInputRow, ConsoleInputColumn + 4, 7, false);
-            if (price == null)
-                return;
-            if (int.Parse(price) <= 0 || int.Parse(price) >= 100000000)
+            while (!isValidPrice)
             {
-                ui.PrintException(ConstantNumber.VALIDVALUE);
+                price = handlingException.IsValid(ConstantNumber.price, consoleInputRow, consoleInputColumn + 4, 7, false);
+                if (price == null)
+                    return;
+                if (int.Parse(price) <= 0 || int.Parse(price) >= 100000000)
+                    // 가격이 유효하지 않은 값이라면
+                {
+                    ui.PrintException(ConstantNumber.VALID_VALUE, consoleInputRow, consoleInputColumn + 4);
+                }
+                else
+                {
+                    isValidPrice = true;
+                }
             }
-            publishDay = handlingException.IsValid(regex.publishDay, ConsoleInputRow, ConsoleInputColumn + 5, 11, false);
+
+            publishDay = handlingException.IsValid(ConstantNumber.publishDay, consoleInputRow, consoleInputColumn + 5, 11, false);
             if (publishDay == null)
                 return;
 
-            ISBN = handlingException.IsValid(regex.ISBN, ConsoleInputRow, ConsoleInputColumn + 6, 20, false);
+            ISBN = handlingException.IsValid(ConstantNumber.ISBN, consoleInputRow, consoleInputColumn + 6, 20, false);
             if (ISBN == null)
                 return;
-            information = handlingException.IsValid(regex.information, ConsoleInputRow, ConsoleInputColumn + 7, 20, false);
+
+            information = handlingException.IsValid(ConstantNumber.information, consoleInputRow, consoleInputColumn + 7, 20, false);
             if (information == null)
                 return;
 
@@ -115,106 +120,99 @@ namespace Library.Controller
 
             if (keyInfo.Key == ConsoleKey.Enter)
             {
-                totalInformationStorage.books.Add(new Book(totalInformationStorage.books.Count, title, author, publisher,
+                // 정보를 모두 입력하고 엔터를 누른다면 책의 정보 추가
+                totalStorage.books.Add(new Book(totalStorage.books.Count + 1, title, author, publisher,
                     amount, price, publishDay, ISBN, information));
             }
             Console.Clear();
             ui.PrintBox(6);
-            printBookInformation.PrintSuccessAddBook();
+            printerBookInformation.PrintSuccessAddBook();
 
-            while (isInputESC)
+            while (!isInputESC)
             {
                 keyInfo = Console.ReadKey(true);
 
                 if (keyInfo.Key == ConsoleKey.Escape)
                 {
+                    isInputESC = true;
                 }
                 else
                 {
-                    Console.SetCursorPosition(34, 25);
-                    ui.PrintException(ConstantNumber.NOTMATCHEDCONDITION);
+                    this.consoleInputRow = 34;
+                    this.consoleInputColumn = 25;
+                    ui.PrintException(ConstantNumber.NOT_MATCHED_CONDITION, this.consoleInputRow, this.consoleInputColumn);
                 }
             }
         }
 
-        public void DeleteTheBook()
+        public void DeleteTheBook()     // 책 삭제
         {
-            Console.CancelKeyPress += new ConsoleCancelEventHandler(Console_CancelKeyPress);
-
             bool isValidId = false;
 
-            int consoleInputRow = 60;
-            int consoleInputColumn = 3;
+            consoleInputRow = 60;
+            consoleInputColumn = 3;
             string deleteBookId = "";
-
-            int id = 0;
-            string title = "";
-            string author = "";
-            string publisher = "";
-            string amount = "";
-            string price = "";
-            string publishDay = "";
-            string ISBN = "";
-            string information = "";
 
             while (!isInputESC)
             {
                 Console.Clear();
-                printBookInformation.PrintDeleteTheBookUI();
-                for (int i = 0; i < totalInformationStorage.books.Count; i++)
+                printerBookInformation.PrintDeleteTheBookUI();
+                for (int i = 0; i < totalStorage.books.Count; i++)
                 {
-                    id = totalInformationStorage.books[i].id;
-                    title = totalInformationStorage.books[i].title;
-                    author = totalInformationStorage.books[i].author;
-                    publisher = totalInformationStorage.books[i].publisher;
-                    amount = totalInformationStorage.books[i].amount;
-                    price = totalInformationStorage.books[i].price;
-                    publishDay = totalInformationStorage.books[i].publishDay;
-                    ISBN = totalInformationStorage.books[i].ISBN;
-                    information = totalInformationStorage.books[i].information;
+                    Book deleteBook = totalStorage.books[i];
+                    id = deleteBook.GetId();
+                    title = deleteBook.GeTitle();
+                    author = deleteBook.GetAuthor();
+                    publisher = deleteBook.GetPublisher();
+                    amount = deleteBook.GetAmount();
+                    price = deleteBook.GetPrice();
+                    publishDay = deleteBook.GetPublishDay();
+                    ISBN = deleteBook.GetISBN();
+                    information = deleteBook.GetInformation();
 
-                    printBookInformation.PrintBookList(id, title, author, publisher, amount,
+                    printerBookInformation.PrintBookList(id, title, author, publisher, amount,
                         price, publishDay, ISBN, information);
                 }
                 Console.SetCursorPosition(0, 0);
-                deleteBookId = handlingException.IsValid(regex.containedOneValue, consoleInputRow, consoleInputColumn, 4, false);
+                deleteBookId = handlingException.IsValid(ConstantNumber.containedOneValue, consoleInputRow, consoleInputColumn, 4, false);
+                // 삭제하고자 하는 책의 아이디 입력
 
-                for (int i = 0; i < totalInformationStorage.books.Count; i++)
+                for (int i = 0; i < totalStorage.books.Count; i++)
                 {
-                    if (int.Parse(deleteBookId) == totalInformationStorage.books[i].id)
+                    if (int.Parse(deleteBookId) == totalStorage.books[i].GetId())
                     {
-                        totalInformationStorage.books.RemoveAt(i);
+                        totalStorage.books.RemoveAt(i);
                         isValidId = true;
                     }
                 }
 
-                if (!isValidId)
+                if (!isValidId)     // 책의 아이디가 존재하지 않는다면
                 {
-                    Console.SetCursorPosition(consoleInputRow, consoleInputColumn);
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    ui.PrintException(ConstantNumber.INVALIDBOOKID);
-                    Console.ResetColor();
+                    ui.PrintException(ConstantNumber.INVALID_BOOK_ID, consoleInputRow, consoleInputColumn);
                     continue;
                 }
 
                 Console.Clear();
-                printBookInformation.PrintSuccessDeleteBook();
+                printerBookInformation.PrintSuccessDeleteBook();        // 삭제 성공
 
-                for (int i = 0; i < totalInformationStorage.books.Count; i++)
+                for (int i = 0; i < totalStorage.books.Count; i++)
                 {
-                    id = totalInformationStorage.books[i].id;
-                    title = totalInformationStorage.books[i].title;
-                    author = totalInformationStorage.books[i].author;
-                    publisher = totalInformationStorage.books[i].publisher;
-                    amount = totalInformationStorage.books[i].amount;
-                    price = totalInformationStorage.books[i].price;
-                    publishDay = totalInformationStorage.books[i].publishDay;
-                    ISBN = totalInformationStorage.books[i].ISBN;
-                    information = totalInformationStorage.books[i].information;
+                    Book deleteBook = totalStorage.books[i];
+                    id = deleteBook.GetId();
+                    title = deleteBook.GeTitle();
+                    author = deleteBook.GetAuthor();
+                    publisher = deleteBook.GetPublisher();
+                    amount = deleteBook.GetAmount();
+                    price = deleteBook.GetPrice();
+                    publishDay = deleteBook.GetPublishDay();
+                    ISBN = deleteBook.GetISBN();
+                    information = deleteBook.GetInformation();
 
-                    printBookInformation.PrintBookList(id, title, author, publisher, amount,
+                    printerBookInformation.PrintBookList(id, title, author, publisher, amount,
                         price, publishDay, ISBN, information);
                 }
+
+                Console.SetCursorPosition(0, 0);
 
                 keyInfo = Console.ReadKey(true);
 
@@ -224,7 +222,7 @@ namespace Library.Controller
                 }
                 else
                 {
-                    ui.PrintException(ConstantNumber.NOTMATCHEDCONDITION);
+                    ui.PrintException(ConstantNumber.NOT_MATCHED_CONDITION, consoleInputRow, consoleInputColumn);
                 }
             }
         }
@@ -236,74 +234,23 @@ namespace Library.Controller
             }
             return ConstantNumber.SUCCESS;
         }
-        private string ModifyTitle()
+
+        private string ModifyBookInformation(int column, string regex, bool isPassword)
         {
+            // 책의 정보의 유효성 검사
             consoleInputRow = 68;
-            consoleInputColumn = 7;
+            consoleInputColumn = 7 + column;
 
             string input = "";
 
-            input = handlingException.IsValid(regex.title, consoleInputRow, consoleInputColumn, 20, false);
+            input = handlingException.IsValid(regex, consoleInputRow, consoleInputColumn, 20, isPassword);
 
             return input;
         }
-        private string ModifyAuthor()
-        {
-            consoleInputRow = 68;
-            consoleInputColumn = 8;
 
-            string input = "";
-
-            input = handlingException.IsValid(regex.author, consoleInputRow, consoleInputColumn, 20, false);
-
-            return input;
-        }
-        private string ModifyPublisher()
-        {
-            consoleInputRow = 68;
-            consoleInputColumn = 9;
-
-            string input = "";
-
-            input = handlingException.IsValid(regex.containedOneValue, consoleInputRow, consoleInputColumn, 20, false);
-
-            return input;
-        }
-        private string ModifyAmount()
-        {
-            consoleInputRow = 68;
-            consoleInputColumn = 10;
-
-            string input = "";
-
-            input = handlingException.IsValid(regex.amount, consoleInputRow, consoleInputColumn, 20, false);
-
-            return input;
-        }
-        private string ModifyPrice()
-        {
-            consoleInputRow = 68;
-            consoleInputColumn = 11;
-
-            string input = "";
-
-            input = handlingException.IsValid(regex.price, consoleInputRow, consoleInputColumn, 20, false);
-
-            return input;
-        }
-        private string ModifyPublishDay()
-        {
-            consoleInputRow = 68;
-            consoleInputColumn = 12;
-
-            string input = "";
-
-            input = handlingException.IsValid(regex.publishDay, consoleInputRow, consoleInputColumn, 20, false);
-
-            return input;
-        }
         public void ModifyBook(int bookIndex)
         {
+            // 책의 정보 수정
             int index = 0;
             int selectedMenu = 0;
             int validInput = 0;
@@ -326,65 +273,72 @@ namespace Library.Controller
 
             while (!isInputEnter)
             {
+                Console.Clear();
                 validInput = 0;
 
-                selectedMenu = curser.SelectCurser(menu, menu.Length, selectedMenu, WindowCenterWidth, WindowCenterHeight);
+                selectedMenu = cursor.SelectCurser(menu, menu.Length, selectedMenu, WindowCenterWidth, WindowCenterHeight);
+                // 최종적으로 엔터를 누른 곳의 인덱스 반환
+
+                if(selectedMenu == ConstantNumber.EXIT) // esc를 눌렀다면
+                {
+                    return;
+                }
 
                 switch (selectedMenu)
                 {
-                    case ConstantNumber.MODIFYTITLE:
-                        title = ModifyTitle();
+                    case (int)(BOOKINFORMATION.TITLE):
+                        title = ModifyBookInformation(0, ConstantNumber.title, ConstantNumber.IS_NOT_PASSWORD);
                         validInput = EnterEsc(title);
                         break;
-                    case ConstantNumber.MODIFYAUTHOR:
-                        author = ModifyAuthor();
+                    case (int)(BOOKINFORMATION.AUTHOR):
+                        author = ModifyBookInformation(1, ConstantNumber.author, ConstantNumber.IS_NOT_PASSWORD); 
                         validInput = EnterEsc(author);
                         break;
-                    case ConstantNumber.MODIFYPUBLISHER:
-                        publisher = ModifyPublisher();
+                    case (int)(BOOKINFORMATION.PUBLISHER):
+                        publisher = ModifyBookInformation(2, ConstantNumber.containedOneValue, ConstantNumber.IS_NOT_PASSWORD);
                         validInput = EnterEsc(publisher);
                         break;
-                    case ConstantNumber.MODIFYAMOUNT:
-                        amount = ModifyAmount();
+                    case (int)(BOOKINFORMATION.AMOUNT):
+                        amount = ModifyBookInformation(3, ConstantNumber.amount, ConstantNumber.IS_NOT_PASSWORD);
                         validInput = EnterEsc(amount);
                         break;
-                    case ConstantNumber.MODIFYPRICE:
-                        price = ModifyPrice();
+                    case (int)(BOOKINFORMATION.PRICE):
+                        price = ModifyBookInformation(4, ConstantNumber.price, ConstantNumber.IS_NOT_PASSWORD);
                         validInput = EnterEsc(price);
                         break;
-                    case ConstantNumber.MODIFTPUBLISHDAY:
-                        publishDay = ModifyPublishDay();
+                    case (int)(BOOKINFORMATION.PUBLISHDAY):
+                        publishDay = ModifyBookInformation(5, ConstantNumber.publishDay, ConstantNumber.IS_NOT_PASSWORD);
                         validInput = EnterEsc(publishDay);
                         break;
-                    case ConstantNumber.MODIFYSUCCESS:
+                    case (int)(BOOKINFORMATION.SUCCESS):        // 수정 완료 칸에서 엔터를 눌렀다면
                         isInputEnter = true;
                         break;
                 }
-                if (isInputEnter)
+                if (isInputEnter)       // 지금까지 입력되어 있던 모든 값을 저장
                 {
                     if (title != "")
                     {
-                        totalInformationStorage.books[index].title = title;
+                        totalStorage.books[index].SetTitle(title);
                     }
                     if (author != "")
                     {
-                        totalInformationStorage.books[index].author = author;
+                        totalStorage.books[index].SetAuthor(author);
                     }
                     if (publisher != "")
                     {
-                        totalInformationStorage.books[index].publisher = publisher;
+                        totalStorage.books[index].SetPublisher(publisher);
                     }
                     if (amount != "")
                     {
-                        totalInformationStorage.books[index].amount = amount;
+                        totalStorage.books[index].SetAmount(amount);
                     }
                     if (price != "")
                     {
-                        totalInformationStorage.books[index].price = price;
+                        totalStorage.books[index].SetPrice(price);
                     }
                     if (publishDay != "")
                     {
-                        totalInformationStorage.books[index].publishDay = publishDay;
+                        totalStorage.books[index].SetPublisher(publishDay);
                     }
                 }
 
@@ -394,7 +348,7 @@ namespace Library.Controller
                 }
             }
         }
-        public void EnterMenuModifyTheBook()
+        public void EnterMenuModifyTheBook()        // 책의 정보를 수정하는 메뉴로의 진입
         {
             bool isValidId = false;
 
@@ -405,45 +359,37 @@ namespace Library.Controller
             string modifyBookId = "";
             int modifyBookIdNumber = 0;
 
-            int id = 0;
-            string title = "";
-            string author = "";
-            string publisher = "";
-            string amount = "";
-            string price = "";
-            string publishDay = "";
-            string ISBN = "";
-            string information = "";
-
             while (!isInputESC)
             {
                 Console.Clear();
-                printBookInformation.PrintModifyBookInformationUI();
+                printerBookInformation.PrintModifyBookInformationUI();
 
-                for (int i = 0; i < totalInformationStorage.books.Count; i++)
+                for (int i = 0; i < totalStorage.books.Count; i++)
                 {
-                    id = totalInformationStorage.books[i].id;
-                    title = totalInformationStorage.books[i].title;
-                    author = totalInformationStorage.books[i].author;
-                    publisher = totalInformationStorage.books[i].publisher;
-                    amount = totalInformationStorage.books[i].amount;
-                    price = totalInformationStorage.books[i].price;
-                    publishDay = totalInformationStorage.books[i].publishDay;
-                    ISBN = totalInformationStorage.books[i].ISBN;
-                    information = totalInformationStorage.books[i].information;
+                    Book modifyBook = totalStorage.books[i];
+                    id = modifyBook.GetId();
+                    title = modifyBook.GeTitle();
+                    author = modifyBook.GetAuthor();
+                    publisher = modifyBook.GetPublisher();
+                    amount = modifyBook.GetAmount();
+                    price = modifyBook.GetPrice();
+                    publishDay = modifyBook.GetPublishDay();
+                    ISBN = modifyBook.GetISBN();
+                    information = modifyBook.GetInformation();
 
-                    printBookInformation.PrintBookList(id, title, author, publisher, amount,
+                    printerBookInformation.PrintBookList(id, title, author, publisher, amount,
                         price, publishDay, ISBN, information);
 
                 }
 
                 Console.SetCursorPosition(0, 0);
-                modifyBookId = handlingException.IsValid(regex.containedOneValue, consoleInputRow, consoleInputColumn, 20, false);
+                modifyBookId = handlingException.IsValid(ConstantNumber.containedOneValue, consoleInputRow, consoleInputColumn, 20, false);
+                // 수정하고자 하는 책의 아이디 입력
                 modifyBookIdNumber = int.Parse(modifyBookId);
 
-                for (int i = 0; i < totalInformationStorage.books.Count; i++)
+                for (int i = 0; i < totalStorage.books.Count; i++)
                 {
-                    if (totalInformationStorage.books[i].id == modifyBookIdNumber)
+                    if (totalStorage.books[i].GetId() == modifyBookIdNumber)    // 어느 책이 수정하고자 하는 책인지 찾기
                     {
                         bookIndex = i;
                         isValidId = true;
@@ -451,12 +397,9 @@ namespace Library.Controller
                     }
                 }
 
-                if (!isValidId)
+                if (!isValidId)     // 입력한 책의 아이디가 존재하지 않는다면
                 {
-                    Console.SetCursorPosition(consoleInputRow, consoleInputColumn);
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    ui.PrintException(ConstantNumber.INVALIDBOOKID);
-                    Console.ResetColor();
+                    ui.PrintException(ConstantNumber.INVALID_BOOK_ID, consoleInputRow, consoleInputColumn);
                     continue;
                 }
                 ModifyBook(bookIndex);

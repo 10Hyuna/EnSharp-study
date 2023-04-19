@@ -12,17 +12,17 @@ namespace Library.Controller
         PrinterBookInformation printerBookInformation;
         InputFromUser inputFromUser;
         HandlingException handlingException;
-        RegexStorage regex;
+        FindBook findBook;
 
         public BookAccessInUser(UI ui, TotalStorage totalStorage, PrinterBookInformation printerBookInformation,
-            InputFromUser inputFromUser, HandlingException handlingException, RegexStorage regex)
+            InputFromUser inputFromUser, HandlingException handlingException, FindBook findBook)
         {
             this.ui = ui;
             this.totalStorage = totalStorage;
             this.printerBookInformation = printerBookInformation;
             this.inputFromUser = inputFromUser;
             this.handlingException = handlingException;
-            this.regex = regex;
+            this.findBook = findBook;
         }
 
         int id = 0;
@@ -37,11 +37,6 @@ namespace Library.Controller
         string borrowTime = "";
         string returnTime = "";
 
-        static void Console_CancelKeyPress(object sender, ConsoleCancelEventArgs e) //ctrl + z 등 단축키를 통해
-        {
-            e.Cancel = true;
-        }
-
         int consoleInputRow = 0;
         int consoleInputColumn = 0;
         int affluentBookIndex = -1;
@@ -53,8 +48,6 @@ namespace Library.Controller
 
         public int RentTheBook()      // 책 대여 메뉴에 진입했을 때
         {
-            Console.CancelKeyPress += new ConsoleCancelEventHandler(Console_CancelKeyPress);
-
             int consoleInputRow = 9;
             int consoleInputColumn = 2;
 
@@ -65,13 +58,15 @@ namespace Library.Controller
 
             isInputESC = false;
 
+            affluentBookIndex = -1;
+
             bool isLeakedBookAmount = false;
             bool isAlreadyRentBook = false;
             bool isSerchedBook;
 
             for (int i = 0; i < totalStorage.users.Count; i++)
             {
-                if (totalStorage.users[i].GetUserId() == totalStorage.loggedInUserId)      // 로그인되어 있는 정보가 어느 인덱스인지 찾음
+                if (totalStorage.users[i].GetId() == totalStorage.loggedInUserId)      // 로그인되어 있는 정보가 어느 인덱스인지 찾음
                 {
                     userIndex = i;
                     break;
@@ -85,7 +80,7 @@ namespace Library.Controller
                     isSerchedBook = false;
                     Console.Clear();
 
-                    book = PrintTheAllBook();       // 책의 정보 입력
+                    book = findBook.PrintTheAllBook();       // 책의 정보 입력
 
                     if (book == null)
                         return -1;
@@ -94,7 +89,7 @@ namespace Library.Controller
 
                     printerBookInformation.PrintRenttheBookUI();
 
-                    selectedBook(book[0], book[1], book[2]);
+                    findBook.selectedBook(book[0], book[1], book[2]);
                     Console.SetCursorPosition(consoleInputRow, consoleInputColumn - 2);
                     bookId = handlingException.IsValid(ConstantNumber.containedOneNumber, consoleInputRow, consoleInputColumn, 10, false);
 
@@ -105,13 +100,18 @@ namespace Library.Controller
 
                     isSerchedBook = IsSerchBook(bookIdNum, book);
 
-                    if (isSerchedBook)
+                    if (!isSerchedBook)
                     {
-                        ui.PrintException(ConstantNumber.SERCHED_BOOK);
+                        ui.PrintException(ConstantNumber.SERCHED_BOOK, consoleInputRow, consoleInputColumn);
                         continue;
                     }
 
-                    isAlreadyRentBook = IsAlreadyRentBook(userIndex, bookIdNum);
+                    isAlreadyRentBook = IsAlreadyRentBook(userIndex, bookIdNum);    // 이미 대여 중인 책이라면
+
+                    if(isAlreadyRentBook)       // 다른 책을 대여하도록 유도
+                    {
+                        continue;
+                    }
 
                     isLeakedBookAmount = isLeakedBook(bookIdNum);
 
@@ -122,15 +122,14 @@ namespace Library.Controller
 
                     if (affluentBookIndex == -1)    // 유효하지 않은 값이 찾는 책의 인덱스일 경우
                     {
-                        ui.PrintException(ConstantNumber.INVALID_INFORMATION);
+                        ui.PrintException(ConstantNumber.INVALID_INFORMATION, consoleInputRow, consoleInputColumn);
                         continue;
                     }
 
                     AddBorrowBook(affluentBookIndex, userIndex);
                 }
                 Console.Clear();
-                Console.SetCursorPosition(consoleInputRow, consoleInputColumn - 2);
-                ui.PrintException(ConstantNumber.SUCCESS_BORROW_BOOK);
+                ui.PrintException(ConstantNumber.SUCCESS_BORROW_BOOK, consoleInputRow, 0);
                 printerBookInformation.PrintEsc();
 
                 keyInfo = Console.ReadKey(true);
@@ -148,12 +147,12 @@ namespace Library.Controller
             bool isSerchedBook = false;
             for (int i = 0; i < totalStorage.books.Count; i++)
             {
-                id = totalStorage.books[i].GetBookId();
+                id = totalStorage.books[i].GetId();
                 if (id == bookId)
                 {
-                    title = totalStorage.books[i].GetBookTitle();
-                    author = totalStorage.books[i].GetBookAuthor();
-                    publisher = totalStorage.books[i].GetBookPublisher();
+                    title = totalStorage.books[i].GeTitle();
+                    author = totalStorage.books[i].GetAuthor();
+                    publisher = totalStorage.books[i].GetPublisher();
 
                     if (title.Contains(book[0])
                         && author.Contains(book[1])
@@ -172,10 +171,11 @@ namespace Library.Controller
 
             for (int i = 0; i < totalStorage.users[userIndex].BorrowDatas.Count; i++)
             {
-                if (totalStorage.users[userIndex].BorrowDatas[i].GetBookId() == bookId)   // 빌린 책 리스트 중 찾는 책의 아이디와
+                if (totalStorage.users[userIndex].BorrowDatas[i].GetId() == bookId)   // 빌린 책 리스트 중 찾는 책의 아이디와
                                                                                           // 일치하는 아이디를 가진 책이 있다면
                 {
-                    ui.PrintException(ConstantNumber.ALREADY_RENT_BOOK);     // 이미 대여 중인 책
+                    Console.Clear();
+                    ui.PrintException(ConstantNumber.ALREADY_RENT_BOOK, 0, 0);     // 이미 대여 중인 책
                     isAlreadyRentBook = true;
                     break;
                 }
@@ -192,22 +192,22 @@ namespace Library.Controller
 
             for (int i = 0; i < totalStorage.books.Count; i++)
             {
-                if (bookId == totalStorage.books[i].GetBookId())
+                if (bookId == totalStorage.books[i].GetId())
                 {
-                    if (int.Parse(totalStorage.books[i].GetBookAmount()) <= 0)    // 수량이 0 이하인 경우
+                    if (int.Parse(totalStorage.books[i].GetAmount()) <= 0)    // 수량이 0 이하인 경우
                     {
                         Console.Clear();
-                        ui.PrintException(ConstantNumber.LEAKING_BOOK_AMOUNT);    // 책의 수량이 부족함을 출력
+                        ui.PrintException(ConstantNumber.LEAKING_BOOK_AMOUNT, 0, 0);    // 책의 수량이 부족함을 출력
                         isLeakedBookAmount = false;
                     }
                     else
                     {
                         isLeakedBookAmount = true;
                         affluentBookIndex = i;
-                        inputAmount = int.Parse(totalStorage.books[i].GetBookAmount());
+                        inputAmount = int.Parse(totalStorage.books[i].GetAmount());
                         inputAmount -= 1;
                         amountBook = Convert.ToString(inputAmount);
-                        totalStorage.books[i].SetBookAmount(amountBook);
+                        totalStorage.books[i].SetAmount(amountBook);
                     }
                     break;
                 }
@@ -219,17 +219,17 @@ namespace Library.Controller
         {
             for (int i = 0; i < totalStorage.users.Count; i++)
             {
-                if (totalStorage.users[i].GetUserId() == totalStorage.loggedInUserId)
+                if (totalStorage.users[i].GetId() == totalStorage.loggedInUserId)
                 {
-                    id = totalStorage.books[bookIndex].GetBookId();
-                    title = totalStorage.books[bookIndex].GetBookTitle();
-                    author = totalStorage.books[bookIndex].GetBookAuthor();
-                    publisher = totalStorage.books[bookIndex].GetBookPublisher();
-                    amount = totalStorage.books[bookIndex].GetBookAmount();
-                    price = totalStorage.books[bookIndex].GetBookPrice();
-                    publishDay = totalStorage.books[bookIndex].GetBookPublishDay();
-                    ISBN = totalStorage.books[bookIndex].GetBookISBN();
-                    information = totalStorage.books[bookIndex].GetBookInformation();
+                    id = totalStorage.books[bookIndex].GetId();
+                    title = totalStorage.books[bookIndex].GeTitle();
+                    author = totalStorage.books[bookIndex].GetAuthor();
+                    publisher = totalStorage.books[bookIndex].GetPublisher();
+                    amount = totalStorage.books[bookIndex].GetAmount();
+                    price = totalStorage.books[bookIndex].GetPrice();
+                    publishDay = totalStorage.books[bookIndex].GetPublishDay();
+                    ISBN = totalStorage.books[bookIndex].GetISBN();
+                    information = totalStorage.books[bookIndex].GetInformation();
 
                     totalStorage.users[userIndex].BorrowDatas.Add(new BorrowBookList(id, title, author, publisher, amount, price,
                         publishDay, ISBN, information, DateTime.Now.ToString()));
@@ -238,16 +238,15 @@ namespace Library.Controller
             }
         }
 
-        public void CheckTheRentalBook()
+        public void CheckTheRentalBook()        // 해당 유저의 대여 목록 출력
         {
-            Console.CancelKeyPress += new ConsoleCancelEventHandler(Console_CancelKeyPress);
 
             isInputESC = false;
             int userIndex = 0;
 
             for (int i = 0; i < totalStorage.users.Count; i++)
             {
-                if (totalStorage.users[i].GetUserId() == totalStorage.loggedInUserId)
+                if (totalStorage.users[i].GetId() == totalStorage.loggedInUserId)
                 {
                     userIndex = i;
                     break;
@@ -262,16 +261,16 @@ namespace Library.Controller
                 for (int j = 0; j < totalStorage.users[userIndex].BorrowDatas.Count; j++)
                 {
                     BorrowBookList allBorrowedBook = totalStorage.users[userIndex].BorrowDatas[j];
-                    id = allBorrowedBook.GetBorrowId();
-                    title = allBorrowedBook.GetBorrowTitle();
-                    author = allBorrowedBook.GetBorrowAuthor();
-                    publisher = allBorrowedBook.GetBorrowPublisher();
-                    amount = allBorrowedBook.GetBorrowAmount();
-                    price = allBorrowedBook.GetBorrowPrice();
-                    publishDay = allBorrowedBook.GetBorrowPublishDay();
-                    ISBN = allBorrowedBook.GetBorrowISBN();
-                    information = allBorrowedBook.GetBorrowInformation();
-                    borrowTime = allBorrowedBook.GetBorrowBorrowTime();
+                    id = allBorrowedBook.GetId();
+                    title = allBorrowedBook.GetTitle();
+                    author = allBorrowedBook.GetAuthor();
+                    publisher = allBorrowedBook.GetPublisher();
+                    amount = allBorrowedBook.GetAmount();
+                    price = allBorrowedBook.GetPrice();
+                    publishDay = allBorrowedBook.GetPublishDay();
+                    ISBN = allBorrowedBook.GetISBN();
+                    information = allBorrowedBook.GetInformation();
+                    borrowTime = allBorrowedBook.GetBorrowTime();
 
                     printerBookInformation.PrintRentalBookListUI(id, title, author, publisher, amount,
                         price, publishDay, ISBN, information, borrowTime);
@@ -286,10 +285,8 @@ namespace Library.Controller
                 }
             }
         }
-        public int ReturnTheBook()
+        public int ReturnTheBook()      // 해당 유저의 책 반납을 도와주는 함수
         {
-            Console.CancelKeyPress += new ConsoleCancelEventHandler(Console_CancelKeyPress);
-
             consoleInputRow = 8;
             consoleInputColumn = 2;
 
@@ -302,7 +299,7 @@ namespace Library.Controller
 
             for (int i = 0; i < totalStorage.users.Count; i++)
             {
-                if (totalStorage.users[i].GetUserId() == totalStorage.loggedInUserId)
+                if (totalStorage.users[i].GetId() == totalStorage.loggedInUserId)
                 {
                     userIndex = i;
                     break;
@@ -317,16 +314,16 @@ namespace Library.Controller
                 for (int j = 0; j < totalStorage.users[userIndex].BorrowDatas.Count; j++)
                 {
                     BorrowBookList vaildBook = totalStorage.users[userIndex].BorrowDatas[j];
-                    id = vaildBook.GetBorrowId();
-                    title = vaildBook.GetBorrowTitle();
-                    author = vaildBook.GetBorrowAuthor();
-                    publisher = vaildBook.GetBorrowPublisher();
-                    amount = vaildBook.GetBorrowAmount();
-                    price = vaildBook.GetBorrowPrice();
-                    publishDay = vaildBook.GetBorrowPublishDay();
-                    ISBN = vaildBook.GetBorrowISBN();
-                    information = vaildBook.GetBorrowInformation();
-                    borrowTime = vaildBook.GetBorrowBorrowTime();
+                    id = vaildBook.GetId();
+                    title = vaildBook.GetTitle();
+                    author = vaildBook.GetAuthor();
+                    publisher = vaildBook.GetPublisher();
+                    amount = vaildBook.GetAmount();
+                    price = vaildBook.GetPrice();
+                    publishDay = vaildBook.GetPublishDay();
+                    ISBN = vaildBook.GetISBN();
+                    information = vaildBook.GetInformation();
+                    borrowTime = vaildBook.GetBorrowTime();
                     returnTime = DateTime.Now.ToString();
 
                     printerBookInformation.PrintReturnBookListUI(id, title, author, publisher, amount,
@@ -335,7 +332,8 @@ namespace Library.Controller
 
                 Console.SetCursorPosition(consoleInputRow, consoleInputColumn);
                 returnBookID = inputFromUser.InputStringFromUser(4, false, consoleInputRow, consoleInputColumn);
-                if (returnBookID == null)
+                // 반납하고자 하는 책의 아이디 입력
+                if (returnBookID == null)       // esc를 입력했다면
                 {
                     return -1;
                 }
@@ -344,46 +342,48 @@ namespace Library.Controller
 
                 for (int j = totalStorage.users[userIndex].BorrowDatas.Count - 1; j >= 0; j--)
                 {
-                    if (totalStorage.users[userIndex].BorrowDatas[j].GetBorrowId() == returnBookIDNumber)
-                    {
+                    if (totalStorage.users[userIndex].BorrowDatas[j].GetId() == returnBookIDNumber)
+                    {       // 입력한 아이디와 일치하는 값이 존재하는 대여 책을 찾고
                         BorrowBookList vaildBook = totalStorage.users[userIndex].BorrowDatas[j]; 
-                        id = vaildBook.GetBorrowId();
-                        title = vaildBook.GetBorrowTitle();
-                        author = vaildBook.GetBorrowAuthor();
-                        publisher = vaildBook.GetBorrowPublisher();
-                        amount = vaildBook.GetBorrowAmount();
-                        price = vaildBook.GetBorrowPrice();
-                        publishDay = vaildBook.GetBorrowPublishDay();
-                        ISBN = vaildBook.GetBorrowISBN();
-                        information = vaildBook.GetBorrowInformation();
-                        borrowTime = vaildBook.GetBorrowBorrowTime();
+                        id = vaildBook.GetId();
+                        title = vaildBook.GetTitle();
+                        author = vaildBook.GetAuthor();
+                        publisher = vaildBook.GetPublisher();
+                        amount = vaildBook.GetAmount();
+                        price = vaildBook.GetPrice();
+                        publishDay = vaildBook.GetPublishDay();
+                        ISBN = vaildBook.GetISBN();
+                        information = vaildBook.GetInformation();
+                        borrowTime = vaildBook.GetBorrowTime();
                         returnTime = DateTime.Now.ToString();
 
-                        returnBookAmount = int.Parse(amount);
-                        returnBookAmount++;
+                        returnBookAmount = int.Parse(amount);   
+                        returnBookAmount++;     // 대여한 책의 양을 하나 늘림
 
-                        amount = Convert.ToString(returnBookAmount);
+                        amount = Convert.ToString(returnBookAmount);        
 
                         isValidBookInformation = true;
                         totalStorage.users[userIndex].ReturnDatas.Add(new ReturnBookList(id, title, author,
                             publisher, amount, price, publishDay, ISBN, information, borrowTime, returnTime));
+                        // 반납 목록에 추가
 
-                        totalStorage.users[userIndex].BorrowDatas.Remove(totalStorage.users[userIndex].BorrowDatas[j]);
+                        totalStorage.users[userIndex].BorrowDatas.Remove(totalStorage.users[userIndex].BorrowDatas[j]);     
+                        // 반납 이후 대여 목록에서 삭제
                     }
 
-                    if (totalStorage.books[userIndex].GetBookId() == returnBookIDNumber)
+                    if (totalStorage.books[userIndex].GetId() == returnBookIDNumber)
                     {
-                        totalStorage.books[userIndex].SetBookAmount(Convert.ToString(returnBookAmount));
+                        totalStorage.books[userIndex].SetAmount(Convert.ToString(returnBookAmount));
                     }
 
-                    if (!isValidBookInformation)
+                    if (!isValidBookInformation)        // 유효한 책의 정보가 없을 경우
                     {
-                        ui.PrintException(ConstantNumber.INVALID_INFORMATION);
+                        ui.PrintException(ConstantNumber.INVALID_INFORMATION, 0, 0);
                         continue;
                     }
 
                     Console.Clear();
-                    ui.PrintException(ConstantNumber.SUCCESS_RETURN_BOOK);
+                    ui.PrintException(ConstantNumber.SUCCESS_RETURN_BOOK, 0, 0);        // 반납 성공
                     printerBookInformation.PrintEsc();
 
                     keyInfo = Console.ReadKey(true);
@@ -396,29 +396,15 @@ namespace Library.Controller
             }
             return 0;
         }
-        public void ReturnTheBookList()
+        public void ReturnTheBookList()     // 책 반납 목록 출력
         {
-            Console.CancelKeyPress += new ConsoleCancelEventHandler(Console_CancelKeyPress);
-
             isInputESC = false;
 
             int userIndex = 0;
 
-            int id = 0;
-            string title = "";
-            string author = "";
-            string publisher = "";
-            string amount = "";
-            string price = "";
-            string publishDay = "";
-            string ISBN = "";
-            string information = "";
-            string borrowTime = "";
-            string returnTime = "";
-
-            for (int i = 0; i < totalInformationStorage.users.Count; i++)
+            for (int i = 0; i < totalStorage.users.Count; i++)
             {
-                if (totalInformationStorage.users[i].id == totalInformationStorage.loggedInUserId)
+                if (totalStorage.users[i].GetId() == totalStorage.loggedInUserId)
                 {
                     userIndex = i;
                     break;
@@ -428,23 +414,24 @@ namespace Library.Controller
             while (!isInputESC)
             {
                 Console.Clear();
-                printBookInformation.PrintReturnBookTitle();
+                printerBookInformation.PrintReturnBookTitle();
 
-                for (int j = 0; j < totalInformationStorage.users[userIndex].returnDatas.Count; j++)
+                for (int j = 0; j < totalStorage.users[userIndex].ReturnDatas.Count; j++)
                 {
-                    id = totalInformationStorage.users[userIndex].returnDatas[j].id;
-                    title = totalInformationStorage.users[userIndex].returnDatas[j].title;
-                    author = totalInformationStorage.users[userIndex].returnDatas[j].author;
-                    publisher = totalInformationStorage.users[userIndex].returnDatas[j].publisher;
-                    amount = totalInformationStorage.users[userIndex].returnDatas[j].amount;
-                    price = totalInformationStorage.users[userIndex].returnDatas[j].price;
-                    publishDay = totalInformationStorage.users[userIndex].returnDatas[j].publishDay;
-                    ISBN = totalInformationStorage.users[userIndex].returnDatas[j].ISBN;
-                    information = totalInformationStorage.users[userIndex].returnDatas[j].information;
-                    borrowTime = totalInformationStorage.users[userIndex].returnDatas[j].borrowTime;
-                    returnTime = totalInformationStorage.users[userIndex].returnDatas[j].returnTime;
 
-                    printBookInformation.PrintReturnBookListUI(id, title, author, publisher, amount,
+                    id = totalStorage.users[userIndex].ReturnDatas[j].GetId();
+                    title = totalStorage.users[userIndex].ReturnDatas[j].GetTitle();
+                    author = totalStorage.users[userIndex].ReturnDatas[j].GetAuthor();
+                    publisher = totalStorage.users[userIndex].ReturnDatas[j].GetPublisher();
+                    amount = totalStorage.users[userIndex].ReturnDatas[j].GetAmount();
+                    price = totalStorage.users[userIndex].ReturnDatas[j].GetPrice();
+                    publishDay = totalStorage.users[userIndex].ReturnDatas[j].GetPublishDay();
+                    ISBN = totalStorage.users[userIndex].ReturnDatas[j].GetISBN();
+                    information = totalStorage.users[userIndex].ReturnDatas[j].GetInformation();
+                    borrowTime = totalStorage.users[userIndex].ReturnDatas[j].GetBorrowTime();
+                    returnTime = totalStorage.users[userIndex].ReturnDatas[j].GetReturnTime();
+
+                    printerBookInformation.PrintReturnBookListUI(id, title, author, publisher, amount,
                         price, publishDay, ISBN, information, borrowTime, returnTime);
                 }
 

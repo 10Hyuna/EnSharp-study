@@ -49,7 +49,7 @@ namespace Library.Utility
                 if (selectedMenu == errorKey)            // 사용자가 사용할 수 있는 키를 제외한 키를 눌렀을 때
                 {
                     Console.SetCursorPosition(WindowCenterWidth, WindowAnnouce);
-                    ui.PrintException(ConstantNumber.NOT_MATCHED_CONDITION);
+                    ui.PrintException(ConstantNumber.NOT_MATCHED_CONDITION, 40, 24);
                     selectedMenu = index;
                 }
                 else if (selectedMenu == enterKey)       // 엔터키를 입력할 경우 메뉴에 진입하기 위해 반복문에서 탈출

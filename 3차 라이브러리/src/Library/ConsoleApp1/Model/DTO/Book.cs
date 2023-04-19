@@ -22,92 +22,92 @@ namespace Library.Model.DTO
         protected string ISBN;
         protected string information;
 
-        public void SetBookId(int id)
+        public void SetId(int id)
         {
             this.id = id;
         }
 
-        public void SetBooktitle(string title)
+        public void SetTitle(string title)
         {
             this.title = title;
         }
 
-        public void SetBookAuthor(string author)
+        public void SetAuthor(string author)
         {
             this.author = author;
         }
 
-        public void SetBookPublisher(string publisher)
+        public void SetPublisher(string publisher)
         {
             this.publisher = publisher;
         }
 
-        public void SetBookAmount(string Amount)
+        public void SetAmount(string Amount)
         {
             this.amount = Amount;
         }
 
-        public void SetBookPrice(string Price)
+        public void SetPrice(string Price)
         {
             this.price = Price;
         }
 
-        public void SetBookPublishDay(string PublishDay)
+        public void SetPublishDay(string PublishDay)
         {
             this.publishDay = PublishDay;
         }
 
-        public void SetBookISBN(string ISBN)
+        public void SetISBN(string ISBN)
         {
             this.ISBN = ISBN;
         }
 
-        public void SetBookInformation(string Information)
+        public void SetInformation(string Information)
         {
             this.information = Information;
         }
 
-        public int GetBookId()
+        public int GetId()
         {
             return this.id;
         }
 
-        public string GetBookTitle()
+        public string GeTitle()
         {
             return this.title;
         }
 
-        public string GetBookAuthor()
+        public string GetAuthor()
         {
             return this.author;
         }
 
-        public string GetBookPublisher()
+        public string GetPublisher()
         {
             return this.publisher;
         }
 
-        public string GetBookAmount()
+        public string GetAmount()
         {
             return this.amount;
         }
 
-        public string GetBookPrice()
+        public string GetPrice()
         {
             return this.price;
         }
 
-        public string GetBookPublishDay()
+        public string GetPublishDay()
         {
             return this.publishDay;
         }
 
-        public string GetBookISBN()
+        public string GetISBN()
         {
             return this.ISBN;
         }
 
-        public string GetBookInformation()
+        public string GetInformation()
         {
             return this.information;
         }
@@ -148,102 +148,102 @@ namespace Library.Model.DTO
         public BorrowBookList() { }
 
 
-        public void SetBorrowId(int id)
+        public void SetId(int id)
         {
             this.id = id;
         }
 
-        public void SetBorrowTitle(string title)
+        public void SetTitle(string title)
         {
             this.title = title;
         }
 
-        public void SetBorrowAuthor(string author)
+        public void SetAuthor(string author)
         {
             this.author = author;
         }
 
-        public void SetBorrowPublisher(string publisher)
+        public void SetPublisher(string publisher)
         {
             this.publisher = publisher;
         }
 
-        public void SetBorrowAmount(string amount)
+        public void SetAmount(string amount)
         {
             this.amount = amount;
         }
 
-        public void SetBorrowPrice(string price)
+        public void SetPrice(string price)
         {
             this.price = price;
         }
 
-        public void SetBorrowPublishDay(string publishDay)
+        public void SetPublishDay(string publishDay)
         {
             this.publishDay = publishDay;
         }
 
-        public void SetBorrowISBN(string ISBN)
+        public void SetISBN(string ISBN)
         {
             this.ISBN = ISBN;
         }
 
-        public void SetBorrowInformation(string information)
+        public void SetInformation(string information)
         {
             this.information = information;
         }
 
-        public void SetBorrowBorrowTime(string borrowTime)
+        public void SetBorrowTime(string borrowTime)
         {
             this.borrowTime = borrowTime;
         }
 
-        public int GetBorrowId()
+        public int GetId()
         {
             return this.id;
         }
 
-        public string GetBorrowTitle()
+        public string GetTitle()
         {
             return this.title;
         }
 
-        public string GetBorrowAuthor()
+        public string GetAuthor()
         {
             return this.author;
         }
 
-        public string GetBorrowPublisher()
+        public string GetPublisher()
         {
             return this.publisher;
         }
 
-        public string GetBorrowAmount()
+        public string GetAmount()
         {
             return this.amount;
         }
 
-        public string GetBorrowPrice()
+        public string GetPrice()
         {
             return this.price;
         }
 
-        public string GetBorrowPublishDay()
+        public string GetPublishDay()
         {
             return this.publishDay;
         }
 
-        public string GetBorrowISBN()
+        public string GetISBN()
         {
             return this.ISBN;
         }
 
-        public string GetBorrowInformation()
+        public string GetInformation()
         {
             return this.information;
         }
 
-        public string GetBorrowBorrowTime()
+        public string GetBorrowTime()
         {
             return this.borrowTime;
         }
@@ -269,111 +269,111 @@ namespace Library.Model.DTO
 
         private string returnTime;
 
-        public void SetReturnId(int id)
+        public void SetId(int id)
         {
             this.id = id;
         }
 
-        public void SetReturnTitle(string title)
+        public void SetTitle(string title)
         {
             this.title = title;
         }
 
-        public void SetReturnAuthor(string author)
+        public void SetAuthor(string author)
         {
             this.author = author;
         }
 
-        public void SetReturnPublisher(string publisher)
+        public void SetPublisher(string publisher)
         {
             this.publisher = publisher;
         }
 
-        public void SetReturnAmount(string amount)
+        public void SetAmount(string amount)
         {
             this.amount = amount;
         }
 
-        public void SetReturnPublishDay(string publishDay)
+        public void SetPublishDay(string publishDay)
         {
             this.publishDay = publishDay;
         }
 
-        public void SetReturnPrice(string price)
+        public void SetPrice(string price)
         {
             this.price = price;
         }
 
-        public void SetReturnISBN(string ISBN)
+        public void SetISBN(string ISBN)
         {
             this.ISBN = ISBN;
         }
 
-        public void SetReturnInformation(string information)
+        public void SetInformation(string information)
         {
             this.information = information;
         }
 
-        public void SetReturnBorrowTime(string borrowTime)
+        public void SetBorrowTime(string borrowTime)
         {
             this.borrowTime = borrowTime;
         }
 
-        public void SetReturnReturnTime(string returnTime)
+        public void SetReturnTime(string returnTime)
         {
             this.returnTime = returnTime;
         }
-        public int GetReturnId()
+        public int GetId()
         {
             return id;
         }
 
-        public string GetReturnTitle()
+        public string GetTitle()
         {
             return title;
         }
 
-        public string GetReturnAuthor()
+        public string GetAuthor()
         {
             return author;
         }
 
-        public string GetReturnPublisher()
+        public string GetPublisher()
         {
             return publisher;
         }
 
-        public string GetReturnAmount()
+        public string GetAmount()
         {
             return amount;
         }
 
-        public string GetReturnPrice()
+        public string GetPrice()
         {
             return price;
         }
 
-        public string GetReturnPublishDay()
+        public string GetPublishDay()
         {
             return publishDay;
         }
 
-        public string GetReturnISBN()
+        public string GetISBN()
         {
             return ISBN;
         }
 
-        public string GetReturnInformation()
+        public string GetInformation()
         {
             return information;
         }
 
-        public string GetReturnBorrowTime()
+        public string GetBorrowTime()
         {
             return borrowTime;
         }
         
-        public string GetReturnReturnTime()
+        public string GetReturnTime()
         {
             return returnTime;
         }

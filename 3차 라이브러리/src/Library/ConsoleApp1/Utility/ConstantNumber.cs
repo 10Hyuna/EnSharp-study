@@ -9,8 +9,8 @@ namespace Library.Utility
 {
     public class ConstantNumber
     {
-        public const bool isPassword = true;
-        public const bool isNotPassword = false;
+        public const bool IS_PASSWORD = true;
+        public const bool IS_NOT_PASSWORD = false;
 
         public const int OVERLAP_DATA = 11;
 
@@ -19,7 +19,7 @@ namespace Library.Utility
         public const int SUCCESS = 0;
         public const int NOT_MATCHED_CONDITION = 1;
         public const int NOT_MATCHED_PASSWORD = 2;
-        public const int NOT_MATCHED_ID = 3;
+        public const int NOT_MATCHED_INFORMATION = 3;
         public const int SUCCESS_BORROW_BOOK = 4;
         public const int SUCCESS_RETURN_BOOK = 5;
         public const int ALREADY_RENT_BOOK = 6;
@@ -34,7 +34,7 @@ namespace Library.Utility
         public const string passwordCheck = @"^[0-9a-zA-Z]{8,20}";
         public const string nameCheck = @"^[가-힇a-zA-Z]{1,}";       // 이름 정규식
         public const string ageCheck = @"^[0-9]{1,3}";               // 나이 정규식
-        public const string phoneNumberCheck = @"^01[016789]{1}-[0-9]{3,4}-[0-9]{4}";       // 번호 정규식
+        public const string phoneNumberCheck = @"^01[016789]{1}-[0-9]{3,4}-[0-9]{4}$";       // 번호 정규식
         public const string addressCheck = @"^[가-힇]{2,4}시 [가-힇]{2}구";                 // 주소 정규식
         //publiconst string addressCheck = @"^[가-힇]{2,4}도 | [가-힇]{2,4}시 ([가-힇]{2,4}(읍|면|동|길|로))"
         public const string containedOneValue = @"^[가-힇a-zA-Z0-9]{1,}";
@@ -49,6 +49,7 @@ namespace Library.Utility
         public const string date = @"[0-9]{1,2}";
         public const string ISBN = @"[0-9a-zA-Z ]{13,}";
         public const string information = @"[0-9a-zA-Z가-힇]{1,}";
+        public const string isKorean = @"[가-힇]{1}";
     }
 }
 
@@ -100,7 +101,8 @@ namespace Library.Utility
         PUBLISHER,
         AMOUNT,
         PRICE,
-        PUBLISHDAY
+        PUBLISHDAY,
+        SUCCESS
     }
 
     enum ACCOUNT
@@ -108,4 +110,8 @@ namespace Library.Utility
         ID,
         PASSWORD
     }
-}
+    enum MODIFICATION
+    {
+        USERINFORMATION,
+        USERACCOUNT
+    }

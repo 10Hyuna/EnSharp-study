@@ -1,12 +1,18 @@
-﻿using System;
+﻿using LectureTimeTable.LectureTimeTableUtility;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace LectureTimeTable.LectureTimeTableView
 {
-    class MenuAndOption
+    public class MenuAndOption
     {
+        public void PrintMenu(string menu)
+        {
+            Console.WriteLine(menu);
+        }
     }
 }

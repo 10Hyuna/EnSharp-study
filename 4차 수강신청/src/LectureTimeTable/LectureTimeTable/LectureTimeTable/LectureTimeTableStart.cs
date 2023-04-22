@@ -11,6 +11,7 @@ namespace LectureTimeTable.LectureTimeTable
     {
         static void Main(string[] args)
         {
+            Console.CursorVisible = false;
             Login login = new Login();
             login.EnterLogin();
         }

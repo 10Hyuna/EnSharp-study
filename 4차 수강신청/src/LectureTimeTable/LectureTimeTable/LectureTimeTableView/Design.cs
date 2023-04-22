@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace LectureTimeTable.LectureTimeTableView
 {
-    class Design
+    public class Design
     {
         public void PrintMain()
         {
+            Console.WriteLine("\n");
             Console.WriteLine("\t      :::        ::::::::::       ::::::::   :::::::::::      :::    :::       :::::::::       ::::::::::");
             Console.WriteLine("\t     :+:        :+:             :+:    :+:      :+:          :+:    :+:       :+:    :+:      :+:        ");
             Console.WriteLine("\t    +:+        +:+             +:+             +:+          +:+    +:+       +:+    +:+      +:+         ");
@@ -24,19 +25,23 @@ namespace LectureTimeTable.LectureTimeTableView
             Console.WriteLine("\t                     +#+               +#+           +#+       +#+     +#+             ");
             Console.WriteLine("\t                    #+#               #+#           #+#       #+#     #+#              ");
             Console.WriteLine("\t                  ###           ###########       ###       ###     ##########        \n");
-            Console.WriteLine("\t                :::::::::::           :::        :::::::::       :::        :::::::::: ");
-            Console.WriteLine("\t                   :+:             :+: :+:      :+:    :+:      :+:        :+:         ");
-            Console.WriteLine("\t                  +:+            +:+   +:+     +:+    +:+      +:+        +:+          ");
-            Console.WriteLine("\t                 +#+           +#++:++#++:    +#++:++#+       +#+        +#++:++#      ");
-            Console.WriteLine("\t                +#+           +#+     +#+    +#+    +#+      +#+        +#+            ");
-            Console.WriteLine("\t               #+#           #+#     #+#    #+#    #+#      #+#        #+#             ");
-            Console.WriteLine("\t              ###           ###     ###    #########       ########## ##########      \n");
+            Console.WriteLine("\t                :::::::::::           :::        :::::::::       :::          :::::::::: ");
+            Console.WriteLine("\t                   :+:             :+: :+:      :+:    :+:      :+:          :+:         ");
+            Console.WriteLine("\t                  +:+            +:+   +:+     +:+    +:+      +:+          +:+          ");
+            Console.WriteLine("\t                 +#+           +#++:++#++:    +#++:++#+       +#+          +#++:++#      ");
+            Console.WriteLine("\t                +#+           +#+     +#+    +#+    +#+      +#+          +#+            ");
+            Console.WriteLine("\t               #+#           #+#     #+#    #+#    #+#      #+#          #+#             ");
+            Console.WriteLine("\t              ###           ###     ###    #########       ##########   ##########      \n");
         }
-
-        public void PrintLogin()
+        public void PrintBox(int line)
         {
-            Console.WriteLine("학번 (8자 이하) : ");
-            Console.WriteLine("비밀번호        : ");
+            
+            Console.WriteLine("\t         ┌─────────────────────────────────────────────────────────────────────────────┐");
+            for(int i = 0; i < line; i++)
+            {
+                Console.WriteLine("\t         │                                                                             │");
+            }
+            Console.WriteLine("\t         └─────────────────────────────────────────────────────────────────────────────┘");
         }
     }
 }

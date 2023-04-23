@@ -37,7 +37,7 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
         int choosedIndex;
         int choosedMenu;
 
-        public void LookUpLecture()
+        public void LookUpLecture(bool isLookUp)
         {
             Console.SetWindowSize(120, 40);
 
@@ -84,20 +84,43 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
                         searchResults.CourseNumber = SearchKeyword(4, ConstantNumber.COURSER_NUMBER);
                         break;
                     case (int)INQUIRY.SEARCH:
-                        SelectSearch();
+                        SelectSearch(isLookUp);
                         break;
                 }
                 choosedIndex = 0;
             }
         }
 
-        private void SelectSearch()
+        private void SelectSearch(bool isLookUp)
         {
-            FindSearchResult();
-            Console.Clear();
-            guidancePhrase.PrintAnounce();
-            isESC = false;
-            choosedMenu = 0;
+            ConsoleKeyInfo keyInfo;
+
+            if (isLookUp)
+            {
+                FindSearchResult();
+
+                guidancePhrase.PrintESC();
+
+                while (!isESC)
+                {
+                    keyInfo = Console.ReadKey(true);
+
+                    if (keyInfo.Key == ConsoleKey.Escape)
+                    {
+                        isESC = true;
+                    }
+                }
+                Console.Clear();
+                guidancePhrase.PrintAnounce();
+                isESC = false;
+                choosedMenu = 0;
+            }
+            else
+            {
+                FindSearchResult();
+                lectureDisplay.PrintInterestedCredit(totalStorage.user);
+                isESC = true;
+            }
         }
 
         private void SelectLectureMajor()
@@ -203,31 +226,21 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
 
             bool isESC = false;
 
-            lectureDisplay.PrintSearchLectureUI(totalStorage.totalLecture, searchResults);
+            lectureDisplay.PrintSearchLectureUI(totalStorage.lecture, searchResults);
 
-            for (int i = 0; i < totalStorage.totalLecture.Count; i++)
+            for (int i = 0; i < totalStorage.lecture.Count; i++)
             {
-                if (totalStorage.totalLecture[i].Major.Contains(searchResults.Major)
-                && totalStorage.totalLecture[i].CourseNumber.Contains(searchResults.CourseNumber)
-                && totalStorage.totalLecture[i].LectureTitle.Contains(searchResults.LectureTitle)
-                && totalStorage.totalLecture[i].Professor.Contains(searchResults.Professor)
-                && totalStorage.totalLecture[i].Grade.Contains(searchResults.Grade)
-                && totalStorage.totalLecture[i].CompleteType.Contains(searchResults.CompleteType))
+                if (totalStorage.lecture[i].Major.Contains(searchResults.Major)
+                && totalStorage.lecture[i].CourseNumber.Contains(searchResults.CourseNumber)
+                && totalStorage.lecture[i].LectureTitle.Contains(searchResults.LectureTitle)
+                && totalStorage.lecture[i].Professor.Contains(searchResults.Professor)
+                && totalStorage.lecture[i].Grade.Contains(searchResults.Grade)
+                && totalStorage.lecture[i].CompleteType.Contains(searchResults.CompleteType))
                 {
-                    lectureDisplay.PrintSearchLecture(totalStorage.totalLecture[i]);
+                    lectureDisplay.PrintSearchLecture(totalStorage.lecture[i]);
                 }
             }
-            guidancePhrase.PrintESC();
-
-            while (!isESC)
-            {
-                keyInfo = Console.ReadKey(true);
-
-                if(keyInfo.Key == ConsoleKey.Escape)
-                {
-                    isESC = true;
-                }
-            }
+            lectureDisplay.PrintLine();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LectureTimeTable.LectureTimeTableModel.VO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,12 +11,14 @@ namespace LectureTimeTable.LectureTimeTableModel
     {
         public TotalStorage()
         {
-            Lecture totalLecture = new Lecture();
+            Lecture lecture = new Lecture();
             SearchResults searchResults = new SearchResults();
+            USER user = new USER();
+
         }
 
-        public List<Lecture> totalLecture = new List<Lecture>();
+        public List<Lecture> lecture = new List<Lecture>();
         public List<SearchResults> searchResult = new List<SearchResults>();
-
+        public List<USER> user = new List<USER>();
     }
 }

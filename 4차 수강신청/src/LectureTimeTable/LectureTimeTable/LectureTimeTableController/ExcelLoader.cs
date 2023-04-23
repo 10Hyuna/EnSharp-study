@@ -71,7 +71,7 @@ namespace LectureTimeTable.LectureTimeTableController
                     professor = exceptionHandler.CheckNull(data.GetValue(i, 11));
                     language = exceptionHandler.CheckNull(data.GetValue(i, 12));
 
-                    totalStorage.totalLecture.Add(new Lecture(id, major, courseNumber, classNumber, lectureTitle, completeType, grade, credit, dateAndTime, lectureRoom, professor, language));
+                    totalStorage.lecture.Add(new Lecture(id, major, courseNumber, classNumber, lectureTitle, completeType, grade, credit, dateAndTime, lectureRoom, professor, language));
                 }
 
                 // 모든 워크북 닫기

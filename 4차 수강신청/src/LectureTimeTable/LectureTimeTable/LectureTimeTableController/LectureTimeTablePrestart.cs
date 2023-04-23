@@ -1,4 +1,5 @@
 ﻿using LectureTimeTable.LectureTimeTableModel;
+using LectureTimeTable.LectureTimeTableUtility;
 using System;
 using System.Collections.Generic;
 using System.Linq;

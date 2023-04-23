@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace LectureTimeTable.LectureTimeTableController.MainMenu
 {
-    public class EnrolmentLecture
+    public class EnrollmentLecture
     {
-        public EnrolmentLecture() { }
+        public EnrollmentLecture() { }
 
         public void EnrolLecture()
         {

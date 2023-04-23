@@ -1,4 +1,5 @@
 ﻿using LectureTimeTable.LectureTimeTableController.MainMenu;
+using LectureTimeTable.LectureTimeTableModel;
 using LectureTimeTable.LectureTimeTableUtility;
 using LectureTimeTable.LectureTimeTableView;
 using System;
@@ -14,25 +15,31 @@ namespace LectureTimeTable.LectureTimeTableController
         MenuAndOption menuAndOption;
         ExceptionHandler exceptionHandler;
         Design design;
-        SelecterMenu selecterMenu;
+        MenuSelecter menuSelecter;
         LectureLookUp lectureLookUp;
-        EnrolmentLecture enrolmentLecture;
-        AdditionInterestedLecture additionInterestedLecture;
+        EnrollmentLecture enrolmentLecture;
+        InterestedLectureAddition additionInterestedLecture;
         CourseHistory courseHistory;
         GuidancePhrase guidancePhrase;
+        LectureDisplay lectureDisplay;
+        SearchResults searchResults;
+        TotalStorage totalStorage;
 
         public MenuSelection(MenuAndOption menuAndOption, ExceptionHandler exceptionHandler, 
-            Design design, SelecterMenu selecterMenu, GuidancePhrase guidancePhrase)
+            Design design, MenuSelecter menuSelecter, GuidancePhrase guidancePhrase, TotalStorage totalStorage)
         {
             this.menuAndOption = menuAndOption;
             this.exceptionHandler = exceptionHandler;
             this.design = design;
-            this.selecterMenu = selecterMenu;
+            this.menuSelecter = menuSelecter;
             this.guidancePhrase = guidancePhrase;
+            this.totalStorage = totalStorage;
+            searchResults = new SearchResults();
+            lectureDisplay = new LectureDisplay(exceptionHandler);
             courseHistory = new CourseHistory();
-            lectureLookUp = new LectureLookUp(guidancePhrase, selecterMenu, exceptionHandler);
-            enrolmentLecture = new EnrolmentLecture();
-            additionInterestedLecture = new AdditionInterestedLecture();
+            lectureLookUp = new LectureLookUp(guidancePhrase, menuSelecter, exceptionHandler, lectureDisplay, searchResults, totalStorage);
+            enrolmentLecture = new EnrollmentLecture();
+            additionInterestedLecture = new InterestedLectureAddition();
         }
 
         public void SelectMenu()
@@ -59,7 +66,7 @@ namespace LectureTimeTable.LectureTimeTableController
                 consoleColumn = 50;
                 consoleRow = 28;
 
-                menuIndex = selecterMenu.SelectMenu(enrolmentMenu, menuIndex, consoleColumn, consoleRow, ConstantNumber.IS_MENU, 9);
+                menuIndex = menuSelecter.SelectMenu(enrolmentMenu, menuIndex, consoleColumn, consoleRow, ConstantNumber.IS_MENU, 9);
 
                 if(menuIndex == ConstantNumber.EXIT)
                 {

@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 using LectureTimeTable.LectureTimeTableView;
 
 namespace LectureTimeTable.LectureTimeTableUtility
 {
-    public class SelecterMenu
+    public class MenuSelecter
     {
         MenuAndOption menuAndOption;
         InputFromUser inputFromUser;
-        public SelecterMenu(MenuAndOption menuAndOption, InputFromUser inputFromUser)
+        public MenuSelecter(MenuAndOption menuAndOption, InputFromUser inputFromUser)
         {
             this.menuAndOption = menuAndOption;
             this.inputFromUser = inputFromUser;

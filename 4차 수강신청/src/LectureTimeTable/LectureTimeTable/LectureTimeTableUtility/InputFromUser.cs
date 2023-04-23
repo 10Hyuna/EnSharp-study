@@ -18,6 +18,8 @@ namespace LectureTimeTable.LectureTimeTableUtility
 
         public int SelectMenuIndex(int endMenuIndex, int selectedMenu)
         {
+            
+            
             keyInfo = Console.ReadKey(true);
 
             
@@ -105,13 +107,14 @@ namespace LectureTimeTable.LectureTimeTableUtility
 
                 if(keyInfo.Key == ConsoleKey.Escape)
                 {
+                    Console.CursorVisible = false;
                     return ConstantNumber.ESC;
                 }
                 else if(keyInfo.Key == ConsoleKey.Enter)
                 {
                     isEnter = true;
                 }
-                else if(keyInfo.Key == ConsoleKey.UpArrow)
+                else if(keyInfo.Key == ConsoleKey.UpArrow && (isPassword || isId))
                 {
                     Console.SetCursorPosition(originColumn, originRow);
                     Console.Write("                ");
@@ -119,7 +122,7 @@ namespace LectureTimeTable.LectureTimeTableUtility
                     input = ConstantNumber.UP;
                     isEnter = true;
                 }
-                else if(keyInfo.Key == ConsoleKey.DownArrow)
+                else if(keyInfo.Key == ConsoleKey.DownArrow && (isId || isPassword))
                 {
                     Console.SetCursorPosition(originColumn, originRow);
                     Console.Write("                ");

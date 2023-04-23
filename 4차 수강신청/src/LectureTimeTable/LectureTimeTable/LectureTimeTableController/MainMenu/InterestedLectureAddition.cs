@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace LectureTimeTable.LectureTimeTableController.MainMenu
 {
-    public class AdditionInterestedLecture
+    public class InterestedLectureAddition
     {
-        public AdditionInterestedLecture() { }
+        public InterestedLectureAddition() { }
 
         public void AddInterestedLecture()
         {

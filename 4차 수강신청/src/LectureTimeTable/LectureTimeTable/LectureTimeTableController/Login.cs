@@ -7,31 +7,36 @@ using LectureTimeTable.LectureTimeTableModel.VO;
 using LectureTimeTable.LectureTimeTableUtility;
 using LectureTimeTable.LectureTimeTableView;
 using LectureTimeTable.LectureTimeTableController.MainMenu;
+using LectureTimeTable.LectureTimeTableModel;
 
 namespace LectureTimeTable.LectureTimeTableController
 {
     class Login
     {
+        ExcelLoader excelLoader;
         Design design;
         InputFromUser inputFromUser;
-        SelecterMenu selecterMenu;
+        MenuSelecter selecterMenu;
         MenuAndOption menuAndOption;
         ExceptionHandler exceptionHandler;
         GuidancePhrase guidancePhrase;
         USER user;
         MenuSelection menuSelection;
         CourseHistory courseHistory;
+        TotalStorage totalStorage;
 
-        public Login()
+        public Login(TotalStorage totalStorage)
         {
+            this.totalStorage = totalStorage;
             design = new Design();
             inputFromUser = new InputFromUser();
             menuAndOption = new MenuAndOption();
-            selecterMenu = new SelecterMenu(menuAndOption ,inputFromUser);
             guidancePhrase = new GuidancePhrase();
             exceptionHandler = new ExceptionHandler(inputFromUser, guidancePhrase);
+            excelLoader = new ExcelLoader(exceptionHandler, totalStorage);
+            selecterMenu = new MenuSelecter(menuAndOption ,inputFromUser);
             menuSelection = new MenuSelection(menuAndOption, exceptionHandler, 
-                design, selecterMenu, guidancePhrase);
+                design, selecterMenu, guidancePhrase, totalStorage);
             user = new USER();
         }
 
@@ -56,6 +61,8 @@ namespace LectureTimeTable.LectureTimeTableController
             bool isESC = false;
 
             Console.SetWindowSize(120, 35);
+
+            excelLoader.LoadExcelFile();
 
             string[] loginMenu = { "학번 (8자 이상) : ", "비밀번호 : " };
 
@@ -86,6 +93,9 @@ namespace LectureTimeTable.LectureTimeTableController
                 }
                 else if (inputId + inputPassword == 2)
                 {
+                    id = "";
+                    password = "";
+
                     Console.SetCursorPosition(95, 30);
                     guidancePhrase.ErasePrint();
 

@@ -19,6 +19,25 @@ namespace LectureTimeTable.LectureTimeTableUtility
             this.guidancePhrase = guidancePhrase;
         }
 
+        public int calculateRadRightSize(string message, int count)
+        {
+            int koreanCount = 0;
+            string korean;
+
+            Regex regex = new Regex(ConstantNumber.KOREAN);
+
+            for (int i = 0; i < message.Length; i++)
+            {
+                korean = Convert.ToString(message[i]);
+                if(CheckException(korean, regex))
+                {
+                    koreanCount++;
+                }
+            }
+
+            return (count - koreanCount);
+        }
+
         public bool CheckException(string message, Regex regex)     // 정규식으로 문자열이 주어진 조건에 해당하는지 확인
         {
 
@@ -59,6 +78,16 @@ namespace LectureTimeTable.LectureTimeTableUtility
                 }
             }
             return message;
+        }
+
+        public string CheckNull(object message)
+        {
+            if(message == null)
+            {
+                message = "";
+            }
+
+            return message.ToString();
         }
     }
 }

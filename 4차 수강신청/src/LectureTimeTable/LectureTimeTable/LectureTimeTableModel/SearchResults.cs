@@ -9,83 +9,59 @@ namespace LectureTimeTable.LectureTimeTableModel
 {
     public class SearchResults
     {
-        private string major;
-        private string completeType;
-        private string lectureTitle;
-        private string professor;
-        private string grade;
-        private string courseNumber;
+        private string major = "";
+        private string completeType = "";
+        private string lectureTitle = "";
+        private string professor = "";
+        private string grade = "";
+        private string courseNumber = "";
+
+        public SearchResults() { }
+
+        public SearchResults(string major, string completeType, string lectureTitle, string professor, string grade, string courseNumber)
+        {
+            this.major = major;
+            this.completeType = completeType;
+            this.lectureTitle = lectureTitle;
+            this.professor = professor;
+            this.grade = grade;
+            this.courseNumber = courseNumber;
+        }
 
         public string Major
         {
-            get
-            {
-                return major;
-            }
-            set
-            {
-                major = value;
-            }
+            get => this.major; 
+            set => this.major = value;
         }
 
         public string CompleteType
         {
-            get
-            {
-                return completeType;
-            }
-            set
-            {
-                completeType = value;
-            }
+            get => this.completeType;
+            set => this.completeType = value;
         }
 
         public string LectureTitle
         {
-            get
-            {
-                return lectureTitle;
-            }
-            set
-            {
-                lectureTitle = value;
-            }
+            get => this.lectureTitle;
+            set => this.lectureTitle = value;
         }
 
         public string Professor
         {
-            get
-            {
-                return professor;
-            }
-            set
-            {
-                professor = value;
-            }
+            get => this.professor;
+            set => this.professor = value;
         }
 
         public string Grade
         {
-            get
-            {
-                return grade;
-            }
-            set
-            {
-                grade = value;
-            }
+            get => this.grade; 
+            set => this.grade = value;
         }
 
         public string CourseNumber
         {
-            get
-            {
-                return courseNumber;
-            }
-            set
-            {
-                courseNumber = value;
-            }
+            get => this.courseNumber; 
+            set => this.courseNumber = value;
         }
     }
 }

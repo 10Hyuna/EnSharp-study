@@ -12,15 +12,20 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
     public class LectureLookUp
     {
         GuidancePhrase guidancePhrase;
-        SelecterMenu selecterMenu;
+        MenuSelecter selecterMenu;
         SearchResults searchResults;
         ExceptionHandler exceptionHandler;
-        public LectureLookUp(GuidancePhrase guidancePhrase, SelecterMenu selecterMenu, ExceptionHandler exceptionHandler) 
+        LectureDisplay lectureDisplay;
+        TotalStorage totalStorage;
+        public LectureLookUp(GuidancePhrase guidancePhrase, MenuSelecter selecterMenu, ExceptionHandler exceptionHandler,
+            LectureDisplay lectureDisplay, SearchResults searchResults, TotalStorage totalStorage) 
         {
             this.guidancePhrase = guidancePhrase;
             this.selecterMenu = selecterMenu;
             this.exceptionHandler = exceptionHandler;
-            searchResults = new SearchResults();
+            this.lectureDisplay = lectureDisplay;
+            this.searchResults = searchResults;
+            this.totalStorage = totalStorage;
         }
 
         int consoleColumn;
@@ -30,21 +35,24 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
         bool isEnter;
 
         int choosedIndex;
+        int choosedMenu;
 
         public void LookUpLecture()
         {
-            Console.SetWindowSize(150, 40);
-            Console.Clear();
+            Console.SetWindowSize(120, 40);
 
-            int choosedMenu = 0;
+            choosedMenu = 0;
             isESC = false;
 
+            Console.Clear();
             guidancePhrase.PrintAnounce();
 
-            string[] lectureSearchMenu = { "개설 학과 전공 :  ", "이수 구분       : ", "교과목명        : ", "교수명          : ", "학년            : ", "학수번호        : ", "< 검색하기 > " };
+            string[] lectureSearchMenu = { "개설 학과 전공  :", "이수 구분       :", "교과목명        :", "교수명          :", "학년            :", "학수번호        :", "< 검색하기 > " };
 
             while (!isESC)
             {
+                Console.SetWindowSize(120, 35);
+
                 consoleColumn = 10;
                 consoleRow = 10;
 
@@ -76,18 +84,29 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
                         searchResults.CourseNumber = SearchKeyword(4, ConstantNumber.COURSER_NUMBER);
                         break;
                     case (int)INQUIRY.SEARCH:
-
+                        SelectSearch();
                         break;
                 }
+                choosedIndex = 0;
             }
         }
+
+        private void SelectSearch()
+        {
+            FindSearchResult();
+            Console.Clear();
+            guidancePhrase.PrintAnounce();
+            isESC = false;
+            choosedMenu = 0;
+        }
+
         private void SelectLectureMajor()
         {
             choosedIndex = 0;
             isEnter = false;
             isESC = false;
 
-            string[] major = { "전체", "컴퓨터공학과", "소프트웨어공학과", "지능기전공학부", "기계항공우주공학부" };
+            string[] major = { "전체", "컴퓨터공학과", "소프트웨어학과", "지능기전공학부", "기계항공우주공학부" };
 
             while (!isESC && !isEnter)
             {
@@ -99,18 +118,30 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
                 if (choosedIndex == ConstantNumber.EXIT)
                 {
                     isESC = true;
+                    Console.SetCursorPosition(consoleColumn, consoleRow);
+                    guidancePhrase.ErasePrint();
+                    guidancePhrase.ErasePrint();
                 }
                 else
                 {
-                    searchResults.Major = major[choosedIndex];
-                    isEnter = true;
+                    if(choosedIndex == 0)
+                    {
+                        searchResults.Major = "";
+                        isEnter = true;
+                    }
+                    else
+                    {
+                        searchResults.Major = major[choosedIndex];
+                        isEnter = true;
+                    }
                 }
             }
+            isESC = false;
         }
 
         private void SelectCompleteType()
         {
-            string[] completeType = { "전체", "교양필수  ", "전공필수    ", "전공선택   " };
+            string[] completeType = { "전체", "교양필수", "전공필수", "전공선택" };
 
             isESC = false;
             isEnter = false;
@@ -125,13 +156,25 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
                 if(choosedIndex == ConstantNumber.EXIT)
                 {
                     isESC = true;
+                    Console.SetCursorPosition(consoleColumn, consoleRow);
+                    guidancePhrase.ErasePrint();
+                    guidancePhrase.ErasePrint();
                 }
                 else
                 {
-                    searchResults.CompleteType = completeType[choosedIndex];
-                    isEnter = true;
+                    if(choosedIndex == 0)
+                    {
+                        searchResults.CompleteType = "";
+                        isEnter = true;
+                    }
+                    else
+                    {
+                        searchResults.CompleteType = completeType[choosedIndex];
+                        isEnter = true;
+                    }
                 }
             }
+            isESC = false;
         }
 
         private string SearchKeyword(int row, string regex)
@@ -143,7 +186,48 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
 
             input = exceptionHandler.IsValid(regex, consoleColumn, consoleRow, 36, ConstantNumber.IS_NOT_PASSWORD, ConstantNumber.IS_NOT_ID);
 
+            if(input == ConstantNumber.ESC)
+            {
+                isESC = true;
+                Console.SetCursorPosition(consoleColumn, consoleRow);
+                guidancePhrase.ErasePrint();
+                guidancePhrase.ErasePrint();
+            }
+            isESC = false;
             return input;
+        }
+
+        private void FindSearchResult()
+        {
+            ConsoleKeyInfo keyInfo;
+
+            bool isESC = false;
+
+            lectureDisplay.PrintSearchLectureUI(totalStorage.totalLecture, searchResults);
+
+            for (int i = 0; i < totalStorage.totalLecture.Count; i++)
+            {
+                if (totalStorage.totalLecture[i].Major.Contains(searchResults.Major)
+                && totalStorage.totalLecture[i].CourseNumber.Contains(searchResults.CourseNumber)
+                && totalStorage.totalLecture[i].LectureTitle.Contains(searchResults.LectureTitle)
+                && totalStorage.totalLecture[i].Professor.Contains(searchResults.Professor)
+                && totalStorage.totalLecture[i].Grade.Contains(searchResults.Grade)
+                && totalStorage.totalLecture[i].CompleteType.Contains(searchResults.CompleteType))
+                {
+                    lectureDisplay.PrintSearchLecture(totalStorage.totalLecture[i]);
+                }
+            }
+            guidancePhrase.PrintESC();
+
+            while (!isESC)
+            {
+                keyInfo = Console.ReadKey(true);
+
+                if(keyInfo.Key == ConsoleKey.Escape)
+                {
+                    isESC = true;
+                }
+            }
         }
     }
 }

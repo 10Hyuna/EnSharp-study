@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LectureTimeTable.LectureTimeTableController.Option
 {
-    internal class TimeTable
+    public class TimeTable
     {
     }
 }

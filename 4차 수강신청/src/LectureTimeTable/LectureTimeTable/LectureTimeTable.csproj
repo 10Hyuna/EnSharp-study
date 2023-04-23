@@ -57,10 +57,11 @@
     <Compile Include="LectureTimeTableController\MenuSelection.cs" />
     <Compile Include="LectureTimeTableController\Option\LectureDelecter.cs" />
     <Compile Include="LectureTimeTableController\Option\LectureList.cs" />
+    <Compile Include="LectureTimeTableController\Option\TimeTable.cs" />
     <Compile Include="LectureTimeTableModel\SearchResults.cs" />
     <Compile Include="LectureTimeTableModel\Lecture.cs" />
     <Compile Include="LectureTimeTableModel\TotalStorage.cs" />
-    <Compile Include="LectureTimeTableModel\VO\User.cs" />
+    <Compile Include="LectureTimeTableModel\User.cs" />
     <Compile Include="LectureTimeTableUtility\ConstantNumber.cs" />
     <Compile Include="LectureTimeTableUtility\ExceptionHandler.cs" />
     <Compile Include="LectureTimeTableUtility\InputFromUser.cs" />

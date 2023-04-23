@@ -39,7 +39,8 @@ namespace LectureTimeTable.LectureTimeTableController
             courseHistory = new CourseHistory();
             lectureLookUp = new LectureLookUp(guidancePhrase, menuSelecter, exceptionHandler, lectureDisplay, searchResults, totalStorage);
             enrolmentLecture = new EnrollmentLecture();
-            additionInterestedLecture = new InterestedLectureAddition();
+            additionInterestedLecture = new InterestedLectureAddition(menuAndOption, exceptionHandler, design, menuSelecter,
+                guidancePhrase, totalStorage, lectureLookUp);
         }
 
         public void SelectMenu()
@@ -76,7 +77,7 @@ namespace LectureTimeTable.LectureTimeTableController
                 switch (menuIndex)
                 {
                     case (int)ENROLMENTLECTURE.INQUIRY:
-                        lectureLookUp.LookUpLecture();
+                        lectureLookUp.LookUpLecture(ConstantNumber.IS_LOOKUP);
                         break;
                     case (int)ENROLMENTLECTURE.INTERESTEDLECTURE:
                         additionInterestedLecture.AddInterestedLecture();

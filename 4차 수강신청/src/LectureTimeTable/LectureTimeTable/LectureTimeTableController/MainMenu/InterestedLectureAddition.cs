@@ -87,10 +87,11 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
 
             string SearchLectureId;
             int lectureId;
+            int lectureIndex;
 
             while(!isESC)
             {
-                SearchInterestedLecture = exceptionHandler.IsValid(ConstantNumber.NUMBER, Console.CurserLeft, Console.CursorTop, ConstantNumber.IS_NOT_PASSWORD, ConstantNumber.IS_NOT_ID)
+                SearchInterestedLecture = exceptionHandler.IsValid(ConstantNumber.NUMBER, Console.CurserLeft, Console.CursorTop, ConstantNumber.IS_NOT_PASSWORD, ConstantNumber.IS_NOT_ID);
 
                 if(SearchInterestedLecture == ConstantNumber.EXIT)
                 {
@@ -98,8 +99,9 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
                 }
                 lectureId = SearchInterestedLecture.ToString();
 
+                lectureIndex = FindLectureIndex(lectureId);
 
-                if (CheckNullLecture(lectureId))
+                if (CheckNullLecture(lectureIndex))
                 {
 
                     continue;
@@ -109,10 +111,10 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
 
                     continue;
                 }
-                if (CheckOverlapTime(lectureId))
+                if (CheckOverlapTime(lectureIndex))
                 {
 
-                    continue
+                    continue;
                 }
             }
         }
@@ -131,7 +133,7 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
             }
             return lectureIndex;
         }
-        private bool CheckNullLecture(int lectureId)
+        private bool CheckNullLecture(int lectureIndex)
         {
             string major;
             string completeType;
@@ -140,15 +142,42 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
             string grade;
             string courseNumber;
 
-            for(int i=0;i<)
+            Lecture findLecture = totalStorage.lecture[lectureIndex];
+            SearchResults searchLecture = totalStorage.searchResult[0];
+
+            major = findLecture.Major;
+            completeType = findLecture.CompleteType;
+            lectureTitle = findLecture.lectureTitle;
+            professor = findLecture.Professor;
+            grade = findLecture.Grade;
+            courseNumber = findLecture.CourseNumber;
+
+            if (major.Contains(searchLecture.Major)
+                && completeType.Contains(searchLecture.CompleteType)
+                && lectureTitle.Contains(searchLecture.LectureTitle)
+                && professor.Contains(searchLecture.Professor)
+                && grade.Contains(searchLecture.Grade)
+                && courseNumber.Contains(searchLecture.CourseNumber))
+            {
+                return true;
+            }
+            return false;
         }
 
         private bool CheckOverlapLecture(int lectureId)
         {
+            for(int i = 0; i < totalStorage.interestedLectures.Count; i++)
+            {
+                if (totalStorage.interestedLectures[i].Id == lectureId)
+                {
+                    return false;
+                }
+            }
+            return true;
 
         }
 
-        private bool CheckOverlapTime(int lectureId)
+        private bool CheckOverlapTime(int lectureIndex)
         {
 
         } 

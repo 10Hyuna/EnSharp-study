@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LectureTimeTable.LectureTimeTableModel
 {
-    class InterestedSubject
+    internal class TotalStorage
     {
     }
 }

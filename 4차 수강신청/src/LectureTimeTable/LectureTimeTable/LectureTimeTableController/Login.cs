@@ -31,27 +31,27 @@ namespace LectureTimeTable.LectureTimeTableController
             guidancePhrase = new GuidancePhrase();
             exceptionHandler = new ExceptionHandler(inputFromUser, guidancePhrase);
             menuSelection = new MenuSelection(menuAndOption, exceptionHandler, 
-                design, selecterMenu);
+                design, selecterMenu, guidancePhrase);
             user = new USER();
         }
 
-        int consoleColumn;
-        int consoleRow;
+        private int consoleColumn;
+        private int consoleRow;
 
-        int inputId = 0;
-        int inputPassword = 0;
-        int menuIndex = 0;
+        private int inputId = 0;
+        private int inputPassword = 0;
+        private int menuIndex = 0;
 
-        bool isValid;
-        bool isUp = false;
-        bool isDown = false;
+        private bool isValid;
+        private bool isUp = false;
+        private bool isDown = false;
 
-        string id = "";
-        string password = "";
+        private string id = "";
+        private string password = "";
 
         public void EnterLogin()
         {
-            consoleColumn = 70;
+            consoleColumn = 80;
             consoleRow = 30;
             bool isESC = false;
 
@@ -86,10 +86,10 @@ namespace LectureTimeTable.LectureTimeTableController
                 }
                 else if (inputId + inputPassword == 2)
                 {
-                    Console.SetCursorPosition(87, 30);
+                    Console.SetCursorPosition(95, 30);
                     guidancePhrase.ErasePrint();
 
-                    Console.SetCursorPosition(81, 31);
+                    Console.SetCursorPosition(94, 31);
                     guidancePhrase.ErasePrint();
 
                     inputId = 0;
@@ -102,13 +102,16 @@ namespace LectureTimeTable.LectureTimeTableController
                 else if(inputId == 1 && inputPassword != 1 && (!isUp && !isDown))
                 {
                     menuIndex++;
+                    Console.SetCursorPosition(88, 30);
+                    menuAndOption.PrintMenu(id, 8);
                 }
                 else if (inputPassword == 1 && inputId != 1 && (!isUp && !isDown))
                 {
                     menuIndex--;
+                    Console.SetCursorPosition(76, 31);
+                    menuAndOption.PrintMenu(password, 8);
                 }
-
-                selecterMenu.SetColorMenu(loginMenu, menuIndex, consoleColumn, consoleRow);
+                selecterMenu.SetColorMenu(loginMenu, menuIndex, consoleColumn, consoleRow, 13);
 
                 isUp = false;
                 isDown = false;
@@ -132,7 +135,7 @@ namespace LectureTimeTable.LectureTimeTableController
 
             isValid = false;
 
-            id = exceptionHandler.IsValid(ConstantNumber.idCheck, consoleColumn, consoleRow, 8, ConstantNumber.IS_NOT_PASSWORD, ConstantNumber.IS_ID);
+            id = exceptionHandler.IsValid(ConstantNumber.IDCHECK, consoleColumn, consoleRow, 8, ConstantNumber.IS_NOT_PASSWORD, ConstantNumber.IS_ID);
             
             if (id == ConstantNumber.UP)
             {
@@ -153,7 +156,7 @@ namespace LectureTimeTable.LectureTimeTableController
             consoleColumn = 68;
             consoleRow = 31;
 
-            password = exceptionHandler.IsValid(ConstantNumber.passwordCheck, consoleColumn, consoleRow, 20, ConstantNumber.IS_PASSWORD, ConstantNumber.IS_NOT_ID);
+            password = exceptionHandler.IsValid(ConstantNumber.PASSWORDCHECK, consoleColumn, consoleRow, 20, ConstantNumber.IS_PASSWORD, ConstantNumber.IS_NOT_ID);
             
             if (password == ConstantNumber.UP)
             {

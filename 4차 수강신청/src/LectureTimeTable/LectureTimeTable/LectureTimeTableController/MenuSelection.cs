@@ -19,16 +19,18 @@ namespace LectureTimeTable.LectureTimeTableController
         EnrolmentLecture enrolmentLecture;
         AdditionInterestedLecture additionInterestedLecture;
         CourseHistory courseHistory;
+        GuidancePhrase guidancePhrase;
 
         public MenuSelection(MenuAndOption menuAndOption, ExceptionHandler exceptionHandler, 
-            Design design, SelecterMenu selecterMenu)
+            Design design, SelecterMenu selecterMenu, GuidancePhrase guidancePhrase)
         {
             this.menuAndOption = menuAndOption;
             this.exceptionHandler = exceptionHandler;
             this.design = design;
             this.selecterMenu = selecterMenu;
+            this.guidancePhrase = guidancePhrase;
             courseHistory = new CourseHistory();
-            lectureLookUp = new LectureLookUp();
+            lectureLookUp = new LectureLookUp(guidancePhrase, selecterMenu, exceptionHandler);
             enrolmentLecture = new EnrolmentLecture();
             additionInterestedLecture = new AdditionInterestedLecture();
         }
@@ -57,7 +59,7 @@ namespace LectureTimeTable.LectureTimeTableController
                 consoleColumn = 50;
                 consoleRow = 28;
 
-                menuIndex = selecterMenu.SelectMenu(enrolmentMenu, menuIndex, consoleColumn, consoleRow);
+                menuIndex = selecterMenu.SelectMenu(enrolmentMenu, menuIndex, consoleColumn, consoleRow, ConstantNumber.IS_MENU, 9);
 
                 if(menuIndex == ConstantNumber.EXIT)
                 {

@@ -16,10 +16,11 @@ namespace LectureTimeTable.LectureTimeTableUtility
             return false;
         }
 
-        public int SelectIndexKey(int endMenuIndex, int selectedMenu)
+        public int SelectMenuIndex(int endMenuIndex, int selectedMenu)
         {
             keyInfo = Console.ReadKey(true);
 
+            
             if(keyInfo.Key == ConsoleKey.UpArrow)
             {
                 selectedMenu--;
@@ -50,6 +51,41 @@ namespace LectureTimeTable.LectureTimeTableUtility
             }
             return selectedMenu;
         }
+        
+        public int SelectOptionIndex(int endMenuIndex, int selectedMenu)
+        {
+            keyInfo = Console.ReadKey(true);
+
+            if (keyInfo.Key == ConsoleKey.LeftArrow)
+            {
+                selectedMenu--;
+                if (selectedMenu < 0)
+                {
+                    selectedMenu = endMenuIndex;
+                }
+            }
+            else if (keyInfo.Key == ConsoleKey.RightArrow)
+            {
+                selectedMenu++;
+                if (selectedMenu > endMenuIndex)
+                {
+                    selectedMenu = 0;
+                }
+            }
+            else if (keyInfo.Key == ConsoleKey.Enter)
+            {
+                selectedMenu = ConstantNumber.ENTER;
+            }
+            else if (keyInfo.Key == ConsoleKey.Escape)
+            {
+                selectedMenu = ConstantNumber.EXIT;
+            }
+            else
+            {
+                selectedMenu = ConstantNumber.FAILE;
+            }
+            return selectedMenu;
+        }
 
         public string InputStringFromUser(int maxLength, bool isPassword, bool isId, int consoleColumn, int consoleRow)
         {
@@ -61,12 +97,10 @@ namespace LectureTimeTable.LectureTimeTableUtility
             int originRow = Console.CursorTop;
             Console.SetCursorPosition(originColumn, originRow);
             Console.Write("                ");
+            Console.SetCursorPosition(originColumn + input.Length, originRow);
 
             while (!isEnter)
             {
-                Console.SetCursorPosition(originColumn + input.Length, originRow);
-
-                
                 keyInfo = Console.ReadKey(true);
 
                 if(keyInfo.Key == ConsoleKey.Escape)
@@ -97,7 +131,7 @@ namespace LectureTimeTable.LectureTimeTableUtility
                 {
                     input = input.Substring(0, input.Length - 1);
                     Console.SetCursorPosition(originColumn, originRow);
-                    Console.Write("               ");
+                    Console.Write("                         ");
                     Console.SetCursorPosition(originColumn, originRow);
                     if (isPassword)
                     {
@@ -120,13 +154,19 @@ namespace LectureTimeTable.LectureTimeTableUtility
                     keyInfo.KeyChar != '\0')
                 {
                     input += keyInfo.KeyChar;
-                    if(isPassword)
+                    Console.SetCursorPosition(originColumn, originRow);
+                    Console.Write("                         ");
+                    Console.SetCursorPosition(originColumn, originRow);
+                    if (isPassword)
                     {
-                        Console.Write("*");
+                        for (int i = 0; i < input.Length; i++)
+                        {
+                            Console.Write("*");
+                        }
                     }
                     else
                     {
-                        Console.Write(keyInfo.KeyChar);
+                        Console.Write(input);
                     }
                 }
             }

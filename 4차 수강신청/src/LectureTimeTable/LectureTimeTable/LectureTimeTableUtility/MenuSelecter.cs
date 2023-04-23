@@ -18,7 +18,12 @@ namespace LectureTimeTable.LectureTimeTableUtility
             this.inputFromUser = inputFromUser;
         }
 
-        public void SetColorMenu(string[] menu, int menuIndex, int consoleColumn, int consoleRow)
+        int selectedIndex;
+        bool isEnter = false;
+
+        int consoleInputColumn;
+
+        public void SetColorMenu(string[] menu, int menuIndex, int consoleColumn, int consoleRow, int length)
         {
             for (int i = 0; i < menu.Length; i++)
             {
@@ -26,36 +31,60 @@ namespace LectureTimeTable.LectureTimeTableUtility
                 if (i == menuIndex)
                 {
                     Console.ForegroundColor = ConsoleColor.Blue;
-                    menuAndOption.PrintMenu(menu[i]);
+                    menuAndOption.PrintMenu(menu[i], length);
                     Console.ResetColor();
                 }
                 else
                 {
-                    menuAndOption.PrintMenu(menu[i]);
+                    menuAndOption.PrintMenu(menu[i], length);
                 }
             }
         }
-        public int SelectMenu(string[] menu, int menuIndex, int consoleColumn, int consoleRow)
+        public int SelectMenu(string[] menu, int menuIndex, int consoleColumn, int consoleRow, bool isOption, int length)
         {
-            int selectedIndex;
-            bool isEnter = false;
-            while(!isEnter)
-            {
-                for(int i = 0; i < menu.Length; i++)
+            isEnter = false;
+
+            int originColumn = consoleColumn;
+            int originRow = consoleRow;
+
+            while (!isEnter)
+            { 
+                consoleColumn = originColumn;
+                consoleRow = originRow;
+                Console.SetCursorPosition(consoleColumn, consoleRow);
+
+                for (int i = 0; i < menu.Length; i++)
                 {
-                    Console.SetCursorPosition(consoleColumn, consoleRow + i);
                     if(i == menuIndex)
                     {
                         Console.ForegroundColor = ConsoleColor.Blue;
-                        menuAndOption.PrintMenu(menu[i]);
+                        menuAndOption.PrintMenu(menu[i], length);
+                        consoleInputColumn = Console.CursorLeft;
                         Console.ResetColor();
                     }
                     else
                     {
-                        menuAndOption.PrintMenu(menu[i]);
+                        menuAndOption.PrintMenu(menu[i], length);
+                        consoleInputColumn = Console.CursorLeft;
+                    }
+                    if (isOption)
+                    {
+                        consoleColumn += menu[i].Length + 10;
+                        Console.SetCursorPosition(consoleColumn, consoleRow);
+                    }
+                    else
+                    {
+                        Console.SetCursorPosition(consoleColumn, consoleRow + i + 1);
                     }
                 }
-                selectedIndex = inputFromUser.SelectIndexKey(menu.Length - 1, menuIndex);
+                if (isOption)
+                {
+                    selectedIndex = inputFromUser.SelectOptionIndex(menu.Length - 1, menuIndex);
+                }
+                else
+                {
+                    selectedIndex = inputFromUser.SelectMenuIndex(menu.Length - 1, menuIndex);
+                }
 
                 switch (selectedIndex)
                 {

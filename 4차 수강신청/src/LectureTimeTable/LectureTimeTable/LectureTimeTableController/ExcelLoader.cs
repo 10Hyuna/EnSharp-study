@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LectureTimeTable.LectureTimeTableModel
+namespace LectureTimeTable.LectureTimeTableController
 {
-    class EnrolledLecture
+    internal class ExcelLoader
     {
     }
 }

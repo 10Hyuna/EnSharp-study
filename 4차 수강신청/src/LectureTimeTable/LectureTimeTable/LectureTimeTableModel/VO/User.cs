@@ -10,7 +10,6 @@ namespace LectureTimeTable.LectureTimeTableModel.VO
     {
         private string credit = "22010323";
         private string password = "password12";
-
         public string Id
         {
             get

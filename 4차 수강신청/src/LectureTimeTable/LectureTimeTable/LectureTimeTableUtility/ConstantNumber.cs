@@ -26,12 +26,18 @@ namespace LectureTimeTable.LectureTimeTableUtility
         public const bool IS_SELECTED = true;
         public const bool IS_NOT_SELECTED = false;
 
+        public const bool IS_OPTION = true;
+        public const bool IS_MENU = false;
+
         public const int NOT_MATCH_CONDITION = 0;
         public const int FAILURE_LOGIN = 1;
         public const int ENTER_STRING = 2;
 
-        public const string idCheck = @"^[0-9a-zA-Z]{8,20}";       // 아이디와 비밀번호의 패턴을 뜻하는 정규식
-        public const string passwordCheck = @"^[0-9a-zA-Z]{8,20}";
+        public const string IDCHECK = @"^[0-9a-zA-Z]{8,20}";       // 아이디와 비밀번호의 패턴을 뜻하는 정규식
+        public const string PASSWORDCHECK = @"^[0-9a-zA-Z]{8,20}";
+        public const string KOREAN = @"^[가-힇]{1,}";
+        public const string GRADE = @"^[0-9]{1}";
+        public const string COURSER_NUMBER = @"^[0-9]{4,8}";
     }
 }
 
@@ -55,7 +61,15 @@ enum INQUIRY
     COMPLETE_TYPE,
     LECTURE_TITLE,
     PROFESSOR,
-    CLASS,
+    GRADE,
     COURSE_NUMBER,
     SEARCH
+}
+
+enum MAJOR
+{
+    COMPUTER,
+    SOFTWARE,
+    INTELLIGENCE,
+    ENGINEERING
 }

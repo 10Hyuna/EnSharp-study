@@ -10,9 +10,9 @@ namespace LectureTimeTable.LectureTimeTableView
 {
     public class MenuAndOption
     {
-        public void PrintMenu(string menu)
+        public void PrintMenu(string menu, int length)
         {
-            Console.WriteLine(menu);
+            Console.WriteLine(menu.PadRight(length));
         }
     }
 }

@@ -55,7 +55,7 @@
     <Compile Include="LectureTimeTableController\MainMenu\InterestedLectureAddition.cs" />
     <Compile Include="LectureTimeTableController\MainMenu\LectureLookUp.cs" />
     <Compile Include="LectureTimeTableController\MenuSelection.cs" />
-    <Compile Include="LectureTimeTableController\Option\LectureDelecter.cs" />
+    <Compile Include="LectureTimeTableController\Option\LectureDeleter.cs" />
     <Compile Include="LectureTimeTableController\Option\LectureList.cs" />
     <Compile Include="LectureTimeTableController\Option\TimeTable.cs" />
     <Compile Include="LectureTimeTableModel\SearchResults.cs" />

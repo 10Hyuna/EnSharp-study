@@ -17,9 +17,7 @@ namespace LectureTimeTable.LectureTimeTableUtility
         }
 
         public int SelectMenuIndex(int endMenuIndex, int selectedMenu)
-        {
-            
-            
+        {   // 메뉴는 위아래로 움직임            
             keyInfo = Console.ReadKey(true);
 
             
@@ -55,7 +53,7 @@ namespace LectureTimeTable.LectureTimeTableUtility
         }
         
         public int SelectOptionIndex(int endMenuIndex, int selectedMenu)
-        {
+        {   // 옵션은 위아래로 움직임
             keyInfo = Console.ReadKey(true);
 
             if (keyInfo.Key == ConsoleKey.LeftArrow)
@@ -99,6 +97,7 @@ namespace LectureTimeTable.LectureTimeTableUtility
             int originRow = Console.CursorTop;
             Console.SetCursorPosition(originColumn, originRow);
             Console.Write("                ");
+            // 이미 출력되어 있던 문자열이 있을 경우를 대비해 입력할 위치를 지워 줌
             Console.SetCursorPosition(originColumn + input.Length, originRow);
 
             while (!isEnter)
@@ -118,7 +117,7 @@ namespace LectureTimeTable.LectureTimeTableUtility
                 {
                     Console.SetCursorPosition(originColumn, originRow);
                     Console.Write("                ");
-
+                    // 입력하던 것을 지우고 탈출
                     input = ConstantNumber.UP;
                     isEnter = true;
                 }
@@ -126,12 +125,12 @@ namespace LectureTimeTable.LectureTimeTableUtility
                 {
                     Console.SetCursorPosition(originColumn, originRow);
                     Console.Write("                ");
-
+                    // 위아래를 눌렀을 경우 입력하던 것을 지우고 탈출
                     input = ConstantNumber.DOWN;
                     isEnter = true;
                 }
                 else if(keyInfo.Key == ConsoleKey.Backspace && input.Length > 0)
-                {
+                {   // 백스페이스를 눌렀을 경우
                     input = input.Substring(0, input.Length - 1);
                     Console.SetCursorPosition(originColumn, originRow);
                     Console.Write("                         ");
@@ -146,6 +145,8 @@ namespace LectureTimeTable.LectureTimeTableUtility
                     else
                     {
                         Console.Write(input);
+                        // 한글을 입력했을 경우, 바이트 크기 차이 탓에 글씨가 잘리는 것을
+                        // 방지하기 위하여 문자열 전체를 출력
                     }
                 }
                 else if(keyInfo.Key == ConsoleKey.Backspace && input.Length == 0)

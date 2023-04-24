@@ -70,6 +70,16 @@ namespace LectureTimeTable.LectureTimeTableView
         public void PrintEnrolledCredit(USER user)
         {
             Console.Write(" 등록 가능 학점 : {0}      담은 학점 : {1}      담을 과목 NO : ", user.AbleEnrolledCredit, user.EnrolledCredit)
-;        }
+;       }
+
+        public void PrintDelectInterestedCredit(USER user)
+        {
+            Console.Write(" 등록 가능 학점 : {0}      담은 학점 : {1}      삭제할 과목 NO : ", user.AbleInterestedCredit, user.EnrolledInterestedCredit);
+        }
+
+        public void PrintDelectEnrolledCredit(USER user)
+        {
+            Console.Write(" 등록 가능 학점 : {0}      담은 학점 : {1}      삭제할 과목 NO : ", user.AbleEnrolledCredit, user.EnrolledCredit);
+        }
     }
 }

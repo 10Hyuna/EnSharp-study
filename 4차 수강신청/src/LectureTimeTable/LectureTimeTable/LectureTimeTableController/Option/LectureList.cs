@@ -28,17 +28,18 @@ namespace LectureTimeTable.LectureTimeTableController.Option
             bool isNullStorage = false;
 
             lectureDisplay.PrintSearchLectureUI();
+
             if (!isEnrolled)
-            {
+            {   // 관심과목 메뉴에서 진입했다면
                 if(totalStorage.interestedLectures.Count == 0)
-                {
+                {   // 관심과목에 아무 강의도 없다면
                     isNullStorage = true;
                 }
             }
             else
-            {
+            {   // 수강신청 메뉴에서 진입했다면
                 if (totalStorage.enrolledLectures.Count == 0)
-                {
+                {   // 수강신청에 아무 강의도 없다면
                     isNullStorage = true;
                 }
             }
@@ -50,14 +51,15 @@ namespace LectureTimeTable.LectureTimeTableController.Option
             else
             {
                 if (!isEnrolled)
-                {
+                {   // 관심과목 메뉴에서 진입했을 경우
                     InformInterestedList();
                 }
                 else
-                {
+                {   // 수강신청 메뉴에서 진입했을 경우
                     InformEnrolledList();
                 }
             }
+            Console.Clear();
         }
 
         private void InformInterestedList()

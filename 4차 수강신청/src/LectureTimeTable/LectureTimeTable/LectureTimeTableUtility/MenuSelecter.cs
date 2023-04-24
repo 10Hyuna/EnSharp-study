@@ -23,7 +23,7 @@ namespace LectureTimeTable.LectureTimeTableUtility
         int consoleInputColumn;
 
         public void SetColorMenu(string[] menu, int menuIndex, int consoleColumn, int consoleRow, int length)
-        {
+        {   // 메뉴에 색만 입혀 주고, 고르지는 않게 해 주는 함수
             for (int i = 0; i < menu.Length; i++)
             {
                 Console.SetCursorPosition(consoleColumn, consoleRow + i);
@@ -40,7 +40,8 @@ namespace LectureTimeTable.LectureTimeTableUtility
             }
         }
         public int SelectMenu(string[] menu, int menuIndex, int consoleColumn, int consoleRow, bool isOption, int length)
-        {
+        {   // 현재 사용자가 선택하고 있는 것을 색으로 표시하고
+            // 사용자의 선택을 반환해 주는 함수
             isEnter = false;
 
             int originColumn = consoleColumn;

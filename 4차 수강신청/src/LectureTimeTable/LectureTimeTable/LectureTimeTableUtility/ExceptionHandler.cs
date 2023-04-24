@@ -20,7 +20,7 @@ namespace LectureTimeTable.LectureTimeTableUtility
         }
 
         public int calculateRadRightSize(string message, int count)
-        {
+        {   // 문자가 한글에 해당하는지 확인하고, 한글이 몇 개 나오는지 확인 후, 맞추려는 PadRight 개수 빼기 한글의 개수만큼 공백으로 채우는 계산
             int koreanCount = 0;
             string korean;
 

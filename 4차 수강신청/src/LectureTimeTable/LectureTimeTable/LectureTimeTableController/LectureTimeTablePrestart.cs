@@ -15,10 +15,11 @@ namespace LectureTimeTable.LectureTimeTableController
         public LectureTimeTablePrestart()
         {
             totalStorage = new TotalStorage();
+            // 로그인, 로그아웃 이후에도 데이터가 유지될 수 있도록 바깥에서 관리
         }
 
         public void Start()
-        {
+        {   // 로그인으로 진입
             Login login = new Login(totalStorage);
             login.EnterLogin();
         }

@@ -44,25 +44,60 @@ namespace LectureTimeTable.LectureTimeTableView
                 Console.SetCursorPosition(column, row);
                 EraseAnounce();
             }
-            else if(condition == (int)EXCEPTION.ENTER_STRING)
-            {
-
-            }
             else if(condition == (int)EXCEPTION.FREE_CREDIT)
             {
-
+                Console.SetCursorPosition(column, row);
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("저장 가능 학점을 초과했습니다.");
+                Console.ResetColor();
+                Console.SetCursorPosition(column, row);
+                EraseAnounce();
             }
             else if(condition == (int)EXCEPTION.NULL_LECTURE)
             {
-
+                Console.SetCursorPosition(column, row);
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("해당 강의가 존재하지 않습니다.");
+                Console.ResetColor();
+                Console.SetCursorPosition(column, row);
+                EraseAnounce();
+                Console.SetCursorPosition(column, row - 1);
             }
             else if(condition == (int)EXCEPTION.OVERLAP_LECTURE)
             {
-
+                Console.SetCursorPosition(column, row);
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("이미 담긴 강의입니다.");
+                Console.ResetColor();
+                Console.SetCursorPosition(column, row);
+                EraseAnounce();
+                Console.SetCursorPosition(column, row - 1);
             }
             else if(condition == (int)EXCEPTION.OVERLAP_TIME)
             {
-
+                Console.SetCursorPosition(column, row);
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("동일한 시간대에 이미 존재하는 강의가 있습니다.");
+                Console.ResetColor();
+                Console.SetCursorPosition(column, row);
+                EraseAnounce();
+                Console.SetCursorPosition(column, row - 1);
+            }
+            else if(condition == (int)EXCEPTION.NULL_STORAGE)
+            {
+                Console.SetCursorPosition(0, row + 1);
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("저장된 강의 내역이 없습니다.");
+                PrintESC();
+                Console.ResetColor();
+            }
+            else if(condition == (int)EXCEPTION.SUCCESS_DELETE)
+            {
+                Console.SetCursorPosition(column + 5, row);
+                Console.SetCursorPosition(column, row);
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("삭제되었습니다!");
+                Console.ResetColor();
             }
         }
 
@@ -76,10 +111,10 @@ namespace LectureTimeTable.LectureTimeTableView
             {
                 keyInfo = Console.ReadKey(true);
 
-                if (keyInfo.Key == ConsoleKey.Enter)
+                if (keyInfo.Key == ConsoleKey.Enter || keyInfo.Key == ConsoleKey.Escape)
                 {
                     isEnteredESC = true;
-                    Console.Write("                                           ");
+                    Console.Write("                                               ");
                 }
             }
         }

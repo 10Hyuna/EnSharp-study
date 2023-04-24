@@ -72,12 +72,12 @@ namespace LectureTimeTable.LectureTimeTableController
                 consoleColumn = 70;
                 consoleRow = 30;
 
-                if (id == ConstantNumber.ESC || password == ConstantNumber.ESC)  // 중간에 ESC를 
-                {
+                if (id == ConstantNumber.ESC || password == ConstantNumber.ESC)
+                {   // 중간에 ESC를 눌렀을 경우
                     isESC = true;
                 }
                 if (totalStorage.user.Id == id && totalStorage.user.Password == password)
-                {
+                {   // 아이디 비밀번호 모두 일치
                     id = "";
                     password = "";
 
@@ -90,7 +90,7 @@ namespace LectureTimeTable.LectureTimeTableController
                     design.PrintMain();
                 }
                 else if (inputId + inputPassword == 2)
-                {
+                {   // 값은 모두 입력되었지만 일치하는 값이 저장되어 있지 않음
                     id = "";
                     password = "";
 
@@ -108,13 +108,13 @@ namespace LectureTimeTable.LectureTimeTableController
                     menuIndex = 0;
                 }
                 else if(inputId == 1 && inputPassword != 1 && (!isUp && !isDown))
-                {
+                {   // 아이디만 입력
                     menuIndex++;
                     Console.SetCursorPosition(88, 30);
                     menuAndOption.PrintMenu(id, 8);
                 }
                 else if (inputPassword == 1 && inputId != 1 && (!isUp && !isDown))
-                {
+                {   // 비밀번호만 입력
                     menuIndex--;
                     Console.SetCursorPosition(76, 31);
                     menuAndOption.PrintMenu(password, 8);

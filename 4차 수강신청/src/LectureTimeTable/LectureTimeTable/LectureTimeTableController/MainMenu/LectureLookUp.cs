@@ -55,10 +55,12 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
                 consoleRow = 10;
 
                 choosedMenu = selecterMenu.SelectMenu(lectureSearchMenu, choosedMenu, consoleColumn, consoleRow, ConstantNumber.IS_MENU, 9);
+                // 어느 메뉴에 대한 검색을 할 건지 고르기
 
                 if(choosedMenu == ConstantNumber.EXIT)
-                {
+                {   // ESC를 눌렀다면
                     isESC = true;
+                    Console.Clear();
                 }
 
                 switch(choosedMenu)
@@ -94,7 +96,7 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
             ConsoleKeyInfo keyInfo;
 
             if (isLookUp)
-            {
+            {   // 강의 검색 메뉴에서 진입했을 경우
                 FindSearchResult();
 
                 guidancePhrase.PrintESC();
@@ -114,7 +116,7 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
                 choosedMenu = 0;
             }
             else
-            {
+            {   // 관심과목 담기, 수강신청 메뉴에서 진입했을 경우
                 FindSearchResult();
                 isESC = true;
             }
@@ -134,18 +136,19 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
                 consoleRow = 10;
 
                 choosedIndex = selecterMenu.SelectMenu(major, choosedIndex, consoleColumn, consoleRow, ConstantNumber.IS_OPTION, 9);
+                // 주어진 네 가지 과 중에서 고르기
 
                 if (choosedIndex == ConstantNumber.EXIT)
-                {
+                {   // 중간에 ESC를 눌렀을 경우
                     isESC = true;
                     Console.SetCursorPosition(consoleColumn, consoleRow);
                     guidancePhrase.ErasePrint();
                     guidancePhrase.ErasePrint();
                 }
                 else
-                {
+                {   
                     if(choosedIndex == 0)
-                    {
+                    {   // 전체를 선택했을 경우
                         totalStorage.searchResult.Major = "";
                         isEnter = true;
                     }
@@ -172,6 +175,7 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
                 consoleRow = 11;
 
                 choosedIndex = selecterMenu.SelectMenu(completeType, choosedIndex, consoleColumn, consoleRow, ConstantNumber.IS_OPTION, 9);
+                // 주어진 이수구분 네 가지 중에서 선택했을 경우
 
                 if(choosedIndex == ConstantNumber.EXIT)
                 {
@@ -183,7 +187,7 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
                 else
                 {
                     if(choosedIndex == 0)
-                    {
+                    {   // 전체를 선택했을 경우
                         totalStorage.searchResult.CompleteType = "";
                         isEnter = true;
                     }
@@ -207,7 +211,7 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
             input = exceptionHandler.IsValid(regex, consoleColumn, consoleRow, 36, ConstantNumber.IS_NOT_PASSWORD, ConstantNumber.IS_NOT_ID);
 
             if(input == ConstantNumber.ESC)
-            {
+            {   // 중간에 ESC를 눌렀을 경우
                 input = ""; 
                 isESC = true;
                 Console.SetCursorPosition(consoleColumn + 13, consoleRow);
@@ -219,7 +223,7 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
         }
 
         private void FindSearchResult()
-        {
+        {   // 검색 결과에 해당하는 책을 찾는 함수
             ConsoleKeyInfo keyInfo;
 
             bool isESC = false;
@@ -234,7 +238,7 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
                 && totalStorage.lecture[i].Professor.Contains(totalStorage.searchResult.Professor)
                 && totalStorage.lecture[i].Grade.Contains(totalStorage.searchResult.Grade)
                 && totalStorage.lecture[i].CompleteType.Contains(totalStorage.searchResult.CompleteType))
-                {
+                {   // 검색 결과에 모두 해당한다면
                     lectureDisplay.PrintSearchLecture(totalStorage.lecture[i]);
                 }
             }

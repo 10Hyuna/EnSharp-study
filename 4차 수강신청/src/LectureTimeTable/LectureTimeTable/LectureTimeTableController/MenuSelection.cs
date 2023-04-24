@@ -25,7 +25,7 @@ namespace LectureTimeTable.LectureTimeTableController
         LectureDisplay lectureDisplay;
         SearchResults searchResults;
         TotalStorage totalStorage;
-        LectureDelecter lectureDelecter;
+        LectureDeleter lectureDelecter;
         LectureList lectureList;
         TimeTable timeTable;
 
@@ -44,6 +44,7 @@ namespace LectureTimeTable.LectureTimeTableController
             lectureLookUp = new LectureLookUp(guidancePhrase, menuSelecter, exceptionHandler, lectureDisplay, searchResults, totalStorage);
             lectureList = new LectureList(totalStorage, lectureDisplay, guidancePhrase);
             enrolmentLecture = new EnrollmentLecture();
+            lectureDelecter = new LectureDeleter(lectureDisplay, totalStorage, exceptionHandler, guidancePhrase);
             additionInterestedLecture = new InterestedLectureAddition(menuAndOption, exceptionHandler, design, menuSelecter,
                 guidancePhrase, totalStorage, lectureLookUp, lectureList, timeTable, lectureDelecter, lectureDisplay);
         }
@@ -73,24 +74,24 @@ namespace LectureTimeTable.LectureTimeTableController
                 consoleRow = 28;
 
                 menuIndex = menuSelecter.SelectMenu(enrolmentMenu, menuIndex, consoleColumn, consoleRow, ConstantNumber.IS_MENU, 9);
-
+                // 주어진 메뉴 4개 중 택1
                 if(menuIndex == ConstantNumber.EXIT)
-                {
+                {   // 중간에 ESC를 눌렀다면
                     isESC = true;
                 }
 
                 switch (menuIndex)
                 {
-                    case (int)ENROLMENTLECTURE.INQUIRY:
+                    case (int)ENROLMENTLECTURE.INQUIRY: // 검색
                         lectureLookUp.LookUpLecture(ConstantNumber.IS_LOOKUP);
                         break;
-                    case (int)ENROLMENTLECTURE.INTERESTEDLECTURE:
+                    case (int)ENROLMENTLECTURE.INTERESTEDLECTURE:   // 관심강의
                         additionInterestedLecture.AddInterestedLecture();
                         break;
-                    case (int)ENROLMENTLECTURE.ENROLMENT:
+                    case (int)ENROLMENTLECTURE.ENROLMENT:   // 수강신청
                         enrolmentLecture.EnrolLecture();
                         break;
-                    case (int)ENROLMENTLECTURE.SEARCHLIST:
+                    case (int)ENROLMENTLECTURE.SEARCHLIST:  // 수강내역 조회
                         courseHistory.InquireCourseHistory();
                         break;
                 }

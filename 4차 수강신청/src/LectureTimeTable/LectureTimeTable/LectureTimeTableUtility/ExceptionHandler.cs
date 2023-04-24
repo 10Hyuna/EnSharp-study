@@ -73,7 +73,7 @@ namespace LectureTimeTable.LectureTimeTableUtility
                 else
                 {
                     Console.SetCursorPosition(consoleColumn, consoleRow);
-                    guidancePhrase.PrintException(ConstantNumber.NOT_MATCH_CONDITION, consoleColumn, consoleRow);
+                    guidancePhrase.PrintException((int)EXCEPTION.NOT_MATCH_CONDITION, consoleColumn, consoleRow);
                     continue;
                 }
             }

@@ -110,14 +110,4 @@ namespace LectureTimeTable.LectureTimeTableModel
             set => this.language = value;
         }
     }
-
-    public class EnrolledLecture : Lecture
-    {
-
-    }
-
-    public class InterestedLecture : Lecture
-    {
-
-    }
 }

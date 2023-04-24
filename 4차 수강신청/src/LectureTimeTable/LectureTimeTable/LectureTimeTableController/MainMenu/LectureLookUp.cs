@@ -13,7 +13,6 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
     {
         GuidancePhrase guidancePhrase;
         MenuSelecter selecterMenu;
-        SearchResults searchResults;
         ExceptionHandler exceptionHandler;
         LectureDisplay lectureDisplay;
         TotalStorage totalStorage;
@@ -24,7 +23,6 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
             this.selecterMenu = selecterMenu;
             this.exceptionHandler = exceptionHandler;
             this.lectureDisplay = lectureDisplay;
-            this.searchResults = searchResults;
             this.totalStorage = totalStorage;
         }
 
@@ -72,16 +70,16 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
                         SelectCompleteType();
                         break;
                     case (int)INQUIRY.LECTURE_TITLE:
-                        searchResults.LectureTitle = SearchKeyword(1, ConstantNumber.KOREAN);
+                        totalStorage.searchResult.LectureTitle = SearchKeyword(1, ConstantNumber.KOREAN);
                         break;
                     case (int)INQUIRY.PROFESSOR:
-                        searchResults.Professor = SearchKeyword(2, ConstantNumber.KOREAN);
+                        totalStorage.searchResult.Professor = SearchKeyword(2, ConstantNumber.KOREAN);
                         break;
                     case (int)INQUIRY.GRADE:
-                        searchResults.Grade = SearchKeyword(3, ConstantNumber.GRADE);
+                        totalStorage.searchResult.Grade = SearchKeyword(3, ConstantNumber.NUMBER);
                         break;
                     case (int)INQUIRY.COURSE_NUMBER:
-                        searchResults.CourseNumber = SearchKeyword(4, ConstantNumber.COURSER_NUMBER);
+                        totalStorage.searchResult.CourseNumber = SearchKeyword(4, ConstantNumber.COURSER_NUMBER);
                         break;
                     case (int)INQUIRY.SEARCH:
                         SelectSearch(isLookUp);
@@ -118,7 +116,6 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
             else
             {
                 FindSearchResult();
-                lectureDisplay.PrintInterestedCredit(totalStorage.user);
                 isESC = true;
             }
         }
@@ -149,12 +146,12 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
                 {
                     if(choosedIndex == 0)
                     {
-                        searchResults.Major = "";
+                        totalStorage.searchResult.Major = "";
                         isEnter = true;
                     }
                     else
                     {
-                        searchResults.Major = major[choosedIndex];
+                        totalStorage.searchResult.Major = major[choosedIndex];
                         isEnter = true;
                     }
                 }
@@ -187,12 +184,12 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
                 {
                     if(choosedIndex == 0)
                     {
-                        searchResults.CompleteType = "";
+                        totalStorage.searchResult.CompleteType = "";
                         isEnter = true;
                     }
                     else
                     {
-                        searchResults.CompleteType = completeType[choosedIndex];
+                        totalStorage.searchResult.CompleteType = completeType[choosedIndex];
                         isEnter = true;
                     }
                 }
@@ -211,8 +208,9 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
 
             if(input == ConstantNumber.ESC)
             {
+                input = ""; 
                 isESC = true;
-                Console.SetCursorPosition(consoleColumn, consoleRow);
+                Console.SetCursorPosition(consoleColumn + 13, consoleRow);
                 guidancePhrase.ErasePrint();
                 guidancePhrase.ErasePrint();
             }
@@ -226,16 +224,16 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
 
             bool isESC = false;
 
-            lectureDisplay.PrintSearchLectureUI(totalStorage.lecture, searchResults);
+            lectureDisplay.PrintSearchLectureUI();
 
             for (int i = 0; i < totalStorage.lecture.Count; i++)
             {
-                if (totalStorage.lecture[i].Major.Contains(searchResults.Major)
-                && totalStorage.lecture[i].CourseNumber.Contains(searchResults.CourseNumber)
-                && totalStorage.lecture[i].LectureTitle.Contains(searchResults.LectureTitle)
-                && totalStorage.lecture[i].Professor.Contains(searchResults.Professor)
-                && totalStorage.lecture[i].Grade.Contains(searchResults.Grade)
-                && totalStorage.lecture[i].CompleteType.Contains(searchResults.CompleteType))
+                if (totalStorage.lecture[i].Major.Contains(totalStorage.searchResult.Major)
+                && totalStorage.lecture[i].CourseNumber.Contains(totalStorage.searchResult.CourseNumber)
+                && totalStorage.lecture[i].LectureTitle.Contains(totalStorage.searchResult.LectureTitle)
+                && totalStorage.lecture[i].Professor.Contains(totalStorage.searchResult.Professor)
+                && totalStorage.lecture[i].Grade.Contains(totalStorage.searchResult.Grade)
+                && totalStorage.lecture[i].CompleteType.Contains(totalStorage.searchResult.CompleteType))
                 {
                     lectureDisplay.PrintSearchLecture(totalStorage.lecture[i]);
                 }

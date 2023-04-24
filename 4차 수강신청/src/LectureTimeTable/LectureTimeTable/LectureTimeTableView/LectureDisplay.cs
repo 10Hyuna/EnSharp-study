@@ -19,7 +19,7 @@ namespace LectureTimeTable.LectureTimeTableView
             this.exceptionHandler = exceptionHandler;
         }
         
-        public void PrintSearchLectureUI(List<Lecture> lectureList, SearchResults searchResults)
+        public void PrintSearchLectureUI()
         {
             string[] lectureInformation = new string[] { "NO", "개설학과전공", "학수번호", "분반", "교과목명", "이수구분", "학년", "학점", "요일 및 강의시간", "강의실", "메인교수명", "강의언어" };
             Console.SetWindowSize(194, 40);
@@ -37,7 +37,7 @@ namespace LectureTimeTable.LectureTimeTableView
             Console.Write(lectureInformation[9].PadRight(exceptionHandler.calculateRadRightSize(lectureInformation[9], 14)));
             Console.Write(lectureInformation[10].PadRight(exceptionHandler.calculateRadRightSize(lectureInformation[10], 28)));
             Console.Write(lectureInformation[11].PadRight(exceptionHandler.calculateRadRightSize(lectureInformation[11], 14)));
-            Console.Write("\n===============================================================================================================================================================================================");
+            Console.Write("\n===============================================================================================================================================================================================\n");
         }
 
         public void PrintSearchLecture(Lecture lectureList)
@@ -62,14 +62,14 @@ namespace LectureTimeTable.LectureTimeTableView
             Console.Write("\n===============================================================================================================================================================================================\n");
         }
 
-        public void PrintInterestedCredit(List<USER> user)
+        public void PrintInterestedCredit(USER user)
         {
-            Console.Write(" 등록 가능 학점 :  {0}      담은 학점 : {1}      담을 과목 NO : ", user[0].AbleInterestedCredit, user[0].EnrolledInterestedCredit);
+            Console.Write(" 등록 가능 학점 :  {0}      담은 학점 : {1}      담을 과목 NO : ", user.AbleInterestedCredit, user.EnrolledInterestedCredit);
         }
 
-        public void PrintEnrolledCredit(List<USER> user)
+        public void PrintEnrolledCredit(USER user)
         {
-            Console.Write(" 등록 가능 학점 : {0}      담은 학점 : {1}      담을 과목 NO : ", user[0].AbleEnrolledCredit, user[0].EnrolledCredit)
+            Console.Write(" 등록 가능 학점 : {0}      담은 학점 : {1}      담을 과목 NO : ", user.AbleEnrolledCredit, user.EnrolledCredit)
 ;        }
     }
 }

@@ -20,7 +20,6 @@ namespace LectureTimeTable.LectureTimeTableController
         MenuAndOption menuAndOption;
         ExceptionHandler exceptionHandler;
         GuidancePhrase guidancePhrase;
-        USER user;
         MenuSelection menuSelection;
         CourseHistory courseHistory;
         TotalStorage totalStorage;
@@ -37,7 +36,6 @@ namespace LectureTimeTable.LectureTimeTableController
             selecterMenu = new MenuSelecter(menuAndOption ,inputFromUser);
             menuSelection = new MenuSelection(menuAndOption, exceptionHandler, 
                 design, selecterMenu, guidancePhrase, totalStorage);
-            user = new USER();
         }
 
         private int consoleColumn;
@@ -78,7 +76,7 @@ namespace LectureTimeTable.LectureTimeTableController
                 {
                     isESC = true;
                 }
-                if (user.Id == id && user.Password == password)
+                if (totalStorage.user.Id == id && totalStorage.user.Password == password)
                 {
                     id = "";
                     password = "";
@@ -105,7 +103,7 @@ namespace LectureTimeTable.LectureTimeTableController
                     inputId = 0;
                     inputPassword = 0;
 
-                    guidancePhrase.PrintException(ConstantNumber.FAILURE_LOGIN, consoleColumn, consoleRow + 3);
+                    guidancePhrase.PrintException((int)EXCEPTION.FAILURE_LOGIN, consoleColumn, consoleRow + 3);
 
                     menuIndex = 0;
                 }

@@ -31,10 +31,7 @@ namespace LectureTimeTable.LectureTimeTableUtility
 
         public const bool IS_LOOKUP = true;
         public const bool IS_INTERESTED = false;
-
-        public const int NOT_MATCH_CONDITION = 0;
-        public const int FAILURE_LOGIN = 1;
-        public const int ENTER_STRING = 2;
+        public const bool IS_ENROLLED = true;
 
         public const string IDCHECK = @"^[0-9a-zA-Z]{8,20}";       // 아이디와 비밀번호의 패턴을 뜻하는 정규식
         public const string PASSWORDCHECK = @"^[0-9a-zA-Z]{8,20}";
@@ -83,4 +80,18 @@ enum INTERESTED
     LIST,
     TIMETABLE,
     DELECT
+}
+
+enum EXCEPTION
+{
+    NOT_MATCH_CONDITION,
+    FAILURE_LOGIN,
+    ENTER_STRING,
+    FREE_CREDIT,
+    NULL_LECTURE,
+    OVERLAP_LECTURE,
+    OVERLAP_TIME,
+    MAX_CREDIT,
+    NULL_STORAGE,
+
 }

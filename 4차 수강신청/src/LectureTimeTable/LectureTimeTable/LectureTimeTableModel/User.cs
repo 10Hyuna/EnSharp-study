@@ -14,7 +14,7 @@ namespace LectureTimeTable.LectureTimeTableModel.VO
 
         private int enrolledCredit = 0;
         private int enrolledInterestedCredit = 0;
-        private int ableInterstedCredit = 24;
+        private int ableInterestedCredit = 24;
         private int ableEnrollCredit = 21;
 
         public string Id
@@ -47,8 +47,8 @@ namespace LectureTimeTable.LectureTimeTableModel.VO
 
         public int AbleInterestedCredit
         {
-            get => this.ableInterstedCredit;
-            set => this.ableInterstedCredit -= value;
+            get => this.ableInterestedCredit;
+            set => this.ableInterestedCredit -= value;
         }
         public int AbleEnrolledCredit
         {

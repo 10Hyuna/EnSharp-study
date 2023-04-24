@@ -1,4 +1,5 @@
 ﻿using LectureTimeTable.LectureTimeTableController.MainMenu;
+using LectureTimeTable.LectureTimeTableController.Option;
 using LectureTimeTable.LectureTimeTableModel;
 using LectureTimeTable.LectureTimeTableUtility;
 using LectureTimeTable.LectureTimeTableView;
@@ -24,6 +25,9 @@ namespace LectureTimeTable.LectureTimeTableController
         LectureDisplay lectureDisplay;
         SearchResults searchResults;
         TotalStorage totalStorage;
+        LectureDelecter lectureDelecter;
+        LectureList lectureList;
+        TimeTable timeTable;
 
         public MenuSelection(MenuAndOption menuAndOption, ExceptionHandler exceptionHandler, 
             Design design, MenuSelecter menuSelecter, GuidancePhrase guidancePhrase, TotalStorage totalStorage)
@@ -38,9 +42,10 @@ namespace LectureTimeTable.LectureTimeTableController
             lectureDisplay = new LectureDisplay(exceptionHandler);
             courseHistory = new CourseHistory();
             lectureLookUp = new LectureLookUp(guidancePhrase, menuSelecter, exceptionHandler, lectureDisplay, searchResults, totalStorage);
+            lectureList = new LectureList(totalStorage, lectureDisplay, guidancePhrase);
             enrolmentLecture = new EnrollmentLecture();
             additionInterestedLecture = new InterestedLectureAddition(menuAndOption, exceptionHandler, design, menuSelecter,
-                guidancePhrase, totalStorage, lectureLookUp);
+                guidancePhrase, totalStorage, lectureLookUp, lectureList, timeTable, lectureDelecter, lectureDisplay);
         }
 
         public void SelectMenu()

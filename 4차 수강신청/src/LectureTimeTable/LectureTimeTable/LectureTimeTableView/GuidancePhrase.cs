@@ -27,11 +27,11 @@ namespace LectureTimeTable.LectureTimeTableView
         }
         public void PrintException(int condition, int column, int row)
         {
-            if (condition == ConstantNumber.NOT_MATCH_CONDITION)
+            if (condition == (int)EXCEPTION.NOT_MATCH_CONDITION)
             {
 
             }
-            if(condition == ConstantNumber.FAILURE_LOGIN)
+            else if(condition == (int)EXCEPTION.FAILURE_LOGIN)
             {
                 Console.SetCursorPosition(88, 30);
                 ErasePrint();
@@ -43,6 +43,26 @@ namespace LectureTimeTable.LectureTimeTableView
                 Console.ResetColor();
                 Console.SetCursorPosition(column, row);
                 EraseAnounce();
+            }
+            else if(condition == (int)EXCEPTION.ENTER_STRING)
+            {
+
+            }
+            else if(condition == (int)EXCEPTION.FREE_CREDIT)
+            {
+
+            }
+            else if(condition == (int)EXCEPTION.NULL_LECTURE)
+            {
+
+            }
+            else if(condition == (int)EXCEPTION.OVERLAP_LECTURE)
+            {
+
+            }
+            else if(condition == (int)EXCEPTION.OVERLAP_TIME)
+            {
+
             }
         }
 

@@ -79,9 +79,16 @@ enum INTERESTED
     SEARCH,
     LIST,
     TIMETABLE,
-    DELECT
+    DELETE
 }
 
+enum ENROLL
+{
+    SEARCH,
+    LIST,
+    TIMETABLE,
+    DELETE
+}
 enum EXCEPTION
 {
     NOT_MATCH_CONDITION,

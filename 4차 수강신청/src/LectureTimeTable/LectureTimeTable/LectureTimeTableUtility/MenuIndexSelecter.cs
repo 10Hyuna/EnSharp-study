@@ -7,11 +7,11 @@ using LectureTimeTable.LectureTimeTableView;
 
 namespace LectureTimeTable.LectureTimeTableUtility
 {
-    public class MenuSelecter
+    public class MenuIndexSelecter
     {
         MenuAndOption menuAndOption;
         InputFromUser inputFromUser;
-        public MenuSelecter(MenuAndOption menuAndOption, InputFromUser inputFromUser)
+        public MenuIndexSelecter(MenuAndOption menuAndOption, InputFromUser inputFromUser)
         {
             this.menuAndOption = menuAndOption;
             this.inputFromUser = inputFromUser;

@@ -17,7 +17,7 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
         private Design design;
         private MenuAndOption menuAndOption;
         private ExceptionHandler exceptionHandler;
-        private MenuSelecter menuSelecter;
+        private MenuIndexSelecter menuIndexSelecter;
         private GuidancePhrase guidancePhrase;
         private TotalStorage totalStorage;
         private LectureDisplay lectureDisplay;
@@ -27,13 +27,13 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
         private LectureDeleter lectureDelecter;
 
         public InterestedLectureAddition(MenuAndOption menuAndOption, ExceptionHandler exceptionHandler, Design design,
-            MenuSelecter menuSelecter, GuidancePhrase guidancePhrase, TotalStorage totalStorage, LectureLookUp lectureLookUp,
+            LectureTimeTableUtility.MenuIndexSelecter menuIndexSelecter, GuidancePhrase guidancePhrase, TotalStorage totalStorage, LectureLookUp lectureLookUp,
             LectureList lectureList, TimeTable timeTable, LectureDeleter lectureDelecter, LectureDisplay lectureDisplay)
         {
             this.menuAndOption = menuAndOption;
             this.exceptionHandler = exceptionHandler;
             this.design = design;
-            this.menuSelecter = menuSelecter;
+            this.menuIndexSelecter = menuIndexSelecter;
             this.guidancePhrase = guidancePhrase;
             this.totalStorage = totalStorage;
             this.lectureLookUp = lectureLookUp;
@@ -67,7 +67,7 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
                 consoleColumn = 50;
                 consoleRow = 28;
 
-                menuIndex = menuSelecter.SelectMenu(interestedMenu, menuIndex, consoleColumn, consoleRow, ConstantNumber.IS_MENU, 9);
+                menuIndex = menuIndexSelecter.SelectMenu(interestedMenu, menuIndex, consoleColumn, consoleRow, ConstantNumber.IS_MENU, 9);
                 // 관심 과목에 대한 메뉴 네 가지 중 택 1
 
                 if(menuIndex == ConstantNumber.EXIT)    // ESC를 눌렀다면
@@ -79,7 +79,7 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
                 {
                     case (int)INTERESTED.SEARCH:    // 관심과목 검색
                         lectureLookUp.LookUpLecture(ConstantNumber.IS_INTERESTED);  // 강의 검색을 도맡는 함수 호출
-                        SearchInterestedLecture();
+                        SearchInterestedLecture(ConstantNumber.IS_INTERESTED);
                         break;
                     case (int)INTERESTED.LIST:      // 관심과목 내역
                         lectureList.InformLectureList(ConstantNumber.IS_INTERESTED);
@@ -87,14 +87,14 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
                     case (int)INTERESTED.TIMETABLE: // 관심과목 시간표
 
                         break;
-                    case (int)INTERESTED.DELECT:    // 관심과목 삭제
+                    case (int)INTERESTED.DELETE:    // 관심과목 삭제
                         lectureDelecter.DelectLectureList(ConstantNumber.IS_INTERESTED);
                         break;
                 }
             }
         }
 
-        private void SearchInterestedLecture()  // 관심 과목 검색
+        private void SearchInterestedLecture(bool isEnroll)  // 관심 과목 검색
         {
             bool isESC = false;
 

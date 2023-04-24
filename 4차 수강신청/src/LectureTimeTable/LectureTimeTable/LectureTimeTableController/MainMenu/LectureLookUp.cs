@@ -12,11 +12,11 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
     public class LectureLookUp
     {
         GuidancePhrase guidancePhrase;
-        MenuSelecter selecterMenu;
+        LectureTimeTableUtility.MenuIndexSelecter selecterMenu;
         ExceptionHandler exceptionHandler;
         LectureDisplay lectureDisplay;
         TotalStorage totalStorage;
-        public LectureLookUp(GuidancePhrase guidancePhrase, MenuSelecter selecterMenu, ExceptionHandler exceptionHandler,
+        public LectureLookUp(GuidancePhrase guidancePhrase, LectureTimeTableUtility.MenuIndexSelecter selecterMenu, ExceptionHandler exceptionHandler,
             LectureDisplay lectureDisplay, SearchResults searchResults, TotalStorage totalStorage) 
         {
             this.guidancePhrase = guidancePhrase;

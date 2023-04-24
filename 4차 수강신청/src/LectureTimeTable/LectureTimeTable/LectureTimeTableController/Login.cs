@@ -16,11 +16,11 @@ namespace LectureTimeTable.LectureTimeTableController
         ExcelLoader excelLoader;
         Design design;
         InputFromUser inputFromUser;
-        MenuSelecter selecterMenu;
+        LectureTimeTableUtility.MenuIndexSelecter selecterMenu;
         MenuAndOption menuAndOption;
         ExceptionHandler exceptionHandler;
         GuidancePhrase guidancePhrase;
-        MenuSelection menuSelection;
+        MenuSelecter menuSelection;
         CourseHistory courseHistory;
         TotalStorage totalStorage;
 
@@ -33,8 +33,8 @@ namespace LectureTimeTable.LectureTimeTableController
             guidancePhrase = new GuidancePhrase();
             exceptionHandler = new ExceptionHandler(inputFromUser, guidancePhrase);
             excelLoader = new ExcelLoader(exceptionHandler, totalStorage);
-            selecterMenu = new MenuSelecter(menuAndOption ,inputFromUser);
-            menuSelection = new MenuSelection(menuAndOption, exceptionHandler, 
+            selecterMenu = new LectureTimeTableUtility.MenuIndexSelecter(menuAndOption, inputFromUser);
+            menuSelection = new MenuSelecter(menuAndOption, exceptionHandler, 
                 design, selecterMenu, guidancePhrase, totalStorage);
         }
 

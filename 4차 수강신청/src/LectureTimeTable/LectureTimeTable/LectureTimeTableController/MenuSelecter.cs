@@ -11,12 +11,12 @@ using System.Threading.Tasks;
 
 namespace LectureTimeTable.LectureTimeTableController
 {
-    public class MenuSelection
+    public class MenuSelecter
     {
         MenuAndOption menuAndOption;
         ExceptionHandler exceptionHandler;
         Design design;
-        MenuSelecter menuSelecter;
+        MenuIndexSelecter menuIndexSelecter;
         LectureLookUp lectureLookUp;
         EnrollmentLecture enrolmentLecture;
         InterestedLectureAddition additionInterestedLecture;
@@ -29,23 +29,23 @@ namespace LectureTimeTable.LectureTimeTableController
         LectureList lectureList;
         TimeTable timeTable;
 
-        public MenuSelection(MenuAndOption menuAndOption, ExceptionHandler exceptionHandler, 
-            Design design, MenuSelecter menuSelecter, GuidancePhrase guidancePhrase, TotalStorage totalStorage)
+        public MenuSelecter(MenuAndOption menuAndOption, ExceptionHandler exceptionHandler, 
+            Design design, LectureTimeTableUtility.MenuIndexSelecter menuIndexSelecter, GuidancePhrase guidancePhrase, TotalStorage totalStorage)
         {
             this.menuAndOption = menuAndOption;
             this.exceptionHandler = exceptionHandler;
             this.design = design;
-            this.menuSelecter = menuSelecter;
+            this.menuIndexSelecter = menuIndexSelecter;
             this.guidancePhrase = guidancePhrase;
             this.totalStorage = totalStorage;
             searchResults = new SearchResults();
             lectureDisplay = new LectureDisplay(exceptionHandler);
             courseHistory = new CourseHistory();
-            lectureLookUp = new LectureLookUp(guidancePhrase, menuSelecter, exceptionHandler, lectureDisplay, searchResults, totalStorage);
+            lectureLookUp = new LectureLookUp(guidancePhrase, menuIndexSelecter, exceptionHandler, lectureDisplay, searchResults, totalStorage);
             lectureList = new LectureList(totalStorage, lectureDisplay, guidancePhrase);
-            enrolmentLecture = new EnrollmentLecture();
+            enrolmentLecture = new EnrollmentLecture(design, lectureLookUp, this.menuIndexSelecter, lectureList, lectureDelecter);
             lectureDelecter = new LectureDeleter(lectureDisplay, totalStorage, exceptionHandler, guidancePhrase);
-            additionInterestedLecture = new InterestedLectureAddition(menuAndOption, exceptionHandler, design, menuSelecter,
+            additionInterestedLecture = new InterestedLectureAddition(menuAndOption, exceptionHandler, design, menuIndexSelecter,
                 guidancePhrase, totalStorage, lectureLookUp, lectureList, timeTable, lectureDelecter, lectureDisplay);
         }
 
@@ -73,7 +73,7 @@ namespace LectureTimeTable.LectureTimeTableController
                 consoleColumn = 50;
                 consoleRow = 28;
 
-                menuIndex = menuSelecter.SelectMenu(enrolmentMenu, menuIndex, consoleColumn, consoleRow, ConstantNumber.IS_MENU, 9);
+                menuIndex = menuIndexSelecter.SelectMenu(enrolmentMenu, menuIndex, consoleColumn, consoleRow, ConstantNumber.IS_MENU, 9);
                 // 주어진 메뉴 4개 중 택1
                 if(menuIndex == ConstantNumber.EXIT)
                 {   // 중간에 ESC를 눌렀다면

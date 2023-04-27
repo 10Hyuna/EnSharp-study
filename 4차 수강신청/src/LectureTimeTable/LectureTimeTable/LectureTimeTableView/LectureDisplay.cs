@@ -86,7 +86,6 @@ namespace LectureTimeTable.LectureTimeTableView
         {
             Console.SetWindowSize(194, 55);
             Console.Write("=================================================================================================시간표========================================================================================\n");
-            Console.Write("===============================================================================================================================================================================================\n");
             string[] dayOfWeek = { " ", "월", "화", "수", "목", "금" };
             int column = Console.CursorLeft;
             int row = Console.CursorTop + 2;
@@ -102,7 +101,7 @@ namespace LectureTimeTable.LectureTimeTableView
                 }
             }
 
-            for (int i = 480; i < 1260; i += 30)
+            for (int i = 510; i < 1230; i += 30)
             {
                 Console.SetCursorPosition(column, row);
                 Console.Write(String.Format("{0:00}", (i / 60)));

@@ -26,6 +26,10 @@ namespace LectureTimeTable.LectureTimeTableController
             {
                 for(int i = 0; i < totalStorage.interestedLectures.Count; i++)
                 {
+                    if (totalStorage.interestedLectures[i].LectureTimeAndDates == null)
+                    {
+                        totalStorage.interestedLectures[i].LectureTimeAndDates = new List<LectureTimeAndDate>();
+                    }
                     if (totalStorage.interestedLectures[i].LectureTimeAndDates.Count == 1
                         && totalStorage.lecture[lectureIndex].LectureTimeAndDates.Count == 1)
                     {
@@ -52,6 +56,10 @@ namespace LectureTimeTable.LectureTimeTableController
             {
                 for (int i = 0; i < totalStorage.interestedLectures.Count; i++)
                 {
+                    if (totalStorage.enrolledLectures[i].LectureTimeAndDates == null)
+                    {
+                        totalStorage.enrolledLectures[i].LectureTimeAndDates = new List<LectureTimeAndDate>();
+                    }
                     if (totalStorage.enrolledLectures[i].LectureTimeAndDates.Count == 1
                         && totalStorage.lecture[lectureIndex].LectureTimeAndDates.Count == 1)
                     {

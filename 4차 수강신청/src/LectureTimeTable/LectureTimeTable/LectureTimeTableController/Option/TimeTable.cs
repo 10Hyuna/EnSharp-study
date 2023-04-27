@@ -69,7 +69,7 @@ namespace LectureTimeTable.LectureTimeTableController.Option
 
             if(lecture.DateAndTime == "")
             {
-                Console.SetCursorPosition(0, 56);
+                Console.SetCursorPosition(12, 50);
                 lectureDisplay.PrintLecture(lecture.LectureTitle, "");
                 return;
             }

@@ -73,7 +73,7 @@
     <Compile Include="LectureTimeTableView\GuidancePhrase.cs" />
     <Compile Include="LectureTimeTableView\LectureDisplay.cs" />
     <Compile Include="LectureTimeTableView\MenuAndOption.cs" />
-    <Compile Include="LectureTimeTable\LectureTimeTableStart.cs" />
+    <Compile Include="LectureTimeTableStart.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

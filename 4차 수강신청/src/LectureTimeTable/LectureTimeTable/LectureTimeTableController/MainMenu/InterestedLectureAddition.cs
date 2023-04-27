@@ -86,7 +86,7 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
                         lectureList.InformLectureList(ConstantNumber.IS_INTERESTED);
                         break;
                     case (int)INTERESTED.TIMETABLE: // 관심과목 시간표
-
+                        timeTable.CheckSchedule(ConstantNumber.IS_INTERESTED);
                         break;
                     case (int)INTERESTED.DELETE:    // 관심과목 삭제
                         lectureDelecter.DelectLectureList(ConstantNumber.IS_INTERESTED);

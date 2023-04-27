@@ -23,10 +23,11 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
         TotalStorage totalStorage;
         ExceptionHandler exceptionHandler;
         GuidancePhrase guidancePhrase;
+        TimeTable timeTable;
 
         public EnrollmentLecture(Design design, MenuIndexSelecter menuIndexSelecter, LectureList lectureList, 
-            LectureDeleter lectureDeleter,LectureLookUp lectureLookUp, LectureDisplay lectureDisplay, 
-            TotalStorage totalStorage, ExceptionHandler exceptionHandler, GuidancePhrase guidancePhrase)
+            LectureDeleter lectureDeleter,LectureLookUp lectureLookUp, LectureDisplay lectureDisplay, TotalStorage totalStorage, 
+            ExceptionHandler exceptionHandler, GuidancePhrase guidancePhrase, TimeTable timeTable)
         {
             this.design = design;
             this.menuIndexSelecter = menuIndexSelecter;
@@ -37,6 +38,7 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
             this.totalStorage = totalStorage;
             this.exceptionHandler = exceptionHandler;
             this.guidancePhrase = guidancePhrase;
+            this.timeTable = timeTable;
             selecterEnrolledWay = new SelecterEnrolledWay(lectureLookUp, design, menuIndexSelecter, lectureDisplay, 
                 totalStorage, exceptionHandler, guidancePhrase);
         }
@@ -82,7 +84,7 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
                         lectureList.InformLectureList(ConstantNumber.IS_ENROLLED);
                         break;
                     case (int)ENROLL.TIMETABLE:
-
+                        timeTable.CheckSchedule(ConstantNumber.IS_ENROLLED);
                         break;
                     case (int)ENROLL.DELETE:
                         lectureDeleter.DelectLectureList(ConstantNumber.IS_ENROLLED);

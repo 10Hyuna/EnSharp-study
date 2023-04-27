@@ -81,5 +81,46 @@ namespace LectureTimeTable.LectureTimeTableView
         {
             Console.Write(" 등록 가능 학점 : {0}      담은 학점 : {1}      삭제할 과목 NO : ", user.AbleEnrolledCredit, user.EnrolledCredit);
         }
+
+        public void PrintTimeTable()
+        {
+            Console.SetWindowSize(194, 55);
+            Console.Write("=================================================================================================시간표========================================================================================\n");
+            Console.Write("===============================================================================================================================================================================================\n");
+            string[] dayOfWeek = { " ", "월", "화", "수", "목", "금" };
+            int column = Console.CursorLeft;
+            int row = Console.CursorTop + 2;
+            for(int i = 0; i < dayOfWeek.Length; i++)
+            {
+                if (i == 0)
+                {
+                    Console.Write(dayOfWeek[i].PadRight(exceptionHandler.calculateRadRightSize(dayOfWeek[i], 20)));
+                }
+                else
+                {
+                    Console.Write(dayOfWeek[i].PadRight(exceptionHandler.calculateRadRightSize(dayOfWeek[i], 36)));
+                }
+            }
+
+            for (int i = 480; i < 1260; i += 30)
+            {
+                Console.SetCursorPosition(column, row);
+                Console.Write(String.Format("{0:00}", (i / 60)));
+                Console.Write(":");
+                Console.Write(String.Format("{0:00}", (i % 60)));
+                Console.Write("-");
+                Console.Write(String.Format("{0:00}", ((i + 30) / 60)));
+                Console.Write(":");
+                Console.Write(String.Format("{0:00}", ((i + 30) % 60)));
+                row += 2;
+            }
+        }
+        public void PrintLecture(string lecture, string lectureRoom)
+        {
+            int column = Console.CursorLeft;
+            Console.Write(lecture.PadRight(exceptionHandler.calculateRadRightSize(lecture, 36)));
+            Console.SetCursorPosition(column + 1, Console.CursorTop + 1);
+            Console.Write(lectureRoom.PadRight(exceptionHandler.calculateRadRightSize(lectureRoom, 36)));
+        }
     }
 }

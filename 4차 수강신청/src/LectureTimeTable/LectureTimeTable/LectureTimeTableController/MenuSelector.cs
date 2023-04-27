@@ -43,12 +43,13 @@ namespace LectureTimeTable.LectureTimeTableController
             this.totalStorage = totalStorage;
             searchResults = new SearchResults();
             lectureDisplay = new LectureDisplay(exceptionHandler);
+            timeTable = new TimeTable(totalStorage, lectureDisplay);
             courseHistory = new CourseHistory();
             lectureLookUp = new LectureLookUp(guidancePhrase, menuIndexSelecter, exceptionHandler, lectureDisplay, searchResults, totalStorage);
             lectureList = new LectureList(totalStorage, lectureDisplay, guidancePhrase);
             lectureDelecter = new LectureDeleter(lectureDisplay, totalStorage, exceptionHandler, guidancePhrase);
             enrolmentLecture = new EnrollmentLecture(design, menuIndexSelecter, lectureList, lectureDelecter, 
-                lectureLookUp, lectureDisplay, totalStorage, exceptionHandler, guidancePhrase);
+                lectureLookUp, lectureDisplay, totalStorage, exceptionHandler, guidancePhrase, timeTable);
             additionInterestedLecture = new InterestedLectureAddition(menuAndOption, exceptionHandler, design, menuIndexSelecter,
                 guidancePhrase, totalStorage, lectureLookUp, lectureList, timeTable, lectureDelecter, lectureDisplay);
         }

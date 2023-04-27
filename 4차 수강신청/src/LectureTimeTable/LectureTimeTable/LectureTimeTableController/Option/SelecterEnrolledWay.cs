@@ -19,9 +19,11 @@ namespace LectureTimeTable.LectureTimeTableController.Option
         TotalStorage totalStorage;
         ExceptionHandler exceptionHandler;
         GuidancePhrase guidancePhrase;
+        DuplicationLectureTime duplicationLectureTime;
 
         public SelecterEnrolledWay(LectureLookUp lectureLookUp, Design design, MenuIndexSelecter menuIndexSelecter,
-            LectureDisplay lectureDisplay, TotalStorage totalStorage, ExceptionHandler exceptionHandler, GuidancePhrase guidancePhrase)
+            LectureDisplay lectureDisplay, TotalStorage totalStorage, ExceptionHandler exceptionHandler, 
+            GuidancePhrase guidancePhrase)
         {
             this.lectureLookUp = lectureLookUp;
             this.design = design;
@@ -30,6 +32,7 @@ namespace LectureTimeTable.LectureTimeTableController.Option
             this.totalStorage = totalStorage;
             this.exceptionHandler = exceptionHandler;
             this.guidancePhrase = guidancePhrase;
+            duplicationLectureTime = new DuplicationLectureTime(totalStorage);
         }
 
         public void SelectEnrolledWay()
@@ -69,6 +72,7 @@ namespace LectureTimeTable.LectureTimeTableController.Option
                         enrollLecture(isEnrollESC, (int)ENROLLWAY.SEARCH);
                         break;
                     case (int)ENROLLWAY.INTERESTED:
+                        enrolledInterestedLecture();
                         enrollLecture(false, (int)ENROLLWAY.INTERESTED);
                         break;
                 }
@@ -101,7 +105,6 @@ namespace LectureTimeTable.LectureTimeTableController.Option
 
             while (!isESC)
             {
-                enrolledInterestedLecture();
                 Console.SetCursorPosition(0, Console.CursorTop);
                 lectureDisplay.PrintEnrolledCredit(totalStorage.user);
 
@@ -120,22 +123,22 @@ namespace LectureTimeTable.LectureTimeTableController.Option
                         guidancePhrase.PrintException((int)EXCEPTION.NULL_LECTURE, 0, Console.CursorTop + 1);
                         continue;
                     }
-                    if (!LeftFreeCredit(lectureIndex))
+                    if (!IsLeftFreeCredit(lectureIndex))
                     {   // 담고자 하는 강의의 학점이 담을 수 있는 최대 학점보다 크다면
                         guidancePhrase.PrintException((int)EXCEPTION.MAX_CREDIT, 0, Console.CursorTop + 1);
                         continue;
                     }
-                    if (!CheckNullLecture(lectureIndex))
+                    if (!IsCheckNullLecture(lectureIndex))
                     {   // 검색 결과에 없거나 주어진 강의에 해당하지 않는 경우
                         guidancePhrase.PrintException((int)EXCEPTION.NULL_LECTURE, 0, Console.CursorTop + 1);
                         continue;
                     }
-                    if (!CheckOverlapLecture(lectureIndex))
+                    if (!IsCheckOverlapLecture(lectureIndex))
                     {   // 이미 담은 과목이라면
                         guidancePhrase.PrintException((int)EXCEPTION.OVERLAP_LECTURE, 0, Console.CursorTop + 1);
                         continue;
                     }
-                    if (!CheckOverlapTime(lectureIndex))
+                    if (IsCheckOverlapTime(lectureIndex))
                     {   // 겹치는 시간대가 존재한다면
                         guidancePhrase.PrintException((int)EXCEPTION.OVERLAP_TIME, 0, Console.CursorTop + 1);
                         continue;
@@ -150,25 +153,14 @@ namespace LectureTimeTable.LectureTimeTableController.Option
 
                     guidancePhrase.PrintException((int)EXCEPTION.FREE_CREDIT, 0, Console.CursorTop + 1);
 
-                    totalStorage.user.AbleEnrolledCredit = int.Parse(totalStorage.lecture[lectureIndex].Credit);
+                    totalStorage.user.AbleEnrolledCredit -= int.Parse(totalStorage.lecture[lectureIndex].Credit);
                     // 담을 수 있는 학점 갱신
-                    totalStorage.user.EnrolledCredit = int.Parse(totalStorage.lecture[lectureIndex].Credit);
+                    totalStorage.user.EnrolledCredit += int.Parse(totalStorage.lecture[lectureIndex].Credit);
                     // 담아져 있는 학점 갱신
                 }
             }
         }
 
-        //private bool IsBasedInterested(int lectureId)
-        //{
-        //    for(int i = 0; i < totalStorage.interestedLectures.Count; i++)
-        //    {
-        //        if (totalStorage.interestedLectures[i].Id == lectureId)
-        //        {
-        //            return true;
-        //        }
-        //    }
-        //    return false;
-        //}
         private int FindLectureIndex(int lectureId)
         {
             int count = 0;
@@ -190,14 +182,14 @@ namespace LectureTimeTable.LectureTimeTableController.Option
             return lectureIndex;
         }
 
-        private bool LeftFreeCredit(int lectureIndex)
+        private bool IsLeftFreeCredit(int lectureIndex)
         {
             if (totalStorage.user.AbleEnrolledCredit - int.Parse(totalStorage.lecture[lectureIndex].Credit) >= 0)
                 return true;
             return false;
         }
 
-        private bool CheckNullLecture(int lectureIndex)
+        private bool IsCheckNullLecture(int lectureIndex)
         {
             bool isTrue = false;
 
@@ -234,7 +226,7 @@ namespace LectureTimeTable.LectureTimeTableController.Option
             return isTrue;
         }
 
-        private bool CheckOverlapLecture(int lectureIndex)
+        private bool IsCheckOverlapLecture(int lectureIndex)
         {
             for (int i = 0; i < totalStorage.enrolledLectures.Count; i++)
             {
@@ -247,16 +239,21 @@ namespace LectureTimeTable.LectureTimeTableController.Option
 
         }
 
-        private bool CheckOverlapTime(int lectureIndex)
+        private bool IsCheckOverlapTime(int lectureIndex)
         {
+            bool isOverlapTime = false;
+
             for (int i = 0; i < totalStorage.enrolledLectures.Count; i++)
             {
-                if (totalStorage.enrolledLectures[i].DateAndTime == totalStorage.lecture[lectureIndex].DateAndTime)
+                if (totalStorage.enrolledLectures[i].FirstDay == totalStorage.lecture[lectureIndex].FirstDay
+                    || totalStorage.enrolledLectures[i].FirstDay == totalStorage.lecture[lectureIndex].LastDay
+                    || totalStorage.enrolledLectures[i].LastDay == totalStorage.lecture[lectureIndex].FirstDay
+                    || totalStorage.enrolledLectures[i].LastDay == totalStorage.lecture[lectureIndex].LastDay)
                 {
-                    return false;
+                    isOverlapTime = duplicationLectureTime.IsCheckDuplicateTime(lectureIndex, ConstantNumber.IS_ENROLLED);
                 }
             }
-            return true;
+            return isOverlapTime;
         }
     }
 }

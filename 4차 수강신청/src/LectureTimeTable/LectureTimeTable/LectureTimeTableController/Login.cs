@@ -20,10 +20,10 @@ namespace LectureTimeTable.LectureTimeTableController
         MenuAndOption menuAndOption;
         ExceptionHandler exceptionHandler;
         GuidancePhrase guidancePhrase;
-        MenuSelecter menuSelection;
+        MenuSelector menuSelection;
         CourseHistory courseHistory;
         TotalStorage totalStorage;
-
+        ManupulationTimeData manupulationTimeData;
         public Login(TotalStorage totalStorage)
         {
             this.totalStorage = totalStorage;
@@ -34,8 +34,9 @@ namespace LectureTimeTable.LectureTimeTableController
             exceptionHandler = new ExceptionHandler(inputFromUser, guidancePhrase);
             excelLoader = new ExcelLoader(exceptionHandler, totalStorage);
             selecterMenu = new LectureTimeTableUtility.MenuIndexSelecter(menuAndOption, inputFromUser);
-            menuSelection = new MenuSelecter(menuAndOption, exceptionHandler, 
+            menuSelection = new MenuSelector(menuAndOption, exceptionHandler, 
                 design, selecterMenu, guidancePhrase, totalStorage);
+            manupulationTimeData = new ManupulationTimeData(totalStorage);
         }
 
         private int consoleColumn;
@@ -61,6 +62,10 @@ namespace LectureTimeTable.LectureTimeTableController
             Console.SetWindowSize(120, 35);
 
             excelLoader.LoadExcelFile();
+            for(int i = 0; i < totalStorage.lecture.Count; i++)
+            {
+                manupulationTimeData.manuplateTime(totalStorage.lecture[i].DateAndTime, i);
+            }
 
             string[] loginMenu = { "학번 (8자 이상) : ", "비밀번호 : " };
 

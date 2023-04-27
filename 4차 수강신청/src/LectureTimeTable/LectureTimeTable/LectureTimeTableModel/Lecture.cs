@@ -20,11 +20,14 @@ namespace LectureTimeTable.LectureTimeTableModel
         private string dateAndTime;
         private string lectureRoom;
         private string professor;
-        private string language; 
-        private List<LectureTimeAndDate> lectureTimeAndDate;
+        private string language;
+        private string firstDay;
+        private string lastDay;
+        private List<LectureTimeAndDate> lectureTimeAndDates;
 
         public Lecture() { }
-        public Lecture(int id, string major, string courseNumber, string classNumber, string lectureTitle, string completeType, string grade, string credit, string dateAndTime, string lectureRoom, string professor, string language)
+        public Lecture(int id, string major, string courseNumber, string classNumber, string lectureTitle, string completeType, string grade, string credit, string dateAndTime, 
+            string lectureRoom, string professor, string language, List<LectureTimeAndDate> lectureTimeAndDates)
         {
             this.id = id;
             this.major = major;
@@ -38,6 +41,12 @@ namespace LectureTimeTable.LectureTimeTableModel
             this.lectureRoom = lectureRoom;
             this.professor = professor;
             this.language = language;
+            this.lectureTimeAndDates = lectureTimeAndDates;
+
+            if(this.lectureTimeAndDates != null)
+            {
+                this.lectureTimeAndDates = new List<LectureTimeAndDate>();
+            }
         }
 
         public int Id
@@ -110,14 +119,28 @@ namespace LectureTimeTable.LectureTimeTableModel
             get => this.language;
             set => this.language = value;
         }
+        public string FirstDay
+        {
+            get => this.firstDay;
+            set => this.firstDay = value;
+        }
+
+        public string LastDay
+        {
+            get => this.lastDay;
+            set => this.lastDay = value;
+        }
+        public List<LectureTimeAndDate> LectureTimeAndDates
+        {
+            get => this.lectureTimeAndDates;
+            set => this.lectureTimeAndDates = value;
+        }
     }
 
     public class LectureTimeAndDate
     {
         private int startTime;
         private int endTime;
-        private string firstDay;
-        private string lastDay;
 
         public int StartTime
         {
@@ -129,18 +152,6 @@ namespace LectureTimeTable.LectureTimeTableModel
         {
             get => this.endTime;
             set => this.endTime = value;
-        }
-
-        public string FirstDay
-        {
-            get => this.firstDay;
-            set => this.firstDay = value;
-        }
-
-        public string LastDay
-        {
-            get => this.lastDay; 
-            set => this.lastDay = value;
         }
     }
 }

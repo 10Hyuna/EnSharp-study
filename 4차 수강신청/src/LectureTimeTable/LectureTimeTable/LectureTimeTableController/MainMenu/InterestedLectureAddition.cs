@@ -25,6 +25,7 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
         private LectureList lectureList;
         private TimeTable timeTable;
         private LectureDeleter lectureDelecter;
+        private DuplicationLectureTime duplicationLectureTime;
 
         public InterestedLectureAddition(MenuAndOption menuAndOption, ExceptionHandler exceptionHandler, Design design,
             LectureTimeTableUtility.MenuIndexSelecter menuIndexSelecter, GuidancePhrase guidancePhrase, TotalStorage totalStorage, LectureLookUp lectureLookUp,
@@ -41,6 +42,7 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
             this.timeTable = timeTable;
             this.lectureDelecter = lectureDelecter;
             this.lectureDisplay = lectureDisplay;
+            duplicationLectureTime = new DuplicationLectureTime(totalStorage);
         }
 
         public void AddInterestedLecture()
@@ -119,22 +121,22 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
                     SearchLectureId = int.Parse(searchId);
                     lectureIndex = FindLectureIndex(SearchLectureId);
 
-                    if (lectureIndex == ConstantNumber.FAIL || !CheckNullLecture(lectureIndex))
+                    if (lectureIndex == ConstantNumber.FAIL || !IsCheckNullLecture(lectureIndex))
                     {   // 검색 결과에 없거나 주어진 강의에 해당하지 않는 경우
                         guidancePhrase.PrintException((int)EXCEPTION.NULL_LECTURE, 0, Console.CursorTop + 1);
                         continue;
                     }
-                    if (!LeftFreeCredit(lectureIndex))
+                    if (!IsLeftFreeCredit(lectureIndex))
                     {   // 담고자 하는 강의의 학점이 담을 수 있는 최대 학점보다 크다면
                         guidancePhrase.PrintException((int)EXCEPTION.MAX_CREDIT, 0, Console.CursorTop + 1);
                         continue;
                     }
-                    if (!CheckOverlapLecture(lectureIndex))
+                    if (!IsCheckOverlapLecture(lectureIndex))
                     {   // 이미 담은 과목이라면
                         guidancePhrase.PrintException((int)EXCEPTION.OVERLAP_LECTURE, 0, Console.CursorTop + 1);
                         continue;
                     }
-                    if (!CheckOverlapTime(lectureIndex))
+                    if (IsCheckOverlapTime(lectureIndex))
                     {   // 겹치는 시간대가 존재한다면
                         guidancePhrase.PrintException((int)EXCEPTION.OVERLAP_TIME, 0, Console.CursorTop + 1);
                         continue;
@@ -149,9 +151,9 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
 
                     guidancePhrase.PrintException((int)EXCEPTION.FREE_CREDIT, 0, Console.CursorTop + 1);
 
-                    totalStorage.user.AbleInterestedCredit = int.Parse(totalStorage.lecture[lectureIndex].Credit);
+                    totalStorage.user.AbleInterestedCredit -= int.Parse(totalStorage.lecture[lectureIndex].Credit);
                     // 담을 수 있는 학점 갱신
-                    totalStorage.user.EnrolledInterestedCredit = int.Parse(totalStorage.lecture[lectureIndex].Credit);
+                    totalStorage.user.EnrolledInterestedCredit += int.Parse(totalStorage.lecture[lectureIndex].Credit);
                     // 담아져 있는 학점 갱신
                 }
             }
@@ -177,14 +179,14 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
             }
             return lectureIndex;
         }
-        private bool LeftFreeCredit(int lectureIndex)
-        {
+        private bool IsLeftFreeCredit(int lectureIndex)
+        { // 담을 수 있는 학점의 공간이 존재하는지 확인하는 함수
             if (totalStorage.user.AbleInterestedCredit - int.Parse(totalStorage.lecture[lectureIndex].Credit) >= 0)
                 return true;
             return false;
         }
-        private bool CheckNullLecture(int lectureIndex)
-        {
+        private bool IsCheckNullLecture(int lectureIndex)
+        {   // 담고자 하는 강의가 실존하는 강의인지 확인하는 함수
             bool isTrue = false;
 
             string major;
@@ -220,8 +222,8 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
             return isTrue;
         }
 
-        private bool CheckOverlapLecture(int lectureIndex)
-        {
+        private bool IsCheckOverlapLecture(int lectureIndex)
+        {   // 이미 담은 강의와 중복된다면
             for(int i = 0; i < totalStorage.interestedLectures.Count; i++)
             {
                 if (totalStorage.interestedLectures[i].CourseNumber == totalStorage.lecture[lectureIndex].CourseNumber)
@@ -233,16 +235,21 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
 
         }
 
-        private bool CheckOverlapTime(int lectureIndex)
-        {
-            for(int i = 0; i < totalStorage.interestedLectures.Count; i++)
+        private bool IsCheckOverlapTime(int lectureIndex)
+        {   // 이미 담겨 있는 강의와 시간대가 겹치는지 확인하는 함수
+            bool isOverlapTime = false;
+
+            for (int i = 0; i < totalStorage.interestedLectures.Count; i++)
             {
-                if (totalStorage.interestedLectures[i].DateAndTime == totalStorage.lecture[lectureIndex].DateAndTime)
-                {
-                    return false;
+                if (totalStorage.interestedLectures[i].FirstDay == totalStorage.lecture[lectureIndex].FirstDay
+                    || totalStorage.interestedLectures[i].FirstDay == totalStorage.lecture[lectureIndex].LastDay
+                    || totalStorage.interestedLectures[i].LastDay == totalStorage.lecture[lectureIndex].FirstDay
+                    || totalStorage.interestedLectures[i].LastDay == totalStorage.lecture[lectureIndex].LastDay)
+                {   // 강의 요일이 겹친다면
+                    isOverlapTime = duplicationLectureTime.IsCheckDuplicateTime(lectureIndex, ConstantNumber.IS_INTERESTED);
                 }
             }
-            return true;
-        } 
+            return isOverlapTime;
+        }
     }
 }

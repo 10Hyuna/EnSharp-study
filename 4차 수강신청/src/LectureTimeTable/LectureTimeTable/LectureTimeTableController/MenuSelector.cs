@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace LectureTimeTable.LectureTimeTableController
 {
-    public class MenuSelecter
+    public class MenuSelector
     {
         // 멤버변수 분리 -> 클래스 분할 고민해 보기
 
@@ -32,7 +32,7 @@ namespace LectureTimeTable.LectureTimeTableController
         TimeTable timeTable;
 
         // 네이밍
-        public MenuSelecter(MenuAndOption menuAndOption, ExceptionHandler exceptionHandler, 
+        public MenuSelector(MenuAndOption menuAndOption, ExceptionHandler exceptionHandler, 
             Design design, LectureTimeTableUtility.MenuIndexSelecter menuIndexSelecter, GuidancePhrase guidancePhrase, TotalStorage totalStorage)
         {
             this.menuAndOption = menuAndOption;

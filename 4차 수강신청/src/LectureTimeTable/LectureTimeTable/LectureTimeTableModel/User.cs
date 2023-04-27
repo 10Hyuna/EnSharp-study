@@ -36,24 +36,24 @@ namespace LectureTimeTable.LectureTimeTableModel.VO
         public int EnrolledCredit
         {
             get => this.enrolledCredit;
-            set => this.enrolledCredit += value;
+            set => this.enrolledCredit = value;
         }
 
         public int EnrolledInterestedCredit
         {
             get => this.enrolledInterestedCredit;
-            set => this.enrolledInterestedCredit += value;
+            set => this.enrolledInterestedCredit = value;
         }
 
         public int AbleInterestedCredit
         {
             get => this.ableInterestedCredit;
-            set => this.ableInterestedCredit -= value;
+            set => this.ableInterestedCredit = value;
         }
         public int AbleEnrolledCredit
         {
             get => this.ableEnrollCredit;
-            set => this.ableEnrollCredit -= value;
+            set => this.ableEnrollCredit = value;
         }
     }
 }

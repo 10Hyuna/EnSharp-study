@@ -111,6 +111,9 @@ namespace LectureTimeTable.LectureTimeTableController.Option
                     }
                     else
                     {   // 강의 삭제
+                        totalStorage.user.EnrolledInterestedCredit -= int.Parse(totalStorage.interestedLectures[deleteIndex].Credit.ToString());
+                        totalStorage.user.AbleInterestedCredit += int.Parse(totalStorage.interestedLectures[deleteIndex].Credit.ToString());
+
                         totalStorage.interestedLectures.RemoveAt(deleteIndex);
                         guidancePhrase.PrintException((int)EXCEPTION.SUCCESS_DELETE, 0, Console.CursorTop + 1);
                     }
@@ -167,6 +170,9 @@ namespace LectureTimeTable.LectureTimeTableController.Option
                     }
                     else
                     {
+                        totalStorage.user.EnrolledCredit -= int.Parse(totalStorage.enrolledLectures[deleteIndex].Credit.ToString());
+                        totalStorage.user.AbleEnrolledCredit += int.Parse(totalStorage.enrolledLectures[deleteIndex].Credit.ToString());
+
                         totalStorage.enrolledLectures.RemoveAt(deleteIndex);
                         guidancePhrase.PrintException((int)EXCEPTION.SUCCESS_DELETE, 0, Console.CursorTop + 1);
                     }

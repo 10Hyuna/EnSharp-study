@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LectureTimeTableController\DuplicationLectureTime.cs" />
     <Compile Include="LectureTimeTableController\ExcelLoader.cs" />
     <Compile Include="LectureTimeTableController\LectureTimeTablePrestart.cs" />
     <Compile Include="LectureTimeTableController\Login.cs" />
@@ -54,7 +55,7 @@
     <Compile Include="LectureTimeTableController\MainMenu\EnrollmentLecture.cs" />
     <Compile Include="LectureTimeTableController\MainMenu\InterestedLectureAddition.cs" />
     <Compile Include="LectureTimeTableController\MainMenu\LectureLookUp.cs" />
-    <Compile Include="LectureTimeTableController\MenuSelecter.cs" />
+    <Compile Include="LectureTimeTableController\MenuSelector.cs" />
     <Compile Include="LectureTimeTableController\Option\LectureDeleter.cs" />
     <Compile Include="LectureTimeTableController\Option\LectureList.cs" />
     <Compile Include="LectureTimeTableController\Option\SelecterEnrolledWay.cs" />

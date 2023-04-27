@@ -19,11 +19,11 @@ namespace LectureTimeTable.LectureTimeTableController
         bool isOverlap;
 
         public bool IsCheckDuplicateTime(int lectureIndex, bool isEntryMethod)
-        {
+        {   // 강의 시간대의 겹침을 조사하는 함수
             bool isDuplicated = false;
 
             if (isEntryMethod == ConstantNumber.IS_INTERESTED)
-            {
+            {       // 진입점이 관심과목 메뉴
                 for(int i = 0; i < totalStorage.interestedLectures.Count; i++)
                 {
                     if (totalStorage.interestedLectures[i].LectureTimeAndDates == null)
@@ -53,8 +53,8 @@ namespace LectureTimeTable.LectureTimeTableController
                 }
             }
             else if(isEntryMethod == ConstantNumber.IS_ENROLLED)
-            {
-                for (int i = 0; i < totalStorage.interestedLectures.Count; i++)
+            {       // 진입점이 수강 신청 메뉴
+                for (int i = 0; i < totalStorage.enrolledLectures.Count; i++)
                 {
                     if (totalStorage.enrolledLectures[i].LectureTimeAndDates == null)
                     {
@@ -62,7 +62,7 @@ namespace LectureTimeTable.LectureTimeTableController
                     }
                     if (totalStorage.enrolledLectures[i].LectureTimeAndDates.Count == 1
                         && totalStorage.lecture[lectureIndex].LectureTimeAndDates.Count == 1)
-                    {
+                    {   
                         isDuplicated = IsCompareEnrollTimeOnce(lectureIndex, i);
                     }
                     else if (totalStorage.enrolledLectures[i].LectureTimeAndDates.Count == 1
@@ -95,20 +95,20 @@ namespace LectureTimeTable.LectureTimeTableController
             int comparisonEndTime = totalStorage.interestedLectures[comparisonIndex].LectureTimeAndDates[0].EndTime;
 
             if(standardStartTime == comparisonStartTime)
-            {
+            {   // 시작하는 시간대가 같다면 무조건 중복
                 isOverlap = true;
             }
             else if(standardStartTime > comparisonStartTime)
-            {
+            {   // 먼저 시작하는 수업의 시작시간이
                 if(comparisonEndTime - standardStartTime > 0)
-                {
+                {   // 늦게 시작하는 수업의 종료 시간보다 작다면 중복
                     isOverlap = true;
                 }
             }
             else if(standardStartTime < comparisonStartTime)
-            {
+            {   // 늦게 시작하는 수업의 종료 시간이
                 if (standardEndTime - comparisonStartTime > 0)
-                {
+                {   // 일찍 시작하는 수업의 시작 시간보다 크다면 중복
                     isOverlap = true;
                 }
             }

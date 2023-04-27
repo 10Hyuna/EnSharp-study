@@ -14,3 +14,4 @@ C:\Users\현아\Desktop\Develop\Study\4차 수강신청\src\LectureTimeTable\Lec
 C:\Users\현아\Desktop\Develop\Study\4차 수강신청\src\LectureTimeTable\LectureTimeTable\obj\Debug\LectureTimeTable.csproj.CoreCompileInputs.cache
 C:\Users\현아\Desktop\Develop\Study\4차 수강신청\src\LectureTimeTable\LectureTimeTable\obj\Debug\LectureTimeTable.exe
 C:\Users\현아\Desktop\Develop\Study\4차 수강신청\src\LectureTimeTable\LectureTimeTable\obj\Debug\LectureTimeTable.pdb
+C:\Users\현아\Desktop\Develop\Study\4차 수강신청\src\LectureTimeTable\LectureTimeTable\obj\Debug\LectureTimeTable.csproj.ResolveComReference.cache

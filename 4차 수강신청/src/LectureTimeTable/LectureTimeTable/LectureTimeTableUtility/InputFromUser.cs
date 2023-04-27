@@ -8,6 +8,10 @@ namespace LectureTimeTable.LectureTimeTableUtility
 {
     public class InputFromUser
     {
+        static void Console_CancelKeyPress(object sender, ConsoleCancelEventArgs e) //ctrl + z 등 단축키를 통해
+        {
+            e.Cancel = true;
+        }
         ConsoleKeyInfo keyInfo;
         private bool isCharacterOrNumber(char input)        // 문자에 해당하는 값이 입력되었다면
         {
@@ -18,8 +22,10 @@ namespace LectureTimeTable.LectureTimeTableUtility
 
         public int SelectMenuIndex(int endMenuIndex, int selectedMenu)
         {   // 메뉴는 위아래로 움직임            
-            keyInfo = Console.ReadKey(true);
 
+            Console.CancelKeyPress += new ConsoleCancelEventHandler(Console_CancelKeyPress);
+
+            keyInfo = Console.ReadKey(true);
             
             if(keyInfo.Key == ConsoleKey.UpArrow)
             {
@@ -47,13 +53,15 @@ namespace LectureTimeTable.LectureTimeTableUtility
             }
             else
             {
-                selectedMenu = ConstantNumber.FAILE;
+                selectedMenu = ConstantNumber.FAIL;
             }
             return selectedMenu;
         }
         
         public int SelectOptionIndex(int endMenuIndex, int selectedMenu)
         {   // 옵션은 위아래로 움직임
+
+            Console.CancelKeyPress += new ConsoleCancelEventHandler(Console_CancelKeyPress);
             keyInfo = Console.ReadKey(true);
 
             if (keyInfo.Key == ConsoleKey.LeftArrow)
@@ -82,13 +90,16 @@ namespace LectureTimeTable.LectureTimeTableUtility
             }
             else
             {
-                selectedMenu = ConstantNumber.FAILE;
+                selectedMenu = ConstantNumber.FAIL;
             }
             return selectedMenu;
         }
 
         public string InputStringFromUser(int maxLength, bool isPassword, bool isId, int consoleColumn, int consoleRow)
         {
+
+            Console.CancelKeyPress += new ConsoleCancelEventHandler(Console_CancelKeyPress);
+
             Console.CursorVisible = true;
             bool isEnter = false;
             string input = "";

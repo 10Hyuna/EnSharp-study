@@ -29,7 +29,22 @@ namespace LectureTimeTable.LectureTimeTableView
         {
             if (condition == (int)EXCEPTION.NOT_MATCH_CONDITION)
             {
-
+                Console.SetCursorPosition(column + 13, row);
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("올바르지 않은 입력입니다.");
+                Console.ResetColor();
+                Console.SetCursorPosition(column + 13, row);
+                EraseAnounce();
+                Console.SetCursorPosition(column, row);
+            }
+            else if(condition == (int)EXCEPTION.MAX_CREDIT)
+            {
+                Console.SetCursorPosition(column, row);
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("저장 가능 학점을 초과했습니다.");
+                Console.ResetColor();
+                Console.SetCursorPosition(column, row);
+                EraseAnounce();
             }
             else if(condition == (int)EXCEPTION.FAILURE_LOGIN)
             {
@@ -48,10 +63,11 @@ namespace LectureTimeTable.LectureTimeTableView
             {
                 Console.SetCursorPosition(column, row);
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("저장 가능 학점을 초과했습니다.");
+                Console.WriteLine("강의가 성공적으로 담겼습니다!");
                 Console.ResetColor();
                 Console.SetCursorPosition(column, row);
                 EraseAnounce();
+                Console.SetCursorPosition(column, row - 1);
             }
             else if(condition == (int)EXCEPTION.NULL_LECTURE)
             {
@@ -88,8 +104,9 @@ namespace LectureTimeTable.LectureTimeTableView
                 Console.SetCursorPosition(0, row + 1);
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("저장된 강의 내역이 없습니다.");
-                PrintESC();
                 Console.ResetColor();
+                EraseAnounce();
+                Console.SetCursorPosition(column, row - 1);
             }
             else if(condition == (int)EXCEPTION.SUCCESS_DELETE)
             {
@@ -98,6 +115,8 @@ namespace LectureTimeTable.LectureTimeTableView
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("삭제되었습니다!");
                 Console.ResetColor();
+                EraseAnounce();
+                Console.SetCursorPosition(column, row - 1);
             }
         }
 

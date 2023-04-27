@@ -13,6 +13,8 @@ namespace LectureTimeTable.LectureTimeTableController
 {
     public class MenuSelecter
     {
+        // 멤버변수 분리 -> 클래스 분할 고민해 보기
+
         MenuAndOption menuAndOption;
         ExceptionHandler exceptionHandler;
         Design design;
@@ -29,6 +31,7 @@ namespace LectureTimeTable.LectureTimeTableController
         LectureList lectureList;
         TimeTable timeTable;
 
+        // 네이밍
         public MenuSelecter(MenuAndOption menuAndOption, ExceptionHandler exceptionHandler, 
             Design design, LectureTimeTableUtility.MenuIndexSelecter menuIndexSelecter, GuidancePhrase guidancePhrase, TotalStorage totalStorage)
         {
@@ -43,8 +46,9 @@ namespace LectureTimeTable.LectureTimeTableController
             courseHistory = new CourseHistory();
             lectureLookUp = new LectureLookUp(guidancePhrase, menuIndexSelecter, exceptionHandler, lectureDisplay, searchResults, totalStorage);
             lectureList = new LectureList(totalStorage, lectureDisplay, guidancePhrase);
-            enrolmentLecture = new EnrollmentLecture(design, lectureLookUp, this.menuIndexSelecter, lectureList, lectureDelecter);
             lectureDelecter = new LectureDeleter(lectureDisplay, totalStorage, exceptionHandler, guidancePhrase);
+            enrolmentLecture = new EnrollmentLecture(design, menuIndexSelecter, lectureList, lectureDelecter, 
+                lectureLookUp, lectureDisplay, totalStorage, exceptionHandler, guidancePhrase);
             additionInterestedLecture = new InterestedLectureAddition(menuAndOption, exceptionHandler, design, menuIndexSelecter,
                 guidancePhrase, totalStorage, lectureLookUp, lectureList, timeTable, lectureDelecter, lectureDisplay);
         }
@@ -54,6 +58,7 @@ namespace LectureTimeTable.LectureTimeTableController
             ConsoleKeyInfo keyInfo;
 
             bool isESC = false;
+            bool isMain;
 
             int menuIndex = 0;
 
@@ -78,12 +83,13 @@ namespace LectureTimeTable.LectureTimeTableController
                 if(menuIndex == ConstantNumber.EXIT)
                 {   // 중간에 ESC를 눌렀다면
                     isESC = true;
+                    continue;
                 }
 
                 switch (menuIndex)
                 {
                     case (int)ENROLMENTLECTURE.INQUIRY: // 검색
-                        lectureLookUp.LookUpLecture(ConstantNumber.IS_LOOKUP);
+                        isMain = lectureLookUp.LookUpLecture(ConstantNumber.IS_LOOKUP);
                         break;
                     case (int)ENROLMENTLECTURE.INTERESTEDLECTURE:   // 관심강의
                         additionInterestedLecture.AddInterestedLecture();
@@ -95,6 +101,7 @@ namespace LectureTimeTable.LectureTimeTableController
                         courseHistory.InquireCourseHistory();
                         break;
                 }
+                isESC = false;
             }
         }
     }

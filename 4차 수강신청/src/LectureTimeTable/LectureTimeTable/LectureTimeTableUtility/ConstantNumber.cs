@@ -13,7 +13,7 @@ namespace LectureTimeTable.LectureTimeTableUtility
         public const string UP = "UP";
         public const string DOWN = "DOWN";
 
-        public const int FAILE = -5;
+        public const int FAIL = -5;
         public const int EXIT = -10;
         public const int ENTER = 10;
 
@@ -36,6 +36,7 @@ namespace LectureTimeTable.LectureTimeTableUtility
         public const string IDCHECK = @"^[0-9a-zA-Z]{8,20}";       // 아이디와 비밀번호의 패턴을 뜻하는 정규식
         public const string PASSWORDCHECK = @"^[0-9a-zA-Z]{8,20}";
         public const string KOREAN = @"^[가-힇]{1,}";
+        public const string CHARACTER = @"^[가-힇A-Za-z]{1,}";
         public const string NUMBER = @"^[0-9]{1}";
         public const string COURSER_NUMBER = @"^[0-9]{4,8}";
     }
@@ -88,6 +89,12 @@ enum ENROLL
     LIST,
     TIMETABLE,
     DELETE
+}
+
+enum ENROLLWAY
+{
+    SEARCH,
+    INTERESTED
 }
 enum EXCEPTION
 {

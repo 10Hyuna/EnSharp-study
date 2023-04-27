@@ -90,6 +90,8 @@ namespace LectureTimeTable.LectureTimeTableController.Option
 
         private void EnteredESC()
         {
+            isESC = false;
+
             while (!isESC)
             {
                 keyInfo = Console.ReadKey();

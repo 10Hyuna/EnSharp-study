@@ -88,7 +88,7 @@ namespace LectureTimeTable.LectureTimeTableUtility
 
                 switch (selectedIndex)
                 {
-                    case (int)ConstantNumber.FAILE:
+                    case (int)ConstantNumber.FAIL:
                         // 잘못된 입력
                         selectedIndex = menuIndex;
                         break;

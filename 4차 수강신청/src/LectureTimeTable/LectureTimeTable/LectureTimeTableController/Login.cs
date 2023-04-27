@@ -127,7 +127,7 @@ namespace LectureTimeTable.LectureTimeTableController
                 switch (menuIndex)
                 {
                     case (int)LOGIN.CREDIT: // 선택한 인덱스가 학번 부분이라면
-                        EnterCreditNumber();
+                        EnterId();
                         break;
                     case (int)LOGIN.PASSWORD:   // 선택한 인덱스가 비밀번호라면
                         EnterPassword();
@@ -136,14 +136,14 @@ namespace LectureTimeTable.LectureTimeTableController
             }
         }
 
-        private void EnterCreditNumber()
+        private void EnterId()
         {
             consoleColumn = 75;
             consoleRow = 30;
 
             isValid = false;
 
-            id = exceptionHandler.IsValid(ConstantNumber.IDCHECK, consoleColumn, consoleRow, 8, ConstantNumber.IS_NOT_PASSWORD, ConstantNumber.IS_ID);
+            id = exceptionHandler.IsValidInput(ConstantNumber.IDCHECK, consoleColumn, consoleRow, 8, ConstantNumber.IS_NOT_PASSWORD, ConstantNumber.IS_ID);
             
             if (id == ConstantNumber.UP)
             {
@@ -164,7 +164,7 @@ namespace LectureTimeTable.LectureTimeTableController
             consoleColumn = 68;
             consoleRow = 31;
 
-            password = exceptionHandler.IsValid(ConstantNumber.PASSWORDCHECK, consoleColumn, consoleRow, 20, ConstantNumber.IS_PASSWORD, ConstantNumber.IS_NOT_ID);
+            password = exceptionHandler.IsValidInput(ConstantNumber.PASSWORDCHECK, consoleColumn, consoleRow, 20, ConstantNumber.IS_PASSWORD, ConstantNumber.IS_NOT_ID);
             
             if (password == ConstantNumber.UP)
             {

@@ -49,8 +49,8 @@ namespace LectureTimeTable.LectureTimeTableUtility
             return false;
         }
 
-        public string IsValid(string regex, int consoleColumn, int consoleRow, int maxLength, bool isPassword, bool isId)
-        {
+        public string IsValidInput(string regex, int consoleColumn, int consoleRow, int maxLength, bool isPassword, bool isId)
+        {   // 의미 있게 표현
             string message = "";
             Regex regexForm = new Regex(regex);
             bool isValidInput = false;

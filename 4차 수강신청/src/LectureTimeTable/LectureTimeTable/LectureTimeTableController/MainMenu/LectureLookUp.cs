@@ -35,7 +35,7 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
         int choosedIndex;
         int choosedMenu;
 
-        public void LookUpLecture(bool isLookUp)
+        public bool LookUpLecture(bool isLookUp)
         {
             Console.SetWindowSize(120, 40);
 
@@ -61,6 +61,7 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
                 {   // ESC를 눌렀다면
                     isESC = true;
                     Console.Clear();
+                    return isESC;
                 }
 
                 switch(choosedMenu)
@@ -75,20 +76,35 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
                         totalStorage.searchResult.LectureTitle = SearchKeyword(1, ConstantNumber.KOREAN);
                         break;
                     case (int)INQUIRY.PROFESSOR:
-                        totalStorage.searchResult.Professor = SearchKeyword(2, ConstantNumber.KOREAN);
+                        totalStorage.searchResult.Professor = SearchKeyword(2, ConstantNumber.CHARACTER);
                         break;
                     case (int)INQUIRY.GRADE:
-                        totalStorage.searchResult.Grade = SearchKeyword(3, ConstantNumber.NUMBER);
+                        SelectLectureGrade();
                         break;
                     case (int)INQUIRY.COURSE_NUMBER:
                         totalStorage.searchResult.CourseNumber = SearchKeyword(4, ConstantNumber.COURSER_NUMBER);
                         break;
                     case (int)INQUIRY.SEARCH:
                         SelectSearch(isLookUp);
+                        ResetSearchData();
                         break;
                 }
+                if (choosedMenu == (int)INQUIRY.SEARCH)
+                    break;
                 choosedIndex = 0;
+                isESC = false;
             }
+            return false;
+        }
+
+        private void ResetSearchData()
+        {
+            totalStorage.searchResult.Major = "";
+            totalStorage.searchResult.Professor = "";
+            totalStorage.searchResult.LectureTitle = "";
+            totalStorage.searchResult.CourseNumber = "";
+            totalStorage.searchResult.CompleteType = "";
+            totalStorage.searchResult.Grade = "";
         }
 
         private void SelectSearch(bool isLookUp)
@@ -162,6 +178,49 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
             isESC = false;
         }
 
+        private void SelectLectureGrade()
+        {
+            choosedIndex = 0;
+            isEnter = false;
+            isESC = false;
+
+            string[] grade = { "전체", "1학년", "2학년", "3학년", "4학년" };
+
+            char[] gradeString;
+
+            while (!isESC && !isEnter)
+            {
+                consoleColumn = 28;
+                consoleRow = 14;
+
+                choosedIndex = selecterMenu.SelectMenu(grade, choosedIndex, consoleColumn, consoleRow, ConstantNumber.IS_OPTION, 9);
+                // 주어진 네 가지 과 중에서 고르기
+
+                if (choosedIndex == ConstantNumber.EXIT)
+                {   // 중간에 ESC를 눌렀을 경우
+                    isESC = true;
+                    Console.SetCursorPosition(consoleColumn, consoleRow);
+                    guidancePhrase.ErasePrint();
+                    guidancePhrase.ErasePrint();
+                }
+                else
+                {
+                    if (choosedIndex == 0)
+                    {   // 전체를 선택했을 경우
+                        totalStorage.searchResult.Grade = "";
+                        isEnter = true;
+                    }
+                    else
+                    {
+                        gradeString = grade[choosedIndex].ToCharArray();
+                        totalStorage.searchResult.Grade = gradeString[0].ToString();
+                        isEnter = true;
+                    }
+                }
+            }
+            isESC = false;
+        }
+
         private void SelectCompleteType()
         {
             string[] completeType = { "전체", "교양필수", "전공필수", "전공선택" };
@@ -208,7 +267,7 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
 
             string input = "";
 
-            input = exceptionHandler.IsValid(regex, consoleColumn, consoleRow, 36, ConstantNumber.IS_NOT_PASSWORD, ConstantNumber.IS_NOT_ID);
+            input = exceptionHandler.IsValidInput(regex, consoleColumn, consoleRow, 36, ConstantNumber.IS_NOT_PASSWORD, ConstantNumber.IS_NOT_ID);
 
             if(input == ConstantNumber.ESC)
             {   // 중간에 ESC를 눌렀을 경우

@@ -1,4 +1,5 @@
 ﻿using LectureTimeTable.LectureTimeTableController.Option;
+using LectureTimeTable.LectureTimeTableModel;
 using LectureTimeTable.LectureTimeTableUtility;
 using LectureTimeTable.LectureTimeTableView;
 using System;
@@ -13,18 +14,31 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
     public class EnrollmentLecture
     {
         Design design;
-        LectureLookUp lectureLookUp;
         MenuIndexSelecter menuIndexSelecter;
         LectureList lectureList;
         LectureDeleter lectureDeleter;
-        public EnrollmentLecture(Design design,  LectureLookUp lectureLookUp, MenuIndexSelecter menuIndexSelecter,
-            LectureList lectureList, LectureDeleter lectureDeleter)
+        SelecterEnrolledWay selecterEnrolledWay;
+        LectureLookUp lectureLookUp;
+        LectureDisplay lectureDisplay;
+        TotalStorage totalStorage;
+        ExceptionHandler exceptionHandler;
+        GuidancePhrase guidancePhrase;
+
+        public EnrollmentLecture(Design design, MenuIndexSelecter menuIndexSelecter, LectureList lectureList, 
+            LectureDeleter lectureDeleter,LectureLookUp lectureLookUp, LectureDisplay lectureDisplay, 
+            TotalStorage totalStorage, ExceptionHandler exceptionHandler, GuidancePhrase guidancePhrase)
         {
             this.design = design;
-            this.lectureLookUp = lectureLookUp;
             this.menuIndexSelecter = menuIndexSelecter;
             this.lectureList = lectureList;
             this.lectureDeleter = lectureDeleter;
+            this.lectureLookUp = lectureLookUp;
+            this.lectureDisplay = lectureDisplay;
+            this.totalStorage = totalStorage;
+            this.exceptionHandler = exceptionHandler;
+            this.guidancePhrase = guidancePhrase;
+            selecterEnrolledWay = new SelecterEnrolledWay(lectureLookUp, design, menuIndexSelecter, lectureDisplay, 
+                totalStorage, exceptionHandler, guidancePhrase);
         }
 
         public void EnrolLecture()
@@ -53,6 +67,7 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
 
                 menuIndex = menuIndexSelecter.SelectMenu(enrolledMenu, menuIndex, consoleColumn, consoleRow, ConstantNumber.IS_MENU, 9);
 
+                
                 if(menuIndex == ConstantNumber.EXIT)
                 {
                     isESC = true;
@@ -61,8 +76,7 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
                 switch (menuIndex)
                 {
                     case (int)ENROLL.SEARCH:
-                        lectureLookUp.LookUpLecture(ConstantNumber.IS_INTERESTED);
-                        SearchEnrolledLecture();
+                        selecterEnrolledWay.SelectEnrolledWay();
                         break;
                     case (int)ENROLL.LIST:
                         lectureList.InformLectureList(ConstantNumber.IS_ENROLLED);
@@ -75,11 +89,6 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
                         break;
                 }
             }
-        }
-
-        private void SearchEnrolledLecture()
-        {
-
         }
     }
 }

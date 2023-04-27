@@ -1,59 +1,48 @@
-﻿using LectureTimeTable.LectureTimeTableController.Option;
+﻿using LectureTimeTable.LectureTimeTableController.MainMenu;
 using LectureTimeTable.LectureTimeTableModel;
-using LectureTimeTable.LectureTimeTableModel.VO;
 using LectureTimeTable.LectureTimeTableUtility;
 using LectureTimeTable.LectureTimeTableView;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LectureTimeTable.LectureTimeTableController.MainMenu
+namespace LectureTimeTable.LectureTimeTableController.Option
 {
-    public class InterestedLectureAddition  // 관심강의를 담는 역할을 하는 클래스
+    public class SelecterEnrolledWay
     {
-        private Design design;
-        private MenuAndOption menuAndOption;
-        private ExceptionHandler exceptionHandler;
-        private MenuIndexSelecter menuIndexSelecter;
-        private GuidancePhrase guidancePhrase;
-        private TotalStorage totalStorage;
-        private LectureDisplay lectureDisplay;
-        private LectureLookUp lectureLookUp;
-        private LectureList lectureList;
-        private TimeTable timeTable;
-        private LectureDeleter lectureDelecter;
+        LectureLookUp lectureLookUp;
+        Design design;
+        MenuIndexSelecter menuIndexSelecter;
+        LectureDisplay lectureDisplay;
+        TotalStorage totalStorage;
+        ExceptionHandler exceptionHandler;
+        GuidancePhrase guidancePhrase;
 
-        public InterestedLectureAddition(MenuAndOption menuAndOption, ExceptionHandler exceptionHandler, Design design,
-            LectureTimeTableUtility.MenuIndexSelecter menuIndexSelecter, GuidancePhrase guidancePhrase, TotalStorage totalStorage, LectureLookUp lectureLookUp,
-            LectureList lectureList, TimeTable timeTable, LectureDeleter lectureDelecter, LectureDisplay lectureDisplay)
+        public SelecterEnrolledWay(LectureLookUp lectureLookUp, Design design, MenuIndexSelecter menuIndexSelecter,
+            LectureDisplay lectureDisplay, TotalStorage totalStorage, ExceptionHandler exceptionHandler, GuidancePhrase guidancePhrase)
         {
-            this.menuAndOption = menuAndOption;
-            this.exceptionHandler = exceptionHandler;
+            this.lectureLookUp = lectureLookUp;
             this.design = design;
             this.menuIndexSelecter = menuIndexSelecter;
-            this.guidancePhrase = guidancePhrase;
-            this.totalStorage = totalStorage;
-            this.lectureLookUp = lectureLookUp;
-            this.lectureList = lectureList;
-            this.timeTable = timeTable;
-            this.lectureDelecter = lectureDelecter;
             this.lectureDisplay = lectureDisplay;
+            this.totalStorage = totalStorage;
+            this.exceptionHandler = exceptionHandler;
+            this.guidancePhrase = guidancePhrase;
         }
 
-        public void AddInterestedLecture()
+        public void SelectEnrolledWay()
         {
             bool isESC = false;
-            bool isLookupESC;
+            bool isEnrollESC = false;
 
             int menuIndex = 0;
 
             int consoleColumn;
             int consoleRow;
-            
-            string[] interestedMenu = { "관심과목 담기", "관심과목 내역", "관심과목 시간표", "관심과목 삭제" };
+
+            string[] enrolledWayMenu = { "검색으로 추가", "관심 과목으로 추가" };
 
             Console.SetWindowSize(120, 40);
 
@@ -61,72 +50,84 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
             {
                 Console.Clear();
                 design.PrintMain();
-                design.PrintBox(6);
+                design.PrintBox(4);
 
                 consoleColumn = 50;
                 consoleRow = 28;
 
-                menuIndex = menuIndexSelecter.SelectMenu(interestedMenu, menuIndex, consoleColumn, consoleRow, ConstantNumber.IS_MENU, 9);
-                // 관심 과목에 대한 메뉴 네 가지 중 택 1
+                menuIndex = menuIndexSelecter.SelectMenu(enrolledWayMenu, menuIndex, consoleColumn, consoleRow, ConstantNumber.IS_MENU, 9);
 
-                if(menuIndex == ConstantNumber.EXIT)    // ESC를 눌렀다면
+                if(menuIndex == ConstantNumber.EXIT)
                 {
                     isESC = true;
                 }
 
                 switch (menuIndex)
                 {
-                    case (int)INTERESTED.SEARCH:    // 관심과목 검색
-                        isLookupESC = lectureLookUp.LookUpLecture(ConstantNumber.IS_INTERESTED);  // 강의 검색을 도맡는 함수 호출
-                        SearchInterestedLecture(ConstantNumber.IS_INTERESTED, isLookupESC);
+                    case (int)ENROLLWAY.SEARCH:
+                        isEnrollESC = lectureLookUp.LookUpLecture(ConstantNumber.IS_INTERESTED);
+                        enrollLecture(isEnrollESC, (int)ENROLLWAY.SEARCH);
                         break;
-                    case (int)INTERESTED.LIST:      // 관심과목 내역
-                        lectureList.InformLectureList(ConstantNumber.IS_INTERESTED);
-                        break;
-                    case (int)INTERESTED.TIMETABLE: // 관심과목 시간표
-
-                        break;
-                    case (int)INTERESTED.DELETE:    // 관심과목 삭제
-                        lectureDelecter.DelectLectureList(ConstantNumber.IS_INTERESTED);
+                    case (int)ENROLLWAY.INTERESTED:
+                        enrollLecture(false, (int)ENROLLWAY.INTERESTED);
                         break;
                 }
             }
         }
 
-        private void SearchInterestedLecture(bool isEnroll, bool isESC)  // 관심 과목 검색
+        private void enrolledInterestedLecture()
         {
-            string searchId;
-            int SearchLectureId = 0;
-            int lectureIndex = 0;
+            Console.Clear();
+            lectureDisplay.PrintSearchLectureUI();
+
+            for (int i = 0; i < totalStorage.interestedLectures.Count; i++)
+            {
+                lectureDisplay.PrintSearchLecture(totalStorage.interestedLectures[i]);
+            }
+
+            lectureDisplay.PrintEnrolledCredit(totalStorage.user);
+        }
+        private void enrollLecture(bool isESC, int search)
+        {
+            string lectureNO;
+            int lectureId;
+            int lectureIndex;
+
+            int consoleColumn;
+            int consoleRow;
 
             int originColumn = Console.CursorLeft;
+            int originRow;
 
             while (!isESC)
             {
+                enrolledInterestedLecture();
                 Console.SetCursorPosition(0, Console.CursorTop);
-                lectureDisplay.PrintInterestedCredit(totalStorage.user);
-                // 현재 로그인되어 있는 유저의 남아 있는 학점에 대한 출력
+                lectureDisplay.PrintEnrolledCredit(totalStorage.user);
 
-                searchId = exceptionHandler.IsValidInput(ConstantNumber.NUMBER, Console.CursorLeft - 13, Console.CursorTop, 3, ConstantNumber.IS_NOT_PASSWORD, ConstantNumber.IS_NOT_ID);
-                // 담고자 하는 강의 아이디 검색
+                lectureNO = exceptionHandler.IsValidInput(ConstantNumber.NUMBER, Console.CursorLeft - 13, Console.CursorTop, 3, ConstantNumber.IS_NOT_PASSWORD, ConstantNumber.IS_NOT_ID);
 
-                if (searchId == ConstantNumber.ESC)
-                {   // ESC를 눌렀다면
+                if (lectureNO == ConstantNumber.ESC)
+                {
                     isESC = true;
                 }
                 else
                 {
-                    SearchLectureId = int.Parse(searchId);
-                    lectureIndex = FindLectureIndex(SearchLectureId);
-
-                    if (lectureIndex == ConstantNumber.FAIL || !CheckNullLecture(lectureIndex))
-                    {   // 검색 결과에 없거나 주어진 강의에 해당하지 않는 경우
+                    lectureId = int.Parse(lectureNO);
+                    lectureIndex = FindLectureIndex(lectureId);
+                    if((search == 0 && lectureIndex == ConstantNumber.FAIL))
+                    {
                         guidancePhrase.PrintException((int)EXCEPTION.NULL_LECTURE, 0, Console.CursorTop + 1);
                         continue;
                     }
                     if (!LeftFreeCredit(lectureIndex))
                     {   // 담고자 하는 강의의 학점이 담을 수 있는 최대 학점보다 크다면
                         guidancePhrase.PrintException((int)EXCEPTION.MAX_CREDIT, 0, Console.CursorTop + 1);
+                        continue;
+                    }
+                    if (!CheckNullLecture(lectureIndex))
+                    {   // 검색 결과에 없거나 주어진 강의에 해당하지 않는 경우
+                        guidancePhrase.PrintException((int)EXCEPTION.NULL_LECTURE, 0, Console.CursorTop + 1);
                         continue;
                     }
                     if (!CheckOverlapLecture(lectureIndex))
@@ -140,49 +141,62 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
                         continue;
                     }
 
-                    totalStorage.interestedLectures.Add(totalStorage.lecture[lectureIndex]);
+                    totalStorage.enrolledLectures.Add(totalStorage.lecture[lectureIndex]);
                     // 예외에 모두 해당하지 않는다면 저장
-                    originColumn = Console.CursorLeft - searchId.Length;
+                    originColumn = Console.CursorLeft - lectureNO.Length;
                     Console.SetCursorPosition(originColumn, Console.CursorTop);
                     originColumn -= 13;
                     guidancePhrase.ErasePrint();
 
                     guidancePhrase.PrintException((int)EXCEPTION.FREE_CREDIT, 0, Console.CursorTop + 1);
 
-                    totalStorage.user.AbleInterestedCredit = int.Parse(totalStorage.lecture[lectureIndex].Credit);
+                    totalStorage.user.AbleEnrolledCredit = int.Parse(totalStorage.lecture[lectureIndex].Credit);
                     // 담을 수 있는 학점 갱신
-                    totalStorage.user.EnrolledInterestedCredit = int.Parse(totalStorage.lecture[lectureIndex].Credit);
+                    totalStorage.user.EnrolledCredit = int.Parse(totalStorage.lecture[lectureIndex].Credit);
                     // 담아져 있는 학점 갱신
                 }
             }
         }
 
+        //private bool IsBasedInterested(int lectureId)
+        //{
+        //    for(int i = 0; i < totalStorage.interestedLectures.Count; i++)
+        //    {
+        //        if (totalStorage.interestedLectures[i].Id == lectureId)
+        //        {
+        //            return true;
+        //        }
+        //    }
+        //    return false;
+        //}
         private int FindLectureIndex(int lectureId)
         {
-            int lectureIndex = 0;
             int count = 0;
+            int lectureIndex = 0;
 
-            for(int i = 0; i < totalStorage.lecture.Count; i++)
+            for (int i = 0; i < totalStorage.lecture.Count; i++)
             {
-                if(lectureId == totalStorage.lecture[i].Id)
+                if (lectureId == totalStorage.lecture[i].Id)
                 {
                     lectureIndex = i;
                     count++;
                     break;
                 }
             }
-            if (count == 0)
+            if(count == 0)
             {
                 return ConstantNumber.FAIL;
             }
             return lectureIndex;
         }
+
         private bool LeftFreeCredit(int lectureIndex)
         {
-            if (totalStorage.user.AbleInterestedCredit - int.Parse(totalStorage.lecture[lectureIndex].Credit) >= 0)
+            if (totalStorage.user.AbleEnrolledCredit - int.Parse(totalStorage.lecture[lectureIndex].Credit) >= 0)
                 return true;
             return false;
         }
+
         private bool CheckNullLecture(int lectureIndex)
         {
             bool isTrue = false;
@@ -222,9 +236,9 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
 
         private bool CheckOverlapLecture(int lectureIndex)
         {
-            for(int i = 0; i < totalStorage.interestedLectures.Count; i++)
+            for (int i = 0; i < totalStorage.enrolledLectures.Count; i++)
             {
-                if (totalStorage.interestedLectures[i].CourseNumber == totalStorage.lecture[lectureIndex].CourseNumber)
+                if (totalStorage.enrolledLectures[i].CourseNumber == totalStorage.lecture[lectureIndex].CourseNumber)
                 {   // 이미 저장 중인 강의와 동일한 학수번호라면
                     return false;
                 }
@@ -235,14 +249,14 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
 
         private bool CheckOverlapTime(int lectureIndex)
         {
-            for(int i = 0; i < totalStorage.interestedLectures.Count; i++)
+            for (int i = 0; i < totalStorage.enrolledLectures.Count; i++)
             {
-                if (totalStorage.interestedLectures[i].DateAndTime == totalStorage.lecture[lectureIndex].DateAndTime)
+                if (totalStorage.enrolledLectures[i].DateAndTime == totalStorage.lecture[lectureIndex].DateAndTime)
                 {
                     return false;
                 }
             }
             return true;
-        } 
+        }
     }
 }

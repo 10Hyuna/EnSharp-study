@@ -57,6 +57,7 @@
     <Compile Include="LectureTimeTableController\MenuSelecter.cs" />
     <Compile Include="LectureTimeTableController\Option\LectureDeleter.cs" />
     <Compile Include="LectureTimeTableController\Option\LectureList.cs" />
+    <Compile Include="LectureTimeTableController\Option\SelecterEnrolledWay.cs" />
     <Compile Include="LectureTimeTableController\Option\TimeTable.cs" />
     <Compile Include="LectureTimeTableModel\SearchResults.cs" />
     <Compile Include="LectureTimeTableModel\Lecture.cs" />
@@ -65,6 +66,7 @@
     <Compile Include="LectureTimeTableUtility\ConstantNumber.cs" />
     <Compile Include="LectureTimeTableUtility\ExceptionHandler.cs" />
     <Compile Include="LectureTimeTableUtility\InputFromUser.cs" />
+    <Compile Include="LectureTimeTableUtility\ManupulationTimeData.cs" />
     <Compile Include="LectureTimeTableUtility\MenuIndexSelecter.cs" />
     <Compile Include="LectureTimeTableView\Design.cs" />
     <Compile Include="LectureTimeTableView\GuidancePhrase.cs" />

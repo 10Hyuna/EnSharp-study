@@ -44,7 +44,7 @@ namespace LectureTimeTable.LectureTimeTableController
             searchResults = new SearchResults();
             lectureDisplay = new LectureDisplay(exceptionHandler);
             timeTable = new TimeTable(totalStorage, lectureDisplay);
-            courseHistory = new CourseHistory();
+            courseHistory = new CourseHistory(totalStorage);
             lectureLookUp = new LectureLookUp(guidancePhrase, menuIndexSelecter, exceptionHandler, lectureDisplay, searchResults, totalStorage);
             lectureList = new LectureList(totalStorage, lectureDisplay, guidancePhrase);
             lectureDelecter = new LectureDeleter(lectureDisplay, totalStorage, exceptionHandler, guidancePhrase);

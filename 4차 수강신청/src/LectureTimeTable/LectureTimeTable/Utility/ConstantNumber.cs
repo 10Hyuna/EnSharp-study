@@ -17,6 +17,9 @@ namespace LectureTimeTable.LectureTimeTableUtility
         public const int EXIT = -10;
         public const int ENTER = 10;
 
+        public const bool IS_FIRST = true;
+        public const bool IS_LAST = false;
+
         public const bool IS_PASSWORD = true;
         public const bool IS_NOT_PASSWORD = false;
 

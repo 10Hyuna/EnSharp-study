@@ -34,21 +34,37 @@ namespace LectureTimeTable.LectureTimeTableController
                         && totalStorage.lecture[lectureIndex].LectureTimeAndDates.Count == 1)
                     {
                         isDuplicated = IsCompareTimeOnce(lectureIndex, i);
+                        if (isDuplicated)
+                        {
+                            return isDuplicated;
+                        }
                     }
                     else if (totalStorage.interestedLectures[i].LectureTimeAndDates.Count == 1
                         && totalStorage.lecture[lectureIndex].LectureTimeAndDates.Count == 2)
                     {
                         isDuplicated = IsComparedTimeTwice(lectureIndex, i);
+                        if (isDuplicated)
+                        {
+                            return isDuplicated;
+                        }
                     }
                     else if(totalStorage.interestedLectures[i].LectureTimeAndDates.Count == 2
                         && totalStorage.lecture[lectureIndex].LectureTimeAndDates.Count == 1)
                     {
                         isDuplicated = IsComparedTimeThird(lectureIndex, i);
+                        if (isDuplicated)
+                        {
+                            return isDuplicated;
+                        }
                     }
                     else if(totalStorage.interestedLectures[i].LectureTimeAndDates.Count == 2
                         && totalStorage.lecture[lectureIndex].LectureTimeAndDates.Count == 2)
                     {
                         isDuplicated = IsComparedTimeFourth(lectureIndex, i);
+                        if (isDuplicated)
+                        {
+                            return isDuplicated;
+                        }
                     }
                 }
             }
@@ -64,21 +80,37 @@ namespace LectureTimeTable.LectureTimeTableController
                         && totalStorage.lecture[lectureIndex].LectureTimeAndDates.Count == 1)
                     {   
                         isDuplicated = IsCompareEnrollTimeOnce(lectureIndex, i);
+                        if (isDuplicated)
+                        {
+                            return isDuplicated;
+                        }
                     }
                     else if (totalStorage.enrolledLectures[i].LectureTimeAndDates.Count == 1
                         && totalStorage.lecture[lectureIndex].LectureTimeAndDates.Count == 2)
                     {
                         isDuplicated = IsComparedEnrollTimeTwice(lectureIndex, i);
+                        if (isDuplicated)
+                        {
+                            return isDuplicated;
+                        }
                     }
                     else if (totalStorage.enrolledLectures[i].LectureTimeAndDates.Count == 2
                         && totalStorage.lecture[lectureIndex].LectureTimeAndDates.Count == 1)
                     {
                         isDuplicated = IsComparedEnrollTimeThird(lectureIndex, i);
+                        if (isDuplicated)
+                        {
+                            return isDuplicated;
+                        }
                     }
                     else if (totalStorage.enrolledLectures[i].LectureTimeAndDates.Count == 2
                         && totalStorage.lecture[lectureIndex].LectureTimeAndDates.Count == 2)
                     {
                         isDuplicated = IsComparedEnrollTimeFourth(lectureIndex, i);
+                        if (isDuplicated)
+                        {
+                            return isDuplicated;
+                        }
                     }
                 }
             }
@@ -91,6 +123,7 @@ namespace LectureTimeTable.LectureTimeTableController
 
             int standardStartTime = totalStorage.lecture[standardIndex].LectureTimeAndDates[0].StartTime;
             int standardEndTime = totalStorage.lecture[standardIndex].LectureTimeAndDates[0].EndTime;
+            
             int comparisonStartTime = totalStorage.interestedLectures[comparisonIndex].LectureTimeAndDates[0].StartTime;
             int comparisonEndTime = totalStorage.interestedLectures[comparisonIndex].LectureTimeAndDates[0].EndTime;
 
@@ -125,20 +158,20 @@ namespace LectureTimeTable.LectureTimeTableController
             int comparisonEndTime = totalStorage.enrolledLectures[comparisonIndex].LectureTimeAndDates[0].EndTime;
 
             if (standardStartTime == comparisonStartTime)
-            {
+            {   // 시작하는 시간대가 같다면 무조건 중복
                 isOverlap = true;
             }
             else if (standardStartTime > comparisonStartTime)
-            {
-                if (standardEndTime - comparisonStartTime < 0)
-                {
+            {   // 먼저 시작하는 수업의 시작시간이
+                if (comparisonEndTime - standardStartTime > 0)
+                {   // 늦게 시작하는 수업의 종료 시간보다 작다면 중복
                     isOverlap = true;
                 }
             }
             else if (standardStartTime < comparisonStartTime)
-            {
-                if (comparisonEndTime - standardStartTime < 0)
-                {
+            {   // 늦게 시작하는 수업의 종료 시간이
+                if (standardEndTime - comparisonStartTime > 0)
+                {   // 일찍 시작하는 수업의 시작 시간보다 크다면 중복
                     isOverlap = true;
                 }
             }
@@ -162,20 +195,20 @@ namespace LectureTimeTable.LectureTimeTableController
             int comparisonEndTime = totalStorage.interestedLectures[comparisonIndex].LectureTimeAndDates[0].EndTime;
 
             if (standardStartTime == comparisonStartTime)
-            {
+            {   // 시작하는 시간대가 같다면 무조건 중복
                 isOverlap = true;
             }
             else if (standardStartTime > comparisonStartTime)
-            {
-                if (standardEndTime - comparisonStartTime < 0)
-                {
+            {   // 먼저 시작하는 수업의 시작시간이
+                if (comparisonEndTime - standardStartTime > 0)
+                {   // 늦게 시작하는 수업의 종료 시간보다 작다면 중복
                     isOverlap = true;
                 }
             }
             else if (standardStartTime < comparisonStartTime)
-            {
-                if (comparisonEndTime - standardStartTime < 0)
-                {
+            {   // 늦게 시작하는 수업의 종료 시간이
+                if (standardEndTime - comparisonStartTime > 0)
+                {   // 일찍 시작하는 수업의 시작 시간보다 크다면 중복
                     isOverlap = true;
                 }
             }
@@ -199,20 +232,20 @@ namespace LectureTimeTable.LectureTimeTableController
             int comparisonEndTime = totalStorage.enrolledLectures[comparisonIndex].LectureTimeAndDates[0].EndTime;
 
             if (standardStartTime == comparisonStartTime)
-            {
+            {   // 시작하는 시간대가 같다면 무조건 중복
                 isOverlap = true;
             }
             else if (standardStartTime > comparisonStartTime)
-            {
-                if (standardEndTime - comparisonStartTime < 0)
-                {
+            {   // 먼저 시작하는 수업의 시작시간이
+                if (comparisonEndTime - standardStartTime > 0)
+                {   // 늦게 시작하는 수업의 종료 시간보다 작다면 중복
                     isOverlap = true;
                 }
             }
             else if (standardStartTime < comparisonStartTime)
-            {
-                if (comparisonEndTime - standardStartTime < 0)
-                {
+            {   // 늦게 시작하는 수업의 종료 시간이
+                if (standardEndTime - comparisonStartTime > 0)
+                {   // 일찍 시작하는 수업의 시작 시간보다 크다면 중복
                     isOverlap = true;
                 }
             }
@@ -235,20 +268,20 @@ namespace LectureTimeTable.LectureTimeTableController
             int comparisonEndTime = totalStorage.interestedLectures[comparisonIndex].LectureTimeAndDates[1].EndTime;
 
             if (standardStartTime == comparisonStartTime)
-            {
+            {   // 시작하는 시간대가 같다면 무조건 중복
                 isOverlap = true;
             }
             else if (standardStartTime > comparisonStartTime)
-            {
-                if (standardEndTime - comparisonStartTime < 0)
-                {
+            {   // 먼저 시작하는 수업의 시작시간이
+                if (comparisonEndTime - standardStartTime > 0)
+                {   // 늦게 시작하는 수업의 종료 시간보다 작다면 중복
                     isOverlap = true;
                 }
             }
             else if (standardStartTime < comparisonStartTime)
-            {
-                if (comparisonEndTime - standardStartTime < 0)
-                {
+            {   // 늦게 시작하는 수업의 종료 시간이
+                if (standardEndTime - comparisonStartTime > 0)
+                {   // 일찍 시작하는 수업의 시작 시간보다 크다면 중복
                     isOverlap = true;
                 }
             }
@@ -271,20 +304,20 @@ namespace LectureTimeTable.LectureTimeTableController
             int comparisonEndTime = totalStorage.enrolledLectures[comparisonIndex].LectureTimeAndDates[1].EndTime;
 
             if (standardStartTime == comparisonStartTime)
-            {
+            {   // 시작하는 시간대가 같다면 무조건 중복
                 isOverlap = true;
             }
             else if (standardStartTime > comparisonStartTime)
-            {
-                if (standardEndTime - comparisonStartTime < 0)
-                {
+            {   // 먼저 시작하는 수업의 시작시간이
+                if (comparisonEndTime - standardStartTime > 0)
+                {   // 늦게 시작하는 수업의 종료 시간보다 작다면 중복
                     isOverlap = true;
                 }
             }
             else if (standardStartTime < comparisonStartTime)
-            {
-                if (comparisonEndTime - standardStartTime < 0)
-                {
+            {   // 늦게 시작하는 수업의 종료 시간이
+                if (standardEndTime - comparisonStartTime > 0)
+                {   // 일찍 시작하는 수업의 시작 시간보다 크다면 중복
                     isOverlap = true;
                 }
             }
@@ -313,20 +346,20 @@ namespace LectureTimeTable.LectureTimeTableController
             int comparisonEndTime = totalStorage.interestedLectures[comparisonIndex].LectureTimeAndDates[1].EndTime;
 
             if (standardStartTime == comparisonStartTime)
-            {
+            {   // 시작하는 시간대가 같다면 무조건 중복
                 isOverlap = true;
             }
             else if (standardStartTime > comparisonStartTime)
-            {
-                if (standardEndTime - comparisonStartTime < 0)
-                {
+            {   // 먼저 시작하는 수업의 시작시간이
+                if (comparisonEndTime - standardStartTime > 0)
+                {   // 늦게 시작하는 수업의 종료 시간보다 작다면 중복
                     isOverlap = true;
                 }
             }
             else if (standardStartTime < comparisonStartTime)
-            {
-                if (comparisonEndTime - standardStartTime < 0)
-                {
+            {   // 늦게 시작하는 수업의 종료 시간이
+                if (standardEndTime - comparisonStartTime > 0)
+                {   // 일찍 시작하는 수업의 시작 시간보다 크다면 중복
                     isOverlap = true;
                 }
             }
@@ -355,20 +388,20 @@ namespace LectureTimeTable.LectureTimeTableController
             int comparisonEndTime = totalStorage.enrolledLectures[comparisonIndex].LectureTimeAndDates[1].EndTime;
 
             if (standardStartTime == comparisonStartTime)
-            {
+            {   // 시작하는 시간대가 같다면 무조건 중복
                 isOverlap = true;
             }
             else if (standardStartTime > comparisonStartTime)
-            {
-                if (standardEndTime - comparisonStartTime < 0)
-                {
+            {   // 먼저 시작하는 수업의 시작시간이
+                if (comparisonEndTime - standardStartTime > 0)
+                {   // 늦게 시작하는 수업의 종료 시간보다 작다면 중복
                     isOverlap = true;
                 }
             }
             else if (standardStartTime < comparisonStartTime)
-            {
-                if (comparisonEndTime - standardStartTime < 0)
-                {
+            {   // 늦게 시작하는 수업의 종료 시간이
+                if (standardEndTime - comparisonStartTime > 0)
+                {   // 일찍 시작하는 수업의 시작 시간보다 크다면 중복
                     isOverlap = true;
                 }
             }

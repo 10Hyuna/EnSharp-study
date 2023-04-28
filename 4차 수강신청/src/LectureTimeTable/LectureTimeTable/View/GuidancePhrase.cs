@@ -45,6 +45,7 @@ namespace LectureTimeTable.LectureTimeTableView
                 Console.ResetColor();
                 Console.SetCursorPosition(column, row);
                 EraseAnounce();
+                Console.SetCursorPosition(column, row - 1);
             }
             else if(condition == (int)EXCEPTION.FAILURE_LOGIN)
             {

@@ -84,11 +84,7 @@ namespace LectureTimeTable.LectureTimeTableController
                 }
                 if (check)
                 {
-                    row = (i / 60) + 1;
-                    if (i % 60 == 30)
-                    {
-                        row += 2;
-                    }
+                    row++;
                     worksheet.Cells[row, column] = totalStorage.enrolledLectures[lectureIndex].LectureTitle;
                     worksheet.Cells[++row, column] = totalStorage.enrolledLectures[lectureIndex].LectureRoom;
                 }
@@ -119,11 +115,7 @@ namespace LectureTimeTable.LectureTimeTableController
                     }
                     if (check)
                     {
-                        row = (i / 60) + 1;
-                        if (i % 60 == 30)
-                        {
-                            row += 2;
-                        }
+                        row++;
                         worksheet.Cells[row, column] = totalStorage.enrolledLectures[lectureIndex].LectureTitle;
                         worksheet.Cells[++row, column] = totalStorage.enrolledLectures[lectureIndex].LectureRoom;
                     }

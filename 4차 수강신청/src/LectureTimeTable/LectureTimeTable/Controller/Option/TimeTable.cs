@@ -95,7 +95,7 @@ namespace LectureTimeTable.LectureTimeTableController.Option
             initiativeHour = lecture.LectureTimeAndDates[0].StartTime / 60;
             initiativeMinute = lecture.LectureTimeAndDates[0].StartTime % 60;
 
-            initiativeRow = 4 + (initiativeHour - 8) * 4;
+            initiativeRow = 1 + (initiativeHour - 8) * 4;
             if (initiativeMinute != 0)
             {
                 initiativeRow += 2;
@@ -112,7 +112,7 @@ namespace LectureTimeTable.LectureTimeTableController.Option
                 initiativeHour = lecture.LectureTimeAndDates[1].StartTime / 60;
                 initiativeMinute = lecture.LectureTimeAndDates[1].StartTime % 60;
 
-                initiativeRow = 4 + (initiativeHour - 8) * 4;
+                initiativeRow = 1 + (initiativeHour - 8) * 4;
                 if (initiativeMinute != 0)
                 {
                     initiativeRow += 2;
@@ -149,7 +149,7 @@ namespace LectureTimeTable.LectureTimeTableController.Option
                 initiativeHour = lecture.LectureTimeAndDates[0].StartTime / 60;
                 initiativeMinute = lecture.LectureTimeAndDates[0].StartTime % 60;
 
-                initiativeRow = 4 + (initiativeHour - 8) * 4;
+                initiativeRow = 1 + (initiativeHour - 8) * 4;
                 if (initiativeMinute != 0)
                 {
                     initiativeRow += 2;
@@ -166,7 +166,7 @@ namespace LectureTimeTable.LectureTimeTableController.Option
                     initiativeHour = lecture.LectureTimeAndDates[1].StartTime / 60;
                     initiativeMinute = lecture.LectureTimeAndDates[1].StartTime % 60;
 
-                    initiativeRow = 4 + (initiativeHour - 8) * 4;
+                    initiativeRow = 1 + (initiativeHour - 8) * 4;
                     if (initiativeMinute != 0)
                     {
                         initiativeRow += 2;

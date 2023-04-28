@@ -112,7 +112,7 @@ namespace LectureTimeTable.LectureTimeTableUtility
             int lectureTime = 0;
 
             totalStorage.lecture[lectureIndex].FirstDay = splitFirstTime[0].ToString();
-            totalStorage.lecture[lectureIndex].LastDay = splitThirdTime[1].ToString();
+            totalStorage.lecture[lectureIndex].LastDay = splitThirdTime[0].ToString();
 
             if (lectureInformation.LectureTimeAndDates == null)
             {

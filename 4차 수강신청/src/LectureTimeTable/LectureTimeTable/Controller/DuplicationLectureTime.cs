@@ -219,7 +219,7 @@ namespace LectureTimeTable.LectureTimeTableController
         {
             isOverlap = false;
 
-            isOverlap = IsCompareTimeOnce(standardIndex, comparisonIndex);
+            isOverlap = IsCompareEnrollTimeOnce(standardIndex, comparisonIndex);
 
             if (isOverlap)
             {
@@ -292,7 +292,7 @@ namespace LectureTimeTable.LectureTimeTableController
         {
             isOverlap = false;
 
-            isOverlap = IsCompareTimeOnce(standardIndex, comparisonIndex);
+            isOverlap = IsCompareEnrollTimeOnce(standardIndex, comparisonIndex);
 
             if (isOverlap)
             {
@@ -370,13 +370,13 @@ namespace LectureTimeTable.LectureTimeTableController
         {
             isOverlap = false;
 
-            isOverlap = IsComparedTimeTwice(standardIndex, comparisonIndex);
+            isOverlap = IsComparedEnrollTimeTwice(standardIndex, comparisonIndex);
             if (isOverlap)
             {
                 return isOverlap;
             }
 
-            isOverlap = IsComparedTimeThird(standardIndex, comparisonIndex);
+            isOverlap = IsComparedEnrollTimeThird(standardIndex, comparisonIndex);
             if (isOverlap)
             {
                 return isOverlap;

@@ -9,18 +9,18 @@ namespace LectureTimeTable.LectureTimeTableUtility
 {
     public class MenuIndexSelecter
     {
-        MenuAndOption menuAndOption;
-        InputFromUser inputFromUser;
+        private MenuAndOption menuAndOption;
+        private InputFromUser inputFromUser;
+        private int selectedIndex;
+        private bool isEnter = false;
+        private int consoleInputColumn;
+
         public MenuIndexSelecter(MenuAndOption menuAndOption, InputFromUser inputFromUser)
         {
             this.menuAndOption = menuAndOption;
             this.inputFromUser = inputFromUser;
         }
 
-        int selectedIndex;
-        bool isEnter = false;
-
-        int consoleInputColumn;
 
         public void SetColorMenu(string[] menu, int menuIndex, int consoleColumn, int consoleRow, int length)
         {   // 메뉴에 색만 입혀 주고, 고르지는 않게 해 주는 함수

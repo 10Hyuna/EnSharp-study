@@ -107,6 +107,7 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
             {
                 Console.SetCursorPosition(0, Console.CursorTop);
                 lectureDisplay.PrintCredit(totalStorage.user);
+                lectureDisplay.PrintLectureNo();
                 // 현재 로그인되어 있는 유저의 남아 있는 학점에 대한 출력
 
                 searchId = exceptionHandler.IsValidInput(ConstantNumber.NUMBER, Console.CursorLeft - 13, Console.CursorTop, 3, ConstantNumber.IS_NOT_PASSWORD, ConstantNumber.IS_NOT_ID);
@@ -251,7 +252,11 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
                     || totalStorage.interestedLectures[i].LastDay == totalStorage.lecture[lectureIndex].FirstDay
                     || totalStorage.interestedLectures[i].LastDay == totalStorage.lecture[lectureIndex].LastDay)
                 {   // 강의 요일이 겹친다면
-                    isOverlapTime = duplicationLectureTime.IsCheckDuplicateTime(lectureIndex, ConstantNumber.IS_INTERESTED);
+                    isOverlapTime = duplicationLectureTime.IsCheckDuplicateTime(lectureIndex, i, ConstantNumber.IS_INTERESTED);
+                    if (isOverlapTime)
+                    {
+                        break;
+                    }
                 }
             }
             return isOverlapTime;

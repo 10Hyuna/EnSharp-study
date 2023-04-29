@@ -10,107 +10,101 @@ namespace LectureTimeTable.LectureTimeTableController
 {
     public class DuplicationLectureTime
     {
-        TotalStorage totalStorage;
+        private TotalStorage totalStorage;
+        private bool isOverlap;
         public DuplicationLectureTime(TotalStorage totalStorage) 
         {
             this.totalStorage = totalStorage;
         }
 
-        bool isOverlap;
 
-        public bool IsCheckDuplicateTime(int lectureIndex, bool isEntryMethod)
+        public bool IsCheckDuplicateTime(int lectureIndex, int standardIndex, bool isEntryMethod)
         {   // 강의 시간대의 겹침을 조사하는 함수
             bool isDuplicated = false;
 
             if (isEntryMethod == ConstantNumber.IS_INTERESTED)
             {       // 진입점이 관심과목 메뉴
-                for(int i = 0; i < totalStorage.interestedLectures.Count; i++)
+                if (totalStorage.interestedLectures[standardIndex].LectureTimeAndDates == null)
                 {
-                    if (totalStorage.interestedLectures[i].LectureTimeAndDates == null)
+                    totalStorage.interestedLectures[standardIndex].LectureTimeAndDates = new List<LectureTimeAndDate>();
+                }
+                if (totalStorage.interestedLectures[standardIndex].LectureTimeAndDates.Count == 1
+                    && totalStorage.lecture[lectureIndex].LectureTimeAndDates.Count == 1)
+                {
+                    isDuplicated = IsCompareTimeOnce(lectureIndex, standardIndex);
+                    if (isDuplicated)
                     {
-                        totalStorage.interestedLectures[i].LectureTimeAndDates = new List<LectureTimeAndDate>();
+                        return isDuplicated;
                     }
-                    if (totalStorage.interestedLectures[i].LectureTimeAndDates.Count == 1
-                        && totalStorage.lecture[lectureIndex].LectureTimeAndDates.Count == 1)
+                }
+                else if (totalStorage.interestedLectures[standardIndex].LectureTimeAndDates.Count == 1
+                    && totalStorage.lecture[lectureIndex].LectureTimeAndDates.Count == 2)
+                {
+                    isDuplicated = IsComparedTimeTwice(lectureIndex, standardIndex);
+                    if (isDuplicated)
                     {
-                        isDuplicated = IsCompareTimeOnce(lectureIndex, i);
-                        if (isDuplicated)
-                        {
-                            return isDuplicated;
-                        }
+                        return isDuplicated;
                     }
-                    else if (totalStorage.interestedLectures[i].LectureTimeAndDates.Count == 1
-                        && totalStorage.lecture[lectureIndex].LectureTimeAndDates.Count == 2)
+                }
+                else if (totalStorage.interestedLectures[standardIndex].LectureTimeAndDates.Count == 2
+                    && totalStorage.lecture[lectureIndex].LectureTimeAndDates.Count == 1)
+                {
+                    isDuplicated = IsComparedTimeThird(lectureIndex, standardIndex);
+                    if (isDuplicated)
                     {
-                        isDuplicated = IsComparedTimeTwice(lectureIndex, i);
-                        if (isDuplicated)
-                        {
-                            return isDuplicated;
-                        }
+                        return isDuplicated;
                     }
-                    else if(totalStorage.interestedLectures[i].LectureTimeAndDates.Count == 2
-                        && totalStorage.lecture[lectureIndex].LectureTimeAndDates.Count == 1)
+                }
+                else if (totalStorage.interestedLectures[standardIndex].LectureTimeAndDates.Count == 2
+                    && totalStorage.lecture[lectureIndex].LectureTimeAndDates.Count == 2)
+                {
+                    isDuplicated = IsComparedTimeFourth(lectureIndex, standardIndex);
+                    if (isDuplicated)
                     {
-                        isDuplicated = IsComparedTimeThird(lectureIndex, i);
-                        if (isDuplicated)
-                        {
-                            return isDuplicated;
-                        }
-                    }
-                    else if(totalStorage.interestedLectures[i].LectureTimeAndDates.Count == 2
-                        && totalStorage.lecture[lectureIndex].LectureTimeAndDates.Count == 2)
-                    {
-                        isDuplicated = IsComparedTimeFourth(lectureIndex, i);
-                        if (isDuplicated)
-                        {
-                            return isDuplicated;
-                        }
+                        return isDuplicated;
                     }
                 }
             }
             else if(isEntryMethod == ConstantNumber.IS_ENROLLED)
             {       // 진입점이 수강 신청 메뉴
-                for (int i = 0; i < totalStorage.enrolledLectures.Count; i++)
+                if (totalStorage.enrolledLectures[standardIndex].LectureTimeAndDates == null)
                 {
-                    if (totalStorage.enrolledLectures[i].LectureTimeAndDates == null)
+                    totalStorage.enrolledLectures[standardIndex].LectureTimeAndDates = new List<LectureTimeAndDate>();
+                }
+                if (totalStorage.enrolledLectures[standardIndex].LectureTimeAndDates.Count == 1
+                    && totalStorage.lecture[lectureIndex].LectureTimeAndDates.Count == 1)
+                {
+                    isDuplicated = IsCompareEnrollTimeOnce(lectureIndex, standardIndex);
+                    if (isDuplicated)
                     {
-                        totalStorage.enrolledLectures[i].LectureTimeAndDates = new List<LectureTimeAndDate>();
+                        return isDuplicated;
                     }
-                    if (totalStorage.enrolledLectures[i].LectureTimeAndDates.Count == 1
-                        && totalStorage.lecture[lectureIndex].LectureTimeAndDates.Count == 1)
-                    {   
-                        isDuplicated = IsCompareEnrollTimeOnce(lectureIndex, i);
-                        if (isDuplicated)
-                        {
-                            return isDuplicated;
-                        }
-                    }
-                    else if (totalStorage.enrolledLectures[i].LectureTimeAndDates.Count == 1
-                        && totalStorage.lecture[lectureIndex].LectureTimeAndDates.Count == 2)
+                }
+                else if (totalStorage.enrolledLectures[standardIndex].LectureTimeAndDates.Count == 1
+                    && totalStorage.lecture[lectureIndex].LectureTimeAndDates.Count == 2)
+                {
+                    isDuplicated = IsComparedEnrollTimeTwice(lectureIndex, standardIndex);
+                    if (isDuplicated)
                     {
-                        isDuplicated = IsComparedEnrollTimeTwice(lectureIndex, i);
-                        if (isDuplicated)
-                        {
-                            return isDuplicated;
-                        }
+                        return isDuplicated;
                     }
-                    else if (totalStorage.enrolledLectures[i].LectureTimeAndDates.Count == 2
-                        && totalStorage.lecture[lectureIndex].LectureTimeAndDates.Count == 1)
+                }
+                else if (totalStorage.enrolledLectures[standardIndex].LectureTimeAndDates.Count == 2
+                    && totalStorage.lecture[lectureIndex].LectureTimeAndDates.Count == 1)
+                {
+                    isDuplicated = IsComparedEnrollTimeThird(lectureIndex, standardIndex);
+                    if (isDuplicated)
                     {
-                        isDuplicated = IsComparedEnrollTimeThird(lectureIndex, i);
-                        if (isDuplicated)
-                        {
-                            return isDuplicated;
-                        }
+                        return isDuplicated;
                     }
-                    else if (totalStorage.enrolledLectures[i].LectureTimeAndDates.Count == 2
-                        && totalStorage.lecture[lectureIndex].LectureTimeAndDates.Count == 2)
+                }
+                else if (totalStorage.enrolledLectures[standardIndex].LectureTimeAndDates.Count == 2
+                    && totalStorage.lecture[lectureIndex].LectureTimeAndDates.Count == 2)
+                {
+                    isDuplicated = IsComparedEnrollTimeFourth(lectureIndex, standardIndex);
+                    if (isDuplicated)
                     {
-                        isDuplicated = IsComparedEnrollTimeFourth(lectureIndex, i);
-                        if (isDuplicated)
-                        {
-                            return isDuplicated;
-                        }
+                        return isDuplicated;
                     }
                 }
             }

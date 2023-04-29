@@ -11,12 +11,19 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
 {
     public class LectureLookUp
     {
-        GuidancePhrase guidancePhrase;
-        LectureTimeTableUtility.MenuIndexSelecter selecterMenu;
-        ExceptionHandler exceptionHandler;
-        LectureDisplay lectureDisplay;
-        TotalStorage totalStorage;
-        public LectureLookUp(GuidancePhrase guidancePhrase, LectureTimeTableUtility.MenuIndexSelecter selecterMenu, ExceptionHandler exceptionHandler,
+        private GuidancePhrase guidancePhrase;
+        private MenuIndexSelecter selecterMenu;
+        private ExceptionHandler exceptionHandler;
+        private LectureDisplay lectureDisplay;
+        private TotalStorage totalStorage;
+        private int consoleColumn;
+        private int consoleRow;
+        private bool isESC;
+        private bool isEnter;
+        private int choosedIndex;
+        private int choosedMenu;
+
+        public LectureLookUp(GuidancePhrase guidancePhrase, MenuIndexSelecter selecterMenu, ExceptionHandler exceptionHandler,
             LectureDisplay lectureDisplay, SearchResultsDTO searchResults, TotalStorage totalStorage) 
         {
             this.guidancePhrase = guidancePhrase;
@@ -26,14 +33,6 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
             this.totalStorage = totalStorage;
         }
 
-        int consoleColumn;
-        int consoleRow;
-
-        bool isESC;
-        bool isEnter;
-
-        int choosedIndex;
-        int choosedMenu;
 
         public bool LookUpLecture(bool isLookUp)
         {

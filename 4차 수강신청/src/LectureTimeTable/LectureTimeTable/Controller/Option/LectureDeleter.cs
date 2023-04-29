@@ -80,6 +80,7 @@ namespace LectureTimeTable.LectureTimeTableController.Option
             }
             lectureDisplay.PrintCredit(totalStorage.user);
             lectureDisplay.PrintDeleteNo();
+            Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop + 1);
             guidancePhrase.PrintESC();
 
             if (totalStorage.interestedLectures.Count == 0)

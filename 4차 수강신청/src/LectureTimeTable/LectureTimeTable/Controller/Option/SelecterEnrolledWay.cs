@@ -116,7 +116,7 @@ namespace LectureTimeTable.LectureTimeTableController.Option
                 {
                     isESC = true;
                 }
-                if (exceptionHandler.IsStringAllNumber(lectureNO))
+                else if (!exceptionHandler.IsStringAllNumber(lectureNO))
                 {
                     guidancePhrase.PrintException((int)EXCEPTION.NULL_LECTURE, 0, Console.CursorTop + 1);
                     continue;
@@ -276,7 +276,7 @@ namespace LectureTimeTable.LectureTimeTableController.Option
                     || totalStorage.enrolledLectures[i].LastDay == totalStorage.lecture[lectureIndex].FirstDay
                     || totalStorage.enrolledLectures[i].LastDay == totalStorage.lecture[lectureIndex].LastDay)
                 {
-                    isOverlapTime = duplicationLectureTime.IsCheckDuplicateTime(lectureIndex, ConstantNumber.IS_ENROLLED);
+                    isOverlapTime = duplicationLectureTime.IsCheckDuplicateTime(lectureIndex, i, ConstantNumber.IS_ENROLLED);
                 }
             }
             return isOverlapTime;

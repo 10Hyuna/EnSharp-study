@@ -78,8 +78,9 @@ namespace LectureTimeTable.LectureTimeTableView
 
         public void PrintTimeTable()
         {
-            Console.SetWindowSize(194, 55);
+            Console.SetWindowSize(200, 55);
             Console.Write("=================================================================================================시간표========================================================================================\n");
+            Console.Write("뒤로가기 : ESC=================================================================================================================================================================================\n");
             string[] dayOfWeek = { " ", "월", "화", "수", "목", "금" };
             int column = Console.CursorLeft;
             int row = Console.CursorTop + 2;
@@ -112,7 +113,7 @@ namespace LectureTimeTable.LectureTimeTableView
         {
             int column = Console.CursorLeft;
             Console.Write(lecture.PadRight(exceptionHandler.CalculateRadRightSize(lecture, 36)));
-            Console.SetCursorPosition(column + 1, Console.CursorTop + 1);
+            Console.SetCursorPosition(column, Console.CursorTop + 1);
             Console.Write(lectureRoom.PadRight(exceptionHandler.CalculateRadRightSize(lectureRoom, 36)));
         }
     }

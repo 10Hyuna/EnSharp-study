@@ -11,10 +11,13 @@ namespace LectureTimeTable.LectureTimeTableController.Option
 {
     public class LectureList
     {
-        TotalStorage totalStorage;
-        LectureDisplay lectureDisplay;
-        GuidancePhrase guidancePhrase;
-        InputFromUser inputFromUser;
+        private TotalStorage totalStorage;
+        private LectureDisplay lectureDisplay;
+        private GuidancePhrase guidancePhrase;
+        private InputFromUser inputFromUser;
+        private ConsoleKeyInfo keyInfo;
+        private bool isESC;
+
         public LectureList(TotalStorage totalStorage, LectureDisplay lectureDisplay, GuidancePhrase guidancePhrase)
         {
             this.totalStorage = totalStorage;
@@ -23,9 +26,6 @@ namespace LectureTimeTable.LectureTimeTableController.Option
             inputFromUser = new InputFromUser();
         }
 
-        ConsoleKeyInfo keyInfo;
-
-        bool isESC;
         public void InformLectureList(bool isEnrolled)
         {
             bool isNullStorage = false;
@@ -75,6 +75,7 @@ namespace LectureTimeTable.LectureTimeTableController.Option
             }
             lectureDisplay.PrintLine();
             lectureDisplay.PrintCredit(totalStorage.user);
+            Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop + 1);
             guidancePhrase.PrintESC();
 
 
@@ -89,6 +90,7 @@ namespace LectureTimeTable.LectureTimeTableController.Option
             }
             lectureDisplay.PrintLine();
             lectureDisplay.PrintCredit(totalStorage.user);
+            Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop + 1);
             guidancePhrase.PrintESC();
 
             isESC = inputFromUser.EnteredESC();

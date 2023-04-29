@@ -13,17 +13,27 @@ namespace LectureTimeTable.LectureTimeTableController
 {
     class Login
     {
-        ExcelLoader excelLoader;
-        MainView design;
-        InputFromUser inputFromUser;
-        LectureTimeTableUtility.MenuIndexSelecter selecterMenu;
-        MenuAndOption menuAndOption;
-        ExceptionHandler exceptionHandler;
-        GuidancePhrase guidancePhrase;
-        MenuSelector menuSelection;
-        CourseHistory courseHistory;
-        TotalStorage totalStorage;
-        ManupulationTimeData manupulationTimeData;
+        private ExcelLoader excelLoader;
+        private MainView design;
+        private InputFromUser inputFromUser;
+        private LectureTimeTableUtility.MenuIndexSelecter selecterMenu;
+        private MenuAndOption menuAndOption;
+        private ExceptionHandler exceptionHandler;
+        private GuidancePhrase guidancePhrase;
+        private MenuSelector menuSelection;
+        private CourseHistory courseHistory;
+        private TotalStorage totalStorage;
+        private ManupulationTimeData manupulationTimeData;
+        private int consoleColumn;
+        private int consoleRow;
+        private int inputId = 0;
+        private int inputPassword = 0;
+        private int menuIndex = 0;
+        private bool isValid;
+        private bool isUp = false;
+        private bool isDown = false;
+        private string id = "";
+        private string password = "";
         public Login(TotalStorage totalStorage)
         {
             this.totalStorage = totalStorage;
@@ -39,19 +49,6 @@ namespace LectureTimeTable.LectureTimeTableController
             manupulationTimeData = new ManupulationTimeData(totalStorage);
         }
 
-        private int consoleColumn;
-        private int consoleRow;
-
-        private int inputId = 0;
-        private int inputPassword = 0;
-        private int menuIndex = 0;
-
-        private bool isValid;
-        private bool isUp = false;
-        private bool isDown = false;
-
-        private string id = "";
-        private string password = "";
 
         public void EnterLogin()
         {

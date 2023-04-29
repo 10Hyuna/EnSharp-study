@@ -11,8 +11,15 @@ namespace LectureTimeTable.LectureTimeTableController.Option
 {
     public class TimeTable
     {
-        TotalStorage totalStorage;
-        LectureDisplay lectureDisplay;
+        private TotalStorage totalStorage;
+        private LectureDisplay lectureDisplay;
+        private string lectureDay;
+        private int initiativeColumn;
+        private int lastColumn;
+        private int initiativeRow;
+        private int lastRow;
+        private int hour;
+        private int minute;
 
         public TimeTable(TotalStorage totalStorage, LectureDisplay lectureDisplay)
         {
@@ -20,13 +27,6 @@ namespace LectureTimeTable.LectureTimeTableController.Option
             this.lectureDisplay = lectureDisplay;
         }
 
-        string lectureDay;
-        int initiativeColumn;
-        int lastColumn;
-        int initiativeRow;
-        int lastRow;
-        int hour;
-        int minute;
 
         public void CheckSchedule(bool isEnrolled)
         {
@@ -67,6 +67,80 @@ namespace LectureTimeTable.LectureTimeTableController.Option
             int lastHour;
             int lastMinute;
 
+            string[] splitString = lecture.DateAndTime.Split(',');
+
+            if(splitString.Length == 2 )
+            {
+                switch (lecture.FirstDay)
+                {
+                    case "월":
+                        initiativeColumn = 21;
+                        break;
+                    case "화":
+                        initiativeColumn = 21 + (36 * 1);
+                        break;
+                    case "수":
+                        initiativeColumn = 21 + (36 * 2);
+                        break;
+                    case "목":
+                        initiativeColumn = 21 + (36 * 3);
+                        break;
+                    case "금":
+                        initiativeColumn = 21 + (36 * 4);
+                        break;
+                }
+
+                initiativeHour = lecture.LectureTimeAndDates[0].StartTime / 60;
+                initiativeMinute = lecture.LectureTimeAndDates[0].StartTime % 60;
+
+                initiativeRow = (initiativeHour - 8) * 4;
+                if (initiativeMinute != 0)
+                {
+                    initiativeRow += 2;
+                }
+                for (int i = lecture.LectureTimeAndDates[0].StartTime; i < lecture.LectureTimeAndDates[0].EndTime; i += 30)
+                {
+                    Console.SetCursorPosition(initiativeColumn, initiativeRow);
+                    lectureDisplay.PrintLecture(lecture.LectureTitle, lecture.LectureRoom);
+                    initiativeRow += 2;
+                }
+
+                switch (lecture.LastDay)
+                {
+                    case "월":
+                        initiativeColumn = 21;
+                        break;
+                    case "화":
+                        initiativeColumn = 21 + (36 * 1);
+                        break;
+                    case "수":
+                        initiativeColumn = 21 + (36 * 2);
+                        break;
+                    case "목":
+                        initiativeColumn = 21 + (36 * 3);
+                        break;
+                    case "금":
+                        initiativeColumn = 21 + (36 * 4);
+                        break;
+                }
+
+                initiativeHour = lecture.LectureTimeAndDates[1].StartTime / 60;
+                initiativeMinute = lecture.LectureTimeAndDates[1].StartTime % 60;
+
+                initiativeRow = (initiativeHour - 8) * 4;
+                if (initiativeMinute != 0)
+                {
+                    initiativeRow += 2;
+                }
+                for (int i = lecture.LectureTimeAndDates[1].StartTime; i < lecture.LectureTimeAndDates[1].EndTime; i += 30)
+                {
+                    Console.SetCursorPosition(initiativeColumn, initiativeRow);
+                    lectureDisplay.PrintLecture(lecture.LectureTitle, lecture.LectureRoom);
+                    initiativeRow += 2;
+                }
+                return;
+            }
+
             if(lecture.DateAndTime == "")
             {
                 Console.SetCursorPosition(12, 50);
@@ -95,7 +169,7 @@ namespace LectureTimeTable.LectureTimeTableController.Option
             initiativeHour = lecture.LectureTimeAndDates[0].StartTime / 60;
             initiativeMinute = lecture.LectureTimeAndDates[0].StartTime % 60;
 
-            initiativeRow = 1 + (initiativeHour - 8) * 4;
+            initiativeRow = (initiativeHour - 8) * 4;
             if (initiativeMinute != 0)
             {
                 initiativeRow += 2;
@@ -112,7 +186,7 @@ namespace LectureTimeTable.LectureTimeTableController.Option
                 initiativeHour = lecture.LectureTimeAndDates[1].StartTime / 60;
                 initiativeMinute = lecture.LectureTimeAndDates[1].StartTime % 60;
 
-                initiativeRow = 1 + (initiativeHour - 8) * 4;
+                initiativeRow = (initiativeHour - 8) * 4;
                 if (initiativeMinute != 0)
                 {
                     initiativeRow += 2;
@@ -149,7 +223,7 @@ namespace LectureTimeTable.LectureTimeTableController.Option
                 initiativeHour = lecture.LectureTimeAndDates[0].StartTime / 60;
                 initiativeMinute = lecture.LectureTimeAndDates[0].StartTime % 60;
 
-                initiativeRow = 1 + (initiativeHour - 8) * 4;
+                initiativeRow = (initiativeHour - 8) * 4;
                 if (initiativeMinute != 0)
                 {
                     initiativeRow += 2;
@@ -166,7 +240,7 @@ namespace LectureTimeTable.LectureTimeTableController.Option
                     initiativeHour = lecture.LectureTimeAndDates[1].StartTime / 60;
                     initiativeMinute = lecture.LectureTimeAndDates[1].StartTime % 60;
 
-                    initiativeRow = 1 + (initiativeHour - 8) * 4;
+                    initiativeRow = (initiativeHour - 8) * 4;
                     if (initiativeMinute != 0)
                     {
                         initiativeRow += 2;

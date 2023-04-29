@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LectureTimeTable.LectureTimeTableView
 {
-    public class Design
+    public class MainView
     {
         public void PrintMain()
         {

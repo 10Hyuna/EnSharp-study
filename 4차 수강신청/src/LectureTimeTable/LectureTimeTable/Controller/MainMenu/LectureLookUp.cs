@@ -17,7 +17,7 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
         LectureDisplay lectureDisplay;
         TotalStorage totalStorage;
         public LectureLookUp(GuidancePhrase guidancePhrase, LectureTimeTableUtility.MenuIndexSelecter selecterMenu, ExceptionHandler exceptionHandler,
-            LectureDisplay lectureDisplay, SearchResults searchResults, TotalStorage totalStorage) 
+            LectureDisplay lectureDisplay, SearchResultsDTO searchResults, TotalStorage totalStorage) 
         {
             this.guidancePhrase = guidancePhrase;
             this.selecterMenu = selecterMenu;
@@ -44,6 +44,7 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
 
             Console.Clear();
             guidancePhrase.PrintAnounce();
+            ResetSearchData();
 
             string[] lectureSearchMenu = { "개설 학과 전공  :", "이수 구분       :", "교과목명        :", "교수명          :", "학년            :", "학수번호        :", "< 검색하기 > " };
 
@@ -73,7 +74,7 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
                         SelectCompleteType();
                         break;
                     case (int)INQUIRY.LECTURE_TITLE:
-                        totalStorage.searchResult.LectureTitle = SearchKeyword(1, ConstantNumber.KOREAN);
+                        totalStorage.searchResult.LectureTitle = SearchKeyword(1, ConstantNumber.CHARACTER);
                         break;
                     case (int)INQUIRY.PROFESSOR:
                         totalStorage.searchResult.Professor = SearchKeyword(2, ConstantNumber.CHARACTER);
@@ -86,7 +87,6 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
                         break;
                     case (int)INQUIRY.SEARCH:
                         SelectSearch(isLookUp);
-                        ResetSearchData();
                         break;
                 }
                 if (choosedMenu == (int)INQUIRY.SEARCH)
@@ -134,6 +134,7 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
             else
             {   // 관심과목 담기, 수강신청 메뉴에서 진입했을 경우
                 FindSearchResult();
+                guidancePhrase.PrintESC();
                 isESC = true;
             }
         }

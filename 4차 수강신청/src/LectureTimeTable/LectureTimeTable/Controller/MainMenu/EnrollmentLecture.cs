@@ -13,7 +13,7 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
 {
     public class EnrollmentLecture
     {
-        Design design;
+        MainView design;
         MenuIndexSelecter menuIndexSelecter;
         LectureList lectureList;
         LectureDeleter lectureDeleter;
@@ -25,7 +25,7 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
         GuidancePhrase guidancePhrase;
         TimeTable timeTable;
 
-        public EnrollmentLecture(Design design, MenuIndexSelecter menuIndexSelecter, LectureList lectureList, 
+        public EnrollmentLecture(MainView design, MenuIndexSelecter menuIndexSelecter, LectureList lectureList, 
             LectureDeleter lectureDeleter,LectureLookUp lectureLookUp, LectureDisplay lectureDisplay, TotalStorage totalStorage, 
             ExceptionHandler exceptionHandler, GuidancePhrase guidancePhrase, TimeTable timeTable)
         {

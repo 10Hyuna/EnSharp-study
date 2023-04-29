@@ -11,17 +11,17 @@ namespace LectureTimeTable.LectureTimeTableModel
     {
         public TotalStorage()
         {
-            lecture = new List<Lecture>();
-            searchResult = new SearchResults();
+            lecture = new List<LectureVO>();
+            searchResult = new SearchResultsDTO();
             user = new USER();
-            enrolledLectures = new List<Lecture>();
-            interestedLectures = new List<Lecture>();
+            enrolledLectures = new List<LectureVO>();
+            interestedLectures = new List<LectureVO>();
         }
 
-        public List<Lecture> lecture;
-        public SearchResults searchResult;
+        public List<LectureVO> lecture;
+        public SearchResultsDTO searchResult;
         public USER user;
-        public List<Lecture> enrolledLectures;
-        public List<Lecture> interestedLectures;
+        public List<LectureVO> enrolledLectures;
+        public List<LectureVO> interestedLectures;
     }
 }

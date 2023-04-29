@@ -25,35 +25,35 @@ namespace LectureTimeTable.LectureTimeTableView
             Console.SetWindowSize(194, 40);
             Console.Clear();
             Console.WriteLine("===============================================================================================================================================================================================");
-            Console.Write(lectureInformation[0].PadRight(exceptionHandler.calculateRadRightSize(lectureInformation[0], 4)));
-            Console.Write(lectureInformation[1].PadRight(exceptionHandler.calculateRadRightSize(lectureInformation[1], 24)));
-            Console.Write(lectureInformation[2].PadRight(exceptionHandler.calculateRadRightSize(lectureInformation[2], 10)));
-            Console.Write(lectureInformation[3].PadRight(exceptionHandler.calculateRadRightSize(lectureInformation[3], 6)));
-            Console.Write(lectureInformation[4].PadRight(exceptionHandler.calculateRadRightSize(lectureInformation[4], 36)));
-            Console.Write(lectureInformation[5].PadRight(exceptionHandler.calculateRadRightSize(lectureInformation[5], 14)));
-            Console.Write(lectureInformation[6].PadRight(exceptionHandler.calculateRadRightSize(lectureInformation[6], 6)));
-            Console.Write(lectureInformation[7].PadRight(exceptionHandler.calculateRadRightSize(lectureInformation[7], 6)));
-            Console.Write(lectureInformation[8].PadRight(exceptionHandler.calculateRadRightSize(lectureInformation[8], 35)));
-            Console.Write(lectureInformation[9].PadRight(exceptionHandler.calculateRadRightSize(lectureInformation[9], 14)));
-            Console.Write(lectureInformation[10].PadRight(exceptionHandler.calculateRadRightSize(lectureInformation[10], 28)));
-            Console.Write(lectureInformation[11].PadRight(exceptionHandler.calculateRadRightSize(lectureInformation[11], 14)));
+            Console.Write(lectureInformation[0].PadRight(exceptionHandler.CalculateRadRightSize(lectureInformation[0], 4)));
+            Console.Write(lectureInformation[1].PadRight(exceptionHandler.CalculateRadRightSize(lectureInformation[1], 24)));
+            Console.Write(lectureInformation[2].PadRight(exceptionHandler.CalculateRadRightSize(lectureInformation[2], 10)));
+            Console.Write(lectureInformation[3].PadRight(exceptionHandler.CalculateRadRightSize(lectureInformation[3], 6)));
+            Console.Write(lectureInformation[4].PadRight(exceptionHandler.CalculateRadRightSize(lectureInformation[4], 36)));
+            Console.Write(lectureInformation[5].PadRight(exceptionHandler.CalculateRadRightSize(lectureInformation[5], 14)));
+            Console.Write(lectureInformation[6].PadRight(exceptionHandler.CalculateRadRightSize(lectureInformation[6], 6)));
+            Console.Write(lectureInformation[7].PadRight(exceptionHandler.CalculateRadRightSize(lectureInformation[7], 6)));
+            Console.Write(lectureInformation[8].PadRight(exceptionHandler.CalculateRadRightSize(lectureInformation[8], 35)));
+            Console.Write(lectureInformation[9].PadRight(exceptionHandler.CalculateRadRightSize(lectureInformation[9], 14)));
+            Console.Write(lectureInformation[10].PadRight(exceptionHandler.CalculateRadRightSize(lectureInformation[10], 28)));
+            Console.Write(lectureInformation[11].PadRight(exceptionHandler.CalculateRadRightSize(lectureInformation[11], 14)));
             Console.Write("\n===============================================================================================================================================================================================\n");
         }
 
-        public void PrintSearchLecture(Lecture lectureList)
+        public void PrintSearchLecture(LectureVO lectureList)
         {
-            Console.Write(lectureList.Id.ToString().PadRight(exceptionHandler.calculateRadRightSize(lectureList.Id.ToString(), 4)));
-            Console.Write(lectureList.Major.PadRight(exceptionHandler.calculateRadRightSize(lectureList.Major, 24)));
-            Console.Write(lectureList.CourseNumber.PadRight(exceptionHandler.calculateRadRightSize(lectureList.CourseNumber, 10)));
-            Console.Write(lectureList.ClassNumber.PadRight(exceptionHandler.calculateRadRightSize(lectureList.ClassNumber, 6)));
-            Console.Write(lectureList.LectureTitle.PadRight(exceptionHandler.calculateRadRightSize(lectureList.LectureTitle, 36)));
-            Console.Write(lectureList.CompleteType.PadRight(exceptionHandler.calculateRadRightSize(lectureList.CompleteType, 14)));
-            Console.Write(lectureList.Grade.PadRight(exceptionHandler.calculateRadRightSize(lectureList.Grade, 6)));
-            Console.Write(lectureList.Credit.PadRight(exceptionHandler.calculateRadRightSize(lectureList.Credit, 6)));
-            Console.Write(lectureList.DateAndTime.PadRight(exceptionHandler.calculateRadRightSize(lectureList.DateAndTime, 35)));
-            Console.Write(lectureList.LectureRoom.PadRight(exceptionHandler.calculateRadRightSize(lectureList.LectureRoom, 14)));
-            Console.Write(lectureList.Professor.PadRight(exceptionHandler.calculateRadRightSize(lectureList.Professor, 28)));
-            Console.Write(lectureList.Language.PadRight(exceptionHandler.calculateRadRightSize(lectureList.Language, 14)));
+            Console.Write(lectureList.Id.ToString().PadRight(exceptionHandler.CalculateRadRightSize(lectureList.Id.ToString(), 4)));
+            Console.Write(lectureList.Major.PadRight(exceptionHandler.CalculateRadRightSize(lectureList.Major, 24)));
+            Console.Write(lectureList.CourseNumber.PadRight(exceptionHandler.CalculateRadRightSize(lectureList.CourseNumber, 10)));
+            Console.Write(lectureList.ClassNumber.PadRight(exceptionHandler.CalculateRadRightSize(lectureList.ClassNumber, 6)));
+            Console.Write(lectureList.LectureTitle.PadRight(exceptionHandler.CalculateRadRightSize(lectureList.LectureTitle, 36)));
+            Console.Write(lectureList.CompleteType.PadRight(exceptionHandler.CalculateRadRightSize(lectureList.CompleteType, 14)));
+            Console.Write(lectureList.Grade.PadRight(exceptionHandler.CalculateRadRightSize(lectureList.Grade, 6)));
+            Console.Write(lectureList.Credit.PadRight(exceptionHandler.CalculateRadRightSize(lectureList.Credit, 6)));
+            Console.Write(lectureList.DateAndTime.PadRight(exceptionHandler.CalculateRadRightSize(lectureList.DateAndTime, 35)));
+            Console.Write(lectureList.LectureRoom.PadRight(exceptionHandler.CalculateRadRightSize(lectureList.LectureRoom, 14)));
+            Console.Write(lectureList.Professor.PadRight(exceptionHandler.CalculateRadRightSize(lectureList.Professor, 28)));
+            Console.Write(lectureList.Language.PadRight(exceptionHandler.CalculateRadRightSize(lectureList.Language, 14)));
             Console.WriteLine();
         }
 
@@ -62,24 +62,18 @@ namespace LectureTimeTable.LectureTimeTableView
             Console.Write("\n===============================================================================================================================================================================================\n");
         }
 
-        public void PrintInterestedCredit(USER user)
+        public void PrintCredit(USER user)
         {
-            Console.Write(" 등록 가능 학점 :  {0}      담은 학점 : {1}      담을 과목 NO : ", user.AbleInterestedCredit, user.EnrolledInterestedCredit);
+            Console.Write(" 등록 가능 학점 :  {0}      담은 학점 : {1}      ", user.AbleInterestedCredit, user.EnrolledInterestedCredit);
         }
 
-        public void PrintEnrolledCredit(USER user)
+        public void PrintLectureNo()
         {
-            Console.Write(" 등록 가능 학점 : {0}      담은 학점 : {1}      담을 과목 NO : ", user.AbleEnrolledCredit, user.EnrolledCredit)
-;       }
-
-        public void PrintDelectInterestedCredit(USER user)
-        {
-            Console.Write(" 등록 가능 학점 : {0}      담은 학점 : {1}      삭제할 과목 NO : ", user.AbleInterestedCredit, user.EnrolledInterestedCredit);
+            Console.Write("담을 과목 NO : ");
         }
-
-        public void PrintDelectEnrolledCredit(USER user)
+        public void PrintDeleteNo()
         {
-            Console.Write(" 등록 가능 학점 : {0}      담은 학점 : {1}      삭제할 과목 NO : ", user.AbleEnrolledCredit, user.EnrolledCredit);
+            Console.Write("삭제할 과목 NO : ");
         }
 
         public void PrintTimeTable()
@@ -93,11 +87,11 @@ namespace LectureTimeTable.LectureTimeTableView
             {
                 if (i == 0)
                 {
-                    Console.Write(dayOfWeek[i].PadRight(exceptionHandler.calculateRadRightSize(dayOfWeek[i], 20)));
+                    Console.Write(dayOfWeek[i].PadRight(exceptionHandler.CalculateRadRightSize(dayOfWeek[i], 20)));
                 }
                 else
                 {
-                    Console.Write(dayOfWeek[i].PadRight(exceptionHandler.calculateRadRightSize(dayOfWeek[i], 36)));
+                    Console.Write(dayOfWeek[i].PadRight(exceptionHandler.CalculateRadRightSize(dayOfWeek[i], 36)));
                 }
             }
 
@@ -117,9 +111,9 @@ namespace LectureTimeTable.LectureTimeTableView
         public void PrintLecture(string lecture, string lectureRoom)
         {
             int column = Console.CursorLeft;
-            Console.Write(lecture.PadRight(exceptionHandler.calculateRadRightSize(lecture, 36)));
+            Console.Write(lecture.PadRight(exceptionHandler.CalculateRadRightSize(lecture, 36)));
             Console.SetCursorPosition(column + 1, Console.CursorTop + 1);
-            Console.Write(lectureRoom.PadRight(exceptionHandler.calculateRadRightSize(lectureRoom, 36)));
+            Console.Write(lectureRoom.PadRight(exceptionHandler.CalculateRadRightSize(lectureRoom, 36)));
         }
     }
 }

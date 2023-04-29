@@ -13,7 +13,7 @@ namespace LectureTimeTable.LectureTimeTableController.Option
     public class SelecterEnrolledWay
     {
         LectureLookUp lectureLookUp;
-        Design design;
+        MainView design;
         MenuIndexSelecter menuIndexSelecter;
         LectureDisplay lectureDisplay;
         TotalStorage totalStorage;
@@ -21,7 +21,7 @@ namespace LectureTimeTable.LectureTimeTableController.Option
         GuidancePhrase guidancePhrase;
         DuplicationLectureTime duplicationLectureTime;
 
-        public SelecterEnrolledWay(LectureLookUp lectureLookUp, Design design, MenuIndexSelecter menuIndexSelecter,
+        public SelecterEnrolledWay(LectureLookUp lectureLookUp, MainView design, MenuIndexSelecter menuIndexSelecter,
             LectureDisplay lectureDisplay, TotalStorage totalStorage, ExceptionHandler exceptionHandler, 
             GuidancePhrase guidancePhrase)
         {
@@ -89,7 +89,8 @@ namespace LectureTimeTable.LectureTimeTableController.Option
                 lectureDisplay.PrintSearchLecture(totalStorage.interestedLectures[i]);
             }
 
-            lectureDisplay.PrintEnrolledCredit(totalStorage.user);
+            lectureDisplay.PrintCredit(totalStorage.user);
+            lectureDisplay.PrintLectureNo();
         }
         private void enrollLecture(bool isESC, int search)
         {
@@ -106,7 +107,8 @@ namespace LectureTimeTable.LectureTimeTableController.Option
             while (!isESC)
             {
                 Console.SetCursorPosition(0, Console.CursorTop);
-                lectureDisplay.PrintEnrolledCredit(totalStorage.user);
+                lectureDisplay.PrintCredit(totalStorage.user);
+                lectureDisplay.PrintLectureNo();
 
                 lectureNO = exceptionHandler.IsValidInput(ConstantNumber.NUMBER, Console.CursorLeft - 13, Console.CursorTop, 3, ConstantNumber.IS_NOT_PASSWORD, ConstantNumber.IS_NOT_ID);
 
@@ -114,11 +116,21 @@ namespace LectureTimeTable.LectureTimeTableController.Option
                 {
                     isESC = true;
                 }
+                if (exceptionHandler.IsStringAllNumber(lectureNO))
+                {
+                    guidancePhrase.PrintException((int)EXCEPTION.NULL_LECTURE, 0, Console.CursorTop + 1);
+                    continue;
+                }
                 else
                 {
                     lectureId = int.Parse(lectureNO);
                     lectureIndex = FindLectureIndex(lectureId);
-                    if((search == 0 && lectureIndex == ConstantNumber.FAIL))
+                    if((search == (int)ENROLLWAY.SEARCH && lectureIndex == ConstantNumber.FAIL))
+                    {
+                        guidancePhrase.PrintException((int)EXCEPTION.NULL_LECTURE, 0, Console.CursorTop + 1);
+                        continue;
+                    }
+                    if (search == (int)ENROLLWAY.INTERESTED && !IsCheckInterestedLecture(lectureId))
                     {
                         guidancePhrase.PrintException((int)EXCEPTION.NULL_LECTURE, 0, Console.CursorTop + 1);
                         continue;
@@ -161,6 +173,20 @@ namespace LectureTimeTable.LectureTimeTableController.Option
             }
         }
 
+        private bool IsCheckInterestedLecture(int lectureId)
+        {
+            bool isInterestedLecture = false;
+            for(int i = 0; i < totalStorage.interestedLectures.Count; i++)
+            {
+                if(lectureId == totalStorage.interestedLectures[i].Id)
+                {
+                    isInterestedLecture = true;
+                    break;
+                }
+            }
+            return isInterestedLecture;
+        }
+
         private int FindLectureIndex(int lectureId)
         {
             int count = 0;
@@ -200,8 +226,8 @@ namespace LectureTimeTable.LectureTimeTableController.Option
             string grade;
             string courseNumber;
 
-            Lecture findLecture = totalStorage.lecture[lectureIndex];
-            SearchResults searchLecture = totalStorage.searchResult;
+            LectureVO findLecture = totalStorage.lecture[lectureIndex];
+            SearchResultsDTO searchLecture = totalStorage.searchResult;
 
             major = findLecture.Major;
             completeType = findLecture.CompleteType;

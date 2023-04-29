@@ -59,7 +59,7 @@ namespace LectureTimeTable.LectureTimeTableController.Option
                 }
             }
         }
-        private void SetCursor(Lecture lecture)
+        private void SetCursor(LectureVO lecture)
         {
             string day;
             int initiativeHour;

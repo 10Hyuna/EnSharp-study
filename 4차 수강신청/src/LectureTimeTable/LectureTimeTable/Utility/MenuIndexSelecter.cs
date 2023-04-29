@@ -57,7 +57,14 @@ namespace LectureTimeTable.LectureTimeTableUtility
                 {
                     if(i == menuIndex)
                     {
-                        Console.ForegroundColor = ConsoleColor.Blue;
+                        if (isOption)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Green;
+                        }
+                        else
+                        {
+                            Console.ForegroundColor = ConsoleColor.Blue;
+                        }
                         menuAndOption.PrintMenu(menu[i], length);
                         consoleInputColumn = Console.CursorLeft;
                         Console.ResetColor();

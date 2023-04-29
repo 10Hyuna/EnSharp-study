@@ -14,7 +14,7 @@ namespace LectureTimeTable.LectureTimeTableController
     class Login
     {
         ExcelLoader excelLoader;
-        Design design;
+        MainView design;
         InputFromUser inputFromUser;
         LectureTimeTableUtility.MenuIndexSelecter selecterMenu;
         MenuAndOption menuAndOption;
@@ -27,7 +27,7 @@ namespace LectureTimeTable.LectureTimeTableController
         public Login(TotalStorage totalStorage)
         {
             this.totalStorage = totalStorage;
-            design = new Design();
+            design = new MainView();
             inputFromUser = new InputFromUser();
             menuAndOption = new MenuAndOption();
             guidancePhrase = new GuidancePhrase();

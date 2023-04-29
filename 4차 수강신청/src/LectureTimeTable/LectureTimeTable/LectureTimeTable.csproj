@@ -48,7 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\DuplicationLectureTime.cs" />
-    <Compile Include="Controller\ExcelLoader.cs" />
+    <Compile Include="Controller\Excel\ExcelLoader.cs" />
     <Compile Include="Controller\LectureTimeTablePrestart.cs" />
     <Compile Include="Controller\Login.cs" />
     <Compile Include="Controller\MainMenu\CourseHistory.cs" />
@@ -60,17 +60,17 @@
     <Compile Include="Controller\Option\LectureList.cs" />
     <Compile Include="Controller\Option\SelecterEnrolledWay.cs" />
     <Compile Include="Controller\Option\TimeTable.cs" />
-    <Compile Include="Controller\SaverExcelFile.cs" />
-    <Compile Include="Model\SearchResults.cs" />
-    <Compile Include="Model\Lecture.cs" />
+    <Compile Include="Controller\Excel\SaverExcelFile.cs" />
+    <Compile Include="Model\SearchResultsDTO.cs" />
+    <Compile Include="Model\LectureVO.cs" />
     <Compile Include="Model\TotalStorage.cs" />
-    <Compile Include="Model\User.cs" />
+    <Compile Include="Model\UserVO.cs" />
     <Compile Include="Utility\ConstantNumber.cs" />
     <Compile Include="Utility\ExceptionHandler.cs" />
     <Compile Include="Utility\InputFromUser.cs" />
     <Compile Include="Utility\ManupulationTimeData.cs" />
     <Compile Include="Utility\MenuIndexSelecter.cs" />
-    <Compile Include="View\Design.cs" />
+    <Compile Include="View\MainView.cs" />
     <Compile Include="View\GuidancePhrase.cs" />
     <Compile Include="View\LectureDisplay.cs" />
     <Compile Include="View\MenuAndOption.cs" />

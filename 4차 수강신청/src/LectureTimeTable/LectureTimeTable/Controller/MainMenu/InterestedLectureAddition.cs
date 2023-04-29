@@ -14,7 +14,7 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
 {
     public class InterestedLectureAddition  // 관심강의를 담는 역할을 하는 클래스
     {
-        private Design design;
+        private MainView design;
         private MenuAndOption menuAndOption;
         private ExceptionHandler exceptionHandler;
         private MenuIndexSelecter menuIndexSelecter;
@@ -27,7 +27,7 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
         private LectureDeleter lectureDelecter;
         private DuplicationLectureTime duplicationLectureTime;
 
-        public InterestedLectureAddition(MenuAndOption menuAndOption, ExceptionHandler exceptionHandler, Design design,
+        public InterestedLectureAddition(MenuAndOption menuAndOption, ExceptionHandler exceptionHandler, MainView design,
             LectureTimeTableUtility.MenuIndexSelecter menuIndexSelecter, GuidancePhrase guidancePhrase, TotalStorage totalStorage, LectureLookUp lectureLookUp,
             LectureList lectureList, TimeTable timeTable, LectureDeleter lectureDelecter, LectureDisplay lectureDisplay)
         {
@@ -106,7 +106,7 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
             while (!isESC)
             {
                 Console.SetCursorPosition(0, Console.CursorTop);
-                lectureDisplay.PrintInterestedCredit(totalStorage.user);
+                lectureDisplay.PrintCredit(totalStorage.user);
                 // 현재 로그인되어 있는 유저의 남아 있는 학점에 대한 출력
 
                 searchId = exceptionHandler.IsValidInput(ConstantNumber.NUMBER, Console.CursorLeft - 13, Console.CursorTop, 3, ConstantNumber.IS_NOT_PASSWORD, ConstantNumber.IS_NOT_ID);
@@ -115,6 +115,11 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
                 if (searchId == ConstantNumber.ESC)
                 {   // ESC를 눌렀다면
                     isESC = true;
+                }
+                else if (!exceptionHandler.IsStringAllNumber(searchId))
+                {
+                    guidancePhrase.PrintException((int)EXCEPTION.NULL_LECTURE, 0, Console.CursorTop + 1);
+                    continue;
                 }
                 else
                 {
@@ -196,8 +201,8 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
             string grade;
             string courseNumber;
 
-            Lecture findLecture = totalStorage.lecture[lectureIndex];
-            SearchResults searchLecture = totalStorage.searchResult;
+            LectureVO findLecture = totalStorage.lecture[lectureIndex];
+            SearchResultsDTO searchLecture = totalStorage.searchResult;
 
             major = findLecture.Major;
             completeType = findLecture.CompleteType;

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LectureTimeTable.LectureTimeTableModel
 {
-    public class SearchResults
+    public class SearchResultsDTO
     {
         private string major = "";
         private string completeType = "";
@@ -16,9 +16,9 @@ namespace LectureTimeTable.LectureTimeTableModel
         private string grade = "";
         private string courseNumber = "";
 
-        public SearchResults() { }
+        public SearchResultsDTO() { }
 
-        public SearchResults(string major, string completeType, string lectureTitle, string professor, string grade, string courseNumber)
+        public SearchResultsDTO(string major, string completeType, string lectureTitle, string professor, string grade, string courseNumber)
         {
             this.major = major;
             this.completeType = completeType;

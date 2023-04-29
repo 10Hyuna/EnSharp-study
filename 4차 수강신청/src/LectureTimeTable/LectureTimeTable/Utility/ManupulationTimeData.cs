@@ -21,7 +21,7 @@ namespace LectureTimeTable.LectureTimeTableUtility
             string[] splitedLectureTimeInformation;
             string splitedLectureTime;
 
-            Lecture lectureInformation = new Lecture();
+            LectureVO lectureInformation = new LectureVO();
 
             if (TimeAndDate.Length == 0)
             {   // 시간이 비어 있다면
@@ -54,7 +54,7 @@ namespace LectureTimeTable.LectureTimeTableUtility
             }
         }
 
-        private void MatchLectureTime(string[] splitedLectureTimeInformation, Lecture lectureInformation, int lectureIndex)
+        private void MatchLectureTime(string[] splitedLectureTimeInformation, LectureVO lectureInformation, int lectureIndex)
         {
             string splitTime = splitedLectureTimeInformation[0];
 
@@ -103,7 +103,7 @@ namespace LectureTimeTable.LectureTimeTableUtility
             totalStorage.lecture[lectureIndex].LectureTimeAndDates = lectureInformation.LectureTimeAndDates;
         }
 
-        private void UnmatchLectureTime(string[] splitedLectureTimeInformation, Lecture lectureInformation, int lectureIndex)
+        private void UnmatchLectureTime(string[] splitedLectureTimeInformation, LectureVO lectureInformation, int lectureIndex)
         {
             string splitFirstTime = splitedLectureTimeInformation[0].Trim();
             string splitThirdTime = splitedLectureTimeInformation[1].Trim();

@@ -78,7 +78,9 @@ namespace LectureTimeTable.LectureTimeTableController.Option
             {
                 lectureDisplay.PrintSearchLecture(totalStorage.interestedLectures[i]);
             }
-            lectureDisplay.PrintDelectInterestedCredit(totalStorage.user);
+            lectureDisplay.PrintCredit(totalStorage.user);
+            lectureDisplay.PrintDeleteNo();
+            guidancePhrase.PrintESC();
 
             if (totalStorage.interestedLectures.Count == 0)
             {   // 관심 과목에 담긴 강의가 없다면
@@ -137,7 +139,8 @@ namespace LectureTimeTable.LectureTimeTableController.Option
             {
                 lectureDisplay.PrintSearchLecture(totalStorage.enrolledLectures[i]);
             }
-            lectureDisplay.PrintDelectEnrolledCredit(totalStorage.user);
+            lectureDisplay.PrintCredit(totalStorage.user);
+            lectureDisplay.PrintDeleteNo();
 
             if (totalStorage.enrolledLectures.Count == 0)
             {   // 수강 신청 중인 강의가 없다면

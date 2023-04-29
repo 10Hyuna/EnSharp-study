@@ -1,4 +1,5 @@
 ﻿using LectureTimeTable.LectureTimeTableModel;
+using LectureTimeTable.LectureTimeTableUtility;
 using LectureTimeTable.LectureTimeTableView;
 using System;
 using System.Collections.Generic;
@@ -13,11 +14,13 @@ namespace LectureTimeTable.LectureTimeTableController.Option
         TotalStorage totalStorage;
         LectureDisplay lectureDisplay;
         GuidancePhrase guidancePhrase;
+        InputFromUser inputFromUser;
         public LectureList(TotalStorage totalStorage, LectureDisplay lectureDisplay, GuidancePhrase guidancePhrase)
         {
             this.totalStorage = totalStorage;
             this.lectureDisplay = lectureDisplay;
             this.guidancePhrase = guidancePhrase;
+            inputFromUser = new InputFromUser();
         }
 
         ConsoleKeyInfo keyInfo;
@@ -71,9 +74,11 @@ namespace LectureTimeTable.LectureTimeTableController.Option
                 lectureDisplay.PrintSearchLecture(totalStorage.interestedLectures[i]);
             }
             lectureDisplay.PrintLine();
+            lectureDisplay.PrintCredit(totalStorage.user);
             guidancePhrase.PrintESC();
 
-            EnteredESC();
+
+            isESC = inputFromUser.EnteredESC();
         }
 
         private void InformEnrolledList()
@@ -83,24 +88,10 @@ namespace LectureTimeTable.LectureTimeTableController.Option
                 lectureDisplay.PrintSearchLecture(totalStorage.enrolledLectures[i]);
             }
             lectureDisplay.PrintLine();
+            lectureDisplay.PrintCredit(totalStorage.user);
             guidancePhrase.PrintESC();
 
-            EnteredESC();
-        }
-
-        private void EnteredESC()
-        {
-            isESC = false;
-
-            while (!isESC)
-            {
-                keyInfo = Console.ReadKey();
-
-                if (keyInfo.Key == ConsoleKey.Escape)
-                {
-                    isESC = true;
-                }
-            }
+            isESC = inputFromUser.EnteredESC();
         }
     }
 }

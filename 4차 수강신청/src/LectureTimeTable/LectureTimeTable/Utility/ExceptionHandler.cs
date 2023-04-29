@@ -19,7 +19,7 @@ namespace LectureTimeTable.LectureTimeTableUtility
             this.guidancePhrase = guidancePhrase;
         }
 
-        public int calculateRadRightSize(string message, int count)
+        public int CalculateRadRightSize(string message, int count)
         {   // 문자가 한글에 해당하는지 확인하고, 한글이 몇 개 나오는지 확인 후, 맞추려는 PadRight 개수 빼기 한글의 개수만큼 공백으로 채우는 계산
             int koreanCount = 0;
             string korean;
@@ -29,7 +29,7 @@ namespace LectureTimeTable.LectureTimeTableUtility
             for (int i = 0; i < message.Length; i++)
             {
                 korean = Convert.ToString(message[i]);
-                if(CheckException(korean, regex))
+                if(IsCheckException(korean, regex))
                 {
                     koreanCount++;
                 }
@@ -38,14 +38,12 @@ namespace LectureTimeTable.LectureTimeTableUtility
             return (count - koreanCount);
         }
 
-        public bool CheckException(string message, Regex regex)     // 정규식으로 문자열이 주어진 조건에 해당하는지 확인
+        public bool IsCheckException(string message, Regex regex)     // 정규식으로 문자열이 주어진 조건에 해당하는지 확인
         {
-
             if (regex.IsMatch(message))
             {
                 return true;
             }
-
             return false;
         }
 
@@ -65,7 +63,7 @@ namespace LectureTimeTable.LectureTimeTableUtility
                 {
                     isValidInput = true;
                 }
-                else if (CheckException(message, regexForm) == true
+                else if (IsCheckException(message, regexForm) == true
                     || message == "")
                 {
                     isValidInput = true;
@@ -88,6 +86,23 @@ namespace LectureTimeTable.LectureTimeTableUtility
             }
 
             return message.ToString();
+        }
+
+        public bool IsStringAllNumber(string input)
+        {
+            bool isNumber = true;
+            Regex regex = new Regex(ConstantNumber.NUMBER);
+            char splitString;
+            for(int i = 0; i < input.Length; i++)
+            {
+                splitString = input[i];
+                isNumber = IsCheckException(splitString.ToString(), regex);
+                if(isNumber == false)
+                {
+                    break;
+                }
+            }
+            return isNumber;
         }
     }
 }

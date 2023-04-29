@@ -95,6 +95,22 @@ namespace LectureTimeTable.LectureTimeTableUtility
             return selectedMenu;
         }
 
+        public bool EnteredESC()
+        {
+             bool isESC = false;
+
+            while (!isESC)
+            {
+                keyInfo = Console.ReadKey();
+
+                if (keyInfo.Key == ConsoleKey.Escape)
+                {
+                    isESC = true;
+                }
+            }
+            return isESC;
+        }
+
         public string InputStringFromUser(int maxLength, bool isPassword, bool isId, int consoleColumn, int consoleRow)
         {
 

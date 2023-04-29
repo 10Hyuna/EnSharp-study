@@ -75,7 +75,7 @@ namespace LectureTimeTable.LectureTimeTableController.Option
             }
             lectureDisplay.PrintLine();
             lectureDisplay.PrintCredit(totalStorage.user);
-            Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop + 1);
+            Console.SetCursorPosition(0, Console.CursorTop + 1);
             guidancePhrase.PrintESC();
 
 
@@ -90,7 +90,7 @@ namespace LectureTimeTable.LectureTimeTableController.Option
             }
             lectureDisplay.PrintLine();
             lectureDisplay.PrintCredit(totalStorage.user);
-            Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop + 1);
+            Console.SetCursorPosition(0, Console.CursorTop + 1);
             guidancePhrase.PrintESC();
 
             isESC = inputFromUser.EnteredESC();

@@ -30,10 +30,12 @@ namespace LectureTimeTable.LectureTimeTableController
         LectureDeleter lectureDelecter;
         LectureList lectureList;
         TimeTable timeTable;
+        InputFromUser inputFromUser;
 
         // 네이밍
         public MenuSelector(MenuAndOption menuAndOption, ExceptionHandler exceptionHandler, 
-            MainView design, LectureTimeTableUtility.MenuIndexSelecter menuIndexSelecter, GuidancePhrase guidancePhrase, TotalStorage totalStorage)
+            MainView design, LectureTimeTableUtility.MenuIndexSelecter menuIndexSelecter, 
+            GuidancePhrase guidancePhrase, TotalStorage totalStorage, InputFromUser inputFromUser)
         {
             this.menuAndOption = menuAndOption;
             this.exceptionHandler = exceptionHandler;
@@ -41,10 +43,11 @@ namespace LectureTimeTable.LectureTimeTableController
             this.menuIndexSelecter = menuIndexSelecter;
             this.guidancePhrase = guidancePhrase;
             this.totalStorage = totalStorage;
+            this.inputFromUser = inputFromUser;
             searchResults = new SearchResultsDTO();
             lectureDisplay = new LectureDisplay(exceptionHandler);
             timeTable = new TimeTable(totalStorage, lectureDisplay);
-            courseHistory = new CourseHistory(totalStorage);
+            courseHistory = new CourseHistory(totalStorage, design, guidancePhrase, inputFromUser);
             lectureLookUp = new LectureLookUp(guidancePhrase, menuIndexSelecter, exceptionHandler, lectureDisplay, searchResults, totalStorage);
             lectureList = new LectureList(totalStorage, lectureDisplay, guidancePhrase);
             lectureDelecter = new LectureDeleter(lectureDisplay, totalStorage, exceptionHandler, guidancePhrase);

@@ -89,7 +89,7 @@ namespace LectureTimeTable.LectureTimeTableController.Option
                 lectureDisplay.PrintSearchLecture(totalStorage.enrolledLectures[i]);
             }
             lectureDisplay.PrintLine();
-            lectureDisplay.PrintCredit(totalStorage.user);
+            lectureDisplay.PrintEnrollCredit(totalStorage.user);
             Console.SetCursorPosition(0, Console.CursorTop + 1);
             guidancePhrase.PrintESC();
 

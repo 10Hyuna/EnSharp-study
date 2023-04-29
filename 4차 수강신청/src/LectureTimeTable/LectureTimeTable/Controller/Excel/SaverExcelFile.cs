@@ -21,10 +21,6 @@ namespace LectureTimeTable.LectureTimeTableController
             this.totalStorage = totalStorage;
         }
 
-        static Excel.Application excelApp = null;
-        static Excel.Workbook workbook = null;
-        static Excel.Worksheet worksheet = null;
-
         private int FindColumn(int lectureIndex, bool isFirst)
         {
             int column = 0;
@@ -63,57 +59,18 @@ namespace LectureTimeTable.LectureTimeTableController
             return column;
         }
 
-        private void SaveValueSecondCell(int lectureIndex)
+        private void SaveValueCell(int lectureIndex, int dayIndex, bool isFirst,  Excel.Worksheet worksheet)
         {
             int column = 0;
             int row = 0;
-            bool secondCheck = false;
-            for (int i = 480; i <= 1230; i += 30)
-            {
-                column = FindColumn(lectureIndex, ConstantNumber.IS_LAST);
-                if (totalStorage.enrolledLectures[lectureIndex].LectureTimeAndDates[0].StartTime == i)
-                {
-                    secondCheck = true;
-                    row = 2 + ((i / 60) - 8) * 4;
-                    if (i % 60 == 30)
-                    {
-                        row += 2;
-                    }
-                    worksheet.Cells[row, column] = totalStorage.enrolledLectures[lectureIndex].LectureTitle;
-                    worksheet.Cells[++row, column] = totalStorage.enrolledLectures[lectureIndex].LectureRoom;
-                }
-                if (secondCheck)
-                {
-                    row++;
-                    worksheet.Cells[row, column] = totalStorage.enrolledLectures[lectureIndex].LectureTitle;
-                    worksheet.Cells[++row, column] = totalStorage.enrolledLectures[lectureIndex].LectureRoom;
-                }
-                if (totalStorage.enrolledLectures[lectureIndex].LectureTimeAndDates[1].EndTime == i)
-                {
-                    secondCheck = false;
-                    row = 2 + ((i / 60) - 8) * 4;
-                    if (i % 60 == 30)
-                    {
-                        row += 2;
-                    }
-                    worksheet.Cells[row, column] = totalStorage.enrolledLectures[lectureIndex].LectureTitle;
-                    worksheet.Cells[++row, column] = totalStorage.enrolledLectures[lectureIndex].LectureRoom;
-                }
-            }
-        }
 
-        private void SaveValueCell(int lectureIndex)
-        {
-            int column = 0;
-            int row = 0;
-            bool check = false;
+            column = FindColumn(lectureIndex, isFirst);
 
-            for(int i = 480; i <= 1230; i += 30)
+            for (int i = totalStorage.enrolledLectures[lectureIndex].LectureTimeAndDates[dayIndex].StartTime;
+                i < totalStorage.enrolledLectures[lectureIndex].LectureTimeAndDates[dayIndex].EndTime; i += 30)
             {
-                column = FindColumn(lectureIndex, ConstantNumber.IS_FIRST);
-                if (totalStorage.enrolledLectures[lectureIndex].LectureTimeAndDates[0].StartTime == i)
+                if (totalStorage.enrolledLectures[lectureIndex].LectureTimeAndDates[dayIndex].StartTime == i)
                 {
-                    check = true;
                     row = 2 + ((i / 60) - 8) * 4;
                     if (i % 60 == 30) {
                         row += 2;
@@ -121,20 +78,19 @@ namespace LectureTimeTable.LectureTimeTableController
                     worksheet.Cells[row, column] = totalStorage.enrolledLectures[lectureIndex].LectureTitle;
                     worksheet.Cells[++row, column] = totalStorage.enrolledLectures[lectureIndex].LectureRoom;
                 }
-                if (check)
+                else if (totalStorage.enrolledLectures[lectureIndex].LectureTimeAndDates[dayIndex].EndTime == i)
                 {
-                    row++;
-                    worksheet.Cells[row, column] = totalStorage.enrolledLectures[lectureIndex].LectureTitle;
-                    worksheet.Cells[++row, column] = totalStorage.enrolledLectures[lectureIndex].LectureRoom;
-                }
-                if (totalStorage.enrolledLectures[lectureIndex].LectureTimeAndDates[0].EndTime == i)
-                {
-                    check = false;
                     row = 2 + ((i / 60) - 8) * 4;
                     if (i % 60 == 30)
                     {
                         row += 2;
                     }
+                    worksheet.Cells[row, column] = totalStorage.enrolledLectures[lectureIndex].LectureTitle;
+                    worksheet.Cells[++row, column] = totalStorage.enrolledLectures[lectureIndex].LectureRoom;
+                }
+                else
+                {
+                    row++;
                     worksheet.Cells[row, column] = totalStorage.enrolledLectures[lectureIndex].LectureTitle;
                     worksheet.Cells[++row, column] = totalStorage.enrolledLectures[lectureIndex].LectureRoom;
                 }
@@ -143,10 +99,14 @@ namespace LectureTimeTable.LectureTimeTableController
 
         public void SaveTimeTableFile()
         {
-            //try
-            //{
+            try
+            {
+                Excel.Application excelApp = null;
+                Excel.Workbook workbook = null;
+                Excel.Worksheet worksheet = null;
+
                 string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-                string path = Path.Combine(desktopPath, "Excel.xlsx");
+                string path = Path.Combine(desktopPath, "강의 시간표.xlsx");
 
                 excelApp = new Excel.Application();
                 workbook = excelApp.Workbooks.Add();
@@ -171,22 +131,28 @@ namespace LectureTimeTable.LectureTimeTableController
                         worksheet.Cells[52, 2] = totalStorage.enrolledLectures[i].LectureTitle;
                         continue;
                     }
-                    SaveValueCell(i);
-                    if (totalStorage.enrolledLectures[i].LastDay != "")
+                    SaveValueCell(i, 0, ConstantNumber.IS_FIRST, worksheet);
+                    if (totalStorage.enrolledLectures[i].LastDay != "" 
+                    && totalStorage.enrolledLectures[i].LectureTimeAndDates.Count == 1)
                     {
-                        SaveValueSecondCell(i);
+                        SaveValueCell(i, 0, ConstantNumber.IS_LAST, worksheet);
                     }
-                //}
+                    else if(totalStorage.enrolledLectures[i].LastDay != ""
+                    && totalStorage.enrolledLectures[i].LectureTimeAndDates.Count == 2)
+                    {
+                        SaveValueCell(i, 1, ConstantNumber.IS_LAST, worksheet);
+                    }
+                }
                 worksheet.Columns.AutoFit();
                 workbook.SaveAs(path, Excel.XlFileFormat.xlWorkbookDefault);
                 workbook.Close(true);
                 excelApp.Quit();
             }
-            //catch (Exception ex)
-            //{
-            //    Console.WriteLine(ex.ToString());
-            //    Console.ReadKey();
-            //}
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                Console.ReadKey();
+            }
         }
     }
 }

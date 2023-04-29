@@ -119,6 +119,23 @@ namespace LectureTimeTable.LectureTimeTableView
                 EraseAnounce();
                 Console.SetCursorPosition(column, row - 1);
             }
+            else if(condition == (int)EXCEPTION.CHECK)
+            {
+                Console.WriteLine("강의 시간표를 엑셀 파일로 저장하시겠습니까?");
+                Console.SetCursorPosition(column + 5, row + 1);
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("ENTER : 예              ESC : 아니오");
+                Console.ResetColor();
+            }
+            else if(condition == (int)EXCEPTION.COMPLETE)
+            {
+                Console.WriteLine("강의 시간표를 엑셀 파일로 저장했습니다!");
+                Console.SetCursorPosition(column + 10, row + 1);
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("ESC : 뒤로가기");
+                Console.SetCursorPosition(0, 0);
+                EraseAnounce();
+            }
         }
 
         private void EraseAnounce()

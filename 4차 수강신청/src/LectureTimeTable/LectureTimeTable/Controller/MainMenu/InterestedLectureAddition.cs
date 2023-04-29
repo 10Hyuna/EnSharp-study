@@ -117,6 +117,12 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
                 {   // ESC를 눌렀다면
                     isESC = true;
                 }
+                else if(searchId == "")
+                {
+                    guidancePhrase.PrintException((int)EXCEPTION.NOT_MATCH_CONDITION, 0, Console.CursorTop + 1);
+                    Console.SetCursorPosition(0, Console.CursorTop - 1);
+                    continue;
+                }
                 else if (!exceptionHandler.IsStringAllNumber(searchId))
                 {
                     guidancePhrase.PrintException((int)EXCEPTION.NULL_LECTURE, 0, Console.CursorTop + 1);

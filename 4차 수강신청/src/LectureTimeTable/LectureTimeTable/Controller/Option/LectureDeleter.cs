@@ -96,6 +96,17 @@ namespace LectureTimeTable.LectureTimeTableController.Option
                 {   // 중간에 ESC를 눌렀다면
                     isEnd = true;
                 }
+                else if(lectureNumber == "")
+                {
+                    guidancePhrase.PrintException((int)EXCEPTION.NOT_MATCH_CONDITION, 0, Console.CursorTop + 1);
+                    Console.SetCursorPosition(0, Console.CursorTop - 1);
+                    return isEnd;
+                }
+                else if (!exceptionHandler.IsStringAllNumber(lectureNumber))
+                {
+                    guidancePhrase.PrintException((int)EXCEPTION.NULL_LECTURE, 0, Console.CursorTop + 1);
+                    return isEnd;
+                }
                 else
                 {
                     numberNo = int.Parse(lectureNumber);
@@ -140,7 +151,7 @@ namespace LectureTimeTable.LectureTimeTableController.Option
             {
                 lectureDisplay.PrintSearchLecture(totalStorage.enrolledLectures[i]);
             }
-            lectureDisplay.PrintCredit(totalStorage.user);
+            lectureDisplay.PrintEnrollCredit(totalStorage.user);
             lectureDisplay.PrintDeleteNo();
 
             if (totalStorage.enrolledLectures.Count == 0)
@@ -155,6 +166,17 @@ namespace LectureTimeTable.LectureTimeTableController.Option
                 if (lectureNumber == ConstantNumber.ESC)
                 {   // 중간에 ESC를 눌렀다면
                     isEnd = true;
+                }
+                else if (lectureNumber == "")
+                {
+                    guidancePhrase.PrintException((int)EXCEPTION.NOT_MATCH_CONDITION, 0, Console.CursorTop + 1);
+                    Console.SetCursorPosition(0, Console.CursorTop - 1);
+                    return isEnd;
+                }
+                else if (!exceptionHandler.IsStringAllNumber(lectureNumber))
+                {
+                    guidancePhrase.PrintException((int)EXCEPTION.NULL_LECTURE, 0, Console.CursorTop + 1);
+                    return isEnd;
                 }
                 else
                 {

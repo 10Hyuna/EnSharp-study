@@ -20,6 +20,47 @@ namespace LectureTimeTable.LectureTimeTableUtility
             return false;
         }
 
+        public string InputEnterESC()
+        {
+            keyInfo = Console.ReadKey(true);
+
+            string returnValue = "";
+            bool isBreak = false;
+
+            while (!isBreak)
+            {
+                if (keyInfo.Key == ConsoleKey.Enter)
+                {
+                    isBreak = true;
+                    returnValue = "ENTER";
+                }
+                else if(keyInfo.Key == ConsoleKey.Escape)
+                {
+                    isBreak = true;
+                    returnValue = "ESC";
+                }
+            }
+            return returnValue;
+        }
+
+        public string InputESC()
+        {
+            keyInfo = Console.ReadKey(true);
+
+            string returnValue = "";
+            bool isBreak = false;
+
+            while (!isBreak)
+            {
+                if (keyInfo.Key == ConsoleKey.Escape)
+                {
+                    isBreak = true;
+                    returnValue = "ESC";
+                }
+            }
+            return returnValue;
+        }
+
         public int SelectMenuIndex(int endMenuIndex, int selectedMenu)
         {   // 메뉴는 위아래로 움직임            
 

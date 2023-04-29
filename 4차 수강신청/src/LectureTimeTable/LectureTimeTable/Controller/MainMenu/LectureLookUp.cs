@@ -269,7 +269,7 @@ namespace LectureTimeTable.LectureTimeTableController.MainMenu
 
             input = exceptionHandler.IsValidInput(regex, consoleColumn, consoleRow, 36, ConstantNumber.IS_NOT_PASSWORD, ConstantNumber.IS_NOT_ID);
 
-            if(input == ConstantNumber.ESC)
+            if (input == ConstantNumber.ESC)
             {   // 중간에 ESC를 눌렀을 경우
                 input = ""; 
                 isESC = true;

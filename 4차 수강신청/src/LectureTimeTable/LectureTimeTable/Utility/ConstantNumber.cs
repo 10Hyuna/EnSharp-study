@@ -110,5 +110,12 @@ enum EXCEPTION
     NULL_STORAGE,
     SUCCESS_DELETE,
     MAX_CREDIT,
+    CHECK,
+    COMPLETE
+}
 
+enum SAVEFILE
+{
+    CHECK,
+    COMPLETE
 }

@@ -24,6 +24,7 @@ namespace LectureTimeTable.LectureTimeTableController
         private CourseHistory courseHistory;
         private TotalStorage totalStorage;
         private ManupulationTimeData manupulationTimeData;
+
         private int consoleColumn;
         private int consoleRow;
         private int inputId = 0;
@@ -45,7 +46,7 @@ namespace LectureTimeTable.LectureTimeTableController
             excelLoader = new ExcelLoader(exceptionHandler, totalStorage);
             selecterMenu = new LectureTimeTableUtility.MenuIndexSelecter(menuAndOption, inputFromUser);
             menuSelection = new MenuSelector(menuAndOption, exceptionHandler, 
-                design, selecterMenu, guidancePhrase, totalStorage);
+                design, selecterMenu, guidancePhrase, totalStorage, inputFromUser);
             manupulationTimeData = new ManupulationTimeData(totalStorage);
         }
 

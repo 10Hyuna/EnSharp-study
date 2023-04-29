@@ -67,6 +67,11 @@ namespace LectureTimeTable.LectureTimeTableView
             Console.Write(" 등록 가능 학점 :  {0}      담은 학점 : {1}      ", user.AbleInterestedCredit, user.EnrolledInterestedCredit);
         }
 
+        public void PrintEnrollCredit(USER user)
+        {
+            Console.Write(" 등록 가능 학점 :  {0}      담은 학점 : {1}      ", user.AbleEnrolledCredit, user.EnrolledCredit);
+        }
+
         public void PrintLectureNo()
         {
             Console.Write("담을 과목 NO : ");

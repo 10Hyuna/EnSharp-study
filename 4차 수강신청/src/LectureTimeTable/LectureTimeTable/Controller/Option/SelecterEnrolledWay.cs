@@ -89,7 +89,7 @@ namespace LectureTimeTable.LectureTimeTableController.Option
                 lectureDisplay.PrintSearchLecture(totalStorage.interestedLectures[i]);
             }
 
-            lectureDisplay.PrintCredit(totalStorage.user);
+            lectureDisplay.PrintEnrollCredit(totalStorage.user);
             lectureDisplay.PrintLectureNo();
         }
         private void enrollLecture(bool isESC, int search)
@@ -107,7 +107,7 @@ namespace LectureTimeTable.LectureTimeTableController.Option
             while (!isESC)
             {
                 Console.SetCursorPosition(0, Console.CursorTop);
-                lectureDisplay.PrintCredit(totalStorage.user);
+                lectureDisplay.PrintEnrollCredit(totalStorage.user);
                 lectureDisplay.PrintLectureNo();
 
                 lectureNO = exceptionHandler.IsValidInput(ConstantNumber.NUMBER, Console.CursorLeft - 13, Console.CursorTop, 3, ConstantNumber.IS_NOT_PASSWORD, ConstantNumber.IS_NOT_ID);
@@ -120,6 +120,11 @@ namespace LectureTimeTable.LectureTimeTableController.Option
                 {
                     guidancePhrase.PrintException((int)EXCEPTION.NULL_LECTURE, 0, Console.CursorTop + 1);
                     continue;
+                }
+                else if(lectureNO == "")
+                {
+                    guidancePhrase.PrintException((int)EXCEPTION.NOT_MATCH_CONDITION, 0, Console.CursorTop + 1);
+                    Console.SetCursorPosition(0, Console.CursorTop - 1);
                 }
                 else
                 {

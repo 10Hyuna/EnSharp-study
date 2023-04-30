@@ -1,9 +1,11 @@
 ﻿using Library.Model;
 using Library.Utility;
 using Library.View;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,13 +16,15 @@ namespace Library.Controller
 
         TotalStorage totalStorage;
         InputFromUser inputFromUser;
-        UI ui; 
+        UI ui;
+        MySQLAccessor mySQLAccessor;
 
         public LogIn(TotalStorage totalStorage, InputFromUser inputFromUser, UI ui)
         {
             this.totalStorage = totalStorage;
             this.inputFromUser = inputFromUser;
             this.ui = ui;
+            mySQLAccessor = mySQLAccessor.SetmySQLAccessor();
         }
 
         public List<string> SignInMember()  // 로그인
@@ -59,20 +63,23 @@ namespace Library.Controller
             const int ConsoleInputRow = 15;
             const int ConsoleInputColumn = 21;
 
-            int userIndex = 0;
             bool isValidAccount = false;
+            int userIndex = 0;
 
-            for (int i = 0; i < totalStorage.users.Count; i++)      // 저장되어 있는 회원 정보만큼 반복하며
+            string checkIdQuery = string.Format("SELECT * FROM user_list WHERE id = {0}", account[(int)USERINFORMATION.ID]);
+
+            MySqlDataReader id = mySQLAccessor.AccessReturnData(checkIdQuery, (int)INPUTDATA.USER);
+
+            while (id.Read())
             {
-                if (totalStorage.users[i].GetId() == account[(int)(USERINFORMATION.ID)] &&
-                    totalStorage.users[i].GetPassword() == account[(int)(USERINFORMATION.PASSWORD)])   // 일치하는 ID가 있을 때
+                if (account[(int)USERINFORMATION.ID] == (string)id["id"] &&
+                    account[(int)USERINFORMATION.PASSWORD] == (string)id["password"])
                 {
-                    totalStorage.loggedInUserId = account[(int)(USERINFORMATION.ID)];
-                    isValidAccount = true;      // 존재하는 계정의
-                    userIndex = i;                  // 인덱스 값을 저장해 두고
-                    break;                      // 반복문 탈출
+                    totalStorage.loggedInUserId = account[(int)USERINFORMATION.ID];
+                    isValidAccount = true;
                 }
             }
+            mySQLAccessor.CloseConnection();
 
             if (!isValidAccount)        // 일치하는 정보가 없다면
             {
@@ -81,6 +88,17 @@ namespace Library.Controller
             }
 
             return isValidAccount;
+            //for (int i = 0; i < totalStorage.users.Count; i++)      // 저장되어 있는 회원 정보만큼 반복하며
+            //{
+            //    if (totalStorage.users[i].GetId() == account[(int)(USERINFORMATION.ID)] &&
+            //        totalStorage.users[i].GetPassword() == account[(int)(USERINFORMATION.PASSWORD)])   // 일치하는 ID가 있을 때
+            //    {
+            //        totalStorage.loggedInUserId = account[(int)(USERINFORMATION.ID)];
+            //        isValidAccount = true;      // 존재하는 계정의
+            //        userIndex = i;                  // 인덱스 값을 저장해 두고
+            //        break;                      // 반복문 탈출
+            //    }
+            //}
         }
     }
 }

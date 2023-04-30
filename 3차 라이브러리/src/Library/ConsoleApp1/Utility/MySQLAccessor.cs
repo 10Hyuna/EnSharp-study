@@ -17,7 +17,7 @@ namespace Library.Utility
         string id = "root";
         string password = "0000";
         string connectionAddress;
-        string inputQuery;'
+        string inputQuery;
         private MySQLAccessor() { }
 
         public MySQLAccessor SetmySQLAccessor()
@@ -30,36 +30,35 @@ namespace Library.Utility
             return mySQLAccessor;
         }
 
-        public void InsertData(List<string> inputData, int inputDirection)
+        public void AccessVoidData(string inputQuery, int inputDirection)
         {
             switch(inputDirection)
             {
                 case (int)INPUTDATA.USER:
-                    inputQuery = string.Format("INSERT INTO user_list VAULES ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}'", inputData[(int)USERINFORMATION.ID], inputData[(int)USERINFORMATION.PASSWORD], inputData[(int)USERINFORMATION.NAME], inputData[(int)USERINFORMATION.AGE], inputData[(int)USERINFORMATION.PHONENUMBER], inputData[(int)USERINFORMATION.ADDRESS]);
                     AccessData(inputQuery);
                     break;
                 case (int)INPUTDATA.BOOK:
-                    inputQuery = string.Format("INSERT INTO book_list (title, author, publisher, amount, price, publishdate, ISBN, information) VAULES ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}'", inputData[(int)BOOKINFORMATION.TITLE], inputData[(int)BOOKINFORMATION.AUTHOR], inputData[(int)BOOKINFORMATION.PUBLISHER], inputData[(int)BOOKINFORMATION.AMOUNT], inputData[(int)BOOKINFORMATION.PRICE], inputData[(int)BOOKINFORMATION.PUBLISHDAY], inputData[(int)BOOKINFORMATION.ISBN], inputData[(int)BOOKINFORMATION.INFORMATION]);
                     AccessData(inputQuery);
                     break;
             }
         }
 
-
-        public void UpdateData(List<string> inputData, int inputDirection)
+        public MySqlDataReader AccessReturnData(string inputQuery, int inputDirection)
         {
+            MySqlDataReader returnData = null;
+
             switch (inputDirection)
             {
                 case (int)INPUTDATA.USER:
-                    inputQuery = string.Format("UPDATE user_list VAULES ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}'", inputData[(int)USERINFORMATION.ID], inputData[(int)USERINFORMATION.PASSWORD], inputData[(int)USERINFORMATION.NAME], inputData[(int)USERINFORMATION.AGE], inputData[(int)USERINFORMATION.PHONENUMBER], inputData[(int)USERINFORMATION.ADDRESS]);
-                    AccessData(inputQuery);
+                    returnData = AccessReturnData(inputQuery);
                     break;
                 case (int)INPUTDATA.BOOK:
-                    inputQuery = string.Format("UPDATE book_list (title, author, publisher, amount, price, publishdate, ISBN, information) VAULES ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}'", inputData[(int)BOOKINFORMATION.TITLE], inputData[(int)BOOKINFORMATION.AUTHOR], inputData[(int)BOOKINFORMATION.PUBLISHER], inputData[(int)BOOKINFORMATION.AMOUNT], inputData[(int)BOOKINFORMATION.PRICE], inputData[(int)BOOKINFORMATION.PUBLISHDAY], inputData[(int)BOOKINFORMATION.ISBN], inputData[(int)BOOKINFORMATION.INFORMATION]);
-                    Access
+                    returnData = AccessReturnData(inputQuery);
                     break;
             }
+            return returnData;
         }
+
         private void AccessData(string stringQuery)
         {
             using (MySqlConnection connection = new MySqlConnection(connectionAddress))
@@ -67,6 +66,28 @@ namespace Library.Utility
                 connection.Open();
 
                 MySqlCommand command = new MySqlCommand(stringQuery, connection);
+            }
+        }
+
+        private MySqlDataReader AccessReturnData(string stringQuery)
+        {
+            MySqlDataReader returnValue;
+
+            using (MySqlConnection connection = new MySqlConnection(connectionAddress))
+            {
+                connection.Open();
+
+                MySqlCommand command = new MySqlCommand(stringQuery, connection);
+                returnValue = command.ExecuteReader();
+            }
+            return returnValue;
+        }
+
+        public void CloseConnection()
+        {
+            using (MySqlConnection connection = new MySqlConnection(connectionAddress))
+            {
+                connection.Close();
             }
         }
     }

@@ -133,8 +133,7 @@ namespace LectureTimeTable.LectureTimeTableView
                 Console.SetCursorPosition(column + 10, row + 1);
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("ESC : 뒤로가기");
-                Console.SetCursorPosition(0, 0);
-                EraseAnounce();
+                Console.ResetColor();
             }
         }
 

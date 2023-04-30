@@ -5,6 +5,8 @@ using System.Reflection;
 using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
+using Library.Controller.BookAccessor;
+using Library.Controller.MemberAccessor;
 using Library.Model;
 using Library.Utility;
 using Library.View;

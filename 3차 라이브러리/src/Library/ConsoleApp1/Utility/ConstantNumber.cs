@@ -102,6 +102,8 @@ namespace Library.Utility
         AMOUNT,
         PRICE,
         PUBLISHDAY,
+        ISBN,
+        INFORMATION,
         SUCCESS
     }
 
@@ -115,3 +117,9 @@ namespace Library.Utility
         USERINFORMATION,
         USERACCOUNT
     }
+
+    enum INPUTDATA
+    {
+        USER,
+        BOOK
+    }         

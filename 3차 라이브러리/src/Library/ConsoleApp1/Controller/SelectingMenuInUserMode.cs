@@ -1,4 +1,6 @@
-﻿using Library.Model;
+﻿using Library.Controller.BookAccessor;
+using Library.Controller.MemberAccessor;
+using Library.Model;
 using Library.Utility;
 using Library.View;
 using System;

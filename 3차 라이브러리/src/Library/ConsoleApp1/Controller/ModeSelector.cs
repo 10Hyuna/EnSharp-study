@@ -9,14 +9,14 @@ using Library.Utility;
 using Library.View;
 using Library.Model.VO;
 using System.Diagnostics.Metrics;
+using Library.Controller.BookAccessor;
+using Library.Controller.MemberAccessor;
 
 namespace Library.Controller
 {
     class ModeSelector
     {
         TotalStorage totalStorage;
-        Book book;
-        User user;
         UI ui;
         PrinterBookInformation printerBookInformation;
         PrinterUserInformation printerUserInformation;

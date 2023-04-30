@@ -15,10 +15,12 @@ namespace Library.Model
         {
             Book bookInformation = new Book();
             Manager managerInformation = new Manager();
+            SearchResult searchResult = new SearchResult();
         }
         public List<Book> books = new List<Book>();
         public List<User> users = new List<User>();
         public List<Manager> manager = new List<Manager>();
+        public SearchResult searchResult = new SearchResult();
         public string loggedInUserId;
     }
 }

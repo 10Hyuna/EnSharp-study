@@ -151,8 +151,9 @@ namespace Library.View
                 Console.WriteLine("주어진 조건에 맞는 값을 입력해 주세요.");
                 Console.SetCursorPosition(consoleInputRow, consoleInputColumn);
                 ErasePrint();
+                Console.SetCursorPosition(consoleInputRow, consoleInputColumn);
             }
-            if(condition == ConstantNumber.VALID_VALUE)
+            if (condition == ConstantNumber.VALID_VALUE)
             {
                 Console.SetCursorPosition(consoleInputRow, consoleInputColumn);
                 Console.WriteLine("유효하지 않은 값입니다.");

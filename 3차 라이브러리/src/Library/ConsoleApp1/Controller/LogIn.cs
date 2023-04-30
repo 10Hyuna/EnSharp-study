@@ -24,14 +24,13 @@ namespace Library.Controller
             this.totalStorage = totalStorage;
             this.inputFromUser = inputFromUser;
             this.ui = ui;
-            mySQLAccessor = mySQLAccessor.SetmySQLAccessor();
+            mySQLAccessor = MySQLAccessor.SetmySQLAccessor();
         }
 
         public List<string> SignInMember()  // 로그인
         {
             const int id = 0;
             const int password = 1;
-
             int ConsoleInputRow = 25;
             int ConsoleInputColumn = 23;
 
@@ -65,15 +64,15 @@ namespace Library.Controller
 
             bool isValidAccount = false;
             int userIndex = 0;
+            string columnName;
+            string checkIdQuery = string.Format("SELECT * FROM user_list WHERE id='{0}'", account[(int)USERINFORMATION.ID]);
 
-            string checkIdQuery = string.Format("SELECT * FROM user_list WHERE id = {0}", account[(int)USERINFORMATION.ID]);
+            MySqlDataReader searchAccount = mySQLAccessor.AccessReturnData(checkIdQuery, (int)INPUTDATA.USER);
 
-            MySqlDataReader id = mySQLAccessor.AccessReturnData(checkIdQuery, (int)INPUTDATA.USER);
-
-            while (id.Read())
+            while (searchAccount.Read())
             {
-                if (account[(int)USERINFORMATION.ID] == (string)id["id"] &&
-                    account[(int)USERINFORMATION.PASSWORD] == (string)id["password"])
+                if (account[(int)USERINFORMATION.ID] == (string)searchAccount["id"] &&
+                    account[(int)USERINFORMATION.PASSWORD] == (string)searchAccount["password"])
                 {
                     totalStorage.loggedInUserId = account[(int)USERINFORMATION.ID];
                     isValidAccount = true;

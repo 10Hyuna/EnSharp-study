@@ -9,7 +9,7 @@ namespace Library.Utility
 {
     public class MySQLAccessor
     {
-        private MySQLAccessor mySQLAccessor;
+        private static MySQLAccessor mySQLAccessor;
 
         private string server = "localhost";
         int port = 3306;
@@ -20,19 +20,19 @@ namespace Library.Utility
         string inputQuery;
         private MySQLAccessor() { }
 
-        public MySQLAccessor SetmySQLAccessor()
+        public static MySQLAccessor SetmySQLAccessor()
         {
             if(mySQLAccessor == null)
             {
                 mySQLAccessor = new MySQLAccessor();
-                connectionAddress = string.Format("Server={0};Port={1};Database={2};Uid={3};Pwd={4}", server, port, database, id, password);
             }
             return mySQLAccessor;
         }
 
         public void AccessVoidData(string inputQuery, int inputDirection)
         {
-            switch(inputDirection)
+            connectionAddress = string.Format("Server={0};Port={1};Database={2};Uid={3};Pwd={4}", server, port, database, id, password);
+            switch (inputDirection)
             {
                 case (int)INPUTDATA.USER:
                     AccessData(inputQuery);
@@ -46,6 +46,7 @@ namespace Library.Utility
         public MySqlDataReader AccessReturnData(string inputQuery, int inputDirection)
         {
             MySqlDataReader returnData = null;
+            connectionAddress = string.Format("Server={0};Port={1};Database={2};Uid={3};Pwd={4}", server, port, database, id, password);
 
             switch (inputDirection)
             {

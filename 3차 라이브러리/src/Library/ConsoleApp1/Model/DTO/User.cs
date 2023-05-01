@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace Library.Model.DTO
 {
-    class User
+    public class User
     {
 
         public User() { }
 
+        private string loggedInId;
         protected string id;
         protected string password;
         protected string name;
@@ -20,6 +21,11 @@ namespace Library.Model.DTO
         protected List<BorrowBookList> borrowDatas = new List<BorrowBookList>();
         protected List<ReturnBookList> returnDatas = new List<ReturnBookList>();
 
+        public string LoggedInId
+        {
+            get => this.loggedInId;
+            set => this.loggedInId = value;
+        }
         public void SetId(string id)
         {
             this.id = id;
@@ -113,6 +119,12 @@ namespace Library.Model.DTO
             this.age = age;
             this.phoneNumber = phoneNumber;
             this.address = address;
+        }
+
+        public User (string id, string password)
+        {
+            this.id = id;
+            this.password = password;
         }
     }
 }

@@ -13,7 +13,7 @@ using Library.View;
 
 namespace Library.Controller
 {
-    class SeleterSignInOrUp
+    class SeletorSignInOrUp
     {
         UI ui;
         MovingCursorPosition cursror;
@@ -27,7 +27,7 @@ namespace Library.Controller
         FindBook findBook;
         ModificationUserInformation modificationUserInformation;
         LogIn logIn;
-        public SeleterSignInOrUp(UI ui, MovingCursorPosition cursor, TotalStorage totalStorage,
+        public SeletorSignInOrUp(UI ui, MovingCursorPosition cursor, TotalStorage totalStorage,
             PrinterUserInformation userInformation, PrinterBookInformation bookInformation, 
             InputFromUser inputFromUser, HandlingException handlingException,
             UserSignUp userSignInOrUp, FindBook findBook, ModificationUserInformation modificationUserInformation,
@@ -110,7 +110,7 @@ namespace Library.Controller
                     return false;
                 }
 
-                isSuccessLogin = logIn.SerchValidAccount(account);      // 유효한 계정이라면 true가 리턴되어 반복문 탈출
+                isSuccessLogin = logIn.SearchValidAccount(account);      // 유효한 계정이라면 true가 리턴되어 반복문 탈출
             }
 
             userMode.SelectMenuInUserMode();        // 유저 모드로 진입

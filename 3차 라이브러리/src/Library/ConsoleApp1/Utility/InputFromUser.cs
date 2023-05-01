@@ -84,7 +84,6 @@ namespace Library.Utility
 
             bool isEnter = false;
             string input = "";
-            int i = 0;
 
             int originColumn = Console.CursorLeft;
             int originRow = Console.CursorTop;
@@ -95,39 +94,57 @@ namespace Library.Utility
             {
                 keyInfo = Console.ReadKey(true);
 
-                Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop);
-                if (keyInfo.Key == ConsoleKey.Escape)       // esc가 입력되었다면
+                if (keyInfo.Key == ConsoleKey.Escape)
                 {
-                    return null;
+                    Console.CursorVisible = false;
+                    return "ESC";
                 }
-                else if (keyInfo.Key == ConsoleKey.Enter)       // enter가 입력되었다면
+                else if (keyInfo.Key == ConsoleKey.Enter)
                 {
                     isEnter = true;
                 }
-                else if (keyInfo.Key == ConsoleKey.Backspace && input.Length > 0)       // backspace를 입력했고 문자열의 길이가 0이 아니라면
-                {
-                    input = input.Substring(0, input.Length - 1);       // 문자열의 가장 마지막 부분 삭제
+                else if (keyInfo.Key == ConsoleKey.Backspace && input.Length > 0)
+                {   // 백스페이스를 눌렀을 경우
+                    input = input.Substring(0, input.Length - 1);
                     Console.SetCursorPosition(originColumn, originRow);
-                    Console.Write("            ");      // 출력되어 있던 정보 삭제
+                    Console.Write("                         ");
                     Console.SetCursorPosition(originColumn, originRow);
-                    Console.Write(input);       // 삭제된 정보를 다시 출력
-                    i--;
-                }
-                else if (keyInfo.Key == ConsoleKey.Backspace && input.Length == 0)       // 문자열의 길이가 0이라면 backspace 값을 뱉어냄
-                {
-                    continue;
-                }
-                else if (input.Length <= maxLength && isCharacterOrNumber(keyInfo.KeyChar) && keyInfo.KeyChar != '\0')      // 입력 값이 maxLenght 이하이고 문자열이고 유효한 키를 입력했다면
-                {
-                    input += keyInfo.KeyChar;       // 문자열에 값 추가
-                    i++;
-                    if (ispassword)      // 비밀번호라면
+                    if (ispassword)
                     {
-                        Console.Write("*");         // 마스킹 처리
+                        for (int i = 0; i < input.Length; i++)
+                        {
+                            Console.Write("*");
+                        }
                     }
                     else
                     {
-                        Console.Write(keyInfo.KeyChar);
+                        Console.Write(input);
+                        // 한글을 입력했을 경우, 바이트 크기 차이 탓에 글씨가 잘리는 것을
+                        // 방지하기 위하여 문자열 전체를 출력
+                    }
+                }
+                else if (keyInfo.Key == ConsoleKey.Backspace && input.Length == 0)
+                {
+                    continue;
+                }
+                else if (input.Length < maxLength &&
+                    isCharacterOrNumber(keyInfo.KeyChar) &&
+                    keyInfo.KeyChar != '\0')
+                {
+                    input += keyInfo.KeyChar;
+                    Console.SetCursorPosition(originColumn, originRow);
+                    Console.Write("                         ");
+                    Console.SetCursorPosition(originColumn, originRow);
+                    if (ispassword)
+                    {
+                        for (int i = 0; i < input.Length; i++)
+                        {
+                            Console.Write("*");
+                        }
+                    }
+                    else
+                    {
+                        Console.Write(input);
                     }
                 }
             }

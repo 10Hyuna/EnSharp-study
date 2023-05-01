@@ -38,8 +38,8 @@ namespace Library.Controller.MemberAccessor
 
         private bool IsValidAccount(List<string> account)
         {
-            if (account[(int)ACCOUNT.ID] == totalStorage.manager[0].GetId()
-                && account[(int)ACCOUNT.PASSWORD] == totalStorage.manager[0].GetPassword())
+            if (account[(int)ACCOUNT.ID] == totalStorage.manager[0].Id
+                && account[(int)ACCOUNT.PASSWORD] == totalStorage.manager[0].Password)
             {
                 return true;        // 저장된 매니저의 정보와 일치한다면 true 반환
             }

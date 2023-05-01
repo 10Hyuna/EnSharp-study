@@ -8,7 +8,7 @@ using Library.Model;
 
 namespace Library.Model.DTO
 {
-    class Book          // 책 정보
+    public class Book          // 책 정보
     {
         public Book() { }
 
@@ -126,7 +126,7 @@ namespace Library.Model.DTO
         }
 
     }
-    class BorrowBookList : Book
+    public class BorrowBookList : Book
     {
         public BorrowBookList(int id, string title, string author, string publisher, string amount,
             string price, string publishDay, string ISBN, string information, string borrowTime)
@@ -249,7 +249,7 @@ namespace Library.Model.DTO
         }
     }
 
-    class ReturnBookList : BorrowBookList
+    public class ReturnBookList : BorrowBookList
     {
         public ReturnBookList(int id, string title, string author, string publisher, string amount,
             string price, string publishDay, string ISBN, string information, string borrowTime, string returnTime)

@@ -9,6 +9,7 @@ namespace Library.Utility
 {
     public class MySQLAccessor
     {
+   
         private static MySQLAccessor mySQLAccessor;
 
         private string server = "localhost";

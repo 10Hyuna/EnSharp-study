@@ -1,4 +1,6 @@
 ﻿using Library.Model;
+using Library.Model.DAO;
+using Library.Model.DTO;
 using Library.Utility;
 using Library.View;
 using MySql.Data.MySqlClient;
@@ -13,18 +15,17 @@ namespace Library.Controller
 {
     class LogIn
     {
-
         TotalStorage totalStorage;
         InputFromUser inputFromUser;
         UI ui;
-        MySQLAccessor mySQLAccessor;
+        AccessorData accessorData;
 
         public LogIn(TotalStorage totalStorage, InputFromUser inputFromUser, UI ui)
         {
             this.totalStorage = totalStorage;
             this.inputFromUser = inputFromUser;
             this.ui = ui;
-            mySQLAccessor = MySQLAccessor.SetmySQLAccessor();
+            accessorData = AccessorData.GetAccessorData();
         }
 
         public List<string> SignInMember()  // 로그인
@@ -57,7 +58,7 @@ namespace Library.Controller
             return accounts;
         }
 
-        public bool SerchValidAccount(List<string> account)
+        public bool SearchValidAccount(List<string> account)
         {
             const int ConsoleInputRow = 15;
             const int ConsoleInputColumn = 21;
@@ -65,39 +66,15 @@ namespace Library.Controller
             bool isValidAccount = false;
             int userIndex = 0;
             string columnName;
-            string checkIdQuery = string.Format("SELECT * FROM user_list WHERE id='{0}'", account[(int)USERINFORMATION.ID]);
 
-            MySqlDataReader searchAccount = mySQLAccessor.AccessReturnData(checkIdQuery, (int)INPUTDATA.USER);
+            User user = accessorData.SelectUserData(account[(int)USERINFORMATION.ID]);
 
-            while (searchAccount.Read())
+            if(user.GetPassword() == account[(int)USERINFORMATION.PASSWORD])
             {
-                if (account[(int)USERINFORMATION.ID] == (string)searchAccount["id"] &&
-                    account[(int)USERINFORMATION.PASSWORD] == (string)searchAccount["password"])
-                {
-                    totalStorage.loggedInUserId = account[(int)USERINFORMATION.ID];
-                    isValidAccount = true;
-                }
+                isValidAccount = true;
+                totalStorage.loggedInUserId = account[(int)USERINFORMATION.ID];
             }
-            mySQLAccessor.CloseConnection();
-
-            if (!isValidAccount)        // 일치하는 정보가 없다면
-            {
-                ui.IsValidAccount(ConsoleInputRow, ConsoleInputColumn + 5);
-                Console.ReadKey(true);
-            }
-
             return isValidAccount;
-            //for (int i = 0; i < totalStorage.users.Count; i++)      // 저장되어 있는 회원 정보만큼 반복하며
-            //{
-            //    if (totalStorage.users[i].GetId() == account[(int)(USERINFORMATION.ID)] &&
-            //        totalStorage.users[i].GetPassword() == account[(int)(USERINFORMATION.PASSWORD)])   // 일치하는 ID가 있을 때
-            //    {
-            //        totalStorage.loggedInUserId = account[(int)(USERINFORMATION.ID)];
-            //        isValidAccount = true;      // 존재하는 계정의
-            //        userIndex = i;                  // 인덱스 값을 저장해 두고
-            //        break;                      // 반복문 탈출
-            //    }
-            //}
         }
     }
 }

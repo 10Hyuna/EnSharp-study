@@ -5,22 +5,24 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace Library.Model.VO
+namespace Library.Model.DTO
 {
-    class Manager
+    public class Manager
     {
         public Manager() { }
         protected string id;
         protected string password;
 
-        public string GetId()
+        public string Id
         {
-            return this.id;
+            get => this.id;
+            set => this.id = value;
         }
 
-        public string GetPassword()
+        public string Password
         {
-            return this.password;
+            get => this.password;
+            set => this.password = value;
         }
         public Manager(string id, string password)
         {

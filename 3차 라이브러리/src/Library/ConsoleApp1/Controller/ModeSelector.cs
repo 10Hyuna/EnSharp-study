@@ -7,7 +7,6 @@ using Library.Model;
 using Library.Model.DTO;
 using Library.Utility;
 using Library.View;
-using Library.Model.VO;
 using System.Diagnostics.Metrics;
 using Library.Controller.BookAccessor;
 using Library.Controller.MemberAccessor;
@@ -22,7 +21,7 @@ namespace Library.Controller
         PrinterUserInformation printerUserInformation;
         MovingCursorPosition cursor;
         EnteringManagerMode enteringManagerMode;
-        SeleterSignInOrUp selecterSignInOrUp;
+        SeletorSignInOrUp selecterSignInOrUp;
         InputFromUser inputFromUser;
         ConstantNumber constantNumber;
         HandlingException handlingException;
@@ -52,7 +51,7 @@ namespace Library.Controller
             logIn = new LogIn(totalStorage, inputFromUser, ui);
             bookAccessInManager = new BookAccessInManager(totalStorage, printerBookInformation, ui, handlingException, cursor);
             memberAccessInManager = new MemberAccessInManager(printerUserInformation, totalStorage, handlingException, ui);
-            selecterSignInOrUp = new SeleterSignInOrUp(ui, cursor, totalStorage, 
+            selecterSignInOrUp = new SeletorSignInOrUp(ui, cursor, totalStorage, 
                 printerUserInformation, printerBookInformation, inputFromUser, 
                 handlingException, userSingInOrUp, findBook, modificationUserInformation, logIn);
             enteringManagerMode = new EnteringManagerMode(ui, cursor, totalStorage, printerBookInformation, 

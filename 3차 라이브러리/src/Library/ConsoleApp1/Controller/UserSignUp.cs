@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 using Library.Model;
 using Library.Utility;
 using Library.View;
-using Library.Model.VO;
 using Library.Model.DTO;
 using System.Reflection.Metadata.Ecma335;
 using System.Reflection;
+using Library.Model.DAO;
 
 namespace Library.Controller
 {
@@ -22,6 +22,7 @@ namespace Library.Controller
         HandlingException handlingException;
         InputFromUser inputFromUser;
         PrinterBookInformation printBookInformation;
+        AccessorData accessorData;
 
         public UserSignUp() { }
 
@@ -34,6 +35,7 @@ namespace Library.Controller
             this.inputFromUser = inputFromUser;
             this.printBookInformation = printBookInformation;
             this.handlingException = handlingException;
+            accessorData = AccessorData.GetAccessorData();
         }
         public int SignUpMember()      // 회원가입
         {
@@ -59,14 +61,20 @@ namespace Library.Controller
                 id = handlingException.IsValid(ConstantNumber.idCheck, ConsoleInputRow, ConsoleInputColumn, 15, false);
                 if (id == null)     // 중간에 esc 입력되었다면
                     return -1;
-                for (int i = 0; i < totalStorage.users.Count; i++)      // 회원 정보 훑어 보며
+                User checkId = accessorData.SelectUserData(id);
+
+                if (checkId.GetId() != null)
                 {
-                    if (totalStorage.users[i].GetId() == id)            // 입력한 아이디와 일치한다면
-                    {
-                        isOverlapData = true;                           // 중복 데이터 체크
-                        break;
-                    }
+                    isOverlapData = true;
                 }
+                //for (int i = 0; i < totalStorage.users.Count; i++)      // 회원 정보 훑어 보며
+                //{
+                    //if (totalStorage.users[i].GetId() == id)            // 입력한 아이디와 일치한다면
+                    //{
+                        //isOverlapData = true;                           // 중복 데이터 체크
+                        //break;
+                    //}
+                //}
                 if (isOverlapData)          // 중복 데이터라면
                 {
                     isOverlapData = false;  // 반복문에서 탈출하면 안 되기 때문에 다시 false 입력
@@ -132,8 +140,8 @@ namespace Library.Controller
             address = handlingException.IsValid(ConstantNumber.addressCheck, ConsoleInputRow + 5, ConsoleInputColumn + 6, 20, false);
             if (address == null)
                 return ConstantNumber.EXIT;
-
-            totalStorage.users.Add(new User(id, password, name, age, phoneNumber, address));    // 위의 조건을 모두 통과한 값일 경우 정보 저장
+            User user = new User(id, password, name, age, phoneNumber, address);
+            accessorData.InsertUserData(user); // 위의 조건을 모두 통과한 값일 경우 정보 저장
 
             return ConstantNumber.SUCCESS;
         }

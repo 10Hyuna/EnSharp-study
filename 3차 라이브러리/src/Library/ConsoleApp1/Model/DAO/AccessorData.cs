@@ -112,15 +112,15 @@ namespace Library.Model.DAO
             return books;
         }
 
-        public ReturnBookList SelectReturnBookList(string userId)
-        {
-            string stringQuery = string.Format("SELECT * FROM user_return_book WHERE id = '{0}'", );
-            MySqlDataReader reader = connectionDataBase.SelectData(stringQuery);
-            ReturnBookList returnBookList;
-            while(reader.Read())
-            {
-                return
-            }
-        }
+        //public ReturnBookList SelectReturnBookList(string userId)
+        //{
+            //string stringQuery = string.Format("SELECT * FROM user_return_book WHERE id = '{0}'", );
+            //MySqlDataReader reader = connectionDataBase.SelectData(stringQuery);
+            //ReturnBookList returnBookList;
+            //while(reader.Read())
+            //{
+                //return
+            //}
+        //}
     }
 }

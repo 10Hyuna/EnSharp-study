@@ -6,7 +6,24 @@ using System.Threading.Tasks;
 
 namespace Library.View
 {
-    internal class GuidancePhrase
+    public class GuidancePhrase
     {
+        private static GuidancePhrase guidancePhrase;
+
+        private GuidancePhrase() { }
+
+        public static GuidancePhrase SetGuidancePhrase()
+        {
+            if(guidancePhrase == null)
+            {
+                guidancePhrase = new GuidancePhrase();
+            }
+            return guidancePhrase;
+        }
+
+        public void PrintMenu(string menu)
+        {
+            Console.WriteLine(menu);
+        }
     }
 }

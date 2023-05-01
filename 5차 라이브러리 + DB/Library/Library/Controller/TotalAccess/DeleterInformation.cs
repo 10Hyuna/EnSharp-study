@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Library.View
+namespace Library.Controller.TotalAccess
 {
-    internal class MainUI
+    internal class DeleterInformation
     {
     }
 }

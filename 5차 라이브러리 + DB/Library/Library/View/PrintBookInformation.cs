@@ -6,7 +6,19 @@ using System.Threading.Tasks;
 
 namespace Library.View
 {
-    internal class PrintBookInformation
+    public class PrintBookInformation
     {
+        private PrintBookInformation printBookInformation;
+
+        private PrintBookInformation() { }
+
+        public PrintBookInformation GetPrintBookInformation()
+        {
+            if(printBookInformation == null)
+            {
+                printBookInformation = new PrintBookInformation();
+            }
+            return printBookInformation;
+        }
     }
 }

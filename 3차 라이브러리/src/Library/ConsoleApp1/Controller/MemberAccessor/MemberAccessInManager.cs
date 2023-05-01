@@ -50,7 +50,7 @@ namespace Library.Controller.MemberAccessor
 
         private void RentalStateInBorrowBook(int index)         // 유저의 대여 현황을 확인하게 해 주는 함수
         {
-            ReturnBookList returnBookList = accessorData.
+            //ReturnBookList returnBookList = accessorData.
             //for (int j = 0; j < totalStorage.users[index].BorrowDatas.Count; j++)
             //{
                 //BorrowBookList rentalBook = totalStorage.users[index].BorrowDatas[j];

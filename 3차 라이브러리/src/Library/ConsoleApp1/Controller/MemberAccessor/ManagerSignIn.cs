@@ -1,4 +1,6 @@
 ﻿using Library.Model;
+using Library.Model.DTO;
+using Library.Model.DAO;
 using Library.Utility;
 using Library.View;
 using System;
@@ -14,11 +16,14 @@ namespace Library.Controller.MemberAccessor
         UI ui;
         TotalStorage totalStorage;
         LogIn logIn;
+        AccessorData accessorData;
+
         public ManagerSignIn(UI ui, TotalStorage totalStorage, LogIn logIn)
         {
             this.ui = ui;
             this.totalStorage = totalStorage;
             this.logIn = logIn;
+            accessorData = AccessorData.GetAccessorData();
         }
 
         public bool SignInManager()     // 매니저 로그인 함수
@@ -38,10 +43,11 @@ namespace Library.Controller.MemberAccessor
 
         private bool IsValidAccount(List<string> account)
         {
-            if (account[(int)ACCOUNT.ID] == totalStorage.manager[0].Id
-                && account[(int)ACCOUNT.PASSWORD] == totalStorage.manager[0].Password)
+            Manager manager = accessorData.SelectManagerData(account[(int)USERINFORMATION.ID]);
+
+            if (account[(int)USERINFORMATION.PASSWORD] == manager.Password) 
             {
-                return true;        // 저장된 매니저의 정보와 일치한다면 true 반환
+                return true;
             }
             return false;
         }

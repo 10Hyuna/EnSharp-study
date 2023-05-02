@@ -113,8 +113,6 @@ namespace Library.Controller
                 isSuccessLogin = logIn.SearchValidAccount(account);      // 유효한 계정이라면 true가 리턴되어 반복문 탈출
             }
 
-            userMode.SelectMenuInUserMode();        // 유저 모드로 진입
-
             return true;
         }
 

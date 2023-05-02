@@ -9,6 +9,7 @@ namespace Library.Utility
     public class InputFromUser
     {
 
+        static ConsoleKeyInfo keyInfo;
         private static InputFromUser inputFromUser;
 
         private InputFromUser() { }
@@ -21,11 +22,63 @@ namespace Library.Utility
             }
             return inputFromUser;
         }
-        ConsoleKeyInfo keyInfo;
-        public int SelectMenuIndex(int endMenuIndex, int selectedMenu)
+
+        static void Console_CancelKeyPress(object sender, ConsoleCancelEventArgs e) //ctrl + z 등 단축키를 통해
+        {
+            e.Cancel = true;
+        }
+
+
+        private static bool isCharacterOrNumber(char input)        // 문자에 해당하는 값이 입력되었다면
+        {
+            if (input >= 'A' && input <= 'Z' || input >= 'a' && input <= 'z' || input >= '0' || input <= '9')
+                return true;
+            return false;
+        }
+        public static bool EnteredESC()
+        {
+            bool isESC = false;
+
+            while (!isESC)
+            {
+                keyInfo = Console.ReadKey(true);
+
+                if (keyInfo.Key == ConsoleKey.Escape)
+                {
+                    isESC = true;
+                }
+            }
+            return isESC;
+        }
+
+        public static string InputEnterESC()
+        {
+            keyInfo = Console.ReadKey(true);
+
+            string returnValue = "";
+            bool isBreak = false;
+
+            while (!isBreak)
+            {
+                switch (keyInfo.Key)
+                {
+                    case ConsoleKey.Enter:
+                        isBreak = true;
+                        returnValue = Constant.ENTER_STRING;
+                        break;
+                    case ConsoleKey.Escape:
+                        isBreak = true;
+                        returnValue = Constant.ESC_STRING;
+                        break;
+                }
+            }
+            return returnValue;
+        }
+
+        public static int SelectMenuIndex(int endMenuIndex, int selectedMenu)
         {   // 메뉴는 위아래로 움직임            
 
-            Console.CancelKeyPress += new ConsoleCancelEventHandler(Console_CancelKeyPress);
+            //Console.CancelKeyPress += new ConsoleCancelEventHandler(Console_CancelKeyPress);
 
             keyInfo = Console.ReadKey(true);
 
@@ -47,17 +100,102 @@ namespace Library.Utility
             }
             else if (keyInfo.Key == ConsoleKey.Enter)
             {
-                selectedMenu = Constant.ENTER;
+                selectedMenu = Constant.ENTER_INT;
             }
             else if (keyInfo.Key == ConsoleKey.Escape)
             {
-                selectedMenu = Constant.EXIT;
+                selectedMenu = Constant.EXIT_INT;
             }
             else
             {
-                selectedMenu = Constant.FAIL;
+                selectedMenu = Constant.FAIL_INT;
             }
             return selectedMenu;
+        }
+
+        public static string InputStringFromUser(int maxLength, bool isPassword, int consoleColumn, int consoleRow)
+        {
+            Console.CursorVisible = true;
+            bool isEnter = true;
+            string input = "";
+
+            int originColumn = Console.CursorLeft + 13;
+            int originRow = Console.CursorTop;
+            Console.SetCursorPosition(originColumn, originRow);
+            Console.Write("                ");
+            // 이미 출력되어 있던 문자열이 있을 경우를 대비해 입력할 위치를 지워 줌
+            Console.SetCursorPosition(originColumn + input.Length, originRow);
+
+            while (isEnter)
+            {
+                keyInfo = Console.ReadKey(true);
+
+                switch (keyInfo.Key)
+                {
+                    case ConsoleKey.Escape:
+                        Console.CursorVisible = false;
+                        return Constant.ESC_STRING;
+                    case ConsoleKey.Enter:
+                        isEnter = false;
+                        break;
+                    case ConsoleKey.Backspace:
+                        InputBackspace(input, originColumn, originRow, isPassword);
+                        break;
+                    default:
+                        inputKeyChar(input, maxLength, originColumn, originRow, isPassword);
+                        break;
+                }
+            }
+            Console.CursorVisible = false;
+            return input;
+        }
+
+        private static void InputBackspace(string input, int column, int row, bool isPassword)
+        {
+            if(input.Length == 0)
+            {
+                return;
+            }
+
+            input = input.Substring(0, input.Length - 1);
+            Console.SetCursorPosition(column, row);
+            Console.Write("                       ");
+            Console.SetCursorPosition(column, row);
+            if (isPassword)
+            {
+                for(int i = 0; i < input.Length; i++)
+                {
+                    Console.Write("*");
+                }
+            }
+            else
+            {
+                Console.Write(input);
+            }
+        }
+
+        private static void inputKeyChar(string input, int maxLength, int column, int row, bool isPassword)
+        {
+            if(input.Length < maxLength && 
+                isCharacterOrNumber(keyInfo.KeyChar) &&
+                keyInfo.KeyChar != '\0')
+            {
+                input += keyInfo.KeyChar;
+                Console.SetCursorPosition(column, row);
+                Console.Write("                       ");
+                Console.SetCursorPosition(column, row);
+                if (isPassword)
+                {
+                    for(int i=0;i<input.Length;i++)
+                    {
+                        Console.Write("*");
+                    }
+                }
+                else
+                {
+                    Console.Write(input);
+                }
+            }
         }
     }
 }

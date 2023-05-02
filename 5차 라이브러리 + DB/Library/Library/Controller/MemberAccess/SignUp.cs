@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace Library.Controller.MemberAccess
 {
-    internal class SignUp
+    public class SignUp
     {
+        public void EntrySignUp()
+        {
+
+        }
     }
 }

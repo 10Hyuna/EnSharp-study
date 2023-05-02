@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Library.Utility;
+using Library.View;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,27 +10,50 @@ namespace Library.Controller.MemberAccess
 {
     public class Login
     {
-        public void SelectLoginType(int loginType)
+        MainView mainView;
+        ExceptionHandler exceptionHandler;
+
+        public Login()
         {
-            switch(loginType)
+            mainView = MainView.SetMainView();
+            exceptionHandler = ExceptionHandler.GetExceptionHandler();
+        }
+
+        public bool EntryUserLogin()
+        {
+            List<string> account;
+            bool isValidAccount = true;
+
+            while (isValidAccount)
             {
-                case (int)MODE.USER:
+                Console.Clear();
+                MainView.PrintLoginUI("USER");
 
-                    break;
-                case (int)MODE.MANAGER:
+                account = ReturnInformation();
 
-                    break;
+                if (account[0] == Constant.ESC_STRING)
+                {
+                    return false;
+                }
+
+                isValidAccount = IsCheckValidAccount();
             }
+            return true;
         }
 
-        private void EntryUserLogin()
+        public void EntryManagerLogin()
         {
 
         }
 
-        private void EntryManagerLogin()
+        private List<string> ReturnInformation()
         {
+            return null;
+        }
 
+        private bool IsCheckValidAccount()
+        {
+            return true;
         }
     }
 }

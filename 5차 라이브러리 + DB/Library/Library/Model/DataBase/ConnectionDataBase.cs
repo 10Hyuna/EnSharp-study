@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,32 +19,44 @@ namespace Library.Model.DataBase
             if (connection == null)
             {
                 connection = new MySqlConnection("Server=localhost;Port=3306;Database=en#library;Uid=root;Pwd=0000");
-                connection.Open();
             }
             return connection;
         }
 
-        private static void DisConnectServer()
+        public Hashtable SelectData(string stringQuery)
         {
-            if (connection != null)
-            {
-                connection.Close();
-                connection.Open();
-            }
-        }
-
-        public MySqlDataReader SelectData(string stringQuery)
-        {
-            DisConnectServer();
+            Hashtable dataList = new Hashtable();
+            ArrayList columnNames = new ArrayList();
             MySqlCommand command = new MySqlCommand(stringQuery, ConnectServer());
+            connection.Open();
             MySqlDataReader reader = command.ExecuteReader();
 
-            return reader;
+            for(int i = 0; i < reader.FieldCount; i++)
+            {
+                columnNames.Add(reader.GetName(i));
+            }
+
+            while (reader.Read())
+            {
+                for (int i = 0; i < reader.FieldCount; i++)
+                {
+                    string columnName = columnNames[i].ToString();
+                    object value = reader.GetValue(i);
+
+                    if (!dataList.ContainsKey(columnName))
+                    {
+                        dataList[columnName] = new ArrayList();
+                    }
+                    ((ArrayList)dataList[columnName]).Add(value);
+                }
+            }
+            reader.Close();
+            connection.Close();
+            return dataList;
         }
 
         public void CUD(string stringQuery)
         {
-            DisConnectServer();
             MySqlCommand command = new MySqlCommand(stringQuery, ConnectServer());
             command.ExecuteNonQuery();
         }

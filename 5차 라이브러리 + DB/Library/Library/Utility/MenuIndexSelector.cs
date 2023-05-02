@@ -9,7 +9,7 @@ namespace Library.Utility
 {
     public class MenuIndexSelector
     {
-        private static MenuIndexSelector menuIndexSelector;
+        private static MenuIndexSelector menuIndexSelector = null;
         private GuidancePhrase guidancePhrase;
         private InputFromUser inputFromUser;
 
@@ -28,7 +28,7 @@ namespace Library.Utility
             return menuIndexSelector;
         }
 
-        public int SelectMenuIndex(string[] menu, int presentIndex, int consoleColumn, int consoleRow)
+        public static int SelectMenuIndex(string[] menu, int presentIndex, int consoleColumn, int consoleRow)
         {
             bool isNotEnter = true;
             int selectedMenuIndex;
@@ -39,21 +39,21 @@ namespace Library.Utility
 
                 ColorMenuIndex(menu, presentIndex, consoleColumn, consoleRow);
 
-                selectedMenuIndex = inputFromUser.SelectMenuIndex(menu.Length - 1, presentIndex);
+                selectedMenuIndex = InputFromUser.SelectMenuIndex(menu.Length - 1, presentIndex);
 
                 switch (selectedMenuIndex)
                 {
-                    case (int)Constant.FAIL:
+                    case (int)Constant.FAIL_INT:
                         // 잘못된 입력
                         selectedMenuIndex = presentIndex;
                         break;
-                    case (int)Constant.ENTER:
+                    case (int)Constant.ENTER_INT:
                         isNotEnter = false;
                         selectedMenuIndex = presentIndex;
                         break;
-                    case (int)Constant.EXIT:
+                    case (int)Constant.EXIT_INT:
                         isNotEnter = false;
-                        selectedMenuIndex = (int)Constant.EXIT;
+                        selectedMenuIndex = (int)Constant.EXIT_INT;
                         break;
                 }
                 presentIndex = selectedMenuIndex;
@@ -61,21 +61,21 @@ namespace Library.Utility
             return presentIndex;
         }
 
-        private void ColorMenuIndex(string[] menu, int presentIndex, int consoleColumn, int consoleRow)
+        private static void ColorMenuIndex(string[] menu, int presentIndex, int consoleColumn, int consoleRow)
         {
+            int originColumn = consoleColumn;
+
             for (int i = 0; i < menu.Length; i++)
             {
                 if (i == presentIndex)
                 {
                     Console.ForegroundColor = ConsoleColor.DarkBlue;
-                    guidancePhrase.PrintMenu(menu[i]);
-                    consoleColumn = Console.CursorLeft;
+                    GuidancePhrase.PrintMenu(menu[i]);
                     Console.ResetColor();
                 }
                 else
                 {
-                    guidancePhrase.PrintMenu(menu[i]);
-                    consoleColumn = Console.CursorLeft;
+                    GuidancePhrase.PrintMenu(menu[i]);
                 }
                 Console.SetCursorPosition(consoleColumn, consoleRow + 1);
             }

@@ -21,9 +21,14 @@ namespace Library.View
             return guidancePhrase;
         }
 
-        public void PrintMenu(string menu)
+        public static void PrintMenu(string menu)
         {
-            Console.WriteLine(menu);
+            Console.Write(menu);
+        }
+
+        public static void PrintException(int condition, int column, int row)
+        {
+
         }
     }
 }

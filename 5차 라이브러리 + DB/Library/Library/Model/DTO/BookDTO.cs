@@ -73,6 +73,10 @@ namespace Library.Model.DTO
         }
     }
 
+    public class SearchResult : BookDTO
+    {
+
+    }
     public class RentBookDTO : BookDTO
     {
         protected string userId;

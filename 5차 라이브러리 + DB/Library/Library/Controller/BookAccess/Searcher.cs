@@ -10,19 +10,21 @@ using System.Threading.Tasks;
 
 namespace Library.Controller.BookAccess
 {
-    public class BookSearch
+    public class Searcher
     {
         PrintBookInformation printBookInformation;
         AccessorData accessorData;
         ExceptionHandler exceptionHandler;
+        InputFromUser inputFromUser;
 
-        public BookSearch()
+        public Searcher()
         {
             printBookInformation = PrintBookInformation.GetPrintBookInformation();
             accessorData = AccessorData.GetAccessorData();
             exceptionHandler = ExceptionHandler.GetExceptionHandler();
+            inputFromUser = InputFromUser.GetInputFromUser();
         }
-        public void SearchBook()
+        public void SearchBook(int entryType)
         {
             bool isNotESC = true;
 
@@ -36,7 +38,7 @@ namespace Library.Controller.BookAccess
 
                 List<BookDTO> books = AccessorData.AllBookData();
 
-                for(int i=0;i<books.Count;i++)
+                for(int i = 0; i < books.Count; i++)
                 {
                     PrintBookInformation.PrintBookList(books[i]);
                 }
@@ -64,21 +66,27 @@ namespace Library.Controller.BookAccess
                     GuidancePhrase.PrintException((int)EXCEPTION.NULL_SEARCH_BOOK, 0, row);
                     continue;
                 }
-                Console.Clear();
-                GuidancePhrase.PrintEsc();
-                GuidancePhrase.PrintEnter();
+                if(entryType == (int)USERMENU.FIND)
+                {
+                    Console.Clear();
+                    GuidancePhrase.PrintEsc();
+                }
+                else
+                {
+                    PrintBookInformation.PrintRenttheBookUI();
+                }
                 for(int i = 0; i < books.Count; i++)
                 {
                     PrintBookInformation.PrintBookList(books[i]);
                 }
-                Console.SetCursorPosition(0, 0);
+                isNotESC = !InputFromUser.EnteredESC();
             }
         }
 
         private SearchResult InputBookKeyWord(SearchResult searchResult)
         {
-            int column = 30;
-            int row = 5;
+            int column = 19;
+            int row = 0;
 
             searchResult.Title = ExceptionHandler.IsValidInput(Constant.ONEVALUE, column, row, 50, Constant.IS_NOT_PASSWORD);
             if(searchResult.Title == Constant.ESC_STRING) 
@@ -86,13 +94,13 @@ namespace Library.Controller.BookAccess
                 return searchResult;
             }
 
-            searchResult.Author = ExceptionHandler.IsValidInput(Constant.ONEVALUE, column, row, 50, Constant.IS_NOT_PASSWORD);
+            searchResult.Author = ExceptionHandler.IsValidInput(Constant.ONEVALUE, column, row + 1, 50, Constant.IS_NOT_PASSWORD);
             if (searchResult.Author == Constant.ESC_STRING)
             {
                 return searchResult;
             }
 
-            searchResult.Publisher = ExceptionHandler.IsValidInput(Constant.ONEVALUE, column, row, 50, Constant.IS_NOT_PASSWORD);
+            searchResult.Publisher = ExceptionHandler.IsValidInput(Constant.ONEVALUE, column, row + 2, 50, Constant.IS_NOT_PASSWORD);
             if (searchResult.Publisher == Constant.ESC_STRING)
             {
                 return searchResult;

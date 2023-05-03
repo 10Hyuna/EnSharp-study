@@ -8,7 +8,7 @@ namespace Library.Model.DTO
 {
     public class BookDTO
     {
-        protected int id;
+        private int id;
         protected string title;
         protected string author;
         protected string publisher;
@@ -17,6 +17,21 @@ namespace Library.Model.DTO
         protected string publishDate;
         protected string isbn;
         protected string information;
+
+        public BookDTO() { }
+        public BookDTO(int id, string title, string author, string publisher, int amount,
+            int price, string publishDate, string isbn, string information)   // 책 정보를 입력
+        {
+            this.id = id;
+            this.title = title;
+            this.author = author;
+            this.publisher = publisher;
+            this.amount = amount;
+            this.price = price;
+            this.publishDate = publishDate;
+            this.isbn = isbn;
+            this.information = information;
+        }
 
         public int Id
         {

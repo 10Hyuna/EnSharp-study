@@ -83,7 +83,8 @@ enum MODE
 enum USERENTRY
 {
     SIGNIN,
-    SIGNUP
+    SIGNUP,
+
 }
 
 enum USERMENU

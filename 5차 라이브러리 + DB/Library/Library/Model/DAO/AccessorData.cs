@@ -100,7 +100,7 @@ namespace Library.Model.DAO
 
         public static List<BookDTO> SelectBookData(string title, string author, string publisher)
         {
-            string stringQuery = string.Format("SELECT * FROM book_list WHERE ((title LIKE '{0}') and (author LIKE '{0}') and (publisher LIKE '{0}'))");
+            string stringQuery = string.Format("SELECT * FROM book_list WHERE (title LIKE CONCAT('%', '{0}', '%') OR '{0}' = '') AND (author LIKE CONCAT('%', '{1}', '%') OR '{1}' = '') AND (publisher LIKE CONCAT('%', '{2}', '%') OR '{2}' = '');", title, author, publisher);
             Hashtable hashtable = connectionDataBase.SelectData(stringQuery);
             List<BookDTO> books = new List<BookDTO>();
             if(hashtable.Count == 0)
@@ -108,17 +108,19 @@ namespace Library.Model.DAO
                 return books;
             }
 
-            for(int i = 0; i < hashtable.Count; i++)
+            for(int i = 0; i < ((ArrayList)hashtable["id"]).Count; i++)
             {
-                books[i].Id = int.Parse(hashtable["id"].ToString());
-                books[i].Title = hashtable["title"].ToString();
-                books[i].Author = hashtable["author"].ToString();
-                books[i].Publisher = hashtable["publisher"].ToString();
-                books[i].Amount = int.Parse(hashtable["amount"].ToString());
-                books[i].Price = int.Parse(hashtable["price"].ToString());
-                books[i].PublishDate = hashtable["publishDate"].ToString();
-                books[i].ISBN = hashtable["isbn"].ToString();
-                books[i].Information = hashtable["information"].ToString();
+                BookDTO book = new BookDTO();
+                book.Id = int.Parse(((ArrayList)hashtable["id"])[i].ToString());
+                book.Title = ((ArrayList)hashtable["title"])[i].ToString();
+                book.Author = ((ArrayList)hashtable["author"])[i].ToString();
+                book.Publisher = ((ArrayList)hashtable["publisher"])[i].ToString();
+                book.Amount = int.Parse(((ArrayList)hashtable["amount"])[i].ToString());
+                book.Price = int.Parse(((ArrayList)hashtable["price"])[i].ToString());
+                book.PublishDate = ((ArrayList)hashtable["publishdate"])[i].ToString();
+                book.ISBN = ((ArrayList)hashtable["ISBN"])[i].ToString();
+                book.Information = ((ArrayList)hashtable["information"])[i].ToString();
+                books.Add(book);
             }
             return books;
         }
@@ -128,21 +130,23 @@ namespace Library.Model.DAO
             string stringQuery = string.Format(Constant.SELECT_ALL_BOOK);
             Hashtable hashtable = connectionDataBase.SelectData(stringQuery);
             List<BookDTO> books = new List<BookDTO>();
-            if(hashtable.Count == 0)
+            if (((ArrayList)hashtable["id"]).Count == 0)
             {
                 return books;
             }
-            for (int i = 0; i < hashtable.Count; i++)
+            for (int i = 0; i < ((ArrayList)hashtable["id"]).Count; i++)
             {
-                books[i].Id = int.Parse(hashtable["id"].ToString());
-                books[i].Title = hashtable["title"].ToString();
-                books[i].Author = hashtable["author"].ToString();
-                books[i].Publisher = hashtable["publisher"].ToString();
-                books[i].Amount = int.Parse(hashtable["amount"].ToString());
-                books[i].Price = int.Parse(hashtable["price"].ToString());
-                books[i].PublishDate = hashtable["publishDate"].ToString();
-                books[i].ISBN = hashtable["isbn"].ToString();
-                books[i].Information = hashtable["information"].ToString();
+                BookDTO book = new BookDTO();
+                book.Id = int.Parse(((ArrayList)hashtable["id"])[i].ToString());
+                book.Title = ((ArrayList)hashtable["title"])[i].ToString();
+                book.Author = ((ArrayList)hashtable["author"])[i].ToString();
+                book.Publisher = ((ArrayList)hashtable["publisher"])[i].ToString();
+                book.Amount = int.Parse(((ArrayList)hashtable["amount"])[i].ToString());
+                book.Price = int.Parse(((ArrayList)hashtable["price"])[i].ToString());
+                book.PublishDate = ((ArrayList)hashtable["publishdate"])[i].ToString();
+                book.ISBN = ((ArrayList)hashtable["ISBN"])[i].ToString();
+                book.Information = ((ArrayList)hashtable["information"])[i].ToString();
+                books.Add(book);
             }
             return books;
         }

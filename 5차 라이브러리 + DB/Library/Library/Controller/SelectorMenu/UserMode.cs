@@ -1,5 +1,6 @@
 ﻿using Library.Utility;
 using Library.View;
+using Library.Controller.BookAccess;
 using Org.BouncyCastle.Bcpg;
 using Org.BouncyCastle.Security;
 using System;
@@ -12,11 +13,13 @@ namespace Library.Controller.SelectorMode
 {
     public class UserMode
     {
+        Searcher searcher;
         MainView MainView;
         MenuIndexSelector menuIndexSelector;
 
         public UserMode()
         {
+            searcher = new Searcher();
             MainView = MainView.SetMainView();
             menuIndexSelector = MenuIndexSelector.GetMenuIndexSelector();
         }
@@ -65,7 +68,7 @@ namespace Library.Controller.SelectorMode
             switch(selectedMenu)
             {
                 case (int)USERMENU.FIND:
-
+                    searcher.SearchBook((int)USERMENU.FIND);
                     break;
                 case (int)USERMENU.RENT:
 

@@ -32,7 +32,7 @@ namespace Library.View
             Console.WriteLine(" 작가명으로 찾기 :");
             Console.WriteLine(" 출판사로 찾기   :");
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("최소 한 개 이상의 검색어를 입력해 주세요\n");
+            Console.WriteLine(" 최소 한 개 이상의 검색어를 입력해 주세요\n");
             Console.ResetColor();
             GuidancePhrase.PrintEsc();
             GuidancePhrase.PrintEnter();

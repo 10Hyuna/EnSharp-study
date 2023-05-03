@@ -28,22 +28,22 @@ namespace Library.Controller.SelectorMode
 
         public void SelectEntryType()
         {
-            int column = 100;
-            int row = 17;
+            int column = 32;
+            int row = 10;
 
             int selectedMenu = 0;
             int modeIndex = 0;
 
-            bool isSuccessLogin = false;
+            string loginResult = "";
             bool isNotESC = true;
             string[] menu = { "로그인", "회원가입" };
 
             while (isNotESC)
             {
-                Console.SetWindowSize(50, 30);
+                Console.SetWindowSize(76, 16);
                 Console.Clear();
                 MainView.PrintMain();
-                MainView.PrintBox(6);
+                MainView.PrintBox(4);
 
                 selectedMenu = MenuIndexSelector.SelectMenuIndex(menu, selectedMenu, column, row);
 
@@ -56,19 +56,26 @@ namespace Library.Controller.SelectorMode
                 switch (selectedMenu)
                 {
                     case (int)USERENTRY.SIGNIN:
-                        isSuccessLogin = login.EntryUserLogin();
-                        EnterUserMode(isSuccessLogin);
+                        loginResult = login.EntryUserLogin(Constant.USERENTRY);
+                        EnterUserMode(loginResult);
                         break;
                     case (int)USERENTRY.SIGNUP:
                         signUp.EntrySignUp();
                         break;
                 }
+
+                if(loginResult == Constant.ESC_STRING)
+                {
+                    isNotESC = false;
+                }
             }
         }
 
-        private void EnterUserMode(bool isSuccessLogin)
+        private void EnterUserMode(string loginResult)
         {
-            if (isSuccessLogin)
+            if (loginResult != Constant.ID_FAIL
+                && loginResult != Constant.PW_FAIL
+                && loginResult != Constant.ESC_STRING)
             {
                 userMode.SelectMenu();
             }

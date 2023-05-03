@@ -6,12 +6,16 @@ using System.Threading.Tasks;
 
 namespace Library.Model.DTO
 {
-    public class MemberDTO
+    public class UserDTO
     {
-        public MemberDTO() { }
+        public UserDTO() { }
 
-        protected string id;
-        protected string password;
+        private string id = "";
+        private string password = "";
+        private string name = "";
+        private int age = 0;
+        private string phoneNumber = "";
+        private string address = "";
 
         public string Id
         {
@@ -24,22 +28,6 @@ namespace Library.Model.DTO
             get => this.password;
             set => this.password = value;
         }
-    }
-
-    public class ManagerDTO : MemberDTO
-    {
-        public ManagerDTO() { }
-    }
-
-    public class UserDTO : MemberDTO
-    {
-        public UserDTO() { }
-
-        private string name;
-        private int age;
-        private string phoneNumber;
-        private string address;
-
         public string Name
         {
             get => this.name;

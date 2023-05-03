@@ -69,7 +69,7 @@ namespace Library.Utility
             {
                 if (i == presentIndex)
                 {
-                    Console.ForegroundColor = ConsoleColor.DarkBlue;
+                    Console.ForegroundColor = ConsoleColor.Blue;
                     GuidancePhrase.PrintMenu(menu[i]);
                     Console.ResetColor();
                 }

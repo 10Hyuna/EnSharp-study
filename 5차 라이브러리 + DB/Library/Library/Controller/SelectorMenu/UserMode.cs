@@ -23,8 +23,8 @@ namespace Library.Controller.SelectorMode
 
         public void SelectMenu()
         {
-            int column = 40;
-            int row = 15;
+            int column = 28;
+            int row = 10;
 
             int selectedMenu = 0;
             int checkingBreak = -1;
@@ -35,6 +35,7 @@ namespace Library.Controller.SelectorMode
 
             while (isNotESC)
             {
+                Console.SetWindowSize(73, 30);
                 checkingBreak = -1;
                 Console.Clear();
                 MainView.PrintMain();

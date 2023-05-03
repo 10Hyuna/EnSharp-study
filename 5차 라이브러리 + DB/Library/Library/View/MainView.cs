@@ -28,7 +28,7 @@ namespace Library.View
             Console.WriteLine("\t   ##       ##    ######    ##  ###  ##  ##   ##  ###    ###");
             Console.WriteLine("\t  ##       ##    ###  ##   ######  #######   ######     ##");
             Console.WriteLine("\t ##       ##    ##   ##  ##  ##   ##  ##   ##  ##     ##");
-            Console.WriteLine("\t#####  #####   ######   ##   ### ##  ##   ##   ###   ##");
+            Console.WriteLine("\t#####  #####   ######   ##   ### ##  ##   ##   ###   ##\n");
         }
 
         public static void PrintBox(int line)
@@ -44,15 +44,19 @@ namespace Library.View
         public static void PrintLoginUI(string objectName)
         {
             PrintMain();
-            PrintBox(6);
+            PrintBox(4);
 
-            int column = 45;
-            int row = 20;
+            int column = 32;
+            int row = 10;
 
             Console.SetCursorPosition(column, row);
             Console.WriteLine("로 그 인");
-            Console.SetCursorPosition(column - 8, row + 2);
-            Console.WriteLine("ESC : 뒤로 가기  ENTER : 입력하기\n\n");
+            Console.SetCursorPosition(column - 12, row + 2);
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write("ESC : 뒤로 가기");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("  ENTER : 입력하기\n\n");
+            Console.ResetColor();
             Console.WriteLine("\t    {0} ID   :", objectName);
             Console.WriteLine("\t{0} PASSWORD :", objectName);
         }

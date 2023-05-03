@@ -124,7 +124,7 @@ namespace Library.Utility
             Console.SetCursorPosition(originColumn, originRow);
             Console.Write("                ");
             // 이미 출력되어 있던 문자열이 있을 경우를 대비해 입력할 위치를 지워 줌
-            Console.SetCursorPosition(originColumn + input.Length, originRow);
+            Console.SetCursorPosition(consoleColumn, consoleRow);
 
             while (isEnter)
             {
@@ -139,10 +139,10 @@ namespace Library.Utility
                         isEnter = false;
                         break;
                     case ConsoleKey.Backspace:
-                        InputBackspace(input, originColumn, originRow, isPassword);
+                        input = InputBackspace(input, consoleColumn, consoleRow, isPassword);
                         break;
                     default:
-                        inputKeyChar(input, maxLength, originColumn, originRow, isPassword);
+                        input = inputKeyChar(input, maxLength, consoleColumn, consoleRow, isPassword);
                         break;
                 }
             }
@@ -150,15 +150,15 @@ namespace Library.Utility
             return input;
         }
 
-        private static void InputBackspace(string input, int column, int row, bool isPassword)
+        private static string InputBackspace(string input, int column, int row, bool isPassword)
         {
             if(input.Length == 0)
             {
-                return;
+                return "";
             }
 
+            Console.SetCursorPosition(column - input.Length / 2, row);
             input = input.Substring(0, input.Length - 1);
-            Console.SetCursorPosition(column, row);
             Console.Write("                       ");
             Console.SetCursorPosition(column, row);
             if (isPassword)
@@ -172,9 +172,11 @@ namespace Library.Utility
             {
                 Console.Write(input);
             }
+
+            return input;
         }
 
-        private static void inputKeyChar(string input, int maxLength, int column, int row, bool isPassword)
+        private static string inputKeyChar(string input, int maxLength, int column, int row, bool isPassword)
         {
             if(input.Length < maxLength && 
                 isCharacterOrNumber(keyInfo.KeyChar) &&
@@ -196,6 +198,7 @@ namespace Library.Utility
                     Console.Write(input);
                 }
             }
+            return input;
         }
     }
 }

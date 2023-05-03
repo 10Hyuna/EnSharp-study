@@ -29,7 +29,7 @@ namespace Library.Utility
             return exceptionHandler;
         }
 
-        public bool IsStringAllNumber(string input)
+        public static bool IsStringAllNumber(string input)
         {
             bool isNumber = true;
             Regex regex = new Regex(Constant.NUMBER);
@@ -46,7 +46,7 @@ namespace Library.Utility
             return isNumber;
         }
 
-        private bool IsCheckException(string message, Regex regex)     // 정규식으로 문자열이 주어진 조건에 해당하는지 확인
+        private static bool IsCheckException(string message, Regex regex)     // 정규식으로 문자열이 주어진 조건에 해당하는지 확인
         {
             if (regex.IsMatch(message))
             {
@@ -55,8 +55,8 @@ namespace Library.Utility
             return false;
         }
 
-        public string IsValidInput(string regex, int consoleColumn, int consoleRow, int maxLength, bool isPassword, bool isId)
-        {   // 의미 있게 표현
+        public static string IsValidInput(string regex, int consoleColumn, int consoleRow, int maxLength, bool isPassword)
+        {
             string message = "";
             Regex regexForm = new Regex(regex);
             bool isValidInput = false;

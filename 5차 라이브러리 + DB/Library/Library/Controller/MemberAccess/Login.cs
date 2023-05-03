@@ -1,4 +1,7 @@
-﻿using Library.Utility;
+﻿using Library.Model.DAO;
+using Library.Model.DTO;
+using Library.Model.VO;
+using Library.Utility;
 using Library.View;
 using System;
 using System.Collections.Generic;
@@ -12,35 +15,63 @@ namespace Library.Controller.MemberAccess
     {
         MainView mainView;
         ExceptionHandler exceptionHandler;
+        GuidancePhrase guidancePhrase;
+        AccessorData accessorData;
 
         public Login()
         {
             mainView = MainView.SetMainView();
             exceptionHandler = ExceptionHandler.GetExceptionHandler();
+            guidancePhrase = GuidancePhrase.SetGuidancePhrase();
+            accessorData = AccessorData.GetAccessorData();
         }
 
-        public bool EntryUserLogin()
+        public string EntryUserLogin(string entryType)
         {
             List<string> account;
-            bool isNotValidAccount = false;
+            bool isNotValidAccount = true;
+            string loginResult = "";
+
+            int column = 10;
+            int row = 12;
 
             while (isNotValidAccount)
             {
+                Console.SetWindowSize(76, 20);
                 Console.Clear();
-                MainView.PrintLoginUI("USER");
+                MainView.PrintLoginUI(entryType);
 
                 account = ReturnInformation();
 
                 if (account[0] == Constant.ESC_STRING)
                 {
-                    return false;
+                    return Constant.ESC_STRING;
                 }
 
-                isNotValidAccount = IsCheckValidAccount();
+                if(entryType == Constant.USERENTRY)
+                {
+                    loginResult = IsCheckUserAccount(account);
 
-                if(!isNotValidAccount)
+                }
+                else
+                {
+                    loginResult = IsCheckManagerAccount(account);
+                }
+
+                if (loginResult == Constant.ID_FAIL)
+                {
+                    GuidancePhrase.PrintException((int)EXCEPTION.ID_FAIL, column, row);
+                }
+                else if (loginResult == Constant.PW_FAIL)
+                {
+                    GuidancePhrase.PrintException((int)EXCEPTION.PW_FAIL, column, row);
+                }
+                else
+                {
+                    isNotValidAccount = false;
+                }
             }
-            return true;
+            return loginResult;
         }
 
         public void EntryManagerLogin()
@@ -52,23 +83,38 @@ namespace Library.Controller.MemberAccess
         {
             List<string> account = new List<string>();
 
-            int column = 25;
-            int row = 10;
-            string id;
-            string password;
+            bool isValidInput = true;
+            int column = 24;
+            int row = 15;
+            string id = "";
+            string password = "";
 
-            id = ExceptionHandler.IsValidInput(Constant.IDCHECK, column, row, 15, Constant.IS_NOT_PASSWORD);
-            if(id== Constant.ESC_STRING)
+            while (isValidInput)
             {
-                account.Add(Constant.ESC_STRING);
-                return account;
-            }
+                id = ExceptionHandler.IsValidInput(Constant.IDCHECK, column, row, 15, Constant.IS_NOT_PASSWORD);
+                if (id == "")
+                {
+                    GuidancePhrase.PrintException((int)EXCEPTION.NOT_MATCH_CONDITION, 18, row + 2);
+                    continue;
+                }
+                if (id == Constant.ESC_STRING)
+                {
+                    account.Add(Constant.ESC_STRING);
+                    return account;
+                }
 
-            password = ExceptionHandler.IsValidInput(Constant.PASSWORDCHECK, column, row + 1, 15, Constant.IS_PASSWORD);
-            if (password == Constant.ESC_STRING)
-            {
-                account.Add(Constant.ESC_STRING);
-                return account;
+                password = ExceptionHandler.IsValidInput(Constant.PASSWORDCHECK, column, row + 1, 15, Constant.IS_PASSWORD);
+                if (password == "")
+                {
+                    GuidancePhrase.PrintException((int)EXCEPTION.NOT_MATCH_CONDITION, 18, row + 2);
+                    continue;
+                }
+                if (password == Constant.ESC_STRING)
+                {
+                    account.Add(Constant.ESC_STRING);
+                    return account;
+                }
+                isValidInput = false;
             }
             account.Add(id);
             account.Add(password);
@@ -76,9 +122,37 @@ namespace Library.Controller.MemberAccess
             return account;
         }
 
-        private bool IsCheckValidAccount()
+        private string IsCheckUserAccount(List<string> account)
         {
-            return true;
+            UserDTO user = null;
+            user = accessorData.SelectUserData(account[(int)ACCOUNT.ID]);
+           
+            if(user == null)
+            {
+                return Constant.ID_FAIL;
+            }
+            else if (user.Password != account[(int)ACCOUNT.PASSWORD])
+            {
+                return Constant.PW_FAIL;
+            }
+            return user.Id;
+        }
+
+        private string IsCheckManagerAccount(List<string> account)
+        {
+            ManagerVO manager;
+
+            manager = accessorData.SelectManagerData(account[(int)ACCOUNT.ID]);
+
+            if(manager == null)
+            {
+                return Constant.ID_FAIL;
+            }
+            else if(manager.Password != account[(int)ACCOUNT.PASSWORD])
+            {
+                return Constant.PW_FAIL;
+            }
+            return manager.Id;
         }
     }
 }

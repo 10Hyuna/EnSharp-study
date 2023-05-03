@@ -30,18 +30,23 @@ namespace Library.Controller.SelectorMode
             int menuIndex = 0;
 
             int consoleColumn = 32;
-            int consoleRow = 9;
+            int consoleRow = 10;
 
-            Console.Clear();
-            MainView.PrintMain();
-            MainView.PrintBox(4);
+            bool isNotEnterESC = true;
 
-            bool isEnterESC = true;
-
-            while (isEnterESC)
+            while (isNotEnterESC)
             {
-                Console.SetWindowSize(76, 15);
+                Console.SetWindowSize(76, 16);
+                Console.Clear();
+                MainView.PrintMain();
+                MainView.PrintBox(4);
                 menuIndex = MenuIndexSelector.SelectMenuIndex(modeMenu, menuIndex, consoleColumn, consoleRow);
+
+                if(menuIndex == Constant.EXIT_INT)
+                {
+                    isNotEnterESC = false;
+                    continue;
+                }
 
                 switch (menuIndex)
                 {

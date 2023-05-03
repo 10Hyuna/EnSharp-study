@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Library.Controller.TotalAccess
 {
-    internal class DeleterInformation
+    public class DeleterInformation
     {
     }
 }

@@ -1,4 +1,6 @@
-﻿using Library.Controller.MemberAccess;
+﻿using Library.Controller.BookAccess;
+using Library.Controller.MemberAccess;
+using Library.Controller.TotalAccess;
 using Library.Utility;
 using Library.View;
 using System;
@@ -14,14 +16,22 @@ namespace Library.Controller.SelectorMode
         MainView mainView;
         MenuIndexSelector menuIndexSelector;
         Login login;
+        ManagerMode managerMode;
         UserEntry userEntry;
+        Searcher searcher;
+        SortList sortList;
+        DeleterInformation deleterInformation;
 
         public Mode()
         {
+            searcher = new Searcher();
+            sortList = new SortList();
+            deleterInformation = new DeleterInformation();
             MainView mainView = MainView.SetMainView();
             MenuIndexSelector menuIndexSelector = MenuIndexSelector.GetMenuIndexSelector();
             login = new Login();
-            userEntry = new UserEntry(login);
+            userEntry = new UserEntry(login, searcher, sortList, deleterInformation);
+            managerMode = new ManagerMode(login, searcher, sortList, deleterInformation);
         }
 
         public void SelectMode()

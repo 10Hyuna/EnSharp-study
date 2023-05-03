@@ -24,19 +24,19 @@ namespace Library.Controller.BookAccess
             exceptionHandler = ExceptionHandler.GetExceptionHandler();
             inputFromUser = InputFromUser.GetInputFromUser();
         }
-        public void SearchBook(int entryType)
+        public List<BookDTO> SearchBook(int entryType)
         {
             bool isNotESC = true;
 
             int row = 6;
-
-            while(isNotESC)
+            List<BookDTO> books = null;
+            while (isNotESC)
             {
                 Console.SetWindowSize(100, 30);
                 Console.Clear();
                 PrintBookInformation.PrintFindingBookUI();
 
-                List<BookDTO> books = AccessorData.AllBookData();
+                books = AccessorData.AllBookData();
 
                 for(int i = 0; i < books.Count; i++)
                 {
@@ -78,9 +78,14 @@ namespace Library.Controller.BookAccess
                 for(int i = 0; i < books.Count; i++)
                 {
                     PrintBookInformation.PrintBookList(books[i]);
+                    isNotESC = false;
                 }
-                isNotESC = !InputFromUser.EnteredESC();
+                if (entryType == (int)USERMENU.FIND)
+                {
+                    isNotESC = !InputFromUser.EnteredESC();
+                }
             }
+            return books;
         }
 
         private SearchResult InputBookKeyWord(SearchResult searchResult)

@@ -1,4 +1,6 @@
-﻿using Library.Controller.MemberAccess;
+﻿using Library.Controller.BookAccess;
+using Library.Controller.MemberAccess;
+using Library.Controller.TotalAccess;
 using Library.Utility;
 using Library.View;
 using System;
@@ -16,14 +18,21 @@ namespace Library.Controller.SelectorMode
         Login login;
         SignUp signUp;
         UserMode userMode;
+        ManagerMode managerMode;
+        Searcher searcher;
+        SortList sortList;
+        DeleterInformation deleterInformation;
 
-        public UserEntry(Login login)
+        public UserEntry(Login login, Searcher searcher, SortList sortList, DeleterInformation deleterInformation)
         {
+            this.searcher = searcher;
+            this.sortList = sortList;
+            this.deleterInformation = deleterInformation;
             mainView = MainView.SetMainView();
             menuIndexSelector = MenuIndexSelector.GetMenuIndexSelector();
             this.login = login;
             signUp = new SignUp();
-            userMode = new UserMode();
+            userMode = new UserMode(searcher, sortList, deleterInformation);
         }
 
         public void SelectEntryType()

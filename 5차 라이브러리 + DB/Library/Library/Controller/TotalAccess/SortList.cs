@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Library.Controller.TotalAccess
 {
-    internal class SortList
+    public class SortList
     {
     }
 }

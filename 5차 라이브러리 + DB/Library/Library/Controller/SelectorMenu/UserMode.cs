@@ -8,18 +8,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Library.Controller.TotalAccess;
+using Library.Model.DTO;
 
 namespace Library.Controller.SelectorMode
 {
     public class UserMode
     {
         Searcher searcher;
+        SortList sortList;
+        DeleterInformation deleterInformation;
         MainView MainView;
         MenuIndexSelector menuIndexSelector;
+        Rental rental;
 
-        public UserMode()
+        public UserMode(Searcher searcher, SortList sortList, DeleterInformation deleterInformation)
         {
-            searcher = new Searcher();
+            this.searcher = searcher;
+            this.sortList = sortList;
+            this.deleterInformation = deleterInformation;
+            rental = new Rental(searcher);
             MainView = MainView.SetMainView();
             menuIndexSelector = MenuIndexSelector.GetMenuIndexSelector();
         }
@@ -52,7 +60,7 @@ namespace Library.Controller.SelectorMode
                     continue;
                 }
 
-                checkingBreak = EnterSelectedMenu(selectedMenu);
+                checkingBreak = EnterSelectedMenu(selectedMenu, userId);
 
                 if(checkingBreak == Constant.DELETE_ACCOUNT)
                 {
@@ -61,17 +69,17 @@ namespace Library.Controller.SelectorMode
             }
         }
 
-        private int EnterSelectedMenu(int selectedMenu)
+        private int EnterSelectedMenu(int selectedMenu, string userId)
         {
             int breakPoint = -1;
-
+            List<BookDTO> searchedBook = new List<BookDTO>();
             switch(selectedMenu)
             {
                 case (int)USERMENU.FIND:
-                    searcher.SearchBook((int)USERMENU.FIND);
+                    searchedBook = searcher.SearchBook((int)USERMENU.FIND);
                     break;
                 case (int)USERMENU.RENT:
-
+                    rental.RentBook(userId);
                     break;
                 case (int)USERMENU.RENT_LIST:
 

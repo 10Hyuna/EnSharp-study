@@ -10,6 +10,7 @@ using Library.Model.VO;
 using System.Collections;
 using Google.Protobuf.WellKnownTypes;
 using Library.Utility;
+using System.Configuration;
 
 namespace Library.Model.DAO
 {
@@ -55,7 +56,7 @@ namespace Library.Model.DAO
             string stringQuery = string.Format("SELECT * FROM user_list WHERE id = '{0}'", userId);
             Hashtable hashtable = connectionDataBase.SelectData(stringQuery);
             UserDTO user = new UserDTO();
-            if (hashtable.Count == 0)
+            if (((ArrayList)hashtable["id"]).Count == 0)
             {
                 return user;
             }
@@ -85,6 +86,11 @@ namespace Library.Model.DAO
             connectionDataBase.CUD(stringQuery);
         }
 
+        public static void InsertRentBookData(string userId, BookDTO book)
+        {
+            string stringQuery = string.Format(Constant.INSERT_RENT_BOOK, userId, book.Id, book.Title, book.Author, book.Publisher, book.Amount, book.Price, book.PublishDate, book.ISBN, book.Information, DateTime.Now.ToString(), DateTime.Now.AddDays(7).ToString());
+            connectionDataBase.CUD(stringQuery);
+        }
         public static void DeleteBookData(string bookId)
         {
             string stringQuery = string.Format("DELETE FROM book_list WHERE id = '{0}'", bookId);
@@ -103,7 +109,7 @@ namespace Library.Model.DAO
             string stringQuery = string.Format("SELECT * FROM book_list WHERE (title LIKE CONCAT('%', '{0}', '%') OR '{0}' = '') AND (author LIKE CONCAT('%', '{1}', '%') OR '{1}' = '') AND (publisher LIKE CONCAT('%', '{2}', '%') OR '{2}' = '');", title, author, publisher);
             Hashtable hashtable = connectionDataBase.SelectData(stringQuery);
             List<BookDTO> books = new List<BookDTO>();
-            if(hashtable.Count == 0)
+            if(((ArrayList)hashtable["id"]).Count == 0)
             {
                 return books;
             }
@@ -151,9 +157,33 @@ namespace Library.Model.DAO
             return books;
         }
 
-        //public ReturnBookDTO SelectReturnBookList(string userId)
-        //{
-        //
-        //}
+        public static List<UsersBookDTO> SelectAllRentBookList(string userId)
+        {
+            string stringQuery = string.Format(Constant.SELECT_RENT_BOOK, userId);
+            Hashtable hashtable = connectionDataBase.SelectData(stringQuery);
+            List<UsersBookDTO> books = new List<UsersBookDTO>();
+            if (hashtable.Count == 0)
+            {
+                return books;
+            }
+            for (int i = 0; i < ((ArrayList)hashtable["book_id"]).Count ; i++)
+            {
+                UsersBookDTO book = new UsersBookDTO();
+                book.UserId = ((ArrayList)hashtable["user_id"])[i].ToString();
+                book.Id = int.Parse(((ArrayList)hashtable["book_id"])[i].ToString());
+                book.Title = ((ArrayList)hashtable["title"])[i].ToString();
+                book.Author = ((ArrayList)hashtable["author"])[i].ToString();
+                book.Publisher = ((ArrayList)hashtable["publisher"])[i].ToString();
+                book.Amount = int.Parse(((ArrayList)hashtable["amount"])[i].ToString());
+                book.Price = int.Parse(((ArrayList)hashtable["price"])[i].ToString());
+                book.PublishDate = ((ArrayList)hashtable["publish_date"])[i].ToString();
+                book.ISBN = ((ArrayList)hashtable["ISBN"])[i].ToString();
+                book.Information = ((ArrayList)hashtable["information"])[i].ToString();
+                book.RentTime = ((ArrayList)hashtable["rental_time"])[i].ToString();
+                book.ReturnTime= ((ArrayList)hashtable["return_time"])[i].ToString();
+                books.Add(book);
+            }
+            return books;
+        }
     }
 }

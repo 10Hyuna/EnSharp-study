@@ -199,5 +199,16 @@ namespace Library.View
             Console.SetCursorPosition(0, consoleInputColumn + 5);
             GuidancePhrase.PrintEsc();
         }
+
+        public static void PrintSuccessRent()
+        {
+            int consoleInputColumn = 3;
+
+            Console.WriteLine("\t\t\t\t----------------------------------------------------\n\n");
+            Console.WriteLine("\t\t\t\t                    수정 성공!\n\n");
+            Console.WriteLine("\t\t\t\t----------------------------------------------------");
+            Console.SetCursorPosition(0, consoleInputColumn + 5);
+            GuidancePhrase.PrintEsc();
+        }
     }
 }

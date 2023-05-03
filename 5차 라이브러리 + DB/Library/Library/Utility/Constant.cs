@@ -47,14 +47,14 @@ namespace Library.Utility
 
         public const string INSERT_USER = "INSERT INTO user_list VALUES('{0}', '{1}', '{2}', '{3}', '{4}', '{5}')";
         public const string INSERT_BOOK = "INSERT INTO book_list VALUES('{0}', '{1}', '{2}', '{3}', '{4}', '{5}')";
-        public const string INSERT_RENT_BOOK = "INSERT INTO user_rent_list VALUES('{0}', '{1}', '{2}', '{3}', '{4}', '{5}')";
-        public const string INSERT_RETURN_BOOK = "INSERT INTO user_return_list VALUES('{0}', '{1}', '{2}', '{3}', '{4}', '{5}')";
+        public const string INSERT_RENT_BOOK = "INSERT INTO user_rent_book VALUES('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}', '{9}', '{10}', '{11}')";
+        public const string INSERT_RETURN_BOOK = "INSERT INTO user_return_book VALUES('{0}', '{1}', '{2}', '{3}', '{4}', '{5}')";
         public const string DELETE = "DELETE FROM {0} WHERE id = '{1}'";
         public const string SELECT_USER = "SELECT * FROM user_list WHERE id = '{0}'";
         public const string SELECT_ALL_BOOK = "SELECT * FROM book_list";
         public const string SELECT_BOOK = "SELECT * FROM book_list WHERE title = '{0}' AND author = '{1}' AND publisher = '{2}'";
-        public const string SELECT_RENT_BOOK = "SELECT * FROM user_rent_list WHERE book_id = '{0}'";
-        public const string SELECT_RETURN_BOOK = "SELECT * FROM user_return_list WHERE book_id = {0}'";
+        public const string SELECT_RENT_BOOK = "SELECT * FROM user_rent_book WHERE user_id = '{0}'";
+        public const string SELECT_RETURN_BOOK = "SELECT * FROM user_return_book WHERE book_id = {0}'";
         public const string UPDATE_USER = "UPDATE user_list SET {0} = '{1}' WHERE {2} = '{3}'";
     }
 }
@@ -72,7 +72,9 @@ enum EXCEPTION
     OVERLAP_DATA,
     NOT_MATCH_PASSWORD,
     NULL_KEYWORD,
-    NULL_SEARCH_BOOK
+    NULL_SEARCH_BOOK,
+    LEAK_AMOUNT,
+    ALREADY_RENT
 }
 enum MODE
 {

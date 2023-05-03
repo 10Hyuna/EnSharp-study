@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +15,7 @@ namespace Library.View
 
         public static MainView SetMainView()
         {
-            if(mainView == null)
+            if (mainView == null)
             {
                 mainView = new MainView();
             }
@@ -59,6 +60,56 @@ namespace Library.View
             Console.ResetColor();
             Console.WriteLine("\t    {0} ID   :", objectName);
             Console.WriteLine("\t{0} PASSWORD :", objectName);
+        }
+
+        public static void PrintSignUpUI()
+        {
+            PrintMain();
+            PrintBox(5);
+
+            int column = 30;
+            int row = 10;
+
+            Console.SetCursorPosition(column, row);
+            Console.WriteLine("회 원 가 입");
+            Console.SetCursorPosition(column - 10, row + 2);
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write("ESC : 뒤로 가기");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("  ENTER : 입력하기\n\n");
+            Console.ResetColor();
+
+            column = 10;
+            row = 15;
+            Console.SetCursorPosition(column, row);
+            Console.Write("User ID (8 ~ 15 글자 영어, 숫자 포함) :");
+            Console.SetCursorPosition(column, row + 1);
+            Console.Write("User PW (8 ~ 15 글자 영어, 숫자 포함) :");
+            Console.SetCursorPosition(column, row + 2);
+            Console.Write("User PW (  PW 확인  ) :");
+            Console.SetCursorPosition(column, row + 3);
+            Console.Write("User Name (  한글, 영어 포함 1글자 이상  ) :");
+            Console.SetCursorPosition(column, row + 4);
+            Console.Write("User Age (  자연수 0세 ~ 200세  ) :");
+            Console.SetCursorPosition(column, row + 5);
+            Console.Write("User PhoneNumber (  01x - xxxx - xxxx  ) :");
+            Console.SetCursorPosition(column, row + 6);
+            Console.Write("User Address (  도로명 주소 - 00시 00구  ) :");
+            Console.SetCursorPosition(column, row + 7);
+        }
+
+        public static void SuccessSignUp()
+        {
+            PrintMain();
+            PrintBox(4);
+
+            int column = 30;
+            int row = 10;
+
+            Console.SetCursorPosition(column, row);
+            Console.Write("회 원 가 입 성 공!");
+            Console.SetCursorPosition(column , row);
+            Console.Write("ENTER를 눌러 주세요");
         }
     }
 }

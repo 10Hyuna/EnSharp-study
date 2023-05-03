@@ -91,7 +91,7 @@ namespace Library.Controller.MemberAccess
 
             while (isValidInput)
             {
-                id = ExceptionHandler.IsValidInput(Constant.IDCHECK, column, row, 15, Constant.IS_NOT_PASSWORD);
+                id = ExceptionHandler.IsValidInput(Constant.ID, column, row, 15, Constant.IS_NOT_PASSWORD);
                 if (id == "")
                 {
                     GuidancePhrase.PrintException((int)EXCEPTION.NOT_MATCH_CONDITION, 18, row + 2);
@@ -103,7 +103,7 @@ namespace Library.Controller.MemberAccess
                     return account;
                 }
 
-                password = ExceptionHandler.IsValidInput(Constant.PASSWORDCHECK, column, row + 1, 15, Constant.IS_PASSWORD);
+                password = ExceptionHandler.IsValidInput(Constant.PASSWORD, column, row + 1, 15, Constant.IS_PASSWORD);
                 if (password == "")
                 {
                     GuidancePhrase.PrintException((int)EXCEPTION.NOT_MATCH_CONDITION, 18, row + 2);
@@ -125,7 +125,7 @@ namespace Library.Controller.MemberAccess
         private string IsCheckUserAccount(List<string> account)
         {
             UserDTO user = null;
-            user = accessorData.SelectUserData(account[(int)ACCOUNT.ID]);
+            user = AccessorData.SelectUserData(account[(int)ACCOUNT.ID]);
            
             if(user == null)
             {
@@ -142,7 +142,7 @@ namespace Library.Controller.MemberAccess
         {
             ManagerVO manager;
 
-            manager = accessorData.SelectManagerData(account[(int)ACCOUNT.ID]);
+            manager = AccessorData.SelectManagerData(account[(int)ACCOUNT.ID]);
 
             if(manager == null)
             {

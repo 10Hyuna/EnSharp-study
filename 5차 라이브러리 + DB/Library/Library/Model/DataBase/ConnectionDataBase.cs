@@ -58,7 +58,9 @@ namespace Library.Model.DataBase
         public void CUD(string stringQuery)
         {
             MySqlCommand command = new MySqlCommand(stringQuery, ConnectServer());
+            connection.Open();
             command.ExecuteNonQuery();
+            connection.Close();
         }
     }
 }

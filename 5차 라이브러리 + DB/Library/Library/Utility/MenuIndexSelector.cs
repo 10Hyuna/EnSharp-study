@@ -67,6 +67,8 @@ namespace Library.Utility
 
             for (int i = 0; i < menu.Length; i++)
             {
+                Console.SetCursorPosition(consoleColumn, consoleRow++);
+
                 if (i == presentIndex)
                 {
                     Console.ForegroundColor = ConsoleColor.Blue;
@@ -77,7 +79,6 @@ namespace Library.Utility
                 {
                     GuidancePhrase.PrintMenu(menu[i]);
                 }
-                Console.SetCursorPosition(consoleColumn, consoleRow + 1);
             }
         }
     }

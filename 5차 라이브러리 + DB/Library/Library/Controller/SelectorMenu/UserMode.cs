@@ -21,9 +21,9 @@ namespace Library.Controller.SelectorMode
             menuIndexSelector = MenuIndexSelector.GetMenuIndexSelector();
         }
 
-        public void SelectMenu()
+        public void SelectMenu(string userId)
         {
-            int column = 28;
+            int column = 30;
             int row = 10;
 
             int selectedMenu = 0;
@@ -35,11 +35,11 @@ namespace Library.Controller.SelectorMode
 
             while (isNotESC)
             {
-                Console.SetWindowSize(73, 30);
+                Console.SetWindowSize(76, 20);
                 checkingBreak = -1;
                 Console.Clear();
                 MainView.PrintMain();
-                MainView.PrintBox(10);
+                MainView.PrintBox(9);
 
                 selectedMenu = MenuIndexSelector.SelectMenuIndex(menu, selectedMenu, column, row);
 

@@ -16,7 +16,7 @@ namespace Library.Model.DAO
     {
         private static AccessorData accessorData;
 
-        ConnectionDataBase connectionDataBase;
+        private static ConnectionDataBase connectionDataBase;
 
         private AccessorData()
         {
@@ -32,28 +32,32 @@ namespace Library.Model.DAO
             return accessorData;
         }
 
-        public void InsertUserData(UserDTO userData)
+        public static void InsertUserData(UserDTO userData)
         {
             string stringQuery = string.Format("INSERT INTO user_list VALUES('{0}', '{1}', '{2}', '{3}', '{4}', '{5}')", userData.Id, userData.Password, userData.Name, userData.Age, userData.PhoneNumber, userData.Address);
             connectionDataBase.CUD(stringQuery);
         }
 
-        public void DeleteUserData(string userId)
+        public static void DeleteUserData(string userId)
         {
             string stringQuery = string.Format("DELETE FROM user_list WHERE id ='{0}'", userId);
             connectionDataBase.CUD(stringQuery);
         }
 
-        public void UpdateUserData(string userId, string updateDataLocation, string updateInformation)
+        public static void UpdateUserData(string userId, string updateDataLocation, string updateInformation)
         {
             string stringQuery = string.Format("UPDATE user_list SET '{0}' = '{1}' WHERE id = '{2}'", updateDataLocation, updateInformation, userId);
         }
 
-        public UserDTO SelectUserData(string userId)
+        public static UserDTO SelectUserData(string userId)
         {
             string stringQuery = string.Format("SELECT * FROM user_list WHERE id = '{0}'", userId);
             Hashtable hashtable = connectionDataBase.SelectData(stringQuery);
             UserDTO user = new UserDTO();
+            if (hashtable.Count == 0)
+            {
+                return user;
+            }
             for(int i = 0; i < ((ArrayList)hashtable["id"]).Count; i++)
             {
                 user.Id = ((ArrayList)hashtable["id"])[i].ToString();
@@ -66,7 +70,7 @@ namespace Library.Model.DAO
             return user;
         }
 
-        public ManagerVO SelectManagerData(string managerId)
+        public static ManagerVO SelectManagerData(string managerId)
         {
             string stringQuery = string.Format("SELECT * FROM manager_list WHERE id LIKE '{0}'", managerId);
             Hashtable hashtable = connectionDataBase.SelectData(stringQuery);
@@ -74,26 +78,26 @@ namespace Library.Model.DAO
             return manager;
         }
 
-        public void InsertBookData(List<string> bookData)
+        public static void InsertBookData(List<string> bookData)
         {
             string stringQuery = string.Format("INSERT INTO book_list VALUES('{0}', '{1}', '{2}', '{3}', '{4}', '{5}')", bookData[0], bookData[1], bookData[2], bookData[3], bookData[4], bookData[5]);
             connectionDataBase.CUD(stringQuery);
         }
 
-        public void DeleteBookData(string bookId)
+        public static void DeleteBookData(string bookId)
         {
             string stringQuery = string.Format("DELETE FROM book_list WHERE id = '{0}'", bookId);
             connectionDataBase.CUD(stringQuery);
 
         }
 
-        public void UpdataBookData(string bookId, string updateDataLocation, string updateInformation)
+        public static void UpdataBookData(string bookId, string updateDataLocation, string updateInformation)
         {
             string stringQuery = string.Format("UPDATE book_list SET '{0}' = '{1}' WHERE id = '{2}'", updateDataLocation, updateInformation, bookId);
             connectionDataBase.CUD(stringQuery);
         }
 
-        public List<BookDTO> SelectBookData(string title, string author, string publisher)
+        public static List<BookDTO> SelectBookData(string title, string author, string publisher)
         {
             string stringQuery = string.Format("SELECT * FROM book_list WHERE ((title LIKE '{0}') and (author LIKE '{0}') and (publisher LIKE '{0}'))");
             Hashtable hashtable = connectionDataBase.SelectData(stringQuery);

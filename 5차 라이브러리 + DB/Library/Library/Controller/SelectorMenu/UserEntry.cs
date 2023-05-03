@@ -63,11 +63,6 @@ namespace Library.Controller.SelectorMode
                         signUp.EntrySignUp();
                         break;
                 }
-
-                if(loginResult == Constant.ESC_STRING)
-                {
-                    isNotESC = false;
-                }
             }
         }
 
@@ -77,7 +72,7 @@ namespace Library.Controller.SelectorMode
                 && loginResult != Constant.PW_FAIL
                 && loginResult != Constant.ESC_STRING)
             {
-                userMode.SelectMenu();
+                userMode.SelectMenu(loginResult);
             }
         }
     }

@@ -28,13 +28,13 @@ namespace Library.Utility
             e.Cancel = true;
         }
 
-
         private static bool isCharacterOrNumber(char input)        // 문자에 해당하는 값이 입력되었다면
         {
             if (input >= 'A' && input <= 'Z' || input >= 'a' && input <= 'z' || input >= '0' || input <= '9')
                 return true;
             return false;
         }
+
         public static bool EnteredESC()
         {
             bool isESC = false;
@@ -130,7 +130,7 @@ namespace Library.Utility
             {
                 keyInfo = Console.ReadKey(true);
 
-                switch (keyInfo.Key)
+               switch (keyInfo.Key)
                 {
                     case ConsoleKey.Escape:
                         Console.CursorVisible = false;
@@ -157,8 +157,8 @@ namespace Library.Utility
                 return "";
             }
 
-            Console.SetCursorPosition(column - input.Length / 2, row);
             input = input.Substring(0, input.Length - 1);
+            Console.SetCursorPosition(column - input.Length / 2, row);
             Console.Write("                       ");
             Console.SetCursorPosition(column, row);
             if (isPassword)

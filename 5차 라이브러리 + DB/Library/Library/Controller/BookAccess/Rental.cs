@@ -41,14 +41,20 @@ namespace Library.Controller.BookAccess
 
             string returnBookId;
             int returnBookIdNumber = 0;
-            int bookIndex = 0;
+            int bookIndex = -1;
 
             List<BookDTO> searchedBook = new List<BookDTO>();
 
             while(isNotESC)
             {
                 searchedBook = searcher.SearchBook((int)USERMENU.RENT);
-
+                if (searchedBook[0].Title == Constant.ESC_STRING
+                    || searchedBook[0].Author == Constant.ESC_STRING
+                    || searchedBook[0].Publisher == Constant.ESC_STRING)
+                {
+                    isNotESC = false;
+                    continue;
+                }
                 returnBookId = ExceptionHandler.IsValidInput(Constant.NUMBER, column, row, 3, Constant.IS_NOT_PASSWORD);
                 if(returnBookId == Constant.ESC_STRING)
                 {
@@ -56,18 +62,26 @@ namespace Library.Controller.BookAccess
                     continue;
                 }
 
-                if (ExceptionHandler.IsStringAllNumber(returnBookId))
+                if (!ExceptionHandler.IsStringAllNumber(returnBookId))
                 {
-                    returnBookIdNumber = int.Parse(returnBookId);
+                    GuidancePhrase.PrintException((int)EXCEPTION.NOT_MATCH_CONDITION, column, row);
+                    continue;
                 }
+                returnBookIdNumber = int.Parse(returnBookId);
 
-                for(int i = 0; i < searchedBook.Count; i++)
+                for (int i = 0; i < searchedBook.Count; i++)
                 {
                     if (searchedBook[i].Id == returnBookIdNumber)
                     {
                         bookIndex = i;
                         break;
                     }
+                }
+
+                if(bookIndex == -1)
+                {
+                    GuidancePhrase.PrintException((int)EXCEPTION.NOT_MATCH_SEARCH, column, row);
+                    continue;
                 }
                 isLeakAmount = IsAffluentBook(searchedBook[bookIndex]);
                 if (!isLeakAmount)
@@ -83,7 +97,10 @@ namespace Library.Controller.BookAccess
                     continue;
                 }
 
+                searchedBook[bookIndex].Amount--;
+
                 AccessorData.InsertRentBookData(userId, searchedBook[bookIndex]);
+                AccessorData.UpdateBookIntData(searchedBook[bookIndex].Id, "amount", searchedBook[bookIndex].Amount);
                 PrintBookInformation.PrintSuccessRent();
                 isNotESC = InputFromUser.EnteredESC();
             }

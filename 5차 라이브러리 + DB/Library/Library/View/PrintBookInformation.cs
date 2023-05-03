@@ -54,7 +54,7 @@ namespace Library.View
 
         public static void PrintRentalBookListUI(UsersBookDTO usersBook)
         {
-            Console.WriteLine("\n\t\t=====================================================================================\n");
+            Console.WriteLine("\n=====================================================================================\n");
             Console.WriteLine("책아이디  : {0}", usersBook.Id);
             Console.WriteLine("책 제목   : {0}", usersBook.Title);
             Console.WriteLine("작가      : {0}", usersBook.Author);
@@ -192,6 +192,7 @@ namespace Library.View
         public static void PrintSuccessModifyBook()
         {
             int consoleInputColumn = 3;
+            Console.Clear();
 
             Console.WriteLine("\t\t\t\t----------------------------------------------------\n\n");
             Console.WriteLine("\t\t\t\t                    수정 성공!\n\n");
@@ -203,10 +204,10 @@ namespace Library.View
         public static void PrintSuccessRent()
         {
             int consoleInputColumn = 3;
-
-            Console.WriteLine("\t\t\t\t----------------------------------------------------\n\n");
-            Console.WriteLine("\t\t\t\t                    수정 성공!\n\n");
-            Console.WriteLine("\t\t\t\t----------------------------------------------------");
+            Console.Clear();
+            Console.WriteLine("----------------------------------------------------\n\n");
+            Console.WriteLine("                    대여 성공!\n\n");
+            Console.WriteLine("----------------------------------------------------");
             Console.SetCursorPosition(0, consoleInputColumn + 5);
             GuidancePhrase.PrintEsc();
         }

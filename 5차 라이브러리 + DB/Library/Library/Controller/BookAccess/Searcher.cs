@@ -51,6 +51,7 @@ namespace Library.Controller.BookAccess
                     || searchResult.Publisher == Constant.ESC_STRING)
                 {
                     isNotESC = false;
+                    books[0].Title = Constant.ESC_STRING;
                     continue;
                 }
                 else if(searchResult.Title == "" && searchResult.Author == "" && searchResult.Publisher == "")

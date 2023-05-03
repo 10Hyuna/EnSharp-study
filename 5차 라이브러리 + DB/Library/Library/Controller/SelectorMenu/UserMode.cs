@@ -21,6 +21,7 @@ namespace Library.Controller.SelectorMode
         MainView MainView;
         MenuIndexSelector menuIndexSelector;
         Rental rental;
+        Return returnBook;
 
         public UserMode(Searcher searcher, SortList sortList, DeleterInformation deleterInformation)
         {
@@ -28,6 +29,7 @@ namespace Library.Controller.SelectorMode
             this.sortList = sortList;
             this.deleterInformation = deleterInformation;
             rental = new Rental(searcher);
+            returnBook = new Return();
             MainView = MainView.SetMainView();
             menuIndexSelector = MenuIndexSelector.GetMenuIndexSelector();
         }
@@ -85,7 +87,7 @@ namespace Library.Controller.SelectorMode
 
                     break;
                 case (int)USERMENU.RETURN:
-
+                    returnBook.ReturnBook(userId);
                     break;
                 case (int)USERMENU.RETURN_LIST:
 

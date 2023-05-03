@@ -142,7 +142,7 @@ namespace LectureTimeTable.LectureTimeTableUtility
 
             while (!isESC)
             {
-                keyInfo = Console.ReadKey();
+                keyInfo = Console.ReadKey(true);
 
                 if (keyInfo.Key == ConsoleKey.Escape)
                 {

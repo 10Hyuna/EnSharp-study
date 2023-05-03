@@ -22,9 +22,9 @@ namespace Library.Controller.MemberAccess
         public bool EntryUserLogin()
         {
             List<string> account;
-            bool isValidAccount = true;
+            bool isNotValidAccount = false;
 
-            while (isValidAccount)
+            while (isNotValidAccount)
             {
                 Console.Clear();
                 MainView.PrintLoginUI("USER");
@@ -36,7 +36,9 @@ namespace Library.Controller.MemberAccess
                     return false;
                 }
 
-                isValidAccount = IsCheckValidAccount();
+                isNotValidAccount = IsCheckValidAccount();
+
+                if(!isNotValidAccount)
             }
             return true;
         }
@@ -48,7 +50,30 @@ namespace Library.Controller.MemberAccess
 
         private List<string> ReturnInformation()
         {
-            return null;
+            List<string> account = new List<string>();
+
+            int column = 25;
+            int row = 10;
+            string id;
+            string password;
+
+            id = ExceptionHandler.IsValidInput(Constant.IDCHECK, column, row, 15, Constant.IS_NOT_PASSWORD);
+            if(id== Constant.ESC_STRING)
+            {
+                account.Add(Constant.ESC_STRING);
+                return account;
+            }
+
+            password = ExceptionHandler.IsValidInput(Constant.PASSWORDCHECK, column, row + 1, 15, Constant.IS_PASSWORD);
+            if (password == Constant.ESC_STRING)
+            {
+                account.Add(Constant.ESC_STRING);
+                return account;
+            }
+            account.Add(id);
+            account.Add(password);
+
+            return account;
         }
 
         private bool IsCheckValidAccount()

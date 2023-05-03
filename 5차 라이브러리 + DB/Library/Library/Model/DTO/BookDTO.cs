@@ -77,10 +77,11 @@ namespace Library.Model.DTO
     {
 
     }
-    public class RentBookDTO : BookDTO
+    public class UsersBookDTO : BookDTO
     {
-        protected string userId;
-        protected string rentTime;
+        private string userId;
+        private string rentTime;
+        private string returnTime;
 
         public string UserId
         {
@@ -93,11 +94,6 @@ namespace Library.Model.DTO
             get => this.rentTime;
             set => this.rentTime = value;
         }
-    }
-    
-    public class ReturnBookDTO : RentBookDTO
-    {
-        private string returnTime;
 
         public string ReturnTime
         {

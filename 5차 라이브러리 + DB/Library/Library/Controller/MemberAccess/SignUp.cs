@@ -207,7 +207,7 @@ namespace Library.Controller.MemberAccess
                 else
                 {
                     ageNumber = int.Parse(age);
-                    if (ageNumber < 0 && ageNumber > 200)
+                    if (ageNumber < 0 || ageNumber > 200)
                     {
                         GuidancePhrase.PrintException((int)EXCEPTION.NOT_MATCH_CONDITION, column, row);
                         continue;

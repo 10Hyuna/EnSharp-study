@@ -30,5 +30,19 @@ namespace Library.View
         {
 
         }
+
+        public static void PrintEsc()
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(" ESC : 뒤로가기");
+            Console.ResetColor();
+        }
+
+        public static void PrintEnter()
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine(" ENTER : 선택하기 / 다시 선택");
+            Console.ResetColor();
+        }
     }
 }

@@ -100,15 +100,16 @@ namespace Library.View
 
         public static void SuccessSignUp()
         {
+            Console.SetWindowSize(76, 15);
             PrintMain();
             PrintBox(4);
 
-            int column = 30;
+            int column = 28;
             int row = 10;
 
             Console.SetCursorPosition(column, row);
             Console.Write("회 원 가 입 성 공!");
-            Console.SetCursorPosition(column , row);
+            Console.SetCursorPosition(column , row + 1);
             Console.Write("ENTER를 눌러 주세요");
         }
     }

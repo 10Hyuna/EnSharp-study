@@ -9,6 +9,7 @@ using Library.Model.DTO;
 using Library.Model.VO;
 using System.Collections;
 using Google.Protobuf.WellKnownTypes;
+using Library.Utility;
 
 namespace Library.Model.DAO
 {
@@ -102,7 +103,36 @@ namespace Library.Model.DAO
             string stringQuery = string.Format("SELECT * FROM book_list WHERE ((title LIKE '{0}') and (author LIKE '{0}') and (publisher LIKE '{0}'))");
             Hashtable hashtable = connectionDataBase.SelectData(stringQuery);
             List<BookDTO> books = new List<BookDTO>();
+            if(hashtable.Count == 0)
+            {
+                return books;
+            }
+
             for(int i = 0; i < hashtable.Count; i++)
+            {
+                books[i].Id = int.Parse(hashtable["id"].ToString());
+                books[i].Title = hashtable["title"].ToString();
+                books[i].Author = hashtable["author"].ToString();
+                books[i].Publisher = hashtable["publisher"].ToString();
+                books[i].Amount = int.Parse(hashtable["amount"].ToString());
+                books[i].Price = int.Parse(hashtable["price"].ToString());
+                books[i].PublishDate = hashtable["publishDate"].ToString();
+                books[i].ISBN = hashtable["isbn"].ToString();
+                books[i].Information = hashtable["information"].ToString();
+            }
+            return books;
+        }
+
+        public static List<BookDTO> AllBookData()
+        {
+            string stringQuery = string.Format(Constant.SELECT_ALL_BOOK);
+            Hashtable hashtable = connectionDataBase.SelectData(stringQuery);
+            List<BookDTO> books = new List<BookDTO>();
+            if(hashtable.Count == 0)
+            {
+                return books;
+            }
+            for (int i = 0; i < hashtable.Count; i++)
             {
                 books[i].Id = int.Parse(hashtable["id"].ToString());
                 books[i].Title = hashtable["title"].ToString();

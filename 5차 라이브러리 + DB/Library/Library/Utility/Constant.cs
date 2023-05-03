@@ -51,6 +51,7 @@ namespace Library.Utility
         public const string INSERT_RETURN_BOOK = "INSERT INTO user_return_list VALUES('{0}', '{1}', '{2}', '{3}', '{4}', '{5}')";
         public const string DELETE = "DELETE FROM {0} WHERE id = '{1}'";
         public const string SELECT_USER = "SELECT * FROM user_list WHERE id = '{0}'";
+        public const string SELECT_ALL_BOOK = "SELECT * FROM book_list";
         public const string SELECT_BOOK = "SELECT * FROM book_list WHERE title = '{0}' AND author = '{1}' AND publisher = '{2}'";
         public const string SELECT_RENT_BOOK = "SELECT * FROM user_rent_list WHERE book_id = '{0}'";
         public const string SELECT_RETURN_BOOK = "SELECT * FROM user_return_list WHERE book_id = {0}'";
@@ -70,7 +71,8 @@ enum EXCEPTION
     PW_FAIL,
     OVERLAP_DATA,
     NOT_MATCH_PASSWORD,
-
+    NULL_KEYWORD,
+    NULL_SEARCH_BOOK
 }
 enum MODE
 {

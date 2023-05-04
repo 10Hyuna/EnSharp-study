@@ -46,9 +46,16 @@ namespace Library.Model.DAO
             connectionDataBase.CUD(stringQuery);
         }
 
-        public static void UpdateUserData(string userId, string updateDataLocation, string updateInformation)
+        public static void UpdateStringUserData(string userId, string updateDataLocation, string updateInformation)
         {
-            string stringQuery = string.Format("UPDATE user_list SET '{0}' = '{1}' WHERE id = '{2}'", updateDataLocation, updateInformation, userId);
+            string stringQuery = string.Format("UPDATE user_list SET {0} = '{1}' WHERE id = '{2}'", updateDataLocation, updateInformation, userId);
+            connectionDataBase.CUD(stringQuery);
+        }
+
+        public static void UpdateIntUserData(string userId, string updateDataLocation, int updateInformation)
+        {
+            string stringQuery = string.Format("UPDATE user_list SET {0} = {1} WHERE id = '{2}'", updateDataLocation, updateInformation, userId);
+            connectionDataBase.CUD(stringQuery);
         }
 
         public static UserDTO SelectUserData(string userId)
@@ -67,7 +74,7 @@ namespace Library.Model.DAO
                 user.Name = ((ArrayList)hashtable["name"])[i].ToString();
                 user.Address = ((ArrayList)hashtable["address"])[i].ToString();
                 user.Age = int.Parse(((ArrayList)hashtable["age"])[i].ToString());
-                user.PhoneNumber = ((ArrayList)hashtable["address"])[i].ToString();
+                user.PhoneNumber = ((ArrayList)hashtable["phonenumber"])[i].ToString();
             }
             return user;
         }
@@ -97,15 +104,15 @@ namespace Library.Model.DAO
 
         public static ManagerVO SelectManagerData(string managerId)
         {
-            string stringQuery = string.Format("SELECT * FROM manager_list WHERE id LIKE '{0}'", managerId);
+            string stringQuery = string.Format("SELECT * FROM manager_list WHERE id = '{0}'", managerId);
             Hashtable hashtable = connectionDataBase.SelectData(stringQuery);
-            ManagerVO manager = new ManagerVO(hashtable["id"].ToString(), hashtable["password"].ToString());
+            ManagerVO manager = new ManagerVO(((ArrayList)hashtable["id"])[0].ToString(), ((ArrayList)hashtable["password"])[0].ToString());
             return manager;
         }
 
-        public static void InsertBookData(List<string> bookData)
+        public static void InsertBookData(BookDTO book)
         {
-            string stringQuery = string.Format("INSERT INTO book_list VALUES('{0}', '{1}', '{2}', '{3}', '{4}', '{5}')", bookData[0], bookData[1], bookData[2], bookData[3], bookData[4], bookData[5]);
+            string stringQuery = string.Format("INSERT INTO book_list (title, author, publisher, amount, price, publishdate, ISBN, information) VALUES('{0}', '{1}', '{2}', {3}, {4}, '{5}', '{6}', '{7}')", book.Title, book.Author, book.Publisher, book.Amount, book.Price, book.PublishDate, book.ISBN, book.Information); ;
             connectionDataBase.CUD(stringQuery);
         }
 

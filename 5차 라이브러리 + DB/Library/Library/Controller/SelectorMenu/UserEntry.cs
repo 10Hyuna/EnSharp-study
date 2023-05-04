@@ -22,17 +22,19 @@ namespace Library.Controller.SelectorMode
         Searcher searcher;
         SortList sortList;
         DeleterInformation deleterInformation;
+        ModificationInformation modificationInformation;
 
-        public UserEntry(Login login, Searcher searcher, SortList sortList, DeleterInformation deleterInformation)
+        public UserEntry(Login login, Searcher searcher, SortList sortList, DeleterInformation deleterInformation, ModificationInformation modificationInformation)
         {
             this.searcher = searcher;
             this.sortList = sortList;
             this.deleterInformation = deleterInformation;
+            this.modificationInformation = modificationInformation;
             mainView = MainView.SetMainView();
             menuIndexSelector = MenuIndexSelector.GetMenuIndexSelector();
             this.login = login;
             signUp = new SignUp();
-            userMode = new UserMode(searcher, sortList, deleterInformation);
+            userMode = new UserMode(searcher, sortList, deleterInformation, modificationInformation);
         }
 
         public void SelectEntryType()
@@ -65,7 +67,7 @@ namespace Library.Controller.SelectorMode
                 switch (selectedMenu)
                 {
                     case (int)USERENTRY.SIGNIN:
-                        loginResult = login.EntryUserLogin(Constant.USERENTRY);
+                        loginResult = login.EntryLogin(Constant.USERENTRY);
                         EnterUserMode(loginResult);
                         break;
                     case (int)USERENTRY.SIGNUP:

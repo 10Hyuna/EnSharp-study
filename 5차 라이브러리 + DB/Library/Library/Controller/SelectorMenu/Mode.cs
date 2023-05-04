@@ -21,23 +21,26 @@ namespace Library.Controller.SelectorMode
         Searcher searcher;
         SortList sortList;
         DeleterInformation deleterInformation;
+        ModificationInformation modificationInformation;
 
         public Mode()
         {
             searcher = new Searcher();
             sortList = new SortList();
             deleterInformation = new DeleterInformation();
+            modificationInformation = new ModificationInformation();
             MainView mainView = MainView.SetMainView();
             MenuIndexSelector menuIndexSelector = MenuIndexSelector.GetMenuIndexSelector();
             login = new Login();
-            userEntry = new UserEntry(login, searcher, sortList, deleterInformation);
-            managerMode = new ManagerMode(login, searcher, sortList, deleterInformation);
+            userEntry = new UserEntry(login, searcher, sortList, deleterInformation, modificationInformation);
+            managerMode = new ManagerMode(searcher, sortList, deleterInformation, modificationInformation);
         }
 
         public void SelectMode()
         {
             string[] modeMenu = { "유저 모드", "매니저 모드" };
             int menuIndex = 0;
+            string loginResult;
 
             int consoleColumn = 32;
             int consoleRow = 10;
@@ -64,9 +67,20 @@ namespace Library.Controller.SelectorMode
                         userEntry.SelectEntryType();
                         break;
                     case (int)MODE.MANAGER:
-
+                        loginResult = login.EntryLogin(Constant.MANAGERENTRY);
+                        EnterManagerMenu(loginResult);
                         break;
                 }
+            }
+        }
+
+        private void EnterManagerMenu(string loginResult)
+        {
+            if(loginResult!=Constant.ID_FAIL 
+                && loginResult != Constant.PW_FAIL
+                && loginResult != Constant.ESC_STRING)
+            {
+                managerMode.EnterMenu();
             }
         }
     }

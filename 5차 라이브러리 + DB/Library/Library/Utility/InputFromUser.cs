@@ -119,7 +119,7 @@ namespace Library.Utility
 
             int originColumn = Console.CursorLeft + 13;
             int originRow = Console.CursorTop;
-            Console.SetCursorPosition(originColumn, originRow);
+            Console.SetCursorPosition(consoleColumn, consoleRow);
             Console.Write("                ");
             // 이미 출력되어 있던 문자열이 있을 경우를 대비해 입력할 위치를 지워 줌
             Console.SetCursorPosition(consoleColumn, consoleRow);
@@ -156,7 +156,7 @@ namespace Library.Utility
             }
 
             input = input.Substring(0, input.Length - 1);
-            Console.SetCursorPosition(column - input.Length / 2, row);
+            Console.SetCursorPosition(column, row);
             Console.Write("                       ");
             Console.SetCursorPosition(column, row);
             if (isPassword)

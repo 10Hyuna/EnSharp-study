@@ -105,34 +105,34 @@ namespace Library.View
 
         public static void PrintAddTheBookUI()
         {
-            int consoleInputRow = 53;
-            int consoleInputColumn = 3;
+            int consoleInputRow = 32;
+            int consoleInputColumn = 2;
             Console.SetCursorPosition(consoleInputRow, consoleInputColumn);
             Console.WriteLine("도서 추가");
-            Console.SetCursorPosition(0, consoleInputColumn + 2);
+            Console.SetCursorPosition(0, consoleInputColumn + 4);
             GuidancePhrase.PrintEnter();
-            Console.SetCursorPosition(0, consoleInputColumn + 3);
+            Console.SetCursorPosition(0, consoleInputColumn + 5);
             GuidancePhrase.PrintEsc();
-            Console.WriteLine("\n\n\n");
-            Console.WriteLine("\t\t\t\t----------------------------------------------------\n");
-            Console.WriteLine("\t\t\t\t책 제목   : ");
-            Console.WriteLine("\t\t\t\t작가      : ");
-            Console.WriteLine("\t\t\t\t출판사    : ");
-            Console.WriteLine("\t\t\t\t수량      : ");
-            Console.WriteLine("\t\t\t\t가격      : ");
-            Console.WriteLine("\t\t\t\t출시일    : ");
-            Console.WriteLine("\t\t\t\tISBN      : ");
-            Console.WriteLine("\t\t\t\t책 정보   : \n");
-            Console.WriteLine("\t\t\t\t----------------------------------------------------\n");
+            Console.WriteLine("\n");
+            Console.WriteLine("\t----------------------------------------------------\n");
+            Console.WriteLine("\t책 제목   : ");
+            Console.WriteLine("\t작가      : ");
+            Console.WriteLine("\t출판사    : ");
+            Console.WriteLine("\t수량      : ");
+            Console.WriteLine("\t가격      : ");
+            Console.WriteLine("\t출시일    : ");
+            Console.WriteLine("\tISBN      : ");
+            Console.WriteLine("\t책 정보   : \n");
+            Console.WriteLine("\t----------------------------------------------------\n");
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("\t\t\t책 제목 - 영어, 한글, 숫자 ?!+= 1개 이상");
-            Console.WriteLine("\t\t\t작가    - 영어, 한글 1글자 이상");
-            Console.WriteLine("\t\t\t출판사  - 영어, 한글, 숫자 1개 이상");
-            Console.WriteLine("\t\t\t수량    - 1 ~ 999 사이의 자연수");
-            Console.WriteLine("\t\t\t가격    - 1 ~ 9999999 사이의 자연수");
-            Console.WriteLine("\t\t\t출시일  - 19xx or 20xx-xx-xx");
-            Console.WriteLine("\t\t\tISBN    - 정수 9개 + 영어 1개 + 공백 + 정수 13개");
-            Console.Write("\t\t\t정보    - 최소 1개의 문자 (공백 포함)");
+            Console.WriteLine("\t책 제목 - 영어, 한글, 숫자 ?!+= 1개 이상");
+            Console.WriteLine("\t작가    - 영어, 한글 1글자 이상");
+            Console.WriteLine("\t출판사  - 영어, 한글, 숫자 1개 이상");
+            Console.WriteLine("\t수량    - 1 ~ 999 사이의 자연수");
+            Console.WriteLine("\t가격    - 1 ~ 9999999 사이의 자연수");
+            Console.WriteLine("\t출시일  - 19xx or 20xx-xx-xx");
+            Console.WriteLine("\tISBN    - 정수 9개 + 영어 1개 + 공백 + 정수 13개");
+            Console.Write("\t정보    - 최소 1개의 문자 (공백 포함)");
             Console.ResetColor();
             Console.SetCursorPosition(0, 0);
         }

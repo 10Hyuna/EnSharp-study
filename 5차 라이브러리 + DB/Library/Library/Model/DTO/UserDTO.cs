@@ -10,12 +10,12 @@ namespace Library.Model.DTO
     {
         public UserDTO() { }
 
-        private string id = "";
-        private string password = "";
-        private string name = "";
-        private int age = 0;
-        private string phoneNumber = "";
-        private string address = "";
+        private string id;
+        private string password;
+        private string name;
+        private int age;
+        private string phoneNumber;
+        private string address;
 
         public string Id
         {

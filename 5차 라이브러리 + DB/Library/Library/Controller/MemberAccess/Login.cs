@@ -26,7 +26,7 @@ namespace Library.Controller.MemberAccess
             accessorData = AccessorData.GetAccessorData();
         }
 
-        public string EntryUserLogin(string entryType)
+        public string EntryLogin(string entryType)
         {
             List<string> account;
             bool isNotValidAccount = true;
@@ -74,17 +74,12 @@ namespace Library.Controller.MemberAccess
             return loginResult;
         }
 
-        public void EntryManagerLogin()
-        {
-
-        }
-
         private List<string> ReturnInformation()
         {
             List<string> account = new List<string>();
 
             bool isValidInput = true;
-            int column = 24;
+            int column = 30;
             int row = 15;
             string id = "";
             string password = "";

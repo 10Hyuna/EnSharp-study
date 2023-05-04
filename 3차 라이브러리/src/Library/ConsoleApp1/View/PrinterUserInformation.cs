@@ -154,7 +154,7 @@ namespace Library.View
             ui.PrintBox(7);
 
             Console.SetCursorPosition(consoleInputRow, consoleInputColumn);
-            Console.WriteLine("회원 탈퇴 성공!");
+            Console.WriteLine("회원 정보 삭제 성공!");
             Console.SetCursorPosition(consoleInputRow, consoleInputColumn + 2);
             Console.WriteLine("            ESC : 뒤로가기");
         }

@@ -20,7 +20,7 @@ namespace Library.Utility
         public const string ESC_STRING = "ESC";
         public const string ENTER_STRING = "ENTER";
 
-        public const string USERENTRY = "USER";
+        public const string USERENTRY = "      USER";
         public const string MANAGERENTRY = "MANAGER";
 
         public const string ID_FAIL = "ID_FAIL";
@@ -42,7 +42,7 @@ namespace Library.Utility
         public const string AMOUNT = @"^[0-9]{1,3}";
         public const string PRICE = @"^[0-9]{1,7}";
         public const string PUBLISHDATE = @"^(19|20)\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$";
-        public const string ISBN = @"[0-9a-zA-Z ]{13,}";
+        public const string ISBN = @"[0-9a-zA-Z- ]{13,}";
         public const string INFORMATION = @"[0-9a-zA-Z가-힇]{1,}";
 
         public const string INSERT_USER = "INSERT INTO user_list VALUES('{0}', '{1}', '{2}', '{3}', '{4}', '{5}')";
@@ -103,4 +103,30 @@ enum USERMENU
     RETURN_LIST,
     MODIFY_MY_INFORMATION,
     DELETE_ACCOUNT
+}
+
+enum MANAGERMODE
+{
+    FIND,
+    ADD,
+    DELETE,
+    MODIFY,
+    MANAGEMENT,
+    LIST
+}
+
+enum MODIFY
+{
+    PASSWORD,
+    NAME,
+    AGE,
+    PHONENUMBER,
+    ADDRESS,
+    SUCCESS
+}
+
+enum MODIFICATION
+{
+    INFORMATION,
+    ACCOUNT
 }

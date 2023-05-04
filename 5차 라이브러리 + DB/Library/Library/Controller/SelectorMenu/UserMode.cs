@@ -22,12 +22,14 @@ namespace Library.Controller.SelectorMode
         MenuIndexSelector menuIndexSelector;
         Rental rental;
         Return returnBook;
+        ModificationInformation modificationInformation;
 
-        public UserMode(Searcher searcher, SortList sortList, DeleterInformation deleterInformation)
+        public UserMode(Searcher searcher, SortList sortList, DeleterInformation deleterInformation, ModificationInformation modificationInformation)
         {
             this.searcher = searcher;
             this.sortList = sortList;
             this.deleterInformation = deleterInformation;
+            this.modificationInformation = modificationInformation;
             rental = new Rental(searcher);
             returnBook = new Return();
             MainView = MainView.SetMainView();
@@ -93,7 +95,7 @@ namespace Library.Controller.SelectorMode
 
                     break;
                 case (int)USERMENU.MODIFY_MY_INFORMATION:
-
+                    modificationInformation.ModifyInformation((int)MODE.USER, userId);
                     break;
                 case (int)USERMENU.DELETE_ACCOUNT:
                     breakPoint = deleterInformation.DeleteUserInformation((int)MODE.USER, userId);

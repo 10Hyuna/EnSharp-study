@@ -41,6 +41,10 @@ namespace Library.Controller.TotalAccess
             return returnValue;
         }
 
+        public void DeleteBookInformation()
+        {
+
+        }
         private void DeleteUserManagerMode(string id)
         {
             List<UserDTO> users = new List<UserDTO>();
@@ -101,7 +105,7 @@ namespace Library.Controller.TotalAccess
 
                 AccessorData.DeleteUserData(id);
                 Console.Clear();
-                PrintUserInformation.PrintSuccessDeleteUser();
+                PrintUserInformation.PrintSuccessDeleteAccount();
             }
             return Constant.DELETE_ACCOUNT;
         }

@@ -67,7 +67,8 @@ namespace Library.Controller.BookAccess
                     GuidancePhrase.PrintException((int)EXCEPTION.NULL_SEARCH_BOOK, 0, row);
                     continue;
                 }
-                if(entryType == (int)USERMENU.FIND)
+                if(entryType == (int)USERMENU.FIND
+                    || entryType == (int)MANAGERMODE.FIND)
                 {
                     Console.Clear();
                     GuidancePhrase.PrintEsc();
@@ -81,7 +82,8 @@ namespace Library.Controller.BookAccess
                     PrintBookInformation.PrintBookList(books[i]);
                     isNotESC = false;
                 }
-                if (entryType == (int)USERMENU.FIND)
+                if (entryType == (int)USERMENU.FIND
+                    || entryType == (int)MANAGERMODE.FIND)
                 {
                     isNotESC = !InputFromUser.EnteredESC();
                 }

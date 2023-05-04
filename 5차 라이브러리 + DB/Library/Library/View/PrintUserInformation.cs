@@ -29,7 +29,6 @@ namespace Library.View
         }
         public static void PrintManageUser()
         {
-
             Console.WriteLine("\t\t\t\t----------------------------------------------------\n\n");
             Console.WriteLine("\t\t\t\t                삭제할 유저 ID:\n\n");
             Console.WriteLine("\t\t\t\t----------------------------------------------------");
@@ -39,9 +38,6 @@ namespace Library.View
         }
         public static void PrintSuccessDeleteUser()
         {
-            int consoleInputRow = 53;
-            int consoleInputColumn = 3;
-
             Console.WriteLine("\t\t\t\t----------------------------------------------------\n\n");
             Console.WriteLine("\t\t\t\t                유저 정보 삭제!\n\n");
             Console.WriteLine("\t\t\t\t----------------------------------------------------");
@@ -60,11 +56,22 @@ namespace Library.View
             GuidancePhrase.PrintEnter();
         }
 
+        public static void PrintSuccessModify()
+        {
+            Console.Clear();
+            Console.WriteLine("\t\t\t\t----------------------------------------------------\n\n");
+            Console.WriteLine("\t\t\t\t           유저 정보 수정 완료!\n\n");
+            Console.WriteLine("\t\t\t\t----------------------------------------------------");
+            Console.SetCursorPosition(0, 8);
+            GuidancePhrase.PrintEsc();
+            GuidancePhrase.PrintEnter();
+        }
+
         public static void PrintUserList(List<UserDTO> user)
         {
             for (int i = 0; i < user.Count; i++)
             {
-                Console.WriteLine("\n=====================================================================================\n");
+                Console.WriteLine("\n============================================================================\n");
                 Console.WriteLine("유저의 ID          : {0}", user[i].Id);
                 Console.WriteLine("유저의 Name        : {0}", user[i].Name);
                 Console.WriteLine("유저의 Age         : {0}", user[i].Age);
@@ -91,8 +98,8 @@ namespace Library.View
 
         public static void PrintModifyMyInformationUI()
         {
-            Console.SetCursorPosition(0, 2);
-            Console.WriteLine("\t\t\t\t     개 인 정 보 바 꾸 기\n");
+            Console.SetCursorPosition(26, 2);
+            Console.WriteLine("개 인 정 보 바 꾸 기\n\n\n");
             GuidancePhrase.PrintEsc();
             GuidancePhrase.PrintEnter();
         }
@@ -110,7 +117,7 @@ namespace Library.View
             Console.SetCursorPosition(consoleInputRow - 3, consoleInputColumn + 2);
             Console.ForegroundColor = ConsoleColor.Green;
             Console.Write("Enter : 예");
-            Console.SetCursorPosition(consoleInputRow + 7, consoleInputColumn + 2);
+            Console.SetCursorPosition(consoleInputRow + 12, consoleInputColumn + 2);
             Console.ForegroundColor = ConsoleColor.Red;
             Console.Write("ESC : 아니오");
             Console.ResetColor();
@@ -133,16 +140,16 @@ namespace Library.View
 
         public static void PrintSuccessDeleteAccount()
         {
-            const int consoleInputRow = 50;
-            const int consoleInputColumn = 18;
+            const int consoleInputRow = 35;
+            const int consoleInputColumn = 10;
 
             MainView.PrintMain();
-            MainView.PrintBox(7);
+            MainView.PrintBox(5);
 
             Console.SetCursorPosition(consoleInputRow, consoleInputColumn);
             Console.WriteLine("회원 탈퇴 성공!");
             Console.SetCursorPosition(consoleInputRow, consoleInputColumn + 2);
-            Console.WriteLine("            ESC : 뒤로가기");
+            Console.WriteLine("ESC : 뒤로가기");
         }
     }
 }

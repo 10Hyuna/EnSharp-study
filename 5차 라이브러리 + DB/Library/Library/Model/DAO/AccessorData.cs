@@ -113,13 +113,13 @@ namespace Library.Model.DAO
 
         public static void UpdateBookIntData(int bookId, string updateDataLocation, int bookInformation)
         {
-            string stringQuery = string.Format("UPDATE book_list SET '{0}' = {1} WHERE id = {2}", updateDataLocation, bookInformation, bookId);
+            string stringQuery = string.Format("UPDATE book_list SET {0} = {1} WHERE id = {2}", updateDataLocation, bookInformation, bookId);
             connectionDataBase.CUD(stringQuery);
         }
 
         public static void UpdateBookStringData(int bookId, string updateDataLocation, string bookInformation)
         {
-            string stringQuery = string.Format("UPDATE book_list SET '{0}' = '{1}' WHERE id = {2}", updateDataLocation, bookInformation, bookId);
+            string stringQuery = string.Format("UPDATE book_list SET {0} = '{1}' WHERE id = {2}", updateDataLocation, bookInformation, bookId);
             connectionDataBase.CUD(stringQuery);
         }
 

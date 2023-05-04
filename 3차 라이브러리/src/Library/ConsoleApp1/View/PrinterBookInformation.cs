@@ -35,7 +35,7 @@ namespace Library.View
         }
         public void PrintRentalBookTitle()
         {
-            Console.WriteLine("\n   빌린 책의 리스트\n");
+            Console.WriteLine(" 빌린 책의 리스트\n");
             PrintEsc();
             Console.WriteLine("\n\n\n");
         }
@@ -93,7 +93,7 @@ namespace Library.View
         }
         public void PrintReturnBookTitle() 
         {
-            Console.WriteLine("\n   반납 책의 리스트\n");
+            Console.WriteLine(" 반납 책의 리스트\n");
             PrintEsc();
             Console.WriteLine("\n\n\n");
         }

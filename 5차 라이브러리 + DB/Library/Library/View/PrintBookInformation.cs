@@ -165,13 +165,25 @@ namespace Library.View
             GuidancePhrase.PrintEsc();
         }
 
+        public static void PrintDeleteTheBook()
+        {
+            MainView.PrintBox(3);
+
+            int column = 32;
+            int row = 2;
+
+            Console.SetCursorPosition(column, row);
+            Console.WriteLine("책 수정\n\n");
+            GuidancePhrase.PrintEsc();
+            GuidancePhrase.PrintEnter();
+        }
         public static void PrintSuccessDeleteBook()
         {
             Console.SetWindowSize(76, 10);
             int consoleInputColumn = 3;
             Console.Clear();
             Console.WriteLine("\t\t----------------------------------------------------\n\n");
-            Console.WriteLine("\t\t                    삭제 성공!\n\n");
+            Console.WriteLine("\t\t                 삭제 성공!\n\n");
             Console.WriteLine("\t\t----------------------------------------------------");
             Console.SetCursorPosition(0, consoleInputColumn + 5);
             GuidancePhrase.PrintEsc();

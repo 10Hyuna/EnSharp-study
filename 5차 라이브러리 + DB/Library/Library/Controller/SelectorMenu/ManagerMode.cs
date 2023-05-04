@@ -83,7 +83,7 @@ namespace Library.Controller.SelectorMode
                     modificationInformation.ModifyBookInformation();
                     break;
                 case (int)MANAGERMODE.MANAGEMENT:
-
+                    userManagement.SelectManagement();
                     break;
                 case (int)MANAGERMODE.LIST:
 

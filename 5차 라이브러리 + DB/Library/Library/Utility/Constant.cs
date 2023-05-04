@@ -12,6 +12,7 @@ namespace Library.Utility
         public const bool IS_PASSWORD = true;
         public const bool IS_NOT_PASSWORD = false;
         public const int DELETE_ACCOUNT = 0;
+        public const int IS_NOT_NUMBER = 1;
         public const int FAIL_INT = -5;
         public const int EXIT_INT = -10;
         public const int ENTER_INT = 10;
@@ -130,4 +131,15 @@ enum MODIFICATION
 {
     INFORMATION,
     ACCOUNT
+}
+
+enum BOOKINFO
+{
+    TITLE,
+    AUTHOR,
+    PUBLISHER,
+    AMOUNT,
+    PRICE,
+    PUBLISHDAY,
+    SUCCESS
 }

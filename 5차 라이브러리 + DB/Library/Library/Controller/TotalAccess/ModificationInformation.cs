@@ -59,6 +59,7 @@ namespace Library.Controller.TotalAccess
             while (isSuccessModify)
             {
                 Console.Clear();
+                Console.SetWindowSize(76, 40);
                 PrintBookInformation.PrintModifyBookInformationUI();
 
                 books = AccessorData.AllBookData();
@@ -82,7 +83,131 @@ namespace Library.Controller.TotalAccess
                 }
                 bookNumber = int.Parse(bookId);
 
+                isSuccessModify = IsValidNumber(bookNumber);
+                if(!isSuccessModify)
+                {
+                    GuidancePhrase.PrintException((int)EXCEPTION.NULL_KEYWORD, column, row);
+                    continue;
+                }
+                InputModifyInformation(bookNumber);
+                isSuccessModify = false;
+            }
+        }
 
+        private bool IsValidNumber(int number)
+        {
+            BookDTO book = new BookDTO();
+            book = AccessorData.SelectPartlyBook(number);
+
+            if (book.Title == null)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        private void InputModifyInformation(int bookNumber)
+        {
+            string[] menu = {"책 제목 (영어, 한글, 숫자 1개 이상 ) :", "작가 (영어, 한글 1개 이상)           :",
+                "출판사 (영어, 한글, 숫자 1개 이상)   :", "수량 ( 1 ~ 999 )                     :",
+                "가격 ( 1 ~ 9999999 )                 :","출시일 ( 19xx or 20xx-xx-xx )        :", "책 정보 수정하기"};
+
+            bool isNotESC = true;
+
+            int column = 3;
+            int row = 9;
+
+            int validInput = 0;
+            int selectedIndex = 0;
+            string amount;
+            string price;
+
+            BookDTO book = new BookDTO();
+            book.Id = bookNumber;
+
+            Console.Clear();
+            Console.SetWindowSize(76, 30);
+            PrintBookInformation.PrintDeleteTheBook();
+
+            while (isNotESC)
+            {
+                validInput = 0;
+
+                selectedIndex = MenuIndexSelector.SelectMenuIndex(menu, selectedIndex, column, row);
+                if(selectedIndex == Constant.EXIT_INT)
+                {
+                    return;
+                }
+
+                switch (selectedIndex)
+                {
+                    case (int)BOOKINFO.TITLE:
+                        book.Title = ModifyInformation(0, Constant.TITLE, Constant.IS_NOT_PASSWORD);
+                        validInput = EnterEsc(book.Title);
+                        break;
+                    case (int)BOOKINFO.AUTHOR:
+                        book.Author = ModifyInformation(1, Constant.AUTHOR, Constant.IS_NOT_PASSWORD);
+                        validInput = EnterEsc(book.Author);
+                        break;
+                    case (int)BOOKINFO.PUBLISHER:
+                        book.Publisher= ModifyInformation(2, Constant.ONEVALUE, Constant.IS_NOT_PASSWORD);
+                        validInput = EnterEsc(book.Publisher);
+                        break;
+                    case (int)BOOKINFO.AMOUNT:
+                        amount = ModifyInformation(3, Constant.AMOUNT, Constant.IS_NOT_PASSWORD);
+                        validInput = EnterEsc(amount);
+                        book.Amount = CheckNumber(validInput, amount);
+                        break;
+                    case (int)BOOKINFO.PRICE:
+                        price = ModifyInformation(4, Constant.PRICE, Constant.IS_NOT_PASSWORD);
+                        validInput = EnterEsc(price);
+                        book.Price = CheckNumber(validInput, price);
+                        break;
+                    case (int)BOOKINFO.PUBLISHDAY:
+                        book.PublishDate = ModifyInformation(5, Constant.PUBLISHDATE, Constant.IS_NOT_PASSWORD);
+                        validInput = EnterEsc(book.PublishDate);
+                        break;
+                    case (int)BOOKINFO.SUCCESS:
+                        UpdateBookInformation(book);
+                        isNotESC = false;
+                        break;
+                }
+                if (!isNotESC)
+                {
+                    PrintUserInformation.PrintSuccessModify();
+                }
+                if (validInput == Constant.EXIT_INT)
+                {
+                    isNotESC = true;
+                }
+            }
+        }
+
+        private void UpdateBookInformation(BookDTO book)
+        {
+            if(book.Title != null)
+            {
+                AccessorData.UpdateBookStringData(book.Id, "title", book.Title);
+            }
+            if(book.Author != null)
+            {
+                AccessorData.UpdateBookStringData(book.Id, "author", book.Author);
+            }
+            if (book.Publisher != null)
+            {
+                AccessorData.UpdateBookStringData(book.Id, "publisher", book.Publisher);
+            }
+            if(book.Amount != 0)
+            {
+                AccessorData.UpdateBookIntData(book.Id, "amount", book.Amount);
+            }
+            if(book.Price != 0)
+            {
+                AccessorData.UpdateBookIntData(book.Id, "price", book.Price);
+            }
+            if (book.PublishDate != null)
+            {
+                AccessorData.UpdateBookStringData(book.Id, "publishdate", book.PublishDate);
             }
         }
 
@@ -91,11 +216,11 @@ namespace Library.Controller.TotalAccess
             int column = 30;
             int row = 10;
             List<UserDTO> users= new List<UserDTO>();
-            users=AccessorData.SelectAllUserData();
+            users = AccessorData.SelectAllUserData();
 
             PrintUserInformation.PrintModiFyUserIdUI();
             PrintUserInformation.PrintUserList(users);
-            string id = SearchId();
+            string id = SearchId((int)MODE.USER);
             if (id == null)
             {
                 GuidancePhrase.PrintException((int)EXCEPTION.ID_FAIL, column, row);
@@ -150,8 +275,8 @@ namespace Library.Controller.TotalAccess
                         break;
                     case (int)MODIFY.AGE:
                         age = ModifyInformation(2, Constant.AGE, Constant.IS_NOT_PASSWORD);
-                        CheckNumber(user, age);
                         validInput = EnterEsc(age);
+                        user.Age = CheckNumber(validInput, age);
                         break;
                     case (int)MODIFY.PHONENUMBER:
                         user.PhoneNumber = ModifyInformation(3, Constant.PHONENUMBER, Constant.IS_NOT_PASSWORD);
@@ -179,7 +304,7 @@ namespace Library.Controller.TotalAccess
 
         private string SearchId(int entryType)
         {
-            int column = 40;
+            int column = 45;
             int row = 3;
             string regexForm;
 
@@ -196,15 +321,18 @@ namespace Library.Controller.TotalAccess
             return id;
         }
 
-        private string ModifyInformation(int column, string regex, bool isPassword)     // 입력된 정보의 유효성 검사
+        private string ModifyInformation(int consoleRow, string regex, bool isPassword)     // 입력된 정보의 유효성 검사
         {
-            int consoleInputRow = 42;
-            int consoleInputColumn = 9 + column;
+            int Column = 42;
+            int row = 9 + consoleRow;
 
             string input = "";
 
-            input = ExceptionHandler.IsValidInput(regex, consoleInputRow, consoleInputColumn, 20, isPassword);
-
+            input = ExceptionHandler.IsValidInput(regex, Column, row, 20, isPassword);
+            if (input == Constant.ESC_STRING)
+            {
+                input = null;
+            }
             return input;
         }
 
@@ -214,64 +342,42 @@ namespace Library.Controller.TotalAccess
             {
                 return Constant.EXIT_INT;     // esc 입력을 표시하는 값 반환
             }
+            else if (!ExceptionHandler.IsStringAllNumber(input))
+            {
+                return Constant.IS_NOT_NUMBER;
+            }
             return Constant.SUCCESS;
         }
 
-        private void UpdateInformation(UserDTO user, string userId)
-        {
-            UpdatePassword(user, userId);
-            UpdateName(user, userId);
-            UpdateAge(user, userId);
-            UpdatePhoneNumber(user, userId);
-            UpdateAddress(user, userId);
-        }
-
-        private void UpdatePassword(UserDTO user, string id)
+        private void UpdateInformation(UserDTO user, string id)
         {
             if (user.Password != null)
             {
                 AccessorData.UpdateStringUserData(id, "password", user.Password);
             }
-        }
-
-        private void UpdateName(UserDTO user, string id)
-        {
             if (user.Name != null)
             {
                 AccessorData.UpdateStringUserData(id, "name", user.Name);
             }
-        }
-
-        private void UpdateAge(UserDTO user, string id)
-        {
             if (user.Age != 0)
             {
                 AccessorData.UpdateIntUserData(id, "age", user.Age);
             }
-        }
-
-        private void UpdatePhoneNumber(UserDTO user, string id)
-        {
             if (user.PhoneNumber != null)
             {
                 AccessorData.UpdateStringUserData(id, "phonenumber", user.PhoneNumber);
             }
-        }
-
-        private void UpdateAddress(UserDTO user, string id)
-        {
             if (user.Address != null)
             {
                 AccessorData.UpdateStringUserData(id, "address", user.Address);
             }
         }
 
-        private void CheckNumber(UserDTO user, string age)
+        private int CheckNumber(int validInput, string input)
         {
-            if (ExceptionHandler.IsStringAllNumber(age))
-            {
-                user.Age = int.Parse(age);
-            }
+            if(validInput != Constant.IS_NOT_NUMBER)
+                return int.Parse(input);
+            return 0;
         }
     }
 }

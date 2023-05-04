@@ -67,7 +67,7 @@ namespace Library.Controller.BookAccess
 
                 UsersBookDTO returnBook = AccessorData.SelectReturnBook(userId, returnIdNumber);
 
-                if (returnBook.Id == null)
+                if (returnBook.Id == 0)
                 {
                     GuidancePhrase.PrintException((int)EXCEPTION.NULL_RENT, column, row);
                     continue;

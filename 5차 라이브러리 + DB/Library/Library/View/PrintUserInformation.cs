@@ -58,10 +58,11 @@ namespace Library.View
 
         public static void PrintSuccessModify()
         {
+            Console.SetWindowSize(76, 10);
             Console.Clear();
-            Console.WriteLine("\t\t\t\t----------------------------------------------------\n\n");
-            Console.WriteLine("\t\t\t\t           유저 정보 수정 완료!\n\n");
-            Console.WriteLine("\t\t\t\t----------------------------------------------------");
+            Console.WriteLine("\t\t----------------------------------------------------\n\n");
+            Console.WriteLine("\t\t                정보 수정 완료!\n\n");
+            Console.WriteLine("\t\t----------------------------------------------------");
             Console.SetCursorPosition(0, 8);
             GuidancePhrase.PrintEsc();
             GuidancePhrase.PrintEnter();

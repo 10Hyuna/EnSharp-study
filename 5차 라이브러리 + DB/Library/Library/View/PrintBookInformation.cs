@@ -167,8 +167,9 @@ namespace Library.View
 
         public static void PrintSuccessDeleteBook()
         {
+            Console.SetWindowSize(76, 10);
             int consoleInputColumn = 3;
-
+            Console.Clear();
             Console.WriteLine("\t\t----------------------------------------------------\n\n");
             Console.WriteLine("\t\t                    삭제 성공!\n\n");
             Console.WriteLine("\t\t----------------------------------------------------");

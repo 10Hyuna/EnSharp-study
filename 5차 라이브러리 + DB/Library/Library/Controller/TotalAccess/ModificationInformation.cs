@@ -46,7 +46,44 @@ namespace Library.Controller.TotalAccess
 
         public void ModifyBookInformation()
         {
+            int column = 30;
+            int row = 3;
 
+            string bookId;
+            int bookNumber;
+
+            bool isSuccessModify = true;
+
+            List<BookDTO> books = new List<BookDTO>();
+
+            while (isSuccessModify)
+            {
+                Console.Clear();
+                PrintBookInformation.PrintModifyBookInformationUI();
+
+                books = AccessorData.AllBookData();
+
+                for(int i = 0; i < books.Count; i++)
+                {
+                    PrintBookInformation.PrintBookList(books[i]);
+                }
+
+                Console.SetCursorPosition(0, 0);
+
+                bookId = SearchId((int)MODE.MANAGER);
+                if(bookId == Constant.ESC_STRING)
+                {
+                    return;
+                }
+                else if (!ExceptionHandler.IsStringAllNumber(bookId))
+                {
+                    GuidancePhrase.PrintException((int)EXCEPTION.NOT_MATCH_CONDITION, column, row);
+                    continue;
+                }
+                bookNumber = int.Parse(bookId);
+
+
+            }
         }
 
         private void EnterManagerMode()
@@ -140,11 +177,21 @@ namespace Library.Controller.TotalAccess
             }
         }
 
-        private string SearchId()
+        private string SearchId(int entryType)
         {
             int column = 40;
             int row = 3;
-            string id = ExceptionHandler.IsValidInput(Constant.ID, column, row, 15, Constant.IS_NOT_PASSWORD);
+            string regexForm;
+
+            if(entryType == (int)MODE.MANAGER)
+            {
+                regexForm = Constant.NUMBER;
+            }
+            else
+            {
+                regexForm = Constant.ID;
+            }
+            string id = ExceptionHandler.IsValidInput(regexForm, column, row, 15, Constant.IS_NOT_PASSWORD);
 
             return id;
         }

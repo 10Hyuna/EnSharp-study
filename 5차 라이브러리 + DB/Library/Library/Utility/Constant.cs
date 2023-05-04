@@ -55,6 +55,7 @@ namespace Library.Utility
         public const string SELECT_ALL_USER = "SELECT * FROM user_list";
         public const string SELECT_ALL_BOOK = "SELECT * FROM book_list";
         public const string SELECT_BOOK = "SELECT * FROM book_list WHERE title = '{0}' AND author = '{1}' AND publisher = '{2}'";
+        public const string SELECT_PARTLY_BOOK = "SELECT * FROM book_list WHERE id = {0}";
         public const string SELECT_RENT_BOOK = "SELECT * FROM user_rent_book WHERE user_id = '{0}'";
         public const string SELECT_USER_RENT_BOOK = "SELECT * FROM user_rent_book WHERE user_id = '{0}' AND book_id = {1}";
         public const string SELECT_RETURN_BOOK = "SELECT * FROM user_return_book WHERE book_id = {0}'";

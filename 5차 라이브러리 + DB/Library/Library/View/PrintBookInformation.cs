@@ -40,7 +40,7 @@ namespace Library.View
 
         public static void PrintBookList(BookDTO book)
         {
-            Console.WriteLine("\n=====================================================================================\n");
+            Console.WriteLine("\n============================================================================\n");
             Console.WriteLine("책아이디  : {0}", book.Id);
             Console.WriteLine("책 제목   : {0}", book.Title);
             Console.WriteLine("작가      : {0}", book.Author);
@@ -147,18 +147,18 @@ namespace Library.View
             Console.SetCursorPosition(0, consoleInputColumn + 2);
             GuidancePhrase.PrintEsc();
             Console.WriteLine("\n\n\n");
-            Console.WriteLine("\t\t\t\t----------------------------------------------------\n\n");
-            Console.WriteLine("\t\t\t\t                   책 추가 성공!\n\n");
-            Console.WriteLine("\t\t\t\t----------------------------------------------------\n");
+            Console.WriteLine("\t\t----------------------------------------------------\n\n");
+            Console.WriteLine("\t\t                   책 추가 성공!\n\n");
+            Console.WriteLine("\t\t----------------------------------------------------\n");
         }
 
         public static void PrintDeleteTheBookUI()
         {
             int consoleInputColumn = 3;
 
-            Console.WriteLine("\t\t\t\t----------------------------------------------------\n\n");
-            Console.WriteLine("\t\t\t\t               삭제할 책 ID:\n\n");
-            Console.WriteLine("\t\t\t\t----------------------------------------------------");
+            Console.WriteLine("\t\t-----------------------------------------------\n\n");
+            Console.WriteLine("\t\t               삭제할 책 ID:\n\n");
+            Console.WriteLine("\t\t-----------------------------------------------");
             Console.SetCursorPosition(0, consoleInputColumn + 5);
             GuidancePhrase.PrintEnter();
             Console.SetCursorPosition(0, consoleInputColumn + 6);
@@ -169,9 +169,9 @@ namespace Library.View
         {
             int consoleInputColumn = 3;
 
-            Console.WriteLine("\t\t\t\t----------------------------------------------------\n\n");
-            Console.WriteLine("\t\t\t\t                    삭제 성공!\n\n");
-            Console.WriteLine("\t\t\t\t----------------------------------------------------");
+            Console.WriteLine("\t\t----------------------------------------------------\n\n");
+            Console.WriteLine("\t\t                    삭제 성공!\n\n");
+            Console.WriteLine("\t\t----------------------------------------------------");
             Console.SetCursorPosition(0, consoleInputColumn + 5);
             GuidancePhrase.PrintEsc();
         }
@@ -180,9 +180,9 @@ namespace Library.View
         {
             int consoleInputColumn = 3;
 
-            Console.WriteLine("\t\t\t\t----------------------------------------------------\n\n");
-            Console.WriteLine("\t\t\t\t               수정할 책 ID:\n\n");
-            Console.WriteLine("\t\t\t\t----------------------------------------------------");
+            Console.WriteLine("\t\t----------------------------------------------------\n\n");
+            Console.WriteLine("\t\t               수정할 책 ID:\n\n");
+            Console.WriteLine("\t\t----------------------------------------------------");
             Console.SetCursorPosition(0, consoleInputColumn + 5);
             GuidancePhrase.PrintEnter();
             Console.SetCursorPosition(0, consoleInputColumn + 6);
@@ -194,9 +194,9 @@ namespace Library.View
             int consoleInputColumn = 3;
             Console.Clear();
 
-            Console.WriteLine("\t\t\t\t----------------------------------------------------\n\n");
-            Console.WriteLine("\t\t\t\t                    수정 성공!\n\n");
-            Console.WriteLine("\t\t\t\t----------------------------------------------------");
+            Console.WriteLine("\t\t----------------------------------------------------\n\n");
+            Console.WriteLine("\t\t                    수정 성공!\n\n");
+            Console.WriteLine("\t\t----------------------------------------------------");
             Console.SetCursorPosition(0, consoleInputColumn + 5);
             GuidancePhrase.PrintEsc();
         }
@@ -205,9 +205,9 @@ namespace Library.View
         {
             int consoleInputColumn = 3;
             Console.Clear();
-            Console.WriteLine("----------------------------------------------------\n\n");
-            Console.WriteLine("                    대여 성공!\n\n");
-            Console.WriteLine("----------------------------------------------------");
+            Console.WriteLine("\t\t----------------------------------------------------\n\n");
+            Console.WriteLine("\t\t                    대여 성공!\n\n");
+            Console.WriteLine("\t\t----------------------------------------------------");
             Console.SetCursorPosition(0, consoleInputColumn + 5);
             GuidancePhrase.PrintEsc();
         }

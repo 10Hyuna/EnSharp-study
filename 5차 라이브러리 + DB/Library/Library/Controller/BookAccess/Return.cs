@@ -60,7 +60,7 @@ namespace Library.Controller.BookAccess
 
                 else if (!ExceptionHandler.IsStringAllNumber(returnId))
                 {
-                    GuidancePhrase.PrintException((int)EXCEPTION.NOT_MATCH_PASSWORD, column, row);
+                    GuidancePhrase.PrintException((int)EXCEPTION.NOT_MATCH_CONDITION, column, row);
                     continue;
                 }
                 returnIdNumber = int.Parse(returnId);

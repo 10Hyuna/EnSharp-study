@@ -128,9 +128,9 @@ namespace Library.Model.DAO
             connectionDataBase.CUD(stringQuery);
         }
 
-        public static void DeleteBookData(string bookId)
+        public static void DeleteBookData(int bookId)
         {
-            string stringQuery = string.Format("DELETE FROM book_list WHERE id = '{0}'", bookId);
+            string stringQuery = string.Format("DELETE FROM book_list WHERE id = {0}", bookId);
             connectionDataBase.CUD(stringQuery);
 
         }
@@ -204,6 +204,28 @@ namespace Library.Model.DAO
                 books.Add(book);
             }
             return books;
+        }
+
+        public static BookDTO SelectPartlyBook(int id)
+        {
+            string stringQuery = string.Format(Constant.SELECT_PARTLY_BOOK, id);
+            Hashtable hashtable = connectionDataBase.SelectData(stringQuery);
+            BookDTO book = new BookDTO();
+            if(hashtable.Count == 0)
+            {
+                return book;
+            }
+            book.Id = int.Parse(((ArrayList)hashtable["id"])[0].ToString());
+            book.Title = ((ArrayList)hashtable["title"])[0].ToString();
+            book.Author = ((ArrayList)hashtable["author"])[0].ToString();
+            book.Publisher = ((ArrayList)hashtable["publisher"])[0].ToString();
+            book.Amount = int.Parse(((ArrayList)hashtable["amount"])[0].ToString());
+            book.Price = int.Parse(((ArrayList)hashtable["price"])[0].ToString());
+            book.PublishDate = ((ArrayList)hashtable["publishdate"])[0].ToString();
+            book.ISBN = ((ArrayList)hashtable["ISBN"])[0].ToString();
+            book.Information = ((ArrayList)hashtable["information"])[0].ToString();
+
+            return book;
         }
 
         public static List<UsersBookDTO> SelectAllRentBookList(string userId)

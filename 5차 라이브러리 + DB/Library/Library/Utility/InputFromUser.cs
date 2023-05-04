@@ -78,8 +78,6 @@ namespace Library.Utility
         public static int SelectMenuIndex(int endMenuIndex, int selectedMenu)
         {   // 메뉴는 위아래로 움직임            
 
-            //Console.CancelKeyPress += new ConsoleCancelEventHandler(Console_CancelKeyPress);
-
             keyInfo = Console.ReadKey(true);
 
             if (keyInfo.Key == ConsoleKey.UpArrow)

@@ -96,7 +96,7 @@ namespace Library.Controller.SelectorMode
 
                     break;
                 case (int)USERMENU.DELETE_ACCOUNT:
-                    //breakPoint = 
+                    breakPoint = deleterInformation.DeleteUserInformation((int)MODE.USER, userId);
                     break;
             }
             return breakPoint;

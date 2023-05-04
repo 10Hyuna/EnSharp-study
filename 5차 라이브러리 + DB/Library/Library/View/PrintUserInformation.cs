@@ -27,7 +27,7 @@ namespace Library.View
             }
             return printUserInformation;
         }
-        public void PrintManageUser()
+        public static void PrintManageUser()
         {
 
             Console.WriteLine("\t\t\t\t----------------------------------------------------\n\n");
@@ -37,7 +37,7 @@ namespace Library.View
             GuidancePhrase.PrintEsc();
             GuidancePhrase.PrintEnter();
         }
-        public void PrintSuccessDeleteUser()
+        public static void PrintSuccessDeleteUser()
         {
             int consoleInputRow = 53;
             int consoleInputColumn = 3;
@@ -50,7 +50,7 @@ namespace Library.View
             GuidancePhrase.PrintEnter();
         }
 
-        public void PrintModiFyUserIdUI()
+        public static void PrintModiFyUserIdUI()
         {
             Console.WriteLine("\t\t\t\t----------------------------------------------------\n\n");
             Console.WriteLine("\t\t\t\t               수정할 유저 ID:\n\n");
@@ -60,7 +60,7 @@ namespace Library.View
             GuidancePhrase.PrintEnter();
         }
 
-        public void PrintUserList(List<UserDTO> user)
+        public static void PrintUserList(List<UserDTO> user)
         {
             for (int i = 0; i < user.Count; i++)
             {
@@ -73,7 +73,7 @@ namespace Library.View
             }
         }
 
-        public void PrintRentalStateUI()
+        public static void PrintRentalStateUI()
         {
             Console.SetCursorPosition(0, 2);
             Console.WriteLine("\t\t\t\t\t\t     대 여 상 황\n");
@@ -81,7 +81,7 @@ namespace Library.View
             GuidancePhrase.PrintEnter();
         }
 
-        public void PrintUserId(string id)
+        public static void PrintUserId(string id)
         {
             Console.WriteLine("\t\t=====================================================================================\n");
             Console.ForegroundColor = ConsoleColor.DarkGreen;
@@ -89,7 +89,7 @@ namespace Library.View
             Console.ResetColor();
         }
 
-        public void PrintModifyMyInformationUI()
+        public static void PrintModifyMyInformationUI()
         {
             Console.SetCursorPosition(0, 2);
             Console.WriteLine("\t\t\t\t     개 인 정 보 바 꾸 기\n");
@@ -97,36 +97,41 @@ namespace Library.View
             GuidancePhrase.PrintEnter();
         }
 
-        public void PrintDeleteAccountUI()
+        public static void PrintDeleteAccountUI()
         {
-            const int consoleInputRow = 40;
-            const int consoleInputColumn = 15;
+            const int consoleInputRow = 26;
+            const int consoleInputColumn = 10;
 
             MainView.PrintMain();
             MainView.PrintBox(5);
 
             Console.SetCursorPosition(consoleInputRow, consoleInputColumn);
             Console.WriteLine("회원탈퇴 하시겠습니까?");
-            Console.SetCursorPosition(consoleInputRow, consoleInputColumn + 2);
-            Console.WriteLine("Enter : 예   ESC : 아니오");
+            Console.SetCursorPosition(consoleInputRow - 3, consoleInputColumn + 2);
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("Enter : 예");
+            Console.SetCursorPosition(consoleInputRow + 7, consoleInputColumn + 2);
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write("ESC : 아니오");
+            Console.ResetColor();
         }
 
-        public void PrintNotWorkedDeleteAccout()
+        public static void PrintNotWorkedDeleteAccout()
         {
-            const int consoleInputRow = 33;
-            const int consoleInputColumn = 18;
+            const int consoleInputRow = 20;
+            const int consoleInputColumn = 10;
 
             Console.Clear();
             MainView.PrintMain();
             MainView.PrintBox(5);
 
             Console.SetCursorPosition(consoleInputRow, consoleInputColumn);
-            Console.WriteLine("대여 중인 도서가 있어 탈퇴가 불가능합니다.");
+            Console.WriteLine("대여 중인 도서가 있어 정보 삭제가 불가능합니다.");
             Console.SetCursorPosition(consoleInputRow, consoleInputColumn + 2);
             Console.WriteLine("            ESC : 뒤로가기");
         }
 
-        public void PrintSuccessDeleteAccount()
+        public static void PrintSuccessDeleteAccount()
         {
             const int consoleInputRow = 50;
             const int consoleInputColumn = 18;

@@ -72,6 +72,29 @@ namespace Library.Model.DAO
             return user;
         }
 
+        public static List<UserDTO> SelectAllUserData()
+        {
+            string stringQuery = string.Format(Constant.SELECT_ALL_USER);
+            Hashtable hashtable = connectionDataBase.SelectData(stringQuery);
+            List<UserDTO> users = new List<UserDTO>();
+            if(hashtable.Count == 0)
+            {
+                return users;
+            }
+            for (int i = 0; i < ((ArrayList)hashtable["id"]).Count; i++)
+            {
+                UserDTO user = new UserDTO();
+                user.Id = ((ArrayList)hashtable["id"])[i].ToString();
+                user.Password = ((ArrayList)hashtable["password"])[i].ToString();
+                user.Name = ((ArrayList)hashtable["name"])[i].ToString();
+                user.Address = ((ArrayList)hashtable["address"])[i].ToString();
+                user.Age = int.Parse(((ArrayList)hashtable["age"])[i].ToString());
+                user.PhoneNumber = ((ArrayList)hashtable["address"])[i].ToString();
+                users.Add(user);
+            }
+            return users;
+        }
+
         public static ManagerVO SelectManagerData(string managerId)
         {
             string stringQuery = string.Format("SELECT * FROM manager_list WHERE id LIKE '{0}'", managerId);

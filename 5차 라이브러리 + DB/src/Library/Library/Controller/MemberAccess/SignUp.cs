@@ -132,7 +132,7 @@ namespace Library.Controller.MemberAccess
 
                 overlapUser = AccessorData.SelectUserData(id);
 
-                if (overlapUser.Id == "")
+                if (overlapUser.Id == null)
                 {
                     isNotOverlapData = false;
                 }
@@ -173,7 +173,7 @@ namespace Library.Controller.MemberAccess
                 }
                 else
                 {
-                    GuidancePhrase.PrintException((int)EXCEPTION.NOT_MATCH_PASSWORD, column, row);
+                    GuidancePhrase.PrintException((int)EXCEPTION.NOT_MATCH_PASSWORD, column - 16, row + 1);
                 }
             }
 

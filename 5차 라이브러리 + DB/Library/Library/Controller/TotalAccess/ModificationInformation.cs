@@ -28,7 +28,7 @@ namespace Library.Controller.TotalAccess
             guidancePhrase = GuidancePhrase.SetGuidancePhrase();
         }
 
-        public void ModifyInformation(int entryType, string id)
+        public void ModifyInformation(int entryType, string id)     // 유저 정보 수정하는 메소드
         {
             Console.Clear();
             MainView.PrintBox(3);
@@ -45,7 +45,7 @@ namespace Library.Controller.TotalAccess
             }
         }
 
-        public void ModifyBookInformation()
+        public void ModifyBookInformation()     // 책 정보 수정
         {
             int column = 30;
             int row = 3;
@@ -72,30 +72,30 @@ namespace Library.Controller.TotalAccess
 
                 Console.SetCursorPosition(0, 0);
 
-                bookId = SearchId((int)MODE.MANAGER);
+                bookId = SearchId((int)MODE.MANAGER);       // 수정하려는 책의 아이디 입력
                 if(bookId == Constant.ESC_STRING)
                 {
                     return;
                 }
-                else if (!ExceptionHandler.IsStringAllNumber(bookId))
+                else if ((!ExceptionHandler.IsStringAllNumber(bookId)) || bookId == "")   // 책의 아이디가 숫자가 맞는지 확인
                 {
                     GuidancePhrase.PrintException((int)EXCEPTION.NOT_MATCH_CONDITION, column, row);
                     continue;
                 }
                 bookNumber = int.Parse(bookId);
 
-                isSuccessModify = IsValidNumber(bookNumber);
+                isSuccessModify = IsValidNumber(bookNumber);        // 입력받은 책의 아이디가 유효한 책의 아이디인지 확인
                 if(!isSuccessModify)
                 {
                     GuidancePhrase.PrintException((int)EXCEPTION.NULL_KEYWORD, column, row);
                     continue;
                 }
-                InputModifyInformation(bookNumber);
+                InputModifyInformation(bookNumber);     // 수정하려는 책의 정보를 입력하는 메소드 진입
                 isSuccessModify = false;
             }
         }
 
-        private bool IsValidNumber(int number)
+        private bool IsValidNumber(int number)      // 입력받은 책이 존재하는 책인지 확인
         {
             BookDTO book = new BookDTO();
             book = AccessorData.SelectPartlyBook(number);
@@ -107,7 +107,7 @@ namespace Library.Controller.TotalAccess
             return true;
         }
 
-        private void InputModifyInformation(int bookNumber)
+        private void InputModifyInformation(int bookNumber)     // 책의 정보 수정
         {
             string[] menu = {"책 제목 (영어, 한글, 숫자 1개 이상 ) :", "작가 (영어, 한글 1개 이상)           :",
                 "출판사 (영어, 한글, 숫자 1개 이상)   :", "수량 ( 1 ~ 999 )                     :",
@@ -173,9 +173,10 @@ namespace Library.Controller.TotalAccess
                         isNotESC = false;
                         break;
                 }
-                if (!isNotESC)
+                if (!isNotESC)      // 수정하기 메뉴에서 엔터를 눌렀을 경우,
                 {
-                    PrintUserInformation.PrintSuccessModify();
+                    PrintUserInformation.PrintSuccessModify(); 
+                    InputFromUser.EnteredESC();
                 }
                 if (validInput == Constant.EXIT_INT)
                 {
@@ -184,7 +185,7 @@ namespace Library.Controller.TotalAccess
             }
         }
 
-        private void UpdateBookInformation(BookDTO book)
+        private void UpdateBookInformation(BookDTO book)        // 입력받았던 값이 null이 아니라면 정보 수정
         {
             if(book.Title != null)
             {
@@ -212,7 +213,7 @@ namespace Library.Controller.TotalAccess
             }
         }
 
-        private void EnterManagerMode()
+        private void EnterManagerMode()         // 매니저 모드에서 진입
         {
             int column = 30;
             int row = 10;
@@ -226,10 +227,11 @@ namespace Library.Controller.TotalAccess
             while (!isSuccessModify)
             {
                 Console.Clear();
-                PrintBookInformation.PrintModifyBookInformationUI();
+                PrintUserInformation.PrintModiFyUserIdUI();
                 PrintUserInformation.PrintUserList(users);
                 Console.SetCursorPosition(0, 0);
-                id = SearchId((int)MODE.USER);
+
+                id = SearchId((int)MODE.USER);      // 수정하려는 책의 아이디 입력
                 if (id == null)
                 {
                     GuidancePhrase.PrintException((int)EXCEPTION.ID_FAIL, column, row);
@@ -244,11 +246,11 @@ namespace Library.Controller.TotalAccess
                     GuidancePhrase.PrintException((int)EXCEPTION.NULL_KEYWORD, column, row);
                     continue;
                 }
-                SelectIndex(id);
+                SelectIndex(id);       // 수정하고자 하는 유저 정보를 입력받는 메소드   
             }
         }
 
-        private bool IsValidSearchId(List<UserDTO> users, string searchId)
+        private bool IsValidSearchId(List<UserDTO> users, string searchId)      // 입력받은 아이디가 실제로 존재하는 아이디인지 확인
         {
             for(int i = 0; i < users.Count; i++)
             {
@@ -371,7 +373,7 @@ namespace Library.Controller.TotalAccess
             {
                 return Constant.EXIT_INT;     // esc 입력을 표시하는 값 반환
             }
-            else if (!ExceptionHandler.IsStringAllNumber(input))
+            else if ((!ExceptionHandler.IsStringAllNumber(input)) || input == "")
             {
                 return Constant.IS_NOT_NUMBER;
             }

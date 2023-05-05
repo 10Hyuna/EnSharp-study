@@ -40,15 +40,15 @@ namespace Library.Controller.MemberAccess
 
             MainView.PrintSignUpUI();
 
-            successSignUp = AddUser();
+            successSignUp = AddUser();      // 회원가입하려는 유저의 정보를 입력하는 메소드
 
             if(successSignUp == Constant.EXIT_INT)
-            {
+            {       // 중간에 esc를 눌렀다면
                 return;
             }
 
             Console.Clear();
-            MainView.SuccessSignUp();
+            MainView.SuccessSignUp();       // 회원가입 성공
 
             while (isNotEnter)
             {
@@ -61,7 +61,7 @@ namespace Library.Controller.MemberAccess
             }
         }
 
-        private int AddUser()
+        private int AddUser()       // 회원가입 정보 입력
         {
             int column = 50;
             int row = 15;
@@ -113,7 +113,7 @@ namespace Library.Controller.MemberAccess
             return Constant.SUCCESS;
         }
 
-        private string CheckOverlapData()
+        private string CheckOverlapData()       // 아이디가 중복되는 데이터인지 확인
         {
             int column = 50;
             int row = 15;
@@ -144,7 +144,7 @@ namespace Library.Controller.MemberAccess
 
             return id;
         }
-        private string CheckMatchData()
+        private string CheckMatchData()     // 입력받은 두 비밀번호 값이 서로 일치하는지 확인
         {
             int column = 50;
             int row = 16;
@@ -180,7 +180,7 @@ namespace Library.Controller.MemberAccess
             return password;
         }
 
-        private int CheckValidAge()
+        private int CheckValidAge()     // 나이 입력 창에서 숫자로만 구성된 값이 입력된 게 맞는지 확인
         {
             int column = 45;
             int row = 19;
@@ -199,7 +199,7 @@ namespace Library.Controller.MemberAccess
                     return Constant.EXIT_INT;
                 }
 
-                else if (!ExceptionHandler.IsStringAllNumber(age))
+                else if ((!ExceptionHandler.IsStringAllNumber(age)) || age == "")
                 {
                     GuidancePhrase.PrintException((int)EXCEPTION.NOT_MATCH_CONDITION, column, row);
                     continue;

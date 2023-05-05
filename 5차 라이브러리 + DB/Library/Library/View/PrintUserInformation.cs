@@ -29,21 +29,20 @@ namespace Library.View
         }
         public static void PrintManageUser()
         {
-            Console.WriteLine("\t\t\t\t----------------------------------------------------\n\n");
-            Console.WriteLine("\t\t\t\t                삭제할 유저 ID:\n\n");
-            Console.WriteLine("\t\t\t\t----------------------------------------------------");
-            Console.SetCursorPosition(0, 8);
+            Console.WriteLine("\n\t    ------------------------------------------------\n");
+            Console.WriteLine("\t\t       삭제할 유저 ID:\n");
+            Console.WriteLine("\t    ------------------------------------------------\n");
             GuidancePhrase.PrintEsc();
             GuidancePhrase.PrintEnter();
         }
         public static void PrintSuccessDeleteUser()
         {
-            Console.WriteLine("\t\t\t\t----------------------------------------------------\n\n");
-            Console.WriteLine("\t\t\t\t                유저 정보 삭제!\n\n");
-            Console.WriteLine("\t\t\t\t----------------------------------------------------");
-            Console.SetCursorPosition(0, 8);
+            Console.SetWindowSize(76, 8);
+            Console.Clear();
+            Console.WriteLine("\n\t    ------------------------------------------------\n");
+            Console.WriteLine("\t\t         유저 정보 삭제 완료!\n");
+            Console.WriteLine("\t    ------------------------------------------------\n");
             GuidancePhrase.PrintEsc();
-            GuidancePhrase.PrintEnter();
         }
 
         public static void PrintModiFyUserIdUI()
@@ -57,14 +56,12 @@ namespace Library.View
 
         public static void PrintSuccessModify()
         {
-            Console.SetWindowSize(76, 10);
+            Console.SetWindowSize(76, 8);
             Console.Clear();
-            Console.WriteLine("\t\t----------------------------------------------------\n\n");
-            Console.WriteLine("\t\t                정보 수정 완료!\n\n");
-            Console.WriteLine("\t\t----------------------------------------------------");
-            Console.SetCursorPosition(0, 8);
+            Console.WriteLine("\n\t    ------------------------------------------------\n");
+            Console.WriteLine("\t\t         유저 정보 수정 완료!\n");
+            Console.WriteLine("\t    ------------------------------------------------\n");
             GuidancePhrase.PrintEsc();
-            GuidancePhrase.PrintEnter();
         }
 
         public static void PrintUserList(List<UserDTO> user)
@@ -91,6 +88,7 @@ namespace Library.View
         public static void PrintUserId(string id)
         {
             Console.WriteLine("====================================================");
+            Console.ForegroundColor= ConsoleColor.Green;
             Console.WriteLine(" {0}", id);
             Console.ResetColor();
         }

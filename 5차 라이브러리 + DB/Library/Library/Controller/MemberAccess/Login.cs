@@ -26,7 +26,7 @@ namespace Library.Controller.MemberAccess
             accessorData = AccessorData.GetAccessorData();
         }
 
-        public string EntryLogin(string entryType)
+        public string EntryLogin(string entryType)      // 로그인하는 메소드
         {
             List<string> account;
             bool isNotValidAccount = true;
@@ -41,29 +41,29 @@ namespace Library.Controller.MemberAccess
                 Console.Clear();
                 MainView.PrintLoginUI(entryType);
 
-                account = ReturnInformation();
+                account = ReturnInformation();      // 아이디와 비밀번호 값을 입력받는 메소드 호출
 
                 if (account[0] == Constant.ESC_STRING)
-                {
+                {       // 중간에 ESC가 입력되었다면
                     return Constant.ESC_STRING;
                 }
 
                 if(entryType == Constant.USERENTRY)
-                {
+                {       // 유저 모드에서 로그인하는 중이라면
                     loginResult = IsCheckUserAccount(account);
 
                 }
                 else
-                {
+                {       // 매니저 모드에서 로그인하는 중이라면
                     loginResult = IsCheckManagerAccount(account);
                 }
 
                 if (loginResult == Constant.ID_FAIL)
-                {
+                {       // 일치하는 아이디 값이 없다면
                     GuidancePhrase.PrintException((int)EXCEPTION.ID_FAIL, column, row);
                 }
                 else if (loginResult == Constant.PW_FAIL)
-                {
+                {       // 일치하는 아이디 값의 비밀번호와 입력된 비밀번호의 값이 다르다면
                     GuidancePhrase.PrintException((int)EXCEPTION.PW_FAIL, column, row);
                 }
                 else
@@ -88,7 +88,7 @@ namespace Library.Controller.MemberAccess
             {
                 id = ExceptionHandler.IsValidInput(Constant.ID, column, row, 15, Constant.IS_NOT_PASSWORD);
                 if (id == "")
-                {
+                {   // 아무 값도 입력하지 않았다면
                     GuidancePhrase.PrintException((int)EXCEPTION.NOT_MATCH_CONDITION, 18, row + 2);
                     continue;
                 }
@@ -121,8 +121,8 @@ namespace Library.Controller.MemberAccess
         {
             UserDTO user = null;
             user = AccessorData.SelectUserData(account[(int)ACCOUNT.ID]);
-           
-            if(user == null)
+                
+            if(user.Id == null)
             {
                 return Constant.ID_FAIL;
             }

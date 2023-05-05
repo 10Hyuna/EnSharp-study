@@ -28,7 +28,7 @@ namespace Library.Controller.BookAccess
             accessorData = AccessorData.GetAccessorData();
         }
 
-        public void AddBook()
+        public void AddBook()       // 책 추가
         {
             string successAddBook = "";
             bool isNotESC = true;
@@ -39,10 +39,10 @@ namespace Library.Controller.BookAccess
             MainView.PrintBox(3);
             PrintBookInformation.PrintAddTheBookUI();
 
-            successAddBook = InputBookInformation();
-            if (successAddBook == Constant.ESC_STRING)
+            successAddBook = InputBookInformation();        // 추가할 책의 정보를 입력받는 메소드 호출
+            if (successAddBook == Constant.ESC_STRING)      // 중간에 ESC를 입력받았다면
             {
-                return;
+                return;         // 뒤로가기
             }
         }
 
@@ -54,8 +54,9 @@ namespace Library.Controller.BookAccess
             int column = 20;
             int row = 12;
 
-            book.Title = ExceptionHandler.IsValidInput(Constant.TITLE, column, row, 20, Constant.IS_NOT_PASSWORD);
-            if (book.Title == Constant.ESC_STRING)
+            book.Title = ExceptionHandler.IsValidInput(Constant.TITLE, column, row, 20, Constant.IS_NOT_PASSWORD); 
+            // 값 입력
+            if (book.Title == Constant.ESC_STRING)      // 중간에 ESC 입력
             {
                 return book.Title;
             }
@@ -78,7 +79,7 @@ namespace Library.Controller.BookAccess
                 return Constant.ESC_STRING;
             }
 
-            book.Price = ValidPrice();
+            book.Price = ValidPrice(20, 16);
             if(book.Price == Constant.EXIT_INT)
             {
                 return Constant.ESC_STRING;
@@ -110,14 +111,12 @@ namespace Library.Controller.BookAccess
             }
             AccessorData.InsertBookData(book);
             PrintBookInformation.PrintSuccessAddBook();
+            InputFromUser.EnteredESC();
             return Constant.SUCCESS.ToString();
         }
 
-        private int ValidPrice()
+        private int ValidPrice(int column, int row)        // 가격 입력받는 부분에서 올바른 값이 들어왔는지 확인하는 메소드
         {
-            int column = 20;
-            int row = 16;
-
             string price;
             int priceNumber = 0;
             bool isNotSuccess = true;
@@ -125,11 +124,11 @@ namespace Library.Controller.BookAccess
             while (isNotSuccess)
             {
                 price = ExceptionHandler.IsValidInput(Constant.PRICE, column, row, 20, Constant.IS_NOT_PASSWORD);
-                if(price == Constant.ESC_STRING)
+                if(price == Constant.ESC_STRING)        // 중간에 ESC 입력
                 {
                     return Constant.EXIT_INT;
                 }
-                else if (!ExceptionHandler.IsStringAllNumber(price))
+                else if ((!ExceptionHandler.IsStringAllNumber(price)) || price == "")        // 숫자로 구성된 값이 아닐 때
                 {
                     GuidancePhrase.PrintException((int)EXCEPTION.NOT_MATCH_CONDITION, column, row);
                     continue;
@@ -139,36 +138,26 @@ namespace Library.Controller.BookAccess
             }
             return priceNumber;
         }
-        private int ValidAmount()
+        private int ValidAmount()       // 수량 입력받는 부분에서 올바른 값이 들어 왔지 확인하는 메소드
         {
             int column = 20;
             int row = 15;
 
-            string amount;
-            int amountCount = 0;
+            int amount = 0;
             bool isNotSuccess = true;
 
             while (isNotSuccess)
             {
-                amount = ExceptionHandler.IsValidInput(Constant.AMOUNT, column, row, 3, Constant.IS_NOT_PASSWORD);
-                if(amount == Constant.ESC_STRING)
-                {
-                    return Constant.EXIT_INT;
-                }
-                else if (!ExceptionHandler.IsStringAllNumber(amount))
+                amount = ValidPrice(column, row);
+
+                if(amount <= 0 || amount >= 1000)
                 {
                     GuidancePhrase.PrintException((int)EXCEPTION.NOT_MATCH_CONDITION, column, row);
                     continue;
                 }
-                else if(int.Parse(amount) <= 0 || int.Parse(amount) >= 1000)
-                {
-                    GuidancePhrase.PrintException((int)EXCEPTION.NOT_MATCH_CONDITION, column, row);
-                    continue;
-                }
-                amountCount = int.Parse(amount);
                 isNotSuccess = false;
             }
-            return amountCount;
+            return amount;
         }
     }
 }

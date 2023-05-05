@@ -35,7 +35,7 @@ namespace Library.Utility
             return false;
         }
 
-        public static bool EnteredESC()
+        public static bool EnteredESC()     // ESC 입력
         {
             bool isESC = false;
 
@@ -51,7 +51,7 @@ namespace Library.Utility
             return isESC;
         }
 
-        public static string InputEnterESC()
+        public static string InputEnterESC()        // ESC나 ENTER 입력
         {
             keyInfo = Console.ReadKey(true);
 
@@ -61,7 +61,7 @@ namespace Library.Utility
             while (!isBreak)
             {
                 switch (keyInfo.Key)
-                {
+                {   
                     case ConsoleKey.Enter:
                         isBreak = true;
                         returnValue = Constant.ENTER_STRING;
@@ -149,7 +149,7 @@ namespace Library.Utility
         }
 
         private static string InputBackspace(string input, int column, int row, bool isPassword)
-        {
+        {       // 백스페이스를 입력받았을 경우
             if(input.Length == 0)
             {
                 return "";
@@ -175,7 +175,7 @@ namespace Library.Utility
         }
 
         private static string inputKeyChar(string input, int maxLength, int column, int row, bool isPassword)
-        {
+        {       // 유효한 값이 입력되었을 경우
             if(input.Length < maxLength && 
                 isCharacterOrNumber(keyInfo.KeyChar) &&
                 keyInfo.KeyChar != '\0')

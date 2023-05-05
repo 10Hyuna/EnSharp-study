@@ -35,16 +35,16 @@ namespace Library.Controller.TotalAccess
             switch (entryType)
             {
                 case (int)MODE.MANAGER:
-                    DeleteUserManagerMode(id);
+                    DeleteUserManagerMode(id);      // 매니저 모드에서 유저 정보를 삭제하는 거라면
                     break;
                 case (int)MODE.USER:
-                    returnValue = DeleteMyAccount(id);
+                    returnValue = DeleteMyAccount(id);      // 유저 모드에서 탈퇴하는 거라면
                     break;
             }
             return returnValue;
         }
 
-        public void DeleteBookInformation()
+        public void DeleteBookInformation()     // 책의 정보 삭제
         {
             string bookId;
             int bookNumber;
@@ -68,19 +68,21 @@ namespace Library.Controller.TotalAccess
                 }
 
                 Console.SetCursorPosition(0, 0);
-                bookId = SearchId((int)MODE.MANAGER);
+                bookId = SearchId((int)MODE.MANAGER);       // 삭제하려는 책의 아이디 입력
+
                 if (bookId == Constant.ESC_STRING)
                 {
                     return;
                 }
-                else if (!ExceptionHandler.IsStringAllNumber(bookId))
+                else if ((!ExceptionHandler.IsStringAllNumber(bookId)) || bookId == "")       // 책의 아이디가 모두 숫자인지 확인
                 {
                     GuidancePhrase.PrintException((int)EXCEPTION.NOT_MATCH_CONDITION, column, row);
                     continue;
                 }
                 bookNumber = int.Parse(bookId);
 
-                isSuccessDelete = IsAbleDelete(bookId, (int)MODE.MANAGER);
+                isSuccessDelete = IsAbleDelete(bookId, (int)MODE.MANAGER);  // 삭제할 수 있는 책인지 확인
+
                 if (!isSuccessDelete)
                 {
                     GuidancePhrase.PrintException((int)EXCEPTION.NULL_KEYWORD, column, row);
@@ -91,7 +93,7 @@ namespace Library.Controller.TotalAccess
             }
         }
 
-        private void DeleteUserManagerMode(string id)
+        private void DeleteUserManagerMode(string id)       // 유저 정보 삭제
         {
             List<UserDTO> users = new List<UserDTO>();
             users = AccessorData.SelectAllUserData();
@@ -105,27 +107,29 @@ namespace Library.Controller.TotalAccess
 
                 PrintUserInformation.PrintUserList(users);
 
-                id = SearchId((int)MODE.USER);
+                id = SearchId((int)MODE.USER);      // 삭제하려는 유저의 아이디 입력
                 if (id == Constant.ESC_STRING)
                 {
                     return;
                 }
 
-                isSucessDelete = IsAbleDelete(id, (int)MODE.USER);
+                isSucessDelete = IsAbleDelete(id, (int)MODE.USER);      // 삭제할 수 있는지 확인
                 if (!isSucessDelete)
                 {
                     Console.Clear();
                     PrintUserInformation.PrintNotWorkedDeleteAccout();
+                    InputFromUser.EnteredESC();
                     continue;
                 }
 
                 AccessorData.DeleteUserData(id);
                 Console.Clear();
                 PrintUserInformation.PrintSuccessDeleteUser();
+                InputFromUser.EnteredESC();
             }
         }
 
-        private int DeleteMyAccount(string id)
+        private int DeleteMyAccount(string id)      // 회원 탈퇴 메소드
         {
             bool isSuccessDelete = false; ;
 
@@ -135,23 +139,25 @@ namespace Library.Controller.TotalAccess
                 Console.Clear();
                 PrintUserInformation.PrintDeleteAccountUI();
 
-                inputValue = InputFromUser.InputEnterESC();
+                inputValue = InputFromUser.InputEnterESC();     // 엔터를 입력하면 회원탈퇴
                 if(inputValue == Constant.ESC_STRING)
                 {
                     return Constant.FAIL_INT;
                 }
 
-                isSuccessDelete = IsAbleDelete(id, (int)MODE.USER);
+                isSuccessDelete = IsAbleDelete(id, (int)MODE.USER);     // 대여 중인 책이 있는지 확인
                 if(!isSuccessDelete)
                 {
                     Console.Clear();
                     PrintUserInformation.PrintNotWorkedDeleteAccout();
+                    InputFromUser.EnteredESC();
                     continue;
                 }
 
                 AccessorData.DeleteUserData(id);
                 Console.Clear();
                 PrintUserInformation.PrintSuccessDeleteAccount();
+                InputFromUser.EnteredESC();
             }
             return Constant.DELETE_ACCOUNT;
         }

@@ -142,29 +142,21 @@ namespace Library.View
 
         public static void PrintSuccessAddBook()
         {
-            int consoleInputRow = 53;
-            int consoleInputColumn = 3;
-
-            Console.SetCursorPosition(consoleInputRow, consoleInputColumn);
-            Console.WriteLine("도서 추가");
-            Console.SetCursorPosition(0, consoleInputColumn + 2);
+            Console.SetWindowSize(76, 8);
+            Console.Clear();
+            Console.WriteLine("\n\t    ------------------------------------------------\n");
+            Console.WriteLine("\t\t               책 추가 성공!\n");
+            Console.WriteLine("\t    ------------------------------------------------\n");
             GuidancePhrase.PrintEsc();
-            Console.WriteLine("\n\n\n");
-            Console.WriteLine("\t\t----------------------------------------------------\n\n");
-            Console.WriteLine("\t\t                   책 추가 성공!\n\n");
-            Console.WriteLine("\t\t----------------------------------------------------\n");
         }
 
         public static void PrintDeleteTheBookUI()
         {
-            int consoleInputColumn = 3;
-
-            Console.WriteLine("\t\t-----------------------------------------------\n\n");
-            Console.WriteLine("\t\t               삭제할 책 ID:\n\n");
-            Console.WriteLine("\t\t-----------------------------------------------");
-            Console.SetCursorPosition(0, consoleInputColumn + 5);
-            GuidancePhrase.PrintEnter();
-            Console.SetCursorPosition(0, consoleInputColumn + 6);
+            Console.SetWindowSize(76, 8);
+            Console.Clear();
+            Console.WriteLine("\n\t    ------------------------------------------------\n");
+            Console.WriteLine("\t\t               삭제할 책 ID:\n");
+            Console.WriteLine("\t    ------------------------------------------------\n");
             GuidancePhrase.PrintEsc();
         }
 
@@ -182,49 +174,41 @@ namespace Library.View
         }
         public static void PrintSuccessDeleteBook()
         {
-            Console.SetWindowSize(76, 10);
-            int consoleInputColumn = 3;
+            Console.SetWindowSize(76, 8);
             Console.Clear();
-            Console.WriteLine("\t\t----------------------------------------------------\n\n");
-            Console.WriteLine("\t\t                 삭제 성공!\n\n");
-            Console.WriteLine("\t\t----------------------------------------------------");
-            Console.SetCursorPosition(0, consoleInputColumn + 5);
+            Console.WriteLine("\n\t    ------------------------------------------------\n");
+            Console.WriteLine("\t\t                   삭제 성공!\n");
+            Console.WriteLine("\t    ------------------------------------------------\n");
             GuidancePhrase.PrintEsc();
         }
 
         public static void PrintModifyBookInformationUI()
         {
-            int consoleInputColumn = 3;
-
-            Console.WriteLine("\t\t----------------------------------------------------\n\n");
-            Console.WriteLine("\t\t               수정할 책 ID:\n\n");
-            Console.WriteLine("\t\t----------------------------------------------------");
-            Console.SetCursorPosition(0, consoleInputColumn + 5);
-            GuidancePhrase.PrintEnter();
-            Console.SetCursorPosition(0, consoleInputColumn + 6);
+            Console.SetWindowSize(76, 8);
+            Console.Clear();
+            Console.WriteLine("\n\t    ------------------------------------------------\n");
+            Console.WriteLine("\t\t               수정할 책 ID:\n");
+            Console.WriteLine("\t    ------------------------------------------------\n");
             GuidancePhrase.PrintEsc();
         }
 
         public static void PrintSuccessModifyBook()
         {
-            int consoleInputColumn = 3;
+            Console.SetWindowSize(76, 8);
             Console.Clear();
-
-            Console.WriteLine("\t\t----------------------------------------------------\n\n");
-            Console.WriteLine("\t\t                    수정 성공!\n\n");
-            Console.WriteLine("\t\t----------------------------------------------------");
-            Console.SetCursorPosition(0, consoleInputColumn + 5);
+            Console.WriteLine("\n\t    ------------------------------------------------\n");
+            Console.WriteLine("\t\t               정보 수정 완료!\n");
+            Console.WriteLine("\t    ------------------------------------------------\n");
             GuidancePhrase.PrintEsc();
         }
 
         public static void PrintSuccessRent()
         {
-            int consoleInputColumn = 3;
+            Console.SetWindowSize(76, 8);
             Console.Clear();
-            Console.WriteLine("\t\t----------------------------------------------------\n\n");
-            Console.WriteLine("\t\t                    대여 성공!\n\n");
-            Console.WriteLine("\t\t----------------------------------------------------");
-            Console.SetCursorPosition(0, consoleInputColumn + 5);
+            Console.WriteLine("\n\t    ------------------------------------------------\n");
+            Console.WriteLine("\t\t                  대여 성공!\n");
+            Console.WriteLine("\t    ------------------------------------------------\n");
             GuidancePhrase.PrintEsc();
         }
     }

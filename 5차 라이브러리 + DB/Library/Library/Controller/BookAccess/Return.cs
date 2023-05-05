@@ -25,7 +25,7 @@ namespace Library.Controller.BookAccess
             guidancePhrase = GuidancePhrase.SetGuidancePhrase();
         }
 
-        public void ReturnBook(string userId)
+        public void ReturnBook(string userId)       // 책 반납 메소드
         {
             bool isNotESC = true;
             bool isAbleReturn;
@@ -51,12 +51,14 @@ namespace Library.Controller.BookAccess
                 PrintBookInformation.PrintUserBookListUI(returnBookList);
                 
                 returnId = ExceptionHandler.IsValidInput(Constant.NUMBER, column, row, 3, Constant.IS_NOT_PASSWORD);
-                if(returnId == Constant.ESC_STRING)
+                // 반납하려는 책의 아이디 입력
+
+                if(returnId == Constant.ESC_STRING)     // 중간에 ESC 입력했을 경우
                 {
                     return;
                 }
 
-                else if (!ExceptionHandler.IsStringAllNumber(returnId))
+                else if ((!ExceptionHandler.IsStringAllNumber(returnId)) || returnId == "")     // 책의 아이디가 숫자로 구성돼 있지 않을 경우
                 {
                     GuidancePhrase.PrintException((int)EXCEPTION.NOT_MATCH_CONDITION, column, row);
                     continue;
@@ -66,17 +68,20 @@ namespace Library.Controller.BookAccess
                 UsersBookDTO returnBook = AccessorData.SelectRentBook(userId, returnIdNumber);
 
                 if (returnBook.Id == 0)
-                {
+                {   
+                    // 반납하려는 책의 아이디와 빌린 책의 아이디가 일치하지 않을 경우
                     GuidancePhrase.PrintException((int)EXCEPTION.NULL_RENT, column, row);
                     continue;
                 }
 
                 returnBook.Amount++;
+                // 반납하고 나서 책의 수량 증가
 
                 CheckValidReturn(returnBook, userId);
+                // 이미 반납한 책이라면 그 데이터를 추가하지 않도록
                 AccessorData.DeleteRentBookData(userId, returnIdNumber);
 
-                UpdateBook(returnBook);
+                UpdateBook(returnBook); // 수량 증가
                 isNotESC = false;
             }
         }

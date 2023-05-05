@@ -30,7 +30,7 @@ namespace Library.Controller.BookAccess
             accessorData = AccessorData.GetAccessorData();
         }
 
-        public void RentBook(string userId)
+        public void RentBook(string userId)     // 책 대여하는 메소드
         {
             bool isNotESC = true;
             bool isLeakAmount = true;
@@ -39,65 +39,71 @@ namespace Library.Controller.BookAccess
             int column = 9;
             int row = 2;
 
-            string returnBookId;
-            int returnBookIdNumber = 0;
+            string rentBookId;
+            int rentBookIdNumber = 0;
             int bookIndex = -1;
 
             List<BookDTO> searchedBook = new List<BookDTO>();
 
-            while(isNotESC)
+            searchedBook = searcher.SearchBook((int)USERMENU.RENT);     // 검색 결과를 바탕으로 책을 빌려야 하기 때문에 우선 책 검색 
+
+            while (isNotESC)
             {
-                searchedBook = searcher.SearchBook((int)USERMENU.RENT);
                 if (searchedBook[0].Title == Constant.ESC_STRING
                     || searchedBook[0].Author == Constant.ESC_STRING
                     || searchedBook[0].Publisher == Constant.ESC_STRING)
-                {
+                {       // 책 검색 도중 ESC를 눌렀을 경우
                     isNotESC = false;
                     continue;
                 }
-                returnBookId = ExceptionHandler.IsValidInput(Constant.NUMBER, column, row, 3, Constant.IS_NOT_PASSWORD);
-                if(returnBookId == Constant.ESC_STRING)
+                rentBookId = ExceptionHandler.IsValidInput(Constant.NUMBER, column, row, 3, Constant.IS_NOT_PASSWORD);   
+                // 빌리려는 책의 아이디 입력
+
+                if(rentBookId == Constant.ESC_STRING)
                 {
                     isNotESC = false;
                     continue;
                 }
 
-                if (!ExceptionHandler.IsStringAllNumber(returnBookId))
-                {
+                if ((!ExceptionHandler.IsStringAllNumber(rentBookId)) || rentBookId == "")
+                {   // 책의 아이디가 숫자가 아닐 경우
                     GuidancePhrase.PrintException((int)EXCEPTION.NOT_MATCH_CONDITION, column, row);
                     continue;
                 }
-                returnBookIdNumber = int.Parse(returnBookId);
+                rentBookIdNumber = int.Parse(rentBookId);
 
                 for (int i = 0; i < searchedBook.Count; i++)
                 {
-                    if (searchedBook[i].Id == returnBookIdNumber)
-                    {
+                    if (searchedBook[i].Id == rentBookIdNumber)
+                    {   // 검색 결과와 빌리려는 책의 아이디가 일치할 때
                         bookIndex = i;
                         break;
                     }
                 }
 
                 if(bookIndex == -1)
-                {
+                {   // 검색 결과와 빌리려는 책의 아이디가 일치하지 않을 때
                     GuidancePhrase.PrintException((int)EXCEPTION.NOT_MATCH_SEARCH, column, row);
                     continue;
                 }
-                isLeakAmount = IsAffluentBook(searchedBook[bookIndex]);
+                isLeakAmount = IsAffluentBook(searchedBook[bookIndex]); 
+                // 빌리려는 책의 수량이 넉넉한지 확인
                 if (!isLeakAmount)
-                {
+                {   // 책의 수량이 0 이하라면
                     GuidancePhrase.PrintException((int)EXCEPTION.LEAK_AMOUNT, column, row);
                     continue;
                 }
 
                 isAlreadyRent = IsAlreadyRentBook(searchedBook[bookIndex], userId);
+                // 이미 빌린 책인지 확인
                 if (isAlreadyRent)
-                {
+                {   // 이미 빌린 책이라면
                     GuidancePhrase.PrintException((int)EXCEPTION.ALREADY_RENT, column, row);
                     continue;
                 }
 
                 searchedBook[bookIndex].Amount--;
+                // 책을 빌리고 나서 수량 감소
 
                 AccessorData.InsertRentBookData(userId, searchedBook[bookIndex]);
                 AccessorData.UpdateBookIntData(searchedBook[bookIndex].Id, "amount", searchedBook[bookIndex].Amount);

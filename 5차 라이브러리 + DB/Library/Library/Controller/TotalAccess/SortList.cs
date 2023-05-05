@@ -1,5 +1,6 @@
 ﻿using Library.Model.DAO;
 using Library.Model.DTO;
+using Library.Utility;
 using Library.View;
 using System;
 using System.Collections.Generic;
@@ -15,12 +16,14 @@ namespace Library.Controller.TotalAccess
         AccessorData accessorData;
         PrintBookInformation printBookInformation;
         PrintUserInformation printUserInformation;
+        InputFromUser inputFromUser;
 
         public SortList()
         {
             accessorData = AccessorData.GetAccessorData();
             printBookInformation = PrintBookInformation.GetPrintBookInformation();
             printUserInformation = PrintUserInformation.GetPrintUserInformation();
+            inputFromUser = InputFromUser.GetInputFromUser();
         }
 
         public void AnnounceBookState(int entryType, string id)
@@ -38,13 +41,13 @@ namespace Library.Controller.TotalAccess
             }
             switch(entryType)
             {
-                case (int)ENTRY.RENTAL:
+                case (int)ENTRY.RENTAL:     // 유저 모드에서 대여 내역을 확인하고자 한다면
+                    AnnounceBookList(entryType, id, books);
+                    break;                  
+                case (int)ENTRY.RETURN:     // 유저 모드에서 반납 내역을 확인하고자 한다면
                     AnnounceBookList(entryType, id, books);
                     break;
-                case (int)ENTRY.RETURN:
-                    AnnounceBookList(entryType, id, books);
-                    break;
-                case (int)ENTRY.MANAGER:
+                case (int)ENTRY.MANAGER:    // 매니저 모드에서 대여 내역을 확인하고자 한다면
                     AnnounceRentBookList();
                     break;
             }
@@ -64,7 +67,7 @@ namespace Library.Controller.TotalAccess
                 }
                 PrintBookInformation.PrintUserBookListUI(books);
             }
-            Console.ReadKey(true);
+            InputFromUser.InputEnterESC();
         }
 
         private void AnnounceRentBookList()
@@ -83,7 +86,7 @@ namespace Library.Controller.TotalAccess
                 PrintUserInformation.PrintUserId(users[i].Id);
                 PrintBookInformation.PrintUserBookListUI(rentBooks);
             }
-            Console.ReadKey(true);
+            InputFromUser.InputEnterESC();
         }
     }
 }

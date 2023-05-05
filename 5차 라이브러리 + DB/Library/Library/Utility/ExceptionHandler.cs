@@ -29,7 +29,7 @@ namespace Library.Utility
             return exceptionHandler;
         }
 
-        public static bool IsStringAllNumber(string input)
+        public static bool IsStringAllNumber(string input)      // 입력받은 모든 값이 다 숫자라면
         {
             bool isNumber = true;
             Regex regex = new Regex(Constant.NUMBER);

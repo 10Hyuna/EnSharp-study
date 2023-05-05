@@ -64,7 +64,7 @@ namespace Library.Controller.SelectorMode
                     continue;
                 }
 
-                checkingBreak = EnterSelectedMenu(selectedMenu, userId);
+                checkingBreak = EnterSelectedMenu(selectedMenu, userId);        // 선택한 메뉴에 진입함과 동시에 회원탈퇴를 진행한 건지 확인하는 메소드
 
                 if(checkingBreak == Constant.DELETE_ACCOUNT)
                 {

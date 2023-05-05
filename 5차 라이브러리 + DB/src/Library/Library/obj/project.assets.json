@@ -1709,11 +1709,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\현아\\Desktop\\Develop\\Study\\5차 라이브러리 + DB\\Library\\Library\\Library.csproj",
+      "projectUniqueName": "C:\\Users\\현아\\Desktop\\Develop\\Study\\5차 라이브러리 + DB\\src\\Library\\Library\\Library.csproj",
       "projectName": "Library",
-      "projectPath": "C:\\Users\\현아\\Desktop\\Develop\\Study\\5차 라이브러리 + DB\\Library\\Library\\Library.csproj",
+      "projectPath": "C:\\Users\\현아\\Desktop\\Develop\\Study\\5차 라이브러리 + DB\\src\\Library\\Library\\Library.csproj",
       "packagesPath": "C:\\Users\\현아\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\현아\\Desktop\\Develop\\Study\\5차 라이브러리 + DB\\Library\\Library\\obj\\",
+      "outputPath": "C:\\Users\\현아\\Desktop\\Develop\\Study\\5차 라이브러리 + DB\\src\\Library\\Library\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

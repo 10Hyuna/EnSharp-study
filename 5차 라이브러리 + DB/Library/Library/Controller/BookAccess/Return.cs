@@ -72,19 +72,31 @@ namespace Library.Controller.BookAccess
                 }
 
                 returnBook.Amount++;
-                AccessorData.InsertReturnBookData(returnBook);
+
+                CheckValidReturn(returnBook, userId);
                 AccessorData.DeleteRentBookData(userId, returnIdNumber);
 
                 UpdateBook(returnBook);
                 isNotESC = false;
             }
         }
-        private void UpdateBook(UsersBookDTO returnbook)
+        private void UpdateBook(UsersBookDTO returnBook)
         {
-            List<BookDTO> books = AccessorData.SelectBookData(returnbook.Title, returnbook.Author, returnbook.Publisher);
+            List<BookDTO> books = AccessorData.SelectBookData(returnBook.Title, returnBook.Author, returnBook.Publisher);
             books[0].Amount++;
 
             AccessorData.UpdateBookIntData(books[0].Id, "amount", books[0].Amount);
+        }
+
+        private void CheckValidReturn(UsersBookDTO returnBook, string userId)
+        {
+            UsersBookDTO returnedBook = new UsersBookDTO();
+            returnedBook = AccessorData.SelectReturnedBook(userId, returnBook.Id);
+
+            if (returnedBook.Id != null)
+            {
+                AccessorData.InsertReturnBookData(returnBook);
+            }
         }
     }
 }

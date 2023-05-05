@@ -48,10 +48,9 @@ namespace Library.View
 
         public static void PrintModiFyUserIdUI()
         {
-            Console.WriteLine("\t\t\t\t----------------------------------------------------\n\n");
-            Console.WriteLine("\t\t\t\t               수정할 유저 ID:\n\n");
-            Console.WriteLine("\t\t\t\t----------------------------------------------------");
-            Console.SetCursorPosition(0, 8);
+            Console.WriteLine("\n\t    ------------------------------------------------\n");
+            Console.WriteLine("\t\t       수정할 유저 ID:\n");
+            Console.WriteLine("\t    ------------------------------------------------\n");
             GuidancePhrase.PrintEsc();
             GuidancePhrase.PrintEnter();
         }
@@ -98,10 +97,10 @@ namespace Library.View
 
         public static void PrintModifyMyInformationUI()
         {
+            Console.SetCursorPosition(0, 0);
+            MainView.PrintBox(3);
             Console.SetCursorPosition(26, 2);
             Console.WriteLine("개 인 정 보 바 꾸 기\n\n\n");
-            GuidancePhrase.PrintEsc();
-            GuidancePhrase.PrintEnter();
         }
 
         public static void PrintDeleteAccountUI()

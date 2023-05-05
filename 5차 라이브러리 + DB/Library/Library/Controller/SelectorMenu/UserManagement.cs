@@ -13,13 +13,14 @@ namespace Library.Controller.SelectorMenu
     {
         MainView mainView;
         MenuIndexSelector menuIndexSelector;
-        ModificationInformation modifocationInformation;
+        ModificationInformation modificationInformation;
         DeleterInformation deleterInformation;
+
         public UserManagement(ModificationInformation modificationInformation, DeleterInformation deleterInformation)
         {
             mainView = MainView.SetMainView();
             menuIndexSelector = MenuIndexSelector.GetMenuIndexSelector();
-            this.modifocationInformation = modifocationInformation;
+            this.modificationInformation = modificationInformation;
             this.deleterInformation = deleterInformation;
         }
 
@@ -35,12 +36,14 @@ namespace Library.Controller.SelectorMenu
 
             while (!isEnterESC)
             {
-                column = 50;
-                row = 17;
+                column = 30;
+                row = 10;
+
+                Console.SetWindowSize(76, 15);
 
                 Console.Clear();
                 MainView.PrintMain();
-                MainView.PrintBox(6);
+                MainView.PrintBox(4);
 
                 selectedMenu = MenuIndexSelector.SelectMenuIndex(menu, selectedMenu, column, row);
 
@@ -52,7 +55,7 @@ namespace Library.Controller.SelectorMenu
                 switch (selectedMenu)
                 {
                     case (int)MODIFICATION.INFORMATION:
-                        modifocationInformation.ModifyInformation((int)MODE.MANAGER, "");
+                        modificationInformation.ModifyInformation((int)MODE.MANAGER, "");
                         break;
                     case (int)MODIFICATION.ACCOUNT:
                         deleterInformation.DeleteUserInformation((int)MODE.MANAGER, "");

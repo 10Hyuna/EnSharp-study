@@ -27,6 +27,12 @@ namespace Library.Utility
         public const string ID_FAIL = "ID_FAIL";
         public const string PW_FAIL = "PW_FAIL";
 
+        public const string SERVER = "localhost";
+        public const string PORT = "3306";
+        public const string DATABASE = "en#library";
+        public const string UID = "root";
+        public const string PW = "0000";
+
         public const string ID = @"^[0-9a-zA-Z]{8,20}";       // 아이디와 비밀번호의 패턴을 뜻하는 정규식
         public const string PASSWORD = @"^[0-9a-zA-Z!?@#$%^&*~]{8,20}";
         public const string KOREAN = @"^[가-힇]{1,}";
@@ -47,21 +53,26 @@ namespace Library.Utility
         public const string INFORMATION = @"[0-9a-zA-Z가-힇]{1,}";
 
         public const string INSERT_USER = "INSERT INTO user_list VALUES('{0}', '{1}', '{2}', '{3}', '{4}', '{5}')";
-        public const string INSERT_BOOK = "INSERT INTO book_list VALUES('{0}', '{1}', '{2}', '{3}', '{4}', '{5}')";
+        public const string INSERT_BOOK = "INSERT INTO book_list (title, author, publisher, amount, price, publishdate, ISBN, information) VALUES('{0}', '{1}', '{2}', {3}, {4}, '{5}', '{6}', '{7}')";
         public const string INSERT_RENT_BOOK = "INSERT INTO user_rent_book VALUES('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}', '{9}', '{10}', '{11}')";
         public const string INSERT_RETURN_BOOK = "INSERT INTO user_return_book VALUES('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}', '{9}', '{10}', '{11}')";
-        public const string DELETE = "DELETE FROM {0} WHERE id = '{1}'";
+        public const string DELETE_USER = "DELETE FROM user_list WHERE id = '{0}'";
+        public const string DELETE_BOOK = "DELETE FROM book_list WHERE id = {0}";
         public const string DELETE_RENT_BOOK = "DELETE FROM user_rent_book WHERE user_id = '{0}' AND book_id = {1}";
         public const string SELECT_USER = "SELECT * FROM user_list WHERE id = '{0}'";
         public const string SELECT_ALL_USER = "SELECT * FROM user_list";
+        public const string SELECT_MANAGER = "SELECT * FROM manager_list WHERE id = '{0}'";
         public const string SELECT_ALL_BOOK = "SELECT * FROM book_list";
-        public const string SELECT_BOOK = "SELECT * FROM book_list WHERE title = '{0}' AND author = '{1}' AND publisher = '{2}'";
+        public const string SELECT_BOOK = "SELECT * FROM book_list WHERE (title LIKE CONCAT('%', '{0}', '%') OR '{0}' = '') AND (author LIKE CONCAT('%', '{1}', '%') OR '{1}' = '') AND (publisher LIKE CONCAT('%', '{2}', '%') OR '{2}' = '')";
         public const string SELECT_PARTLY_BOOK = "SELECT * FROM book_list WHERE id = {0}";
         public const string SELECT_RENT_BOOK = "SELECT * FROM user_rent_book WHERE user_id = '{0}'";
         public const string SELECT_USER_RENT_BOOK = "SELECT * FROM user_rent_book WHERE user_id = '{0}' AND book_id = {1}";
-        public const string SELECT_RETURN_BOOK = "SELECT * FROM user_return_book WHERE book_id = {0}'";
         public const string SELECT_ALL_RETURN_BOOK = "SELECT * FROM user_return_book WHERE user_id = '{0}'";
-        public const string UPDATE_USER = "UPDATE user_list SET {0} = '{1}' WHERE {2} = '{3}'";
+        public const string SELECT_RETURNED_BOOK = "SELECT * FROM user_return_book WHERE user_id = '{0}' AND book_id = {1}";
+        public const string UPDATE_USER_INT = "UPDATE user_list SET {0} = {1} WHERE id = '{2}'";
+        public const string UPDATE_USER_STRING = "UPDATE user_list SET {0} = '{1}' WHERE id ='{2}'";
+        public const string UPDATE_BOOK_STRING = "UPDATE book_list SET {0} = {1} WHERE id = {2}";
+        public const string UPDATE_BOOK_INT = "UPDATE book_list SET {0} = '{1}' WHERE id = {2}";
     }
 }
 

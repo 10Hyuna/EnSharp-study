@@ -5,20 +5,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
+using Library.Utility;
 
 namespace Library.Model.DataBase
 {
     public class ConnectionDataBase
     {
         private static MySqlConnection connection;
-
+        private static string ServerAddress;
         public ConnectionDataBase() { }
 
         private static MySqlConnection ConnectServer()
         {
             if (connection == null)
             {
-                connection = new MySqlConnection("Server=localhost;Port=3306;Database=en#library;Uid=root;Pwd=0000");
+                ServerAddress = string.Format("Server={0};Port={1};Database={2};Uid={3};Pwd={4}", Constant.SERVER, Constant.PORT, Constant.DATABASE, Constant.UID, Constant.PW);
+                connection = new MySqlConnection(ServerAddress);
             }
             return connection;
         }

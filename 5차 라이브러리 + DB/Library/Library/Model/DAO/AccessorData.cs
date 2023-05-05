@@ -36,31 +36,31 @@ namespace Library.Model.DAO
 
         public static void InsertUserData(UserDTO userData)
         {
-            string stringQuery = string.Format("INSERT INTO user_list VALUES('{0}', '{1}', '{2}', '{3}', '{4}', '{5}')", userData.Id, userData.Password, userData.Name, userData.Age, userData.PhoneNumber, userData.Address);
+            string stringQuery = string.Format(Constant.INSERT_USER, userData.Id, userData.Password, userData.Name, userData.Age, userData.PhoneNumber, userData.Address);
             connectionDataBase.CUD(stringQuery);
         }
 
         public static void DeleteUserData(string userId)
         {
-            string stringQuery = string.Format("DELETE FROM user_list WHERE id ='{0}'", userId);
+            string stringQuery = string.Format(Constant.DELETE_USER, userId);
             connectionDataBase.CUD(stringQuery);
         }
 
         public static void UpdateStringUserData(string userId, string updateDataLocation, string updateInformation)
         {
-            string stringQuery = string.Format("UPDATE user_list SET {0} = '{1}' WHERE id = '{2}'", updateDataLocation, updateInformation, userId);
+            string stringQuery = string.Format(Constant.UPDATE_USER_STRING, updateDataLocation, updateInformation, userId);
             connectionDataBase.CUD(stringQuery);
         }
 
         public static void UpdateIntUserData(string userId, string updateDataLocation, int updateInformation)
         {
-            string stringQuery = string.Format("UPDATE user_list SET {0} = {1} WHERE id = '{2}'", updateDataLocation, updateInformation, userId);
+            string stringQuery = string.Format(Constant.UPDATE_USER_INT, updateDataLocation, updateInformation, userId);
             connectionDataBase.CUD(stringQuery);
         }
 
         public static UserDTO SelectUserData(string userId)
         {
-            string stringQuery = string.Format("SELECT * FROM user_list WHERE id = '{0}'", userId);
+            string stringQuery = string.Format(Constant.SELECT_USER, userId);
             Hashtable hashtable = connectionDataBase.SelectData(stringQuery);
             UserDTO user = new UserDTO();
             if (hashtable.Count == 0)
@@ -104,7 +104,7 @@ namespace Library.Model.DAO
 
         public static ManagerVO SelectManagerData(string managerId)
         {
-            string stringQuery = string.Format("SELECT * FROM manager_list WHERE id = '{0}'", managerId);
+            string stringQuery = string.Format(Constant.SELECT_MANAGER, managerId);
             Hashtable hashtable = connectionDataBase.SelectData(stringQuery);
             ManagerVO manager = new ManagerVO(((ArrayList)hashtable["id"])[0].ToString(), ((ArrayList)hashtable["password"])[0].ToString());
             return manager;
@@ -112,7 +112,7 @@ namespace Library.Model.DAO
 
         public static void InsertBookData(BookDTO book)
         {
-            string stringQuery = string.Format("INSERT INTO book_list (title, author, publisher, amount, price, publishdate, ISBN, information) VALUES('{0}', '{1}', '{2}', {3}, {4}, '{5}', '{6}', '{7}')", book.Title, book.Author, book.Publisher, book.Amount, book.Price, book.PublishDate, book.ISBN, book.Information); ;
+            string stringQuery = string.Format(Constant.INSERT_BOOK, book.Title, book.Author, book.Publisher, book.Amount, book.Price, book.PublishDate, book.ISBN, book.Information); ;
             connectionDataBase.CUD(stringQuery);
         }
 
@@ -130,7 +130,7 @@ namespace Library.Model.DAO
 
         public static void DeleteBookData(int bookId)
         {
-            string stringQuery = string.Format("DELETE FROM book_list WHERE id = {0}", bookId);
+            string stringQuery = string.Format(Constant.DELETE_BOOK, bookId);
             connectionDataBase.CUD(stringQuery);
 
         }
@@ -143,19 +143,19 @@ namespace Library.Model.DAO
 
         public static void UpdateBookIntData(int bookId, string updateDataLocation, int bookInformation)
         {
-            string stringQuery = string.Format("UPDATE book_list SET {0} = {1} WHERE id = {2}", updateDataLocation, bookInformation, bookId);
+            string stringQuery = string.Format(Constant.UPDATE_BOOK_STRING, updateDataLocation, bookInformation, bookId);
             connectionDataBase.CUD(stringQuery);
         }
 
         public static void UpdateBookStringData(int bookId, string updateDataLocation, string bookInformation)
         {
-            string stringQuery = string.Format("UPDATE book_list SET {0} = '{1}' WHERE id = {2}", updateDataLocation, bookInformation, bookId);
+            string stringQuery = string.Format(Constant.UPDATE_BOOK_INT, updateDataLocation, bookInformation, bookId);
             connectionDataBase.CUD(stringQuery);
         }
 
         public static List<BookDTO> SelectBookData(string title, string author, string publisher)
         {
-            string stringQuery = string.Format("SELECT * FROM book_list WHERE (title LIKE CONCAT('%', '{0}', '%') OR '{0}' = '') AND (author LIKE CONCAT('%', '{1}', '%') OR '{1}' = '') AND (publisher LIKE CONCAT('%', '{2}', '%') OR '{2}' = '');", title, author, publisher);
+            string stringQuery = string.Format(Constant.SELECT_BOOK, title, author, publisher);
             Hashtable hashtable = connectionDataBase.SelectData(stringQuery);
             List<BookDTO> books = new List<BookDTO>();
             if (hashtable.Count == 0)
@@ -281,6 +281,29 @@ namespace Library.Model.DAO
             return book;
         }
 
+        public static UsersBookDTO SelectReturnedBook(string userId, int bookId)
+        {
+            string stringQuery = string.Format(Constant.SELECT_RETURNED_BOOK, userId, bookId);
+            Hashtable hashtable = connectionDataBase.SelectData(stringQuery);
+            UsersBookDTO book = new UsersBookDTO();
+            if (hashtable.Count == 0)
+            {
+                return book;
+            }
+            book.UserId = ((ArrayList)hashtable["user_id"])[0].ToString();
+            book.Id = int.Parse(((ArrayList)hashtable["book_id"])[0].ToString());
+            book.Title = ((ArrayList)hashtable["title"])[0].ToString();
+            book.Author = ((ArrayList)hashtable["author"])[0].ToString();
+            book.Publisher = ((ArrayList)hashtable["publisher"])[0].ToString();
+            book.Amount = int.Parse(((ArrayList)hashtable["amount"])[0].ToString());
+            book.Price = int.Parse(((ArrayList)hashtable["price"])[0].ToString());
+            book.PublishDate = ((ArrayList)hashtable["publish_date"])[0].ToString();
+            book.ISBN = ((ArrayList)hashtable["ISBN"])[0].ToString();
+            book.Information = ((ArrayList)hashtable["information"])[0].ToString();
+            book.RentTime = ((ArrayList)hashtable["rental_time"])[0].ToString();
+            book.ReturnTime = ((ArrayList)hashtable["return_time"])[0].ToString();
+            return book;
+        }
         public static List<UsersBookDTO> SelectAllReturnBook(string userId)
         {
             string stringQuery = string.Format(Constant.SELECT_ALL_RETURN_BOOK, userId);

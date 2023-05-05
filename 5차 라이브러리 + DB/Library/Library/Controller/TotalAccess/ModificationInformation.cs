@@ -5,6 +5,7 @@ using Library.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -31,7 +32,7 @@ namespace Library.Controller.TotalAccess
         {
             Console.Clear();
             MainView.PrintBox(3);
-            PrintUserInformation.PrintModifyMyInformationUI();
+            Console.SetWindowSize(76, 40);
 
             switch (entryType)
             {
@@ -215,24 +216,49 @@ namespace Library.Controller.TotalAccess
         {
             int column = 30;
             int row = 10;
+            string id;
+
             List<UserDTO> users= new List<UserDTO>();
             users = AccessorData.SelectAllUserData();
 
-            PrintUserInformation.PrintModiFyUserIdUI();
-            PrintUserInformation.PrintUserList(users);
-            string id = SearchId((int)MODE.USER);
-            if (id == null)
+            bool isSuccessModify = false;
+
+            while (!isSuccessModify)
             {
-                GuidancePhrase.PrintException((int)EXCEPTION.ID_FAIL, column, row);
+                Console.Clear();
+                PrintBookInformation.PrintModifyBookInformationUI();
+                PrintUserInformation.PrintUserList(users);
+                Console.SetCursorPosition(0, 0);
+                id = SearchId((int)MODE.USER);
+                if (id == null)
+                {
+                    GuidancePhrase.PrintException((int)EXCEPTION.ID_FAIL, column, row);
+                    continue;
+                }
+                else if (id == Constant.ESC_STRING)
+                {
+                    return;
+                }
+                else if(!IsValidSearchId(users, id))
+                {
+                    GuidancePhrase.PrintException((int)EXCEPTION.NULL_KEYWORD, column, row);
+                    continue;
+                }
+                SelectIndex(id);
             }
-            else if(id == Constant.ESC_STRING)
-            {
-                return;
-            }
-            SelectIndex(id);
         }
 
-
+        private bool IsValidSearchId(List<UserDTO> users, string searchId)
+        {
+            for(int i = 0; i < users.Count; i++)
+            {
+                if (users[i].Id == searchId)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
         private void SelectIndex(string id)
         {
             UserDTO user = new UserDTO();
@@ -242,7 +268,7 @@ namespace Library.Controller.TotalAccess
             int validInput;
             int selectedMenu = 0;
             int column = 2;
-            int row = 9;
+            int row = 16;
 
             string age = "";
 
@@ -253,8 +279,10 @@ namespace Library.Controller.TotalAccess
             while (isNotESC)
             {
                 Console.SetWindowSize(76, 30);
+                Console.Clear();
                 validInput = 0;
                 Console.SetCursorPosition(2, 15);
+                PrintUserInformation.PrintModifyMyInformationUI();
                 PrintUserInformation.PrintUserList(users);
                 selectedMenu = MenuIndexSelector.SelectMenuIndex(menu, selectedMenu, column, row);
 
@@ -311,6 +339,7 @@ namespace Library.Controller.TotalAccess
             if(entryType == (int)MODE.MANAGER)
             {
                 regexForm = Constant.NUMBER;
+                row += 6;
             }
             else
             {

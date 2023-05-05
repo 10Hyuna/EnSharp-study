@@ -84,16 +84,15 @@ namespace Library.View
         public static void PrintRentalStateUI()
         {
             Console.SetCursorPosition(0, 2);
-            Console.WriteLine("\t\t\t\t\t\t     대 여 상 황\n");
+            Console.WriteLine("     대 여 상 황\n");
             GuidancePhrase.PrintEsc();
             GuidancePhrase.PrintEnter();
         }
 
         public static void PrintUserId(string id)
         {
-            Console.WriteLine("\t\t=====================================================================================\n");
-            Console.ForegroundColor = ConsoleColor.DarkGreen;
-            Console.WriteLine(id);
+            Console.WriteLine("====================================================");
+            Console.WriteLine(" {0}", id);
             Console.ResetColor();
         }
 

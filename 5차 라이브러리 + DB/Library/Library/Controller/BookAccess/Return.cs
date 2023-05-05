@@ -47,10 +47,8 @@ namespace Library.Controller.BookAccess
 
                 returnBookList = AccessorData.SelectAllRentBookList(userId);
                 Console.SetCursorPosition(0, 9);
-                for (int i = 0; i < returnBookList.Count; i++)
-                {
-                    PrintBookInformation.PrintRentalBookListUI(returnBookList[i]);
-                }
+
+                PrintBookInformation.PrintUserBookListUI(returnBookList);
                 
                 returnId = ExceptionHandler.IsValidInput(Constant.NUMBER, column, row, 3, Constant.IS_NOT_PASSWORD);
                 if(returnId == Constant.ESC_STRING)
@@ -65,7 +63,7 @@ namespace Library.Controller.BookAccess
                 }
                 returnIdNumber = int.Parse(returnId);
 
-                UsersBookDTO returnBook = AccessorData.SelectReturnBook(userId, returnIdNumber);
+                UsersBookDTO returnBook = AccessorData.SelectRentBook(userId, returnIdNumber);
 
                 if (returnBook.Id == 0)
                 {

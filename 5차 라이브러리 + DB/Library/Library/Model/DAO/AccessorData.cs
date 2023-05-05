@@ -257,7 +257,7 @@ namespace Library.Model.DAO
             return books;
         }
 
-        public static UsersBookDTO SelectReturnBook(string userId, int bookId)
+        public static UsersBookDTO SelectRentBook(string userId, int bookId)
         {
             string stringQuery = string.Format(Constant.SELECT_USER_RENT_BOOK, userId, bookId);
             Hashtable hashtable = connectionDataBase.SelectData(stringQuery);
@@ -279,6 +279,35 @@ namespace Library.Model.DAO
             book.RentTime = ((ArrayList)hashtable["rental_time"])[0].ToString();
             book.ReturnTime = ((ArrayList)hashtable["return_time"])[0].ToString();
             return book;
+        }
+
+        public static List<UsersBookDTO> SelectAllReturnBook(string userId)
+        {
+            string stringQuery = string.Format(Constant.SELECT_ALL_RETURN_BOOK, userId);
+            Hashtable hashtable = connectionDataBase.SelectData(stringQuery);
+            List<UsersBookDTO> books = new List<UsersBookDTO>();
+            if (hashtable.Count == 0)
+            {
+                return books;
+            }
+            for (int i = 0; i < ((ArrayList)hashtable["book_id"]).Count; i++)
+            {
+                UsersBookDTO book = new UsersBookDTO();
+                book.UserId = ((ArrayList)hashtable["user_id"])[i].ToString();
+                book.Id = int.Parse(((ArrayList)hashtable["book_id"])[i].ToString());
+                book.Title = ((ArrayList)hashtable["title"])[i].ToString();
+                book.Author = ((ArrayList)hashtable["author"])[i].ToString();
+                book.Publisher = ((ArrayList)hashtable["publisher"])[i].ToString();
+                book.Amount = int.Parse(((ArrayList)hashtable["amount"])[i].ToString());
+                book.Price = int.Parse(((ArrayList)hashtable["price"])[i].ToString());
+                book.PublishDate = ((ArrayList)hashtable["publish_date"])[i].ToString();
+                book.ISBN = ((ArrayList)hashtable["ISBN"])[i].ToString();
+                book.Information = ((ArrayList)hashtable["information"])[i].ToString();
+                book.RentTime = ((ArrayList)hashtable["rental_time"])[i].ToString();
+                book.ReturnTime = ((ArrayList)hashtable["return_time"])[i].ToString();
+                books.Add(book);
+            }
+            return books;
         }
     }
 }

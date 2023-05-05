@@ -1,4 +1,5 @@
 ﻿using Library.Utility;
+using Library.Controller.TotalAccess;
 using Library.View;
 using System;
 using System.Collections.Generic;
@@ -12,11 +13,14 @@ namespace Library.Controller.SelectorMenu
     {
         MainView mainView;
         MenuIndexSelector menuIndexSelector;
-
-        public UserManagement()
+        ModificationInformation modifocationInformation;
+        DeleterInformation deleterInformation;
+        public UserManagement(ModificationInformation modificationInformation, DeleterInformation deleterInformation)
         {
             mainView = MainView.SetMainView();
             menuIndexSelector = MenuIndexSelector.GetMenuIndexSelector();
+            this.modifocationInformation = modifocationInformation;
+            this.deleterInformation = deleterInformation;
         }
 
         public void SelectManagement()
@@ -48,10 +52,10 @@ namespace Library.Controller.SelectorMenu
                 switch (selectedMenu)
                 {
                     case (int)MODIFICATION.INFORMATION:
-
+                        modifocationInformation.ModifyInformation((int)MODE.MANAGER, "");
                         break;
                     case (int)MODIFICATION.ACCOUNT:
-
+                        deleterInformation.DeleteUserInformation((int)MODE.MANAGER, "");
                         break;
                 }
             }

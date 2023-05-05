@@ -33,7 +33,7 @@ namespace Library.Controller.SelectorMode
             mainView = MainView.SetMainView();
             menuIndexSelector = MenuIndexSelector.GetMenuIndexSelector();
             addition = new Addition();
-            userManagement = new UserManagement();
+            userManagement = new UserManagement(modificationInformation, deleterInformation);
         }
 
         public void EnterMenu()
@@ -86,7 +86,7 @@ namespace Library.Controller.SelectorMode
                     userManagement.SelectManagement();
                     break;
                 case (int)MANAGERMODE.LIST:
-
+                    sortList.AnnounceBookState((int)ENTRY.MANAGER, "");
                     break;
 
             }

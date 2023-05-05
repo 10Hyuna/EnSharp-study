@@ -52,20 +52,23 @@ namespace Library.View
             Console.WriteLine("책 정보   : {0}", book.Information);
         }
 
-        public static void PrintRentalBookListUI(UsersBookDTO usersBook)
+        public static void PrintUserBookListUI(List<UsersBookDTO> usersBook)
         {
-            Console.WriteLine("\n=====================================================================================\n");
-            Console.WriteLine("책아이디  : {0}", usersBook.Id);
-            Console.WriteLine("책 제목   : {0}", usersBook.Title);
-            Console.WriteLine("작가      : {0}", usersBook.Author);
-            Console.WriteLine("출판사    : {0}", usersBook.Publisher);
-            Console.WriteLine("수량      : {0}", usersBook.Amount);
-            Console.WriteLine("가격      : {0}", usersBook.Price);
-            Console.WriteLine("출시일    : {0}", usersBook.PublishDate);
-            Console.WriteLine("ISBN      : {0}", usersBook.ISBN);
-            Console.WriteLine("책 정보   : {0}", usersBook.Information);
-            Console.WriteLine("빌린 시간 : {0}", usersBook.RentTime);
-            Console.WriteLine("반납 시간 : {0}", usersBook.ReturnTime);
+            for(int i = 0; i < usersBook.Count; i++)
+            {
+                Console.WriteLine("\n============================================================================\n");
+                Console.WriteLine("책아이디  : {0}", usersBook[i].Id);
+                Console.WriteLine("책 제목   : {0}", usersBook[i].Title);
+                Console.WriteLine("작가      : {0}", usersBook[i].Author);
+                Console.WriteLine("출판사    : {0}", usersBook[i].Publisher);
+                Console.WriteLine("수량      : {0}", usersBook[i].Amount);
+                Console.WriteLine("가격      : {0}", usersBook[i].Price);
+                Console.WriteLine("출시일    : {0}", usersBook[i].PublishDate);
+                Console.WriteLine("ISBN      : {0}", usersBook[i].ISBN);
+                Console.WriteLine("책 정보   : {0}", usersBook[i].Information);
+                Console.WriteLine("빌린 시간 : {0}", usersBook[i].RentTime);
+                Console.WriteLine("반납 시간 : {0}", usersBook[i].ReturnTime);
+            }
         }
 
         public static void PrintReturnTheBookUI()
@@ -80,9 +83,9 @@ namespace Library.View
         }
         public static void PrintReturnBookTitle()
         {
-            Console.WriteLine(" 반납 책의 리스트\n");
+            Console.WriteLine("\n 반납 책의 리스트\n");
             GuidancePhrase.PrintEsc();
-            Console.WriteLine("\n\n\n");
+            Console.WriteLine("\n");
         }
 
         public static void PrintRenttheBookUI()
@@ -98,9 +101,9 @@ namespace Library.View
 
         public static void PrintRentalBookTitle()
         {
-            Console.WriteLine(" 빌린 책의 리스트\n");
+            Console.WriteLine("\n 빌린 책의 리스트\n");
             GuidancePhrase.PrintEsc();
-            Console.WriteLine("\n\n\n");
+            Console.WriteLine("\n");
         }
 
         public static void PrintAddTheBookUI()

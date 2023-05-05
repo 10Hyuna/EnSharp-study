@@ -86,13 +86,13 @@ namespace Library.Controller.SelectorMode
                     rental.RentBook(userId);
                     break;
                 case (int)USERMENU.RENT_LIST:
-
+                    sortList.AnnounceBookState((int)ENTRY.RENTAL, userId);
                     break;
                 case (int)USERMENU.RETURN:
                     returnBook.ReturnBook(userId);
                     break;
                 case (int)USERMENU.RETURN_LIST:
-
+                    sortList.AnnounceBookState((int)ENTRY.RETURN, userId);
                     break;
                 case (int)USERMENU.MODIFY_MY_INFORMATION:
                     modificationInformation.ModifyInformation((int)MODE.USER, userId);

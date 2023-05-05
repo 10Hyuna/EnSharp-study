@@ -60,6 +60,7 @@ namespace Library.Utility
         public const string SELECT_RENT_BOOK = "SELECT * FROM user_rent_book WHERE user_id = '{0}'";
         public const string SELECT_USER_RENT_BOOK = "SELECT * FROM user_rent_book WHERE user_id = '{0}' AND book_id = {1}";
         public const string SELECT_RETURN_BOOK = "SELECT * FROM user_return_book WHERE book_id = {0}'";
+        public const string SELECT_ALL_RETURN_BOOK = "SELECT * FROM user_return_book WHERE user_id = '{0}'";
         public const string UPDATE_USER = "UPDATE user_list SET {0} = '{1}' WHERE {2} = '{3}'";
     }
 }
@@ -93,7 +94,13 @@ enum USERENTRY
 {
     SIGNIN,
     SIGNUP,
+}
 
+enum ENTRY
+{
+    RENTAL,
+    RETURN,
+    MANAGER
 }
 
 enum USERMENU

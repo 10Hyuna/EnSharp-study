@@ -5,14 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
-using Library.Utility;
 
-namespace Library.Model.DataBase
+namespace Library.Utility
 {
     public class ConnectionDataBase
     {
         private static MySqlConnection connection;
         private static string ServerAddress;
+
         public ConnectionDataBase() { }
 
         private static MySqlConnection ConnectServer()
@@ -33,7 +33,7 @@ namespace Library.Model.DataBase
             connection.Open();
             MySqlDataReader reader = command.ExecuteReader();
 
-            for(int i = 0; i < reader.FieldCount; i++)
+            for (int i = 0; i < reader.FieldCount; i++)
             {
                 columnNames.Add(reader.GetName(i));
             }

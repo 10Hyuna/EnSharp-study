@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -41,8 +42,8 @@ namespace Library.Utility
         public const string NAME = @"^[가-힇a-zA-Z]{1,}";       // 이름 정규식
         public const string AGE = @"^[0-9]{1,3}";               // 나이 정규식
         public const string PHONENUMBER = @"^01[016789]{1}-[0-9]{3,4}-[0-9]{4}$";       // 번호 정규식
-        public const string ADDRESS = @"^[가-힇]{2,4}시 [가-힇]{2}구";                 // 주소 정규식
-        //publiconst string addressCheck = @"^[가-힇]{2,4}도 | [가-힇]{2,4}시 ([가-힇]{2,4}(읍|면|동|길|로))"
+        public const string ADDRESS1 = @"^[가-힇]{2,4}시 [가-힇]{2}구";                 // 주소 정규식
+        public const string ADDRESS = @"^([가-힇]{2,}(도|시) | ([가-힇]{2,}(시)) ([가-힣]{2,}(로|길).[\d]+)|([가-힣]+(읍|면|동)\s)[\d]+)";
         public const string ONEVALUE = @"^[가-힇a-zA-Z0-9]{1,}";
         public const string TITLE = @"^[가-힇a-zA-Z?!+=]{1,}";
         public const string AUTHOR = @"^[가-힇a-zA-Z]{1,}";
@@ -73,6 +74,10 @@ namespace Library.Utility
         public const string UPDATE_USER_STRING = "UPDATE user_list SET {0} = '{1}' WHERE id ='{2}'";
         public const string UPDATE_BOOK_STRING = "UPDATE book_list SET {0} = {1} WHERE id = {2}";
         public const string UPDATE_BOOK_INT = "UPDATE book_list SET {0} = '{1}' WHERE id = {2}";
+
+        public const string URL = "https://openapi.naver.com/v1/search/book?query={0}&display={1}";
+        public const string CLIENT_ID = "7odha65bGppJqSbN3p71";
+        public const string CLIENT_SECRET = "or3JK6km4_";
     }
 }
 
@@ -122,7 +127,8 @@ enum USERMENU
     RETURN,
     RETURN_LIST,
     MODIFY_MY_INFORMATION,
-    DELETE_ACCOUNT
+    DELETE_ACCOUNT,
+    NAVER_SEARCH
 }
 
 enum MANAGERMODE

@@ -152,7 +152,6 @@ namespace Library.View
 
         public static void PrintDeleteTheBookUI()
         {
-            Console.SetWindowSize(76, 8);
             Console.Clear();
             Console.WriteLine("\n\t    ------------------------------------------------\n");
             Console.WriteLine("\t\t               삭제할 책 ID:\n");
@@ -184,7 +183,6 @@ namespace Library.View
 
         public static void PrintModifyBookInformationUI()
         {
-            Console.SetWindowSize(76, 8);
             Console.Clear();
             Console.WriteLine("\n\t    ------------------------------------------------\n");
             Console.WriteLine("\t\t               수정할 책 ID:\n");

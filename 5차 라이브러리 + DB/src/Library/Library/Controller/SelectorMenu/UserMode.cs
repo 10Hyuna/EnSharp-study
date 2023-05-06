@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Library.Controller.TotalAccess;
 using Library.Model.DTO;
+using Library.Controller.APIAccess;
 
 namespace Library.Controller.SelectorMode
 {
@@ -23,6 +24,7 @@ namespace Library.Controller.SelectorMode
         Rental rental;
         Return returnBook;
         ModificationInformation modificationInformation;
+        
 
         public UserMode(Searcher searcher, SortList sortList, DeleterInformation deleterInformation, ModificationInformation modificationInformation)
         {
@@ -46,7 +48,7 @@ namespace Library.Controller.SelectorMode
 
             bool isNotESC = true;
 
-            string[] menu = { "도서 찾기", "도서 대여", "도서 대여 확인", "도서 반납", "도서 반납 내역", "정보 수정", "계정 삭제" };
+            string[] menu = { "도서 찾기", "도서 대여", "도서 대여 확인", "도서 반납", "도서 반납 내역", "정보 수정", "계정 삭제", "네이버 검색"};
 
             while (isNotESC)
             {
@@ -99,6 +101,9 @@ namespace Library.Controller.SelectorMode
                     break;
                 case (int)USERMENU.DELETE_ACCOUNT:
                     breakPoint = deleterInformation.DeleteUserInformation((int)MODE.USER, userId);
+                    break;
+                case (int)USERMENU.NAVER_SEARCH:
+
                     break;
             }
             return breakPoint;

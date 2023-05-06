@@ -30,7 +30,7 @@ namespace Library.View
         public static void PrintManageUser()
         {
             Console.WriteLine("\n\t    ------------------------------------------------\n");
-            Console.WriteLine("\t\t       삭제할 유저 ID:\n");
+            Console.WriteLine("\t\t             삭제할 유저 ID:\n");
             Console.WriteLine("\t    ------------------------------------------------\n");
             GuidancePhrase.PrintEsc();
             GuidancePhrase.PrintEnter();
@@ -48,7 +48,7 @@ namespace Library.View
         public static void PrintModiFyUserIdUI()
         {
             Console.WriteLine("\n\t    ------------------------------------------------\n");
-            Console.WriteLine("\t\t       수정할 유저 ID:\n");
+            Console.WriteLine("\t\t             수정할 유저 ID:\n");
             Console.WriteLine("\t    ------------------------------------------------\n");
             GuidancePhrase.PrintEsc();
             GuidancePhrase.PrintEnter();
@@ -123,7 +123,7 @@ namespace Library.View
         public static void PrintNotWorkedDeleteAccout()
         {
             const int consoleInputRow = 20;
-            const int consoleInputColumn = 10;
+            const int consoleInputColumn = 13;
 
             Console.Clear();
             MainView.PrintMain();

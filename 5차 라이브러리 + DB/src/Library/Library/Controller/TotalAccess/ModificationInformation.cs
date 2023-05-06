@@ -87,7 +87,8 @@ namespace Library.Controller.TotalAccess
                 isSuccessModify = IsValidNumber(bookNumber);        // 입력받은 책의 아이디가 유효한 책의 아이디인지 확인
                 if(!isSuccessModify)
                 {
-                    GuidancePhrase.PrintException((int)EXCEPTION.NULL_KEYWORD, column, row);
+                    isSuccessModify = true;
+                    GuidancePhrase.PrintException((int)EXCEPTION.NULL_SEARCH_BOOK, column, row + 4);
                     continue;
                 }
                 InputModifyInformation(bookNumber);     // 수정하려는 책의 정보를 입력하는 메소드 진입
@@ -220,13 +221,16 @@ namespace Library.Controller.TotalAccess
             string id;
 
             List<UserDTO> users= new List<UserDTO>();
-            users = AccessorData.SelectAllUserData();
 
             bool isSuccessModify = false;
 
             while (!isSuccessModify)
             {
+                Console.SetWindowSize(76, 40);
                 Console.Clear();
+
+                users = AccessorData.SelectAllUserData();
+
                 PrintUserInformation.PrintModiFyUserIdUI();
                 PrintUserInformation.PrintUserList(users);
                 Console.SetCursorPosition(0, 0);
@@ -278,14 +282,17 @@ namespace Library.Controller.TotalAccess
             List<UserDTO> users = new List<UserDTO>();
             users.Add(AccessorData.SelectUserData(id));
 
+            Console.SetWindowSize(76, 30);
+            Console.Clear();
+            Console.SetCursorPosition(2, 15);
+
+            PrintUserInformation.PrintModifyMyInformationUI();
+            PrintUserInformation.PrintUserList(users);
+
             while (isNotESC)
             {
-                Console.SetWindowSize(76, 30);
-                Console.Clear();
                 validInput = 0;
-                Console.SetCursorPosition(2, 15);
-                PrintUserInformation.PrintModifyMyInformationUI();
-                PrintUserInformation.PrintUserList(users);
+
                 selectedMenu = MenuIndexSelector.SelectMenuIndex(menu, selectedMenu, column, row);
 
                 if (selectedMenu == Constant.EXIT_INT)
@@ -296,24 +303,24 @@ namespace Library.Controller.TotalAccess
                 switch (selectedMenu)
                 {
                     case (int)MODIFY.PASSWORD:
-                        user.Password = ModifyInformation(0, Constant.PASSWORD, Constant.IS_PASSWORD);
+                        user.Password = ModifyInformation(7, Constant.PASSWORD, Constant.IS_PASSWORD);
                         validInput = EnterEsc(user.Password);
                         break;
                     case (int)MODIFY.NAME:
-                        user.Name = ModifyInformation(1, Constant.NAME, Constant.IS_NOT_PASSWORD);
+                        user.Name = ModifyInformation(8, Constant.NAME, Constant.IS_NOT_PASSWORD);
                         validInput = EnterEsc(user.Name);
                         break;
                     case (int)MODIFY.AGE:
-                        age = ModifyInformation(2, Constant.AGE, Constant.IS_NOT_PASSWORD);
+                        age = ModifyInformation(9, Constant.AGE, Constant.IS_NOT_PASSWORD);
                         validInput = EnterEsc(age);
                         user.Age = CheckNumber(validInput, age);
                         break;
                     case (int)MODIFY.PHONENUMBER:
-                        user.PhoneNumber = ModifyInformation(3, Constant.PHONENUMBER, Constant.IS_NOT_PASSWORD);
+                        user.PhoneNumber = ModifyInformation(10, Constant.PHONENUMBER, Constant.IS_NOT_PASSWORD);
                         validInput = EnterEsc(user.PhoneNumber);
                         break;
                     case (int)MODIFY.ADDRESS:
-                        user.Address = ModifyInformation(4, Constant.ADDRESS, Constant.IS_NOT_PASSWORD);
+                        user.Address = ModifyInformation(11, Constant.ADDRESS, Constant.IS_NOT_PASSWORD);
                         validInput = EnterEsc(user.Address);
                         break;
                     case (int)MODIFY.SUCCESS:
@@ -324,6 +331,7 @@ namespace Library.Controller.TotalAccess
                 if (!isNotESC)
                 {
                     PrintUserInformation.PrintSuccessModify();
+                    InputFromUser.EnteredESC();
                 }
                 if(validInput == Constant.EXIT_INT)
                 {
@@ -341,7 +349,6 @@ namespace Library.Controller.TotalAccess
             if(entryType == (int)MODE.MANAGER)
             {
                 regexForm = Constant.NUMBER;
-                row += 6;
             }
             else
             {

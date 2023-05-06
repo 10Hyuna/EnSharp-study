@@ -85,11 +85,13 @@ namespace Library.Controller.TotalAccess
 
                 if (!isSuccessDelete)
                 {
-                    GuidancePhrase.PrintException((int)EXCEPTION.NULL_KEYWORD, column, row);
+                    isSuccessDelete = true;
+                    GuidancePhrase.PrintException((int)EXCEPTION.NOT_MATCH_SEARCH, column, row - 3);
                     continue;
                 }
                 AccessorData.DeleteBookData(bookNumber);
                 PrintBookInformation.PrintSuccessDeleteBook();
+                InputFromUser.EnteredESC();
             }
         }
 
@@ -102,6 +104,7 @@ namespace Library.Controller.TotalAccess
             
             while (!isSucessDelete)
             {
+                Console.SetWindowSize(76, 40);
                 Console.Clear();
                 PrintUserInformation.PrintManageUser();
 

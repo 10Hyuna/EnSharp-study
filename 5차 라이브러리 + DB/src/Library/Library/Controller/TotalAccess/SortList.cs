@@ -81,7 +81,12 @@ namespace Library.Controller.TotalAccess
             for (int i = 0; i < users.Count; i++)
             {
                 List<UsersBookDTO> rentBooks = new List<UsersBookDTO>();
+
                 rentBooks = AccessorData.SelectAllRentBookList(users[i].Id);
+                if(rentBooks.Count == 0)
+                {
+                    continue;
+                }
 
                 PrintUserInformation.PrintUserId(users[i].Id);
                 PrintBookInformation.PrintUserBookListUI(rentBooks);

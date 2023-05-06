@@ -36,7 +36,7 @@ namespace Library.Controller.MemberAccess
             bool isNotEnter = true;
 
             Console.Clear();
-            Console.SetWindowSize(73, 40);
+            Console.SetWindowSize(76, 40);
 
             MainView.PrintSignUpUI();
 

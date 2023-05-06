@@ -94,7 +94,7 @@ namespace Library.Controller.BookAccess
                     continue;
                 }
 
-                isAlreadyRent = IsAlreadyRentBook(searchedBook[bookIndex], userId);
+                isAlreadyRent = IsAlreadyRentBook(searchedBook[bookIndex], userId, rentBookIdNumber);
                 // 이미 빌린 책인지 확인
                 if (isAlreadyRent)
                 {   // 이미 빌린 책이라면
@@ -121,7 +121,7 @@ namespace Library.Controller.BookAccess
             return false;
         }
 
-        private bool IsAlreadyRentBook(BookDTO book, string userId)
+        private bool IsAlreadyRentBook(BookDTO book, string userId, int bookId)
         {
             List<UsersBookDTO> rentedBook = new List<UsersBookDTO>();
 
@@ -129,7 +129,7 @@ namespace Library.Controller.BookAccess
 
             for(int i = 0; i < rentedBook.Count; i++)
             {
-                if (rentedBook[i].UserId == userId) 
+                if (rentedBook[i].Id == bookId) 
                 {
                     return true;
                 }

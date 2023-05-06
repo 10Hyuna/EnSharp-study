@@ -1,4 +1,5 @@
-﻿using Library.Controller.BookAccess;
+﻿using Library.Controller.APIAccess;
+using Library.Controller.BookAccess;
 using Library.Controller.MemberAccess;
 using Library.Controller.SelectorMenu;
 using Library.Controller.TotalAccess;
@@ -23,13 +24,15 @@ namespace Library.Controller.SelectorMode
         MenuIndexSelector menuIndexSelector;
         Addition addition;
         UserManagement userManagement;
-
-        public ManagerMode(Searcher searcher, SortList sortList, DeleterInformation deleterInformation, ModificationInformation modificationInformation)
+        NaverBookSearch naverBookSearch;
+        public ManagerMode(Searcher searcher, SortList sortList, DeleterInformation deleterInformation, 
+            ModificationInformation modificationInformation, NaverBookSearch naverBookSearch)
         {
             this.searcher = searcher;
             this.sortList = sortList;
             this.deleterInformation = deleterInformation;
             this.modificationInformation = modificationInformation;
+            this.naverBookSearch = naverBookSearch;
             mainView = MainView.SetMainView();
             menuIndexSelector = MenuIndexSelector.GetMenuIndexSelector();
             addition = new Addition();
@@ -45,14 +48,14 @@ namespace Library.Controller.SelectorMode
 
             bool isNotESC = true;
 
-            string[] menu = { "도서 찾기", "도서 추가", "도서 삭제", "도서 수정", "회원 관리", "대여 내역" };
+            string[] menu = { "도서 찾기", "도서 추가", "도서 삭제", "도서 수정", "회원 관리", "대여 내역", "네이버 검색", "로그 관리", "요청 도서" };
 
             while (isNotESC)
             {
-                Console.SetWindowSize(76, 20);
+                Console.SetWindowSize(76, 22);
                 Console.Clear();
                 MainView.PrintMain();
-                MainView.PrintBox(8);
+                MainView.PrintBox(11);
 
                 selectedMenu = MenuIndexSelector.SelectMenuIndex(menu, selectedMenu, column, row);
 
@@ -87,6 +90,15 @@ namespace Library.Controller.SelectorMode
                     break;
                 case (int)MANAGERMODE.LIST:
                     sortList.AnnounceBookState((int)ENTRY.MANAGER, "");
+                    break;
+                case (int)MANAGERMODE.NAVER_SEARCH:
+
+                    break;
+                case (int)MANAGERMODE.LOG_MANAGEMENT:
+
+                    break;
+                case (int)MANAGERMODE.REQUEST_BOOK:
+
                     break;
 
             }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Library.Controller.APIAccess
 {
-    public class Search
+    public class NaverBookSearch
     {
 
     }

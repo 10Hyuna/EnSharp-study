@@ -1,4 +1,5 @@
-﻿using Library.Controller.BookAccess;
+﻿using Library.Controller.APIAccess;
+using Library.Controller.BookAccess;
 using Library.Controller.MemberAccess;
 using Library.Controller.TotalAccess;
 using Library.Utility;
@@ -23,18 +24,21 @@ namespace Library.Controller.SelectorMode
         SortList sortList;
         DeleterInformation deleterInformation;
         ModificationInformation modificationInformation;
+        NaverBookSearch naverBookSearch;
 
-        public UserEntry(Login login, Searcher searcher, SortList sortList, DeleterInformation deleterInformation, ModificationInformation modificationInformation)
+        public UserEntry(Login login, Searcher searcher, SortList sortList, DeleterInformation deleterInformation,
+            ModificationInformation modificationInformation, NaverBookSearch naverBookSearch)
         {
             this.searcher = searcher;
             this.sortList = sortList;
             this.deleterInformation = deleterInformation;
             this.modificationInformation = modificationInformation;
+            this.naverBookSearch = naverBookSearch;
             mainView = MainView.SetMainView();
             menuIndexSelector = MenuIndexSelector.GetMenuIndexSelector();
             this.login = login;
             signUp = new SignUp();
-            userMode = new UserMode(searcher, sortList, deleterInformation, modificationInformation);
+            userMode = new UserMode(searcher, sortList, deleterInformation, modificationInformation, naverBookSearch);
         }
 
         public void SelectEntryType()

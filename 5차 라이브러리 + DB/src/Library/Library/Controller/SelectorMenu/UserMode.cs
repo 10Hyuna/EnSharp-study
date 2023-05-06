@@ -1,13 +1,6 @@
 ﻿using Library.Utility;
 using Library.View;
 using Library.Controller.BookAccess;
-using Org.BouncyCastle.Bcpg;
-using Org.BouncyCastle.Security;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Library.Controller.TotalAccess;
 using Library.Model.DTO;
 using Library.Controller.APIAccess;
@@ -24,9 +17,9 @@ namespace Library.Controller.SelectorMode
         Rental rental;
         Return returnBook;
         ModificationInformation modificationInformation;
-        
+        NaverBookSearch naverBookSearch;
 
-        public UserMode(Searcher searcher, SortList sortList, DeleterInformation deleterInformation, ModificationInformation modificationInformation)
+        public UserMode(Searcher searcher, SortList sortList, DeleterInformation deleterInformation, ModificationInformation modificationInformation, NaverBookSearch naverBookSearch)
         {
             this.searcher = searcher;
             this.sortList = sortList;
@@ -36,6 +29,7 @@ namespace Library.Controller.SelectorMode
             returnBook = new Return();
             MainView = MainView.SetMainView();
             menuIndexSelector = MenuIndexSelector.GetMenuIndexSelector();
+            this.naverBookSearch = naverBookSearch;
         }
 
         public void SelectMenu(string userId)
@@ -52,11 +46,11 @@ namespace Library.Controller.SelectorMode
 
             while (isNotESC)
             {
-                Console.SetWindowSize(76, 20);
+                Console.SetWindowSize(76, 21);
                 checkingBreak = -1;
                 Console.Clear();
                 MainView.PrintMain();
-                MainView.PrintBox(9);
+                MainView.PrintBox(10);
 
                 selectedMenu = MenuIndexSelector.SelectMenuIndex(menu, selectedMenu, column, row);
 

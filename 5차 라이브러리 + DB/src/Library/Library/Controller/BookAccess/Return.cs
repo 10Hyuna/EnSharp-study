@@ -43,7 +43,7 @@ namespace Library.Controller.BookAccess
                 Console.SetWindowSize(76, 40);
 
                 Console.Clear();
-                PrintBookInformation.PrintReturnTheBookUI();
+                PrintBookInformation.PrintRentReturnUI(Constant.RETURN);
 
                 returnBookList = AccessorData.SelectAllRentBookList(userId);
                 Console.SetCursorPosition(0, 9);

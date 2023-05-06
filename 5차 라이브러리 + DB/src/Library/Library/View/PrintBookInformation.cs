@@ -1,4 +1,5 @@
 ﻿using Library.Model.DTO;
+using Library.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -71,41 +72,22 @@ namespace Library.View
             }
         }
 
-        public static void PrintReturnTheBookUI()
+        public static void PrintRentReturnUI(string entryType)
         {
             Console.Clear();
-            Console.WriteLine(" 반납할 책의 ID를 입력해 주세요.");
+            Console.WriteLine(string.Format(Constant.BOOK_ID__UI, entryType));
             Console.WriteLine(" ID 값은 1부터 999 사이의 값입니다.");
             Console.WriteLine("▶ 입력: ");
             Console.WriteLine("\n\n");
             GuidancePhrase.PrintEsc();
             GuidancePhrase.PrintEnter();
         }
-        public static void PrintReturnBookTitle()
+        public static void PrintRentReturnBookTitle(string entryType)
         {
-            Console.WriteLine("\n 반납 책의 리스트\n");
+            Console.WriteLine(string.Format(Constant.BOOK_LIST_UI, entryType));
             GuidancePhrase.PrintEsc();
             Console.WriteLine("\n");
         }
-
-        public static void PrintRenttheBookUI()
-        {
-            Console.Clear();
-            Console.WriteLine(" 빌릴 책의 ID를 입력해 주세요.");
-            Console.WriteLine(" ID 값은 1부터 999 사이의 값입니다.");
-            Console.WriteLine("▶ 입력: ");
-            Console.WriteLine("\n\n");
-            GuidancePhrase.PrintEsc();
-            GuidancePhrase.PrintEnter();
-        }
-
-        public static void PrintRentalBookTitle()
-        {
-            Console.WriteLine("\n 빌린 책의 리스트\n");
-            GuidancePhrase.PrintEsc();
-            Console.WriteLine("\n");
-        }
-
         public static void PrintAddTheBookUI()
         {
             int consoleInputRow = 32;

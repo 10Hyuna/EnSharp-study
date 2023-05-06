@@ -59,11 +59,11 @@ namespace Library.Controller.TotalAccess
             {
                 if(entryType == (int)(ENTRY.RENTAL))
                 {
-                    PrintBookInformation.PrintRentalBookTitle();
+                    PrintBookInformation.PrintRentReturnBookTitle(Constant.RENT);
                 }
                 else
                 {
-                    PrintBookInformation.PrintReturnBookTitle();
+                    PrintBookInformation.PrintRentReturnBookTitle(Constant.RETURN);
                 }
                 PrintBookInformation.PrintUserBookListUI(books);
             }

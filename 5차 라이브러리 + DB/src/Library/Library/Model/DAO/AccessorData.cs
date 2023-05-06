@@ -134,6 +134,18 @@ namespace Library.Model.DAO
 
         }
 
+        public static void DeleteRentBookData(int bookId)
+        {
+            string stringQuery = string.Format(Constant.DELETE_RENT_BOOK_WITH, bookId);
+            connectionDataBase.CUD(stringQuery);
+        }
+
+        public static void DeleteReturnBookData(int bookId)
+        {
+            string stringQuery = string.Format(Constant.DELETE_RETURN_BOOK, bookId);
+            connectionDataBase.CUD(stringQuery);
+        }
+
         public static void DeleteRentBookData(string userId, int bookId)
         {
             string stringQuery = string.Format(Constant.DELETE_RENT_BOOK, userId, bookId);

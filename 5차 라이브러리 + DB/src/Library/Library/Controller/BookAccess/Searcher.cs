@@ -78,7 +78,7 @@ namespace Library.Controller.BookAccess
                 }
                 else
                 {   // 책 빌리는 메뉴에서 들어왔다면
-                    PrintBookInformation.PrintRenttheBookUI();
+                    PrintBookInformation.PrintRentReturnUI(Constant.RENT);
                 }
                 for(int i = 0; i < books.Count; i++)
                 {

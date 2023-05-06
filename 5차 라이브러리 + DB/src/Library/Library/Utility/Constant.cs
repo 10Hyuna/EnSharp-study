@@ -19,6 +19,12 @@ namespace Library.Utility
         public const int ENTER_INT = 10;
         public const int SUCCESS = 20;
 
+        public const string BOOK_ID__UI = "{0}할 책의 ID를 입력해 주세요";
+        public const string BOOK_LIST_UI = "\n{0} 책의 리스트\n";
+
+        public const string RENT = "대여";
+        public const string RETURN = "반납";
+
         public const string ESC_STRING = "ESC";
         public const string ENTER_STRING = "ENTER";
 
@@ -59,6 +65,8 @@ namespace Library.Utility
         public const string INSERT_RETURN_BOOK = "INSERT INTO user_return_book VALUES('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}', '{9}', '{10}', '{11}')";
         public const string DELETE_USER = "DELETE FROM user_list WHERE id = '{0}'";
         public const string DELETE_BOOK = "DELETE FROM book_list WHERE id = {0}";
+        public const string DELETE_RENT_BOOK_WITH = "DELETE FROM user_rent_book WHERE book_id = {0}";
+        public const string DELETE_RETURN_BOOK = "DELETE FROM user_return_book WHERE book_id = {0}";
         public const string DELETE_RENT_BOOK = "DELETE FROM user_rent_book WHERE user_id = '{0}' AND book_id = {1}";
         public const string SELECT_USER = "SELECT * FROM user_list WHERE id = '{0}'";
         public const string SELECT_ALL_USER = "SELECT * FROM user_list";

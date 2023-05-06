@@ -90,6 +90,8 @@ namespace Library.Controller.TotalAccess
                     continue;
                 }
                 AccessorData.DeleteBookData(bookNumber);
+                AccessorData.DeleteRentBookData(bookNumber);
+                AccessorData.DeleteReturnBookData(bookNumber);
                 PrintBookInformation.PrintSuccessDeleteBook();
                 InputFromUser.EnteredESC();
             }

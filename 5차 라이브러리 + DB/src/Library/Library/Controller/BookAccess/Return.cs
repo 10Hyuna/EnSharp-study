@@ -27,7 +27,7 @@ namespace Library.Controller.BookAccess
 
         public void ReturnBook(string userId)       // 책 반납 메소드
         {
-            bool isNotESC = true;
+            bool isESC = true;
             bool isAbleReturn;
 
             string returnId = "";
@@ -38,8 +38,9 @@ namespace Library.Controller.BookAccess
 
             List<UsersBookDTO> returnBookList = new List<UsersBookDTO>();
 
-            while(isNotESC)
+            while(isESC)
             {
+                isESC = false;
                 Console.SetWindowSize(76, 40);
 
                 Console.Clear();
@@ -61,6 +62,7 @@ namespace Library.Controller.BookAccess
                 else if ((!ExceptionHandler.GetExceptionHandler().IsStringAllNumber(returnId)) || returnId == "")     // 책의 아이디가 숫자로 구성돼 있지 않을 경우
                 {
                     GuidancePhrase.SetGuidancePhrase().PrintException((int)EXCEPTION.NOT_MATCH_CONDITION, column, row);
+                    isESC = true;
                     continue;
                 }
                 returnIdNumber = int.Parse(returnId);
@@ -71,6 +73,7 @@ namespace Library.Controller.BookAccess
                 {   
                     // 반납하려는 책의 아이디와 빌린 책의 아이디가 일치하지 않을 경우
                     GuidancePhrase.SetGuidancePhrase().PrintException((int)EXCEPTION.NULL_RENT, column, row);
+                    isESC = true;
                     continue;
                 }
 
@@ -82,7 +85,6 @@ namespace Library.Controller.BookAccess
                 AccessorData.DeleteRentBookData(userId, returnIdNumber);
 
                 UpdateBook(returnBook); // 수량 증가
-                isNotESC = false;
             }
         }
         private void UpdateBook(UsersBookDTO returnBook)

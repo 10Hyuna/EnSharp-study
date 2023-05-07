@@ -28,7 +28,7 @@ namespace Library.Utility
             e.Cancel = true;
         }
 
-        private bool isCharacterOrNumber(char input)        // 문자에 해당하는 값이 입력되었다면
+        private bool IsCharacterOrNumber(char input)        // 문자에 해당하는 값이 입력되었다면
         {
             if ((input >= 'A' && input <= 'Z') || (input >= 'a' && input <= 'z') || (input >= '0' || input <= '9'))
                 return true;
@@ -178,7 +178,7 @@ namespace Library.Utility
         private string inputKeyChar(string input, int maxLength, int column, int row, bool isPassword)
         {       // 유효한 값이 입력되었을 경우
             if(input.Length < maxLength && 
-                isCharacterOrNumber(keyInfo.KeyChar) &&
+                IsCharacterOrNumber(keyInfo.KeyChar) &&
                 keyInfo.KeyChar != '\0')
             {
                 input += keyInfo.KeyChar;

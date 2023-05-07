@@ -103,10 +103,11 @@ namespace Library.Controller.TotalAccess
             List<UserDTO> users = new List<UserDTO>();
             users = AccessorData.SelectAllUserData();
 
-            bool isSucessDelete = false;
+            bool isSucessDelete = true;
             
-            while (!isSucessDelete)
+            while (isSucessDelete)
             {
+                isSucessDelete = false;
                 Console.SetWindowSize(76, 40);
                 Console.Clear();
                 PrintUserInformation.GetPrintUserInformation().PrintManageUser();
@@ -122,6 +123,7 @@ namespace Library.Controller.TotalAccess
                 isSucessDelete = IsAbleDelete(id, (int)MODE.USER);      // 삭제할 수 있는지 확인
                 if (!isSucessDelete)
                 {
+                    isSucessDelete = true;
                     Console.Clear();
                     PrintUserInformation.GetPrintUserInformation().PrintNotWorkedDeleteAccout();
                     InputFromUser.GetInputFromUser().EnteredESC();
@@ -138,11 +140,13 @@ namespace Library.Controller.TotalAccess
 
         private int DeleteMyAccount(string id)      // 회원 탈퇴 메소드
         {
-            bool isSuccessDelete = false; ;
+            bool isSuccessDelete = true;
 
             string inputValue;
-            while (!isSuccessDelete)
+            while (isSuccessDelete)
             {
+                isSuccessDelete = false;
+
                 Console.Clear();
                 PrintUserInformation.GetPrintUserInformation().PrintDeleteAccountUI();
 
@@ -158,8 +162,10 @@ namespace Library.Controller.TotalAccess
                     Console.Clear();
                     PrintUserInformation.GetPrintUserInformation().PrintNotWorkedDeleteAccout();
                     InputFromUser.GetInputFromUser().EnteredESC();
+                    isSuccessDelete = true;
                     continue;
                 }
+
                 LogAddition.SetLogAddition().SetLogValue(Constant.USER_NAME, Constant.DELETE_USER_ACCOUNT, id);
                 AccessorData.DeleteUserData(id);
                 Console.Clear();

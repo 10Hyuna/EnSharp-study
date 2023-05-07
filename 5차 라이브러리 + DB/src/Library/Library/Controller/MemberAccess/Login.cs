@@ -29,14 +29,15 @@ namespace Library.Controller.MemberAccess
         public string EntryLogin(string entryType)      // 로그인하는 메소드
         {
             List<string> account = null;
-            bool isNotValidAccount = true;
+            bool isValidAccount = true;
             string loginResult = "";
 
             int column = 10;
             int row = 12;
 
-            while (isNotValidAccount)
+            while (isValidAccount)
             {
+                isValidAccount = false;
                 Console.SetWindowSize(76, 20);
                 Console.Clear();
                 MainView.SetMainView().PrintLoginUI(entryType);
@@ -65,10 +66,6 @@ namespace Library.Controller.MemberAccess
                 {       // 일치하는 아이디 값의 비밀번호와 입력된 비밀번호의 값이 다르다면
                     GuidancePhrase.SetGuidancePhrase().PrintException((int)EXCEPTION.PW_FAIL, column, row);
                 }
-                else
-                {
-                    isNotValidAccount = false;
-                }
             }
             if(entryType == Constant.USERENTRY)
             {
@@ -93,10 +90,12 @@ namespace Library.Controller.MemberAccess
 
             while (isValidInput)
             {
+                isValidInput = false;
                 id = ExceptionHandler.GetExceptionHandler().IsValidInput(Constant.ID, column, row, 15, Constant.IS_NOT_PASSWORD);
                 if (id == "")
                 {   // 아무 값도 입력하지 않았다면
                     GuidancePhrase.SetGuidancePhrase().PrintException((int)EXCEPTION.NOT_MATCH_CONDITION, 18, row + 2);
+                    isValidInput = true;
                     continue;
                 }
                 if (id == Constant.ESC_STRING)
@@ -109,6 +108,7 @@ namespace Library.Controller.MemberAccess
                 if (password == "")
                 {
                     GuidancePhrase.SetGuidancePhrase().PrintException((int)EXCEPTION.NOT_MATCH_CONDITION, 18, row + 2);
+                    isValidInput = true;
                     continue;
                 }
                 if (password == Constant.ESC_STRING)
@@ -116,7 +116,6 @@ namespace Library.Controller.MemberAccess
                     account.Add(Constant.ESC_STRING);
                     return account;
                 }
-                isValidInput = false;
             }
             account.Add(id);
             account.Add(password);

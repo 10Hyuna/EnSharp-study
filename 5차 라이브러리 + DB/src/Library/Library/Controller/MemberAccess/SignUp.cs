@@ -33,7 +33,7 @@ namespace Library.Controller.MemberAccess
         {
             int successSignUp;
             string inputValue;
-            bool isNotEnter = true;
+            bool isEnter = true;
 
             Console.Clear();
             Console.SetWindowSize(76, 40);
@@ -50,13 +50,14 @@ namespace Library.Controller.MemberAccess
             Console.Clear();
             MainView.SetMainView().SuccessSignUp();       // 회원가입 성공
 
-            while (isNotEnter)
+            while (isEnter)
             {
+                isEnter = false;
                 inputValue = InputFromUser.GetInputFromUser().InputEnterESC();
 
-                if(inputValue == Constant.ENTER_STRING)
+                if(inputValue != Constant.ENTER_STRING)
                 {
-                    isNotEnter = false;
+                    isEnter = true;
                 }
             }
         }
@@ -121,11 +122,12 @@ namespace Library.Controller.MemberAccess
             int row = 15;
 
             string id = "";
-            bool isNotOverlapData = true;
+            bool isOverlapData = true;
             UserDTO overlapUser = null;
 
-            while (isNotOverlapData)
+            while (isOverlapData)
             {
+                isOverlapData = false;
                 id = ExceptionHandler.GetExceptionHandler().IsValidInput(Constant.ID, column, row, 15, Constant.IS_NOT_PASSWORD);
                 if(id == Constant.ESC_STRING)
                 {
@@ -134,18 +136,14 @@ namespace Library.Controller.MemberAccess
 
                 overlapUser = AccessorData.SelectUserData(id);
              
-                if (overlapUser.Id == null)
-                {
-                    isNotOverlapData = false;
-                }
-                else
+                if (overlapUser.Id != null)
                 {
                     GuidancePhrase.SetGuidancePhrase().PrintException((int)EXCEPTION.OVERLAP_DATA, column, row);
                 }
             }
-
             return id;
         }
+
         private string CheckMatchData()     // 입력받은 두 비밀번호 값이 서로 일치하는지 확인
         {
             int column = 50;
@@ -194,6 +192,7 @@ namespace Library.Controller.MemberAccess
 
             while(isValidInput)
             {
+                isValidInput = false;
                 age = ExceptionHandler.GetExceptionHandler().IsValidInput(Constant.AGE, column, row, 5, Constant.IS_NOT_PASSWORD);
 
                 if (age == Constant.ESC_STRING)
@@ -215,7 +214,6 @@ namespace Library.Controller.MemberAccess
                         continue;
                     }
                 }
-                isValidInput = false;
             }
             return int.Parse(age);
         }

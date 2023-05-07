@@ -26,12 +26,13 @@ namespace Library.Controller.BookAccess
         }
         public List<BookDTO> SearchBook(int entryType)      // 책 검색하는 메소드
         {
-            bool isNotESC = true;
+            bool isESC = true;
 
             int row = 6;
             List<BookDTO> books = null;
-            while (isNotESC)
+            while (isESC)
             {
+                isESC = false;
                 Console.SetWindowSize(100, 30);
                 Console.Clear();
                 PrintBookInformation.GetPrintBookInformation().PrintFindingBookUI();
@@ -51,13 +52,13 @@ namespace Library.Controller.BookAccess
                     || searchResult.Author == Constant.ESC_STRING
                     || searchResult.Publisher == Constant.ESC_STRING)
                 {       // 중간에 ESC가 입력되었다면
-                    isNotESC = false;
                     books[0].Title = Constant.ESC_STRING;
                     continue;
                 }
 
                 else if(searchResult.Title == "" && searchResult.Author == "" && searchResult.Publisher == "")
                 {       // 아무 값도 입력되지 않았다면
+                    isESC = true;
                     continue;
                 }
 
@@ -69,6 +70,7 @@ namespace Library.Controller.BookAccess
                     Console.Clear();
                     PrintBookInformation.GetPrintBookInformation().PrintFindingBookUI();
                     GuidancePhrase.SetGuidancePhrase().PrintException((int)EXCEPTION.NULL_SEARCH_BOOK, 1, row + 2);
+                    isESC = true;
                     continue;
                 }
                 if(entryType == (int)USERMENU.FIND
@@ -84,12 +86,12 @@ namespace Library.Controller.BookAccess
                 for(int i = 0; i < books.Count; i++)
                 {
                     PrintBookInformation.GetPrintBookInformation().PrintBookList(books[i]);
-                    isNotESC = false;
+                    isESC = false;
                 }
                 if (entryType == (int)USERMENU.FIND
                     || entryType == (int)MANAGERMODE.FIND)
                 {
-                    isNotESC = !InputFromUser.GetInputFromUser().EnteredESC();
+                    isESC = !InputFromUser.GetInputFromUser().EnteredESC();
                 }
             }
             return books;

@@ -114,7 +114,7 @@ namespace Library.Controller.TotalAccess
                 "출판사 (영어, 한글, 숫자 1개 이상)   :", "수량 ( 1 ~ 999 )                     :",
                 "가격 ( 1 ~ 9999999 )                 :","출시일 ( 19xx or 20xx-xx-xx )        :", "책 정보 수정하기"};
 
-            bool isNotESC = true;
+            bool isESC = true;
 
             int column = 3;
             int row = 9;
@@ -131,8 +131,10 @@ namespace Library.Controller.TotalAccess
             Console.SetWindowSize(76, 30);
             PrintBookInformation.GetPrintBookInformation().PrintDeleteTheBook();
 
-            while (isNotESC)
+            while (isESC)
             {
+                isESC = false;
+
                 validInput = 0;
 
                 selectedIndex = MenuIndexSelector.GetMenuIndexSelector().SelectMenuIndex(menu, selectedIndex, column, row);
@@ -144,44 +146,45 @@ namespace Library.Controller.TotalAccess
                 switch (selectedIndex)
                 {
                     case (int)BOOKINFO.TITLE:
-                        book.Title = ModifyInformation(0, Constant.TITLE, Constant.IS_NOT_PASSWORD);
+                        book.Title = InsertInformation(0, Constant.TITLE, Constant.IS_NOT_PASSWORD);
                         validInput = EnterEsc(book.Title);
                         break;
                     case (int)BOOKINFO.AUTHOR:
-                        book.Author = ModifyInformation(1, Constant.AUTHOR, Constant.IS_NOT_PASSWORD);
+                        book.Author = InsertInformation(1, Constant.AUTHOR, Constant.IS_NOT_PASSWORD);
                         validInput = EnterEsc(book.Author);
                         break;
                     case (int)BOOKINFO.PUBLISHER:
-                        book.Publisher= ModifyInformation(2, Constant.ONEVALUE, Constant.IS_NOT_PASSWORD);
+                        book.Publisher= InsertInformation(2, Constant.ONEVALUE, Constant.IS_NOT_PASSWORD);
                         validInput = EnterEsc(book.Publisher);
                         break;
                     case (int)BOOKINFO.AMOUNT:
-                        amount = ModifyInformation(3, Constant.AMOUNT, Constant.IS_NOT_PASSWORD);
+                        amount = InsertInformation(3, Constant.AMOUNT, Constant.IS_NOT_PASSWORD);
                         validInput = EnterEsc(amount);
                         book.Amount = CheckNumber(validInput, amount);
                         break;
                     case (int)BOOKINFO.PRICE:
-                        price = ModifyInformation(4, Constant.PRICE, Constant.IS_NOT_PASSWORD);
+                        price = InsertInformation(4, Constant.PRICE, Constant.IS_NOT_PASSWORD);
                         validInput = EnterEsc(price);
                         book.Price = CheckNumber(validInput, price);
                         break;
                     case (int)BOOKINFO.PUBLISHDAY:
-                        book.PublishDate = ModifyInformation(5, Constant.PUBLISHDATE, Constant.IS_NOT_PASSWORD);
+                        book.PublishDate = InsertInformation(5, Constant.PUBLISHDATE, Constant.IS_NOT_PASSWORD);
                         validInput = EnterEsc(book.PublishDate);
                         break;
                     case (int)BOOKINFO.SUCCESS:
                         UpdateBookInformation(book);
-                        isNotESC = false;
+                        isESC = true;
                         break;
                 }
-                if (!isNotESC)      // 수정하기 메뉴에서 엔터를 눌렀을 경우,
+                if (isESC)      // 수정하기 메뉴에서 엔터를 눌렀을 경우,
                 {
-                    PrintUserInformation.GetPrintUserInformation().PrintSuccessModify(); 
+                    PrintUserInformation.GetPrintUserInformation().PrintSuccessModify();
                     InputFromUser.GetInputFromUser().EnteredESC();
+                    isESC = false;
                 }
                 if (validInput == Constant.EXIT_INT)
                 {
-                    isNotESC = true;
+                    isESC = true;
                 }
             }
         }
@@ -304,24 +307,24 @@ namespace Library.Controller.TotalAccess
                 switch (selectedMenu)
                 {
                     case (int)MODIFY.PASSWORD:
-                        user.Password = ModifyInformation(7, Constant.PASSWORD, Constant.IS_PASSWORD);
+                        user.Password = InsertInformation(7, Constant.PASSWORD, Constant.IS_PASSWORD);
                         validInput = EnterEsc(user.Password);
                         break;
                     case (int)MODIFY.NAME:
-                        user.Name = ModifyInformation(8, Constant.NAME, Constant.IS_NOT_PASSWORD);
+                        user.Name = InsertInformation(8, Constant.NAME, Constant.IS_NOT_PASSWORD);
                         validInput = EnterEsc(user.Name);
                         break;
                     case (int)MODIFY.AGE:
-                        age = ModifyInformation(9, Constant.AGE, Constant.IS_NOT_PASSWORD);
+                        age = InsertInformation(9, Constant.AGE, Constant.IS_NOT_PASSWORD);
                         validInput = EnterEsc(age);
                         user.Age = CheckNumber(validInput, age);
                         break;
                     case (int)MODIFY.PHONENUMBER:
-                        user.PhoneNumber = ModifyInformation(10, Constant.PHONENUMBER, Constant.IS_NOT_PASSWORD);
+                        user.PhoneNumber = InsertInformation(10, Constant.PHONENUMBER, Constant.IS_NOT_PASSWORD);
                         validInput = EnterEsc(user.PhoneNumber);
                         break;
                     case (int)MODIFY.ADDRESS:
-                        user.Address = ModifyInformation(11, Constant.ADDRESS, Constant.IS_NOT_PASSWORD);
+                        user.Address = InsertInformation(11, Constant.ADDRESS, Constant.IS_NOT_PASSWORD);
                         validInput = EnterEsc(user.Address);
                         break;
                     case (int)MODIFY.SUCCESS:
@@ -360,14 +363,14 @@ namespace Library.Controller.TotalAccess
             return id;
         }
 
-        private string ModifyInformation(int consoleRow, string regex, bool isPassword)     // 입력된 정보의 유효성 검사
+        public string InsertInformation(int consoleRow, string regex, bool isPassword)     // 입력된 정보의 유효성 검사
         {
-            int Column = 42;
+            int column = 42;
             int row = 9 + consoleRow;
 
             string input = "";
 
-            input = ExceptionHandler.GetExceptionHandler().IsValidInput(regex, Column, row, 20, isPassword);
+            input = ExceptionHandler.GetExceptionHandler().IsValidInput(regex, column, row, 20, isPassword);
             if (input == Constant.ESC_STRING)
             {
                 input = null;

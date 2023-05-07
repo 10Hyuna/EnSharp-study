@@ -78,7 +78,6 @@ namespace Library.Controller.BookAccess
         public void AddBook()       // 책 추가
         {
             string successAddBook = "";
-            bool isNotESC = true;
 
             Console.SetWindowSize(73, 40);
             Console.Clear();
@@ -195,10 +194,11 @@ namespace Library.Controller.BookAccess
         {
             string price;
             int priceNumber = 0;
-            bool isNotSuccess = true;
+            bool isSuccess = true;
 
-            while (isNotSuccess)
+            while (isSuccess)
             {
+                isSuccess = false;
                 price = ExceptionHandler.GetExceptionHandler().IsValidInput(Constant.PRICE, column, row, 20, Constant.IS_NOT_PASSWORD);
                 if(price == Constant.ESC_STRING)        // 중간에 ESC 입력
                 {
@@ -207,10 +207,10 @@ namespace Library.Controller.BookAccess
                 else if ((!ExceptionHandler.GetExceptionHandler().IsStringAllNumber(price)) || price == "")        // 숫자로 구성된 값이 아닐 때
                 {
                     GuidancePhrase.SetGuidancePhrase().PrintException((int)EXCEPTION.NOT_MATCH_CONDITION, column, row);
+                    isSuccess = true;
                     continue;
                 }
                 priceNumber = int.Parse(price);
-                isNotSuccess = false;
             }
             return priceNumber;
         }
@@ -220,18 +220,19 @@ namespace Library.Controller.BookAccess
             int row = 15;
 
             int amount = 0;
-            bool isNotSuccess = true;
+            bool isSuccess = true;
 
-            while (isNotSuccess)
+            while (isSuccess)
             {
+                isSuccess = false;
                 amount = ValidPrice(column, row);
 
                 if(amount <= 0 || amount >= 1000)
                 {
                     GuidancePhrase.SetGuidancePhrase().PrintException((int)EXCEPTION.NOT_MATCH_CONDITION, column, row);
+                    isSuccess = true;
                     continue;
                 }
-                isNotSuccess = false;
             }
             return amount;
         }

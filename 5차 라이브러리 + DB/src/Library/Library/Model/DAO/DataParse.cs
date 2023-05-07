@@ -42,10 +42,17 @@ namespace Library.Model.DAO
 
             JObject json = JObject.Parse(totalStorage);
 
+            int count = int.Parse(json["total"].ToString());
+            
+            if(count < displayConut)
+            {
+                displayConut = count;
+            }
+
             for(int i = 0; i < displayConut; i++)
             {
                 BookDTO book = new BookDTO();
-                book.Title = (string)(json["items"].Count)[i]["title"];
+                book.Title = (string)json["items"][i]["title"];
                 book.Author = (string)json["items"][i]["author"];
                 book.Price = int.Parse((string)json["items"][i]["discount"]);
                 book.Publisher = (string)json["items"][i]["publisher"];
@@ -56,7 +63,6 @@ namespace Library.Model.DAO
                 book.Information = string.Format("{0}", information.Substring(0, 100));
                 books.Add(book);
             }
-
             return books;
         }
     }

@@ -42,7 +42,7 @@ namespace Library.Controller.APIAccess
 
             bool isESC = true;
 
-            int column = 14;
+            int column = 13;
             int row = 1;
            
             while(isESC)
@@ -73,7 +73,7 @@ namespace Library.Controller.APIAccess
             string count;
 
             int bookCount = 0;
-            int column = 14;
+            int column = 13;
             int row = 2;
 
             while (isESC)

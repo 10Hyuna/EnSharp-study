@@ -52,24 +52,24 @@ namespace Library.Controller.BookAccess
                 PrintBookInformation.GetPrintBookInformation().PrintRequestBookList(books);
 
                 Console.SetCursorPosition(0, 0);
-                title = InputRequestedBookTitle();
+                title = InputRequestedBookTitle();  // 추가하고자 하는 책의 정보를 입력받을 수 있는 메소드
                 if(title == Constant.ESC_STRING)
                 {
                     continue;
                 }
 
                 requestedBook = AccessorData.GetAccessorData().SelectRequestedBook(title);
-
+                // 입력받은 책의 제목을 포함하는 책 정보를 찾음
                 if(requestedBook.Title == null)
-                {
+                {   // 입력받은 책의 제목을 포함하는 책이 없을 경우 예외 처리
                     GuidancePhrase.SetGuidancePhrase().PrintException((int)EXCEPTION.INVALID_BOOK, column, row);
                     isESC = true;
                     continue;
                 }
 
-                AccessorData.GetAccessorData().InsertBookData(requestedBook);
-                LogAddition.SetLogAddition().SetLogValue(Constant.MANAGER_NAME, Constant.ADD_BOOK, requestedBook.Title);
-                AccessorData.GetAccessorData().DeleteRequestBook(requestedBook.Title);
+                AccessorData.GetAccessorData().InsertBookData(requestedBook);   // 책 추가
+                LogAddition.SetLogAddition().SetLogValue(Constant.MANAGER_NAME, Constant.ADD_BOOK, requestedBook.Title);    // 책 추가 로그 찍기
+                AccessorData.GetAccessorData().DeleteRequestBook(requestedBook.Title);  // 요청된 책 목록에서 책 삭제
                 PrintBookInformation.GetPrintBookInformation().PrintSuccessAddBook();
                 isESC = true;
             }
@@ -105,7 +105,8 @@ namespace Library.Controller.BookAccess
             {
                 isESC = false;
 
-                title = ExceptionHandler.GetExceptionHandler().IsValidInput(Constant.TITLE, column, row, 20, Constant.IS_NOT_PASSWORD);
+                title = ExceptionHandler.GetExceptionHandler().BlockEmptyString(Constant.TITLE, column, row, 20, Constant.IS_NOT_PASSWORD);
+                // 공백 입력 불가능
                 if (title == Constant.ESC_STRING)
                 {
                     continue;
@@ -128,8 +129,10 @@ namespace Library.Controller.BookAccess
             int column = 20;
             int row = 12;
 
-            book.Title = ExceptionHandler.GetExceptionHandler().IsValidInput(Constant.TITLE, column, row, 20, Constant.IS_NOT_PASSWORD); 
+            book.Title = ExceptionHandler.GetExceptionHandler().BlockEmptyString(Constant.TITLE, column, row, 20, Constant.IS_NOT_PASSWORD); 
             // 값 입력
+            // 공백 입력 불가능하도록 함수 구현
+
             if (book.Title == Constant.ESC_STRING)      // 중간에 ESC 입력
             {
                 return book.Title;

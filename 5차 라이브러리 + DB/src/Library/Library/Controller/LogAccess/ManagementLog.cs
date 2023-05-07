@@ -42,18 +42,19 @@ namespace Library.Controller.LogAccess
             while(isESC)
             {
                 isESC = false;
-                logs = AccessorData.GetAccessorData().SelectLog();
+                logs = AccessorData.GetAccessorData().SelectLog();  // 모든 로그 불러옴
                 Console.SetCursorPosition(0, 6);
                 printLogInformation.PrintLog(logs);
 
-                logId = ExceptionHandler.GetExceptionHandler().IsValidInput(Constant.NUMBER, column, row, 3, Constant.IS_NOT_PASSWORD);
+                logId = ExceptionHandler.GetExceptionHandler().IsValidInput(Constant.NUMBER, column, row, 3, Constant.IS_NOT_PASSWORD); 
+                // 삭제하려는 로그 아이디 검색
 
                 if(logId == Constant.ESC_STRING)
                 {
                     continue;
                 }
                 else if (!ExceptionHandler.GetExceptionHandler().IsStringAllNumber(logId) || logId == "")
-                {
+                {   // 숫자가 아니거나 엔터일 경우 예외 처리
                     GuidancePhrase.SetGuidancePhrase().PrintException((int)EXCEPTION.NOT_MATCH_CONDITION, column, row);
                     isESC = true;
                     continue;
@@ -64,21 +65,21 @@ namespace Library.Controller.LogAccess
                 for(int i = 0; i < logs.Count; i++)
                 {
                     if (logs[i].Id == logNumber)
-                    {
+                    {   // 입력받은 값에 해당하는 로그가 있다면
                         AccessorData.GetAccessorData().DeleteOneLog(logNumber);
                         isESC = true;
                         break;
                     }
                 }
                 if(!isESC)
-                {
+                {   // 해당하는 로그가 없는 값을 입력한 경우
                     GuidancePhrase.SetGuidancePhrase().PrintException((int)EXCEPTION.NOT_MATCH_SEARCH, 0, row + 3);
                     continue;
                 }
 
                 Console.SetCursorPosition(column, row);
-                printLogInformation.ModifySuccess();
-                LogAddition.SetLogAddition().SetLogValue(Constant.MANAGER_NAME, Constant.LOG_MODIFY, "로그");
+                printLogInformation.ModifySuccess();    
+                LogAddition.SetLogAddition().SetLogValue(Constant.MANAGER_NAME, Constant.LOG_MODIFY, "로그"); // 로그 찍기
                 InputFromUser.GetInputFromUser().InputEnterESC();
                 isESC = true;
             }
@@ -96,9 +97,9 @@ namespace Library.Controller.LogAccess
                 return;
             }
 
-            SaveLogFile();
-            printLogInformation.SaveSuccessUI();
-            LogAddition.SetLogAddition().SetLogValue(Constant.MANAGER_NAME, Constant.LOG_SAVE, "로그");
+            SaveLogFile();  // 파일 저장
+            printLogInformation.SaveSuccessUI();    
+            LogAddition.SetLogAddition().SetLogValue(Constant.MANAGER_NAME, Constant.LOG_SAVE, "로그"); // 로그 찍기
             InputFromUser.GetInputFromUser().EnteredESC();
         }
 
@@ -111,11 +112,12 @@ namespace Library.Controller.LogAccess
 
             FileInfo file = new FileInfo(path);
 
-            if(!file.Exists)
+            if(!file.Exists)    // 파일이 존재하지 않는다면
             {
                 FileStream fileStream = file.Create();
                 fileStream.Close();
             }
+
             StreamWriter streamWriter = new StreamWriter(path, true);
             for (int i = 0; i < logs.Count; i++)
             {
@@ -141,15 +143,15 @@ namespace Library.Controller.LogAccess
                 {
                     continue;
                 }
-                isSuccessDelete = DeleteLogFile();
-                if (!isSuccessDelete)
+                isSuccessDelete = DeleteLogFile();  // 로그 파일 삭제
+                if (!isSuccessDelete)   // 로그 파일이 없어 삭제하는 데 실패한 경우의 예외 처리
                 {
                     GuidancePhrase.SetGuidancePhrase().PrintException((int)EXCEPTION.NULL_FILE, 19, 15);
                     isESC = true;
                     continue;
                 }
                 printLogInformation.DeleteSuccessUI();
-                LogAddition.SetLogAddition().SetLogValue(Constant.MANAGER_NAME, Constant.LOG_DELETE, "로그");
+                LogAddition.SetLogAddition().SetLogValue(Constant.MANAGER_NAME, Constant.LOG_DELETE, "로그"); // 로그 찍기
                 InputFromUser.GetInputFromUser().EnteredESC();
             }
         }
@@ -160,7 +162,7 @@ namespace Library.Controller.LogAccess
             path += "\\로그 저장.txt";
 
             FileInfo file = new FileInfo(path);
-            if (!file.Exists)
+            if (!file.Exists)   // 파일이 없는 경우
             {
                 return false;
             }
@@ -179,7 +181,7 @@ namespace Library.Controller.LogAccess
             printLogInformation.CheckResetUI();
 
             InputESC();
-            ResetLog();
+            ResetLog(); // 로그 전체 삭제
             printLogInformation.ResetSuccessUI();
             InputFromUser.GetInputFromUser().EnteredESC();
         }

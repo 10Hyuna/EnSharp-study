@@ -25,16 +25,18 @@ namespace Library.Controller.APIAccess
             int requestBookCount = 0;
             string bookInformation;
 
-            PrintBookInformation.GetPrintBookInformation().PrintRequestBook();
             while (isESC)
             {
                 isESC = false;
+                Console.Clear();
+                PrintBookInformation.GetPrintBookInformation().PrintRequestBook();
                 bookInformation = ExceptionHandler.GetExceptionHandler().IsValidInput(Constant.TITLE, column, row, 20, Constant.IS_NOT_PASSWORD);
+                // 요청하고자 하는 책의 정보를 입력받는 메소드 호출
 
                 for (int i = 0; i < requestedBook.Count; i++)
                 {
                     if (requestedBook[i].Title.Contains(bookInformation))
-                    {
+                    {   // 이미 신청되어 있는 책 중에서 내가 추가하려는 책의 제목과 일치하는 값이 있을 경우 예외 처리
                         GuidancePhrase.SetGuidancePhrase().PrintException((int)EXCEPTION.ALREADY_REQUEST, column, row);
                         isESC = true;
                         break;
@@ -49,7 +51,7 @@ namespace Library.Controller.APIAccess
                 for (int i = 0; i < books.Count; i++)
                 {
                     if (books[i].Title.Contains(bookInformation))
-                    {
+                    {   // 추가하고자 하는 책의 정보를 포함하고 있는 검색 결과 찾기
                         requestBookCount++;
                         AccessorData.GetAccessorData().InsertRequestBook(books[i]);
                         LogAddition.SetLogAddition().SetLogValue(userId, books[i].Title, Constant.REQUEST_BOOK);
@@ -57,12 +59,13 @@ namespace Library.Controller.APIAccess
                 }
 
                 if (requestBookCount == 0)
-                {
+                {   // 추가할 수 있는 책이 없다면
                     GuidancePhrase.SetGuidancePhrase().PrintException((int)EXCEPTION.NOT_MATCH_SEARCH, column, row);
                     isESC = true;
                     continue;
                 }
                 PrintBookInformation.GetPrintBookInformation().PrintSuccessRequestBook();
+                InputFromUser.GetInputFromUser().InputEnterESC();
                 isESC = true;
             }
         }

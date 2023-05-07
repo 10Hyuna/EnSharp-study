@@ -220,10 +220,10 @@ namespace Library.View
             Console.SetCursorPosition(0, 5);
             Console.Write("                                  ");
             Console.SetCursorPosition(0, 5);
-            GuidancePhrase.SetGuidancePhrase().PrintEnterISBN();
+            GuidancePhrase.SetGuidancePhrase().PrintEnterRequest();
         }
 
-        public void PrintEraseISBN()
+        public void PrintEraseRequest()
         {
             Console.SetCursorPosition(0, 5);
             Console.Write("                                  ");

@@ -189,7 +189,7 @@ namespace Library.View
             Console.ResetColor();
         }
 
-        public void PrintEnterISBN()
+        public void PrintEnterRequest()
         {
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(" ENTER : 책 요청하기");

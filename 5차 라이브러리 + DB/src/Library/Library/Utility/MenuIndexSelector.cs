@@ -28,7 +28,7 @@ namespace Library.Utility
             return menuIndexSelector;
         }
 
-        public static int SelectMenuIndex(string[] menu, int presentIndex, int consoleColumn, int consoleRow)
+        public int SelectMenuIndex(string[] menu, int presentIndex, int consoleColumn, int consoleRow)
         {
             bool isNotEnter = true;
             int selectedMenuIndex;
@@ -63,7 +63,7 @@ namespace Library.Utility
             return presentIndex;
         }
 
-        private static void ColorMenuIndex(string[] menu, int presentIndex, int consoleColumn, int consoleRow)
+        private void ColorMenuIndex(string[] menu, int presentIndex, int consoleColumn, int consoleRow)
         {
             int originColumn = consoleColumn;
 
@@ -74,12 +74,12 @@ namespace Library.Utility
                 if (i == presentIndex)
                 {
                     Console.ForegroundColor = ConsoleColor.Blue;
-                    GuidancePhrase.PrintMenu(menu[i]);
+                    GuidancePhrase.SetGuidancePhrase().PrintMenu(menu[i]);
                     Console.ResetColor();
                 }
                 else
                 {
-                    GuidancePhrase.PrintMenu(menu[i]);
+                    GuidancePhrase.SetGuidancePhrase().PrintMenu(menu[i]);
                 }
             }
         }

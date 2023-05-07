@@ -226,6 +226,41 @@ namespace Library.Model.DAO
             return books;
         }
 
+        public List<LogVO> SelectLog()
+        {
+            string stringQuery = string.Format(Constant.SELECT_LOG);
+            Hashtable hashtable = connectionDataBase.SelectData(stringQuery);
+            List<LogVO> logs = new List<LogVO>();
+            if(hashtable.Count == 0) 
+            {
+                return logs;
+            }
+            for(int i = 0; i < ((ArrayList)hashtable["id"]).Count; i++)
+            {
+                LogVO log = new LogVO(int.Parse(((ArrayList)hashtable["id"])[i].ToString()), ((ArrayList)hashtable["time"])[i].ToString(), ((ArrayList)hashtable["user"])[i].ToString(), ((ArrayList)hashtable["information"])[i].ToString(), ((ArrayList)hashtable["action"])[i].ToString());
+                logs.Add(log);
+            }
+            return logs;
+        }
+
+        public void DeleteOneLog(int id)
+        {
+            string stringQuery = string.Format(Constant.DELETE_ONE_LOG, id);
+            connectionDataBase.CUD(stringQuery);
+        }
+
+        public void DeleteLog()
+        {
+            string stringQuery = string.Format(Constant.DELETE_LOG);
+            connectionDataBase.CUD(stringQuery);
+        }
+
+        public void InsertLog(LogVO log)
+        {
+            string stringQuery = string.Format(Constant.INSERT_LOG, log.Time, log.User, log.Information, log.Action);
+            connectionDataBase.CUD(stringQuery);
+        }
+
         public BookDTO SelectRequestedBook(string title)
         {
             string stringQuery = string.Format(Constant.SELECT_REQUESTED_BOOK, title);

@@ -27,7 +27,7 @@ namespace Library.View
             }
             return printUserInformation;
         }
-        public static void PrintManageUser()
+        public void PrintManageUser()
         {
             Console.WriteLine("\n\t    ------------------------------------------------\n");
             Console.WriteLine("\t\t             삭제할 유저 ID:\n");
@@ -35,7 +35,7 @@ namespace Library.View
             GuidancePhrase.SetGuidancePhrase().PrintEsc();
             GuidancePhrase.SetGuidancePhrase().PrintEnter();
         }
-        public static void PrintSuccessDeleteUser()
+        public void PrintSuccessDeleteUser()
         {
             Console.SetWindowSize(76, 8);
             Console.Clear();
@@ -45,7 +45,7 @@ namespace Library.View
             GuidancePhrase.SetGuidancePhrase().PrintEsc();
         }
 
-        public static void PrintModiFyUserIdUI()
+        public void PrintModiFyUserIdUI()
         {
             Console.WriteLine("\n\t    ------------------------------------------------\n");
             Console.WriteLine("\t\t             수정할 유저 ID:\n");
@@ -54,7 +54,7 @@ namespace Library.View
             GuidancePhrase.SetGuidancePhrase().PrintEnter();
         }
 
-        public static void PrintSuccessModify()
+        public void PrintSuccessModify()
         {
             Console.SetWindowSize(76, 8);
             Console.Clear();
@@ -64,7 +64,7 @@ namespace Library.View
             GuidancePhrase.SetGuidancePhrase().PrintEsc();
         }
 
-        public static void PrintUserList(List<UserDTO> user)
+        public void PrintUserList(List<UserDTO> user)
         {
             for (int i = 0; i < user.Count; i++)
             {
@@ -77,7 +77,7 @@ namespace Library.View
             }
         }
 
-        public static void PrintRentalStateUI()
+        public void PrintRentalStateUI()
         {
             Console.SetCursorPosition(0, 2);
             Console.WriteLine("     대 여 상 황\n");
@@ -85,7 +85,7 @@ namespace Library.View
             GuidancePhrase.SetGuidancePhrase().PrintEnter();
         }
 
-        public static void PrintUserId(string id)
+        public void PrintUserId(string id)
         {
             Console.WriteLine("====================================================");
             Console.ForegroundColor= ConsoleColor.Green;
@@ -93,7 +93,7 @@ namespace Library.View
             Console.ResetColor();
         }
 
-        public static void PrintModifyMyInformationUI()
+        public void PrintModifyMyInformationUI()
         {
             Console.SetCursorPosition(0, 0);
             MainView.SetMainView().PrintBox(3);
@@ -101,7 +101,7 @@ namespace Library.View
             Console.WriteLine("개 인 정 보 바 꾸 기\n\n\n");
         }
 
-        public static void PrintDeleteAccountUI()
+        public void PrintDeleteAccountUI()
         {
             const int consoleInputRow = 26;
             const int consoleInputColumn = 10;
@@ -120,7 +120,7 @@ namespace Library.View
             Console.ResetColor();
         }
 
-        public static void PrintNotWorkedDeleteAccout()
+        public void PrintNotWorkedDeleteAccout()
         {
             const int consoleInputRow = 20;
             const int consoleInputColumn = 13;
@@ -135,7 +135,7 @@ namespace Library.View
             Console.WriteLine("            ESC : 뒤로가기");
         }
 
-        public static void PrintSuccessDeleteAccount()
+        public void PrintSuccessDeleteAccount()
         {
             const int consoleInputRow = 35;
             const int consoleInputColumn = 10;

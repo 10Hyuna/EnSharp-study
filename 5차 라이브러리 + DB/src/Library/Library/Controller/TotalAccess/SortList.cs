@@ -56,30 +56,45 @@ namespace Library.Controller.TotalAccess
                     AnnounceRentBookList();
                     break;
                 case (int)ENTRY.REQUEST:
-                    AnnounceRequestBookList(requestBook);
+                    AnnounceRequestBookList(requestBook, id);
                     break;
             }
         }
 
         private void AnnounceBookList(int entryType, string id, List<UsersBookDTO> books)
         {
-            if(books.Count > 0)
+            if (entryType == (int)(ENTRY.RENTAL))
             {
-                if(entryType == (int)(ENTRY.RENTAL))
+                LogAddition.SetLogAddition().SetLogValue(Constant.USER_NAME, Constant.CHECK_RENT, id);
+                PrintBookInformation.GetPrintBookInformation().PrintRentReturnBookTitle(Constant.RENT);
+            }
+            else
+            {
+                LogAddition.SetLogAddition().SetLogValue(Constant.USER_NAME, Constant.CHECK_RETURN, id);
+                PrintBookInformation.GetPrintBookInformation().PrintRentReturnBookTitle(Constant.RETURN);
+            }
+            if (books.Count > 0)
+            {
+                PrintBookInformation.GetPrintBookInformation().PrintUserBookListUI(books);
+            }
+            else
+            {
+                if (entryType == (int)(ENTRY.RENTAL))
                 {
-                    PrintBookInformation.GetPrintBookInformation().PrintRentReturnBookTitle(Constant.RENT);
+                    GuidancePhrase.SetGuidancePhrase().PrintException((int)EXCEPTION.NULL_RENT, 1, 5);
                 }
                 else
                 {
-                    PrintBookInformation.GetPrintBookInformation().PrintRentReturnBookTitle(Constant.RETURN);
+                    GuidancePhrase.SetGuidancePhrase().PrintException((int)EXCEPTION.NULL_RETURN, 1, 5);
                 }
-                PrintBookInformation.GetPrintBookInformation().PrintUserBookListUI(books);
             }
             InputFromUser.GetInputFromUser().InputEnterESC();
         }
 
-        private void AnnounceRequestBookList(List<BookDTO> books)
+        private void AnnounceRequestBookList(List<BookDTO> books, string id)
         {
+            Console.SetWindowSize(76, 40);
+            LogAddition.SetLogAddition().SetLogValue(Constant.USER_NAME, Constant.REQUEST_BOOK, id);
             PrintBookInformation.GetPrintBookInformation().PrintRentReturnBookTitle(Constant.REQUEST);
             PrintBookInformation.GetPrintBookInformation().PrintRequestBookList(books);
             InputFromUser.GetInputFromUser().InputEnterESC();
@@ -91,8 +106,8 @@ namespace Library.Controller.TotalAccess
 
             users = AccessorData.SelectAllUserData();
 
-            PrintUserInformation.PrintRentalStateUI();
-
+            PrintUserInformation.GetPrintUserInformation().PrintRentalStateUI();
+            LogAddition.SetLogAddition().SetLogValue(Constant.MANAGER_NAME, Constant.CHECK_RENT, "managerid12");
             for (int i = 0; i < users.Count; i++)
             {
                 List<UsersBookDTO> rentBooks = new List<UsersBookDTO>();
@@ -103,7 +118,7 @@ namespace Library.Controller.TotalAccess
                     continue;
                 }
 
-                PrintUserInformation.PrintUserId(users[i].Id);
+                PrintUserInformation.GetPrintUserInformation().PrintUserId(users[i].Id);
                 PrintBookInformation.GetPrintBookInformation().PrintUserBookListUI(rentBooks);
             }
             InputFromUser.GetInputFromUser().InputEnterESC();

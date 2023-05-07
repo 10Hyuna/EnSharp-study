@@ -68,6 +68,7 @@ namespace Library.Controller.BookAccess
                 }
 
                 AccessorData.GetAccessorData().InsertBookData(requestedBook);
+                LogAddition.SetLogAddition().SetLogValue(Constant.MANAGER_NAME, Constant.ADD_BOOK, requestedBook.Title);
                 AccessorData.GetAccessorData().DeleteRequestBook(requestedBook.Title);
                 PrintBookInformation.GetPrintBookInformation().PrintSuccessAddBook();
                 isESC = true;
@@ -184,6 +185,7 @@ namespace Library.Controller.BookAccess
                 return Constant.ESC_STRING;
             }
             AccessorData.GetAccessorData().InsertBookData(book);
+            LogAddition.SetLogAddition().SetLogValue(Constant.MANAGER_NAME, Constant.ADD_BOOK, book.Title);
             PrintBookInformation.GetPrintBookInformation().PrintSuccessAddBook();
             InputFromUser.GetInputFromUser().EnteredESC();
             return Constant.SUCCESS.ToString();

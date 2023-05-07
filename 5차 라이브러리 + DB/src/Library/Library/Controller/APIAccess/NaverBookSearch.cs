@@ -22,7 +22,7 @@ namespace Library.Controller.APIAccess
             requestmentBook = new RequestmentBook();
         }
 
-        public void EnterNaverSearch()
+        public void EnterNaverSearch(int entryType, string userId)
         {
             string bookInformation;
             int bookCount;
@@ -55,11 +55,17 @@ namespace Library.Controller.APIAccess
 
                 PrintBookInformation.GetPrintBookInformation().PrintNaverSearchResult();
                 books = SearchBook(bookInformation, bookCount);
+                LogAddition.SetLogAddition().SetLogValue(userId, bookInformation, Constant.NAVER_SEARCH);
                 PrintBookInformation.GetPrintBookInformation().PrintRequestBookList(books);
                 Console.SetCursorPosition(0, 0);
 
                 isESC = InputFromUser.GetInputFromUser().InputEnterESC();
-                EnterRequestMenu(isESC, books);
+                if(entryType == (int)MODE.MANAGER)
+                {
+                    PrintBookInformation.GetPrintBookInformation().PrintEraseISBN();
+                    return;
+                }
+                EnterRequestMenu(isESC, books, userId);
             }
         }
 
@@ -140,14 +146,14 @@ namespace Library.Controller.APIAccess
             return books;
         }
 
-        private void EnterRequestMenu(string enterValue, List<BookDTO> books)
+        private void EnterRequestMenu(string enterValue, List<BookDTO> books, string userId)
         {
             switch(enterValue)
             {
                 case Constant.ESC_STRING:
                     return;
                 case Constant.ENTER_STRING:
-                    requestmentBook.RequestBook(books);
+                    requestmentBook.RequestBook(books, userId);
                     break;
             }
         }

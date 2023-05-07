@@ -106,6 +106,7 @@ namespace Library.Controller.BookAccess
                 // 책을 빌리고 나서 수량 감소
 
                 AccessorData.InsertRentBookData(userId, searchedBook[bookIndex]);
+                LogAddition.SetLogAddition().SetLogValue(Constant.USER_NAME, Constant.SUCCESS_RENT, searchedBook[bookIndex].Title);
                 AccessorData.UpdateBookIntData(searchedBook[bookIndex].Id, "amount", searchedBook[bookIndex].Amount);
                 PrintBookInformation.GetPrintBookInformation().PrintSuccessRent();
                 isNotESC = InputFromUser.GetInputFromUser().EnteredESC();

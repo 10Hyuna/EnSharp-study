@@ -110,6 +110,8 @@ namespace Library.Controller.MemberAccess
             }
 
             AccessorData.InsertUserData(user);
+            LogAddition.SetLogAddition().SetLogValue(Constant.USER_NAME, Constant.SIGNUP, user.Id);
+
             return Constant.SUCCESS;
         }
 
@@ -131,7 +133,7 @@ namespace Library.Controller.MemberAccess
                 }
 
                 overlapUser = AccessorData.SelectUserData(id);
-
+             
                 if (overlapUser.Id == null)
                 {
                     isNotOverlapData = false;

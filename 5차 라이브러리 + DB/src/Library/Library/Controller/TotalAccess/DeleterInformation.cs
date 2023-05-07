@@ -89,6 +89,7 @@ namespace Library.Controller.TotalAccess
                     GuidancePhrase.SetGuidancePhrase().PrintException((int)EXCEPTION.NOT_MATCH_SEARCH, column, row - 3);
                     continue;
                 }
+
                 AccessorData.DeleteBookData(bookNumber);
                 AccessorData.DeleteRentBookData(bookNumber);
                 AccessorData.DeleteReturnBookData(bookNumber);
@@ -108,9 +109,9 @@ namespace Library.Controller.TotalAccess
             {
                 Console.SetWindowSize(76, 40);
                 Console.Clear();
-                PrintUserInformation.PrintManageUser();
+                PrintUserInformation.GetPrintUserInformation().PrintManageUser();
 
-                PrintUserInformation.PrintUserList(users);
+                PrintUserInformation.GetPrintUserInformation().PrintUserList(users);
 
                 id = SearchId((int)MODE.USER);      // 삭제하려는 유저의 아이디 입력
                 if (id == Constant.ESC_STRING)
@@ -122,14 +123,15 @@ namespace Library.Controller.TotalAccess
                 if (!isSucessDelete)
                 {
                     Console.Clear();
-                    PrintUserInformation.PrintNotWorkedDeleteAccout();
+                    PrintUserInformation.GetPrintUserInformation().PrintNotWorkedDeleteAccout();
                     InputFromUser.GetInputFromUser().EnteredESC();
                     continue;
                 }
 
+                LogAddition.SetLogAddition().SetLogValue(Constant.MANAGER_NAME, Constant.DELETE_USER_ACCOUNT, id);
                 AccessorData.DeleteUserData(id);
                 Console.Clear();
-                PrintUserInformation.PrintSuccessDeleteUser();
+                PrintUserInformation.GetPrintUserInformation().PrintSuccessDeleteUser();
                 InputFromUser.GetInputFromUser().EnteredESC();
             }
         }
@@ -142,7 +144,7 @@ namespace Library.Controller.TotalAccess
             while (!isSuccessDelete)
             {
                 Console.Clear();
-                PrintUserInformation.PrintDeleteAccountUI();
+                PrintUserInformation.GetPrintUserInformation().PrintDeleteAccountUI();
 
                 inputValue = InputFromUser.GetInputFromUser().InputEnterESC();     // 엔터를 입력하면 회원탈퇴
                 if(inputValue == Constant.ESC_STRING)
@@ -154,14 +156,14 @@ namespace Library.Controller.TotalAccess
                 if(!isSuccessDelete)
                 {
                     Console.Clear();
-                    PrintUserInformation.PrintNotWorkedDeleteAccout();
+                    PrintUserInformation.GetPrintUserInformation().PrintNotWorkedDeleteAccout();
                     InputFromUser.GetInputFromUser().EnteredESC();
                     continue;
                 }
-
+                LogAddition.SetLogAddition().SetLogValue(Constant.USER_NAME, Constant.DELETE_USER_ACCOUNT, id);
                 AccessorData.DeleteUserData(id);
                 Console.Clear();
-                PrintUserInformation.PrintSuccessDeleteAccount();
+                PrintUserInformation.GetPrintUserInformation().PrintSuccessDeleteAccount();
                 InputFromUser.GetInputFromUser().EnteredESC();
             }
             return Constant.DELETE_ACCOUNT;
@@ -189,6 +191,7 @@ namespace Library.Controller.TotalAccess
                 {
                     return false;
                 }
+                LogAddition.SetLogAddition().SetLogValue(Constant.MANAGER_NAME, Constant.DELETE_BOOK_INFROMATION, book.Title);
                 return true;
             }
         }

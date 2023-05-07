@@ -103,6 +103,7 @@ namespace Library.Controller.BookAccess
                 AccessorData.DeleteReturnBookData(returnBook.Id);
             }
             AccessorData.InsertReturnBookData(returnedBook);
+            LogAddition.SetLogAddition().SetLogValue(Constant.USER_NAME, Constant.SUCCESS_RETURN, returnedBook.Title);
         }
     }
 }

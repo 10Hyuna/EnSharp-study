@@ -56,7 +56,7 @@ namespace Library.Controller.SelectorMode
                 Console.Clear();
                 MainView.SetMainView().PrintMain();
                 MainView.SetMainView().PrintBox(4);
-                menuIndex = MenuIndexSelector.SelectMenuIndex(modeMenu, menuIndex, consoleColumn, consoleRow);
+                menuIndex = MenuIndexSelector.GetMenuIndexSelector().SelectMenuIndex(modeMenu, menuIndex, consoleColumn, consoleRow);
 
                 if(menuIndex == Constant.EXIT_INT)
                 {

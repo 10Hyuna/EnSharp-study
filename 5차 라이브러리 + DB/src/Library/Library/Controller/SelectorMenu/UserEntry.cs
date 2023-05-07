@@ -60,7 +60,7 @@ namespace Library.Controller.SelectorMode
                 MainView.SetMainView().PrintMain();
                 MainView.SetMainView().PrintBox(4);
 
-                selectedMenu = MenuIndexSelector.SelectMenuIndex(menu, selectedMenu, column, row);
+                selectedMenu = MenuIndexSelector.GetMenuIndexSelector().SelectMenuIndex(menu, selectedMenu, column, row);
 
                 if(selectedMenu == Constant.EXIT_INT)
                 {

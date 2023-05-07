@@ -52,7 +52,7 @@ namespace Library.Controller.SelectorMode
                 MainView.PrintMain();
                 MainView.PrintBox(11);
 
-                selectedMenu = MenuIndexSelector.SelectMenuIndex(menu, selectedMenu, column, row);
+                selectedMenu = MenuIndexSelector.GetMenuIndexSelector().SelectMenuIndex(menu, selectedMenu, column, row);
 
                 if(selectedMenu == Constant.EXIT_INT)
                 {
@@ -97,7 +97,7 @@ namespace Library.Controller.SelectorMode
                     breakPoint = deleterInformation.DeleteUserInformation((int)MODE.USER, userId);
                     break;
                 case (int)USERMENU.NAVER_SEARCH:
-                    naverBookSearch.EnterNaverSearch();
+                    naverBookSearch.EnterNaverSearch((int)MODE.USER, userId);
                     break;
                 case (int)USERMENU.REQUEST_LIST:
                     sortList.AnnounceBookState((int)ENTRY.REQUEST, userId);

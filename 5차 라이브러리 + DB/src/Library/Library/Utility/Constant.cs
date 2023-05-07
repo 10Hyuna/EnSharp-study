@@ -19,6 +19,30 @@ namespace Library.Utility
         public const int ENTER_INT = 10;
         public const int SUCCESS = 20;
 
+        public const string LOG_SAVE_FORMAT = "로그 아이디 : {0} // 로그 시간 : {1} // 로그 사용자 : {2} // 로그 정보 : {3} // 로그 행위 : {4}";
+
+        public const string USER_NAME = "유저";
+        public const string MANAGER_NAME = "관리자";
+
+        public const string LOGIN = "로그인";
+        public const string SIGNUP = "회원가입";
+        public const string SUCCESS_RENT = "책 대여";
+        public const string CHECK_RENT = "대여 내역 확인";
+        public const string SUCCESS_RETURN = "책 반납";
+        public const string CHECK_RETURN = "반납 내역 확인";
+        public const string MODIFY_USER_INFORMATION = "유저 정보 수정";
+        public const string DELETE_USER_ACCOUNT = "계정 삭제";
+        public const string NAVER_SEARCH = "네이버 검색";
+        public const string REQUEST_BOOK = "책 요청 내역";
+        public const string ADD_BOOK = "책 추가";
+        public const string DELETE_BOOK_INFROMATION = "책 삭제";
+        public const string MODIFY_BOOK = "책 수정";
+        public const string MANAGEMENT_ACCOUNT = "회원 관리";
+        public const string LOG_MODIFY = "로그 수정";
+        public const string LOG_SAVE = "로그 저장";
+        public const string LOG_DELETE = "로그 삭제";
+        public const string LOG_RESET = "로그 초기화";
+
         public const string BOOK_ID__UI = "{0}할 책의 ID를 입력해 주세요";
         public const string BOOK_LIST_UI = "\n{0} 책의 리스트\n";
 
@@ -65,12 +89,16 @@ namespace Library.Utility
         public const string INSERT_REQUEST_BOOK = "INSERT INTO request_book (title, author, publisher, price, publishdate, isbn, information) VALUES('{0}', '{1}', '{2}', {3}, '{4}', '{5}', '{6}')";
         public const string INSERT_RENT_BOOK = "INSERT INTO user_rent_book VALUES('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}', '{9}', '{10}', '{11}')";
         public const string INSERT_RETURN_BOOK = "INSERT INTO user_return_book VALUES('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}', '{9}', '{10}', '{11}')";
+        public const string INSERT_LOG = "INSERT INTO log (time, user, information, action) VALUES('{0}', '{1}', '{2}', '{3}')";
         public const string DELETE_USER = "DELETE FROM user_list WHERE id = '{0}'";
         public const string DELETE_BOOK = "DELETE FROM book_list WHERE id = {0}";
         public const string DELETE_RENT_BOOK_WITH = "DELETE FROM user_rent_book WHERE book_id = {0}";
         public const string DELETE_RETURN_BOOK = "DELETE FROM user_return_book WHERE book_id = {0}";
         public const string DELETE_RENT_BOOK = "DELETE FROM user_rent_book WHERE user_id = '{0}' AND book_id = {1}";
         public const string DELETE_REQUEST_BOOK = "DELETE FROM request_book WHERE title = '{0}'";
+        public const string DELETE_ONE_LOG = "DELETE FROM log WHERE id = {0}";
+        public const string DELETE_LOG = "DELETE FROM log";
+        public const string SELECT_LOG = "SELECT * FROM log";
         public const string SELECT_USER = "SELECT * FROM user_list WHERE id = '{0}'";
         public const string SELECT_ALL_USER = "SELECT * FROM user_list";
         public const string SELECT_MANAGER = "SELECT * FROM manager_list WHERE id = '{0}'";
@@ -111,10 +139,12 @@ enum EXCEPTION
     LEAK_AMOUNT,
     ALREADY_RENT,
     NULL_RENT,
+    NULL_RETURN,
     NOT_MATCH_SEARCH,
     NOT_MATCH_COUNT,
     ALREADY_REQUEST,
-    INVALID_BOOK
+    INVALID_BOOK,
+    NULL_FILE
 }
 enum MODE
 {
@@ -187,4 +217,12 @@ enum BOOKINFO
     PRICE,
     PUBLISHDAY,
     SUCCESS
+}
+
+enum LOG
+{
+    MODIFY,
+    SAVE,
+    DELETE,
+    RESET
 }

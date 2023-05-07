@@ -135,7 +135,7 @@ namespace Library.Controller.TotalAccess
             {
                 validInput = 0;
 
-                selectedIndex = MenuIndexSelector.SelectMenuIndex(menu, selectedIndex, column, row);
+                selectedIndex = MenuIndexSelector.GetMenuIndexSelector().SelectMenuIndex(menu, selectedIndex, column, row);
                 if(selectedIndex == Constant.EXIT_INT)
                 {
                     return;
@@ -176,7 +176,7 @@ namespace Library.Controller.TotalAccess
                 }
                 if (!isNotESC)      // 수정하기 메뉴에서 엔터를 눌렀을 경우,
                 {
-                    PrintUserInformation.PrintSuccessModify(); 
+                    PrintUserInformation.GetPrintUserInformation().PrintSuccessModify(); 
                     InputFromUser.GetInputFromUser().EnteredESC();
                 }
                 if (validInput == Constant.EXIT_INT)
@@ -212,6 +212,7 @@ namespace Library.Controller.TotalAccess
             {
                 AccessorData.UpdateBookStringData(book.Id, "publishdate", book.PublishDate);
             }
+            LogAddition.SetLogAddition().SetLogValue(Constant.MANAGER_NAME, Constant.MODIFY_BOOK, book.Title);
         }
 
         private void EnterManagerMode()         // 매니저 모드에서 진입
@@ -231,8 +232,8 @@ namespace Library.Controller.TotalAccess
 
                 users = AccessorData.SelectAllUserData();
 
-                PrintUserInformation.PrintModiFyUserIdUI();
-                PrintUserInformation.PrintUserList(users);
+                PrintUserInformation.GetPrintUserInformation().PrintModiFyUserIdUI();
+                PrintUserInformation.GetPrintUserInformation().PrintUserList(users);
                 Console.SetCursorPosition(0, 0);
 
                 id = SearchId((int)MODE.USER);      // 수정하려는 책의 아이디 입력
@@ -286,14 +287,14 @@ namespace Library.Controller.TotalAccess
             Console.Clear();
             Console.SetCursorPosition(2, 15);
 
-            PrintUserInformation.PrintModifyMyInformationUI();
-            PrintUserInformation.PrintUserList(users);
+            PrintUserInformation.GetPrintUserInformation().PrintModifyMyInformationUI();
+            PrintUserInformation.GetPrintUserInformation().PrintUserList(users);
 
             while (isNotESC)
             {
                 validInput = 0;
 
-                selectedMenu = MenuIndexSelector.SelectMenuIndex(menu, selectedMenu, column, row);
+                selectedMenu = MenuIndexSelector.GetMenuIndexSelector().SelectMenuIndex(menu, selectedMenu, column, row);
 
                 if (selectedMenu == Constant.EXIT_INT)
                 {
@@ -330,7 +331,7 @@ namespace Library.Controller.TotalAccess
                 }
                 if (!isNotESC)
                 {
-                    PrintUserInformation.PrintSuccessModify();
+                    PrintUserInformation.GetPrintUserInformation().PrintSuccessModify();
                     InputFromUser.GetInputFromUser().EnteredESC();
                 }
                 if(validInput == Constant.EXIT_INT)
@@ -409,6 +410,7 @@ namespace Library.Controller.TotalAccess
             {
                 AccessorData.UpdateStringUserData(id, "address", user.Address);
             }
+            LogAddition.SetLogAddition().SetLogValue(Constant.MANAGER_NAME, Constant.MODIFY_USER_INFORMATION, id);
         }
 
         private int CheckNumber(int validInput, string input)

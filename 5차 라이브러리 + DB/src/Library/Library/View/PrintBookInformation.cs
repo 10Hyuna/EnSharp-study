@@ -223,6 +223,12 @@ namespace Library.View
             GuidancePhrase.SetGuidancePhrase().PrintEnterISBN();
         }
 
+        public void PrintEraseISBN()
+        {
+            Console.SetCursorPosition(0, 5);
+            Console.Write("                                  ");
+        }
+
         public void PrintRequestBook()
         {
             Console.SetCursorPosition(0, 1);

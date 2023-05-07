@@ -13,7 +13,7 @@ namespace Library.Controller.APIAccess
 {
     public class RequestmentBook
     {
-        public void RequestBook(List<BookDTO> books)
+        public void RequestBook(List<BookDTO> books, string userId)
         {
             List<BookDTO> requestedBook = new List<BookDTO>();
             requestedBook = AccessorData.GetAccessorData().SelectRequestBook();
@@ -52,6 +52,7 @@ namespace Library.Controller.APIAccess
                     {
                         requestBookCount++;
                         AccessorData.GetAccessorData().InsertRequestBook(books[i]);
+                        LogAddition.SetLogAddition().SetLogValue(userId, books[i].Title, Constant.REQUEST_BOOK);
                     }
                 }
 

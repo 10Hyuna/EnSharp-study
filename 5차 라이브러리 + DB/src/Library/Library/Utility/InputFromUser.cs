@@ -30,7 +30,7 @@ namespace Library.Utility
 
         private bool isCharacterOrNumber(char input)        // 문자에 해당하는 값이 입력되었다면
         {
-            if (input >= 'A' && input <= 'Z' || input >= 'a' && input <= 'z' || input >= '0' || input <= '9')
+            if ((input >= 'A' && input <= 'Z') || (input >= 'a' && input <= 'z') || (input >= '0' || input <= '9'))
                 return true;
             return false;
         }

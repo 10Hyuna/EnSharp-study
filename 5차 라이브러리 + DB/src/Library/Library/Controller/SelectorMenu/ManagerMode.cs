@@ -1,5 +1,6 @@
 ﻿using Library.Controller.APIAccess;
 using Library.Controller.BookAccess;
+using Library.Controller.LogAccess;
 using Library.Controller.MemberAccess;
 using Library.Controller.SelectorMenu;
 using Library.Controller.TotalAccess;
@@ -25,6 +26,7 @@ namespace Library.Controller.SelectorMode
         Addition addition;
         UserManagement userManagement;
         NaverBookSearch naverBookSearch;
+        Log log;
         public ManagerMode(Searcher searcher, SortList sortList, DeleterInformation deleterInformation, 
             ModificationInformation modificationInformation, NaverBookSearch naverBookSearch)
         {
@@ -37,6 +39,7 @@ namespace Library.Controller.SelectorMode
             menuIndexSelector = MenuIndexSelector.GetMenuIndexSelector();
             addition = new Addition();
             userManagement = new UserManagement(modificationInformation, deleterInformation);
+            log = new Log();
         }
 
         public void EnterMenu()
@@ -57,7 +60,7 @@ namespace Library.Controller.SelectorMode
                 MainView.SetMainView().PrintMain();
                 MainView.SetMainView().PrintBox(11);
 
-                selectedMenu = MenuIndexSelector.SelectMenuIndex(menu, selectedMenu, column, row);
+                selectedMenu = MenuIndexSelector.GetMenuIndexSelector().SelectMenuIndex(menu, selectedMenu, column, row);
 
                 if (selectedMenu == Constant.EXIT_INT)
                 {
@@ -74,7 +77,7 @@ namespace Library.Controller.SelectorMode
             switch(selectedMenu)
             {
                 case (int)MANAGERMODE.FIND:
-                    searcher.SearchBook((int)MANAGERMODE.FIND);
+                    searcher.SearchBook((int)MANAGERMODE.MANAGEMENT);
                     break;
                 case (int)MANAGERMODE.ADD:
                     addition.AddBook();
@@ -92,10 +95,10 @@ namespace Library.Controller.SelectorMode
                     sortList.AnnounceBookState((int)ENTRY.MANAGER, "");
                     break;
                 case (int)MANAGERMODE.NAVER_SEARCH:
-                    naverBookSearch.EnterNaverSearch();
+                    naverBookSearch.EnterNaverSearch((int)MODE.MANAGER, "관리자");
                     break;
                 case (int)MANAGERMODE.LOG_MANAGEMENT:
-
+                    log.SelectMenu();
                     break;
                 case (int)MANAGERMODE.REQUEST_BOOK:
                     addition.AddRequestedBook();

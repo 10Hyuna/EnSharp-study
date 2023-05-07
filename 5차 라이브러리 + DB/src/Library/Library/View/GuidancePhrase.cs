@@ -21,7 +21,7 @@ namespace Library.View
             return guidancePhrase;
         }
 
-        public static void PrintMenu(string menu)
+        public void PrintMenu(string menu)
         {
             Console.Write(menu);
         }
@@ -119,6 +119,15 @@ namespace Library.View
                 Console.SetCursorPosition(column, row);
                 EraseAnounce();
             }
+            else if (condition == (int)EXCEPTION.NULL_RETURN)
+            {
+                Console.SetCursorPosition(column, row);
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("반납 책이 없습니다");
+                Console.ResetColor();
+                Console.SetCursorPosition(column, row);
+                EraseAnounce();
+            }
             else if(condition == (int)EXCEPTION.NOT_MATCH_SEARCH)
             {
                 Console.SetCursorPosition(column, row);
@@ -155,6 +164,15 @@ namespace Library.View
                 Console.SetCursorPosition(column, row);
                 EraseAnounce();
             }
+            else if(condition == (int)EXCEPTION.NULL_FILE)
+            {
+                Console.SetCursorPosition(column, row);
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("삭제할 수 있는 로그 파일이 없습니다");
+                Console.ResetColor();
+                Console.SetCursorPosition(column, row);
+                EraseAnounce();
+            }
         }
 
         public void PrintEsc()
@@ -178,7 +196,7 @@ namespace Library.View
             Console.ResetColor();
         }
 
-        private static void EraseAnounce()
+        private void EraseAnounce()
         {
             ConsoleKeyInfo keyInfo;
 
@@ -191,14 +209,9 @@ namespace Library.View
                 if (keyInfo.Key == ConsoleKey.Enter || keyInfo.Key == ConsoleKey.Escape)
                 {
                     isEnteredESC = true;
-                    Console.Write("                                               ");
+                    Console.Write("                                                                        ");
                 }
             }
-        }
-
-        public static void ErasePrint()
-        {
-            Console.Write("                                           ");
         }
     }
 }

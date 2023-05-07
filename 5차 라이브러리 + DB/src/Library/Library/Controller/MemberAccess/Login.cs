@@ -28,7 +28,7 @@ namespace Library.Controller.MemberAccess
 
         public string EntryLogin(string entryType)      // 로그인하는 메소드
         {
-            List<string> account;
+            List<string> account = null;
             bool isNotValidAccount = true;
             string loginResult = "";
 
@@ -51,7 +51,6 @@ namespace Library.Controller.MemberAccess
                 if(entryType == Constant.USERENTRY)
                 {       // 유저 모드에서 로그인하는 중이라면
                     loginResult = IsCheckUserAccount(account);
-
                 }
                 else
                 {       // 매니저 모드에서 로그인하는 중이라면
@@ -70,6 +69,14 @@ namespace Library.Controller.MemberAccess
                 {
                     isNotValidAccount = false;
                 }
+            }
+            if(entryType == Constant.USERENTRY)
+            {
+                LogAddition.SetLogAddition().SetLogValue(Constant.USER_NAME, Constant.LOGIN, account[(int)ACCOUNT.ID]);
+            }
+            else
+            {
+                LogAddition.SetLogAddition().SetLogValue(Constant.MANAGER_NAME, Constant.LOGIN, account[(int)ACCOUNT.ID]);
             }
             return loginResult;
         }

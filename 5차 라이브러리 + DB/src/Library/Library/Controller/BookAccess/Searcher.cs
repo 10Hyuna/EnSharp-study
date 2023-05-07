@@ -62,8 +62,9 @@ namespace Library.Controller.BookAccess
                 }
 
                 books = AccessorData.SelectBookData(searchResult.Title, searchResult.Author, searchResult.Publisher);
-                // 검색 결과와 일치하는 책 찾기
-                if(books.Count == 0)
+
+                    // 검색 결과와 일치하는 책 찾기
+                    if (books.Count == 0)
                 {   // 검색 결과와 일치하는 값이 없다면
                     Console.Clear();
                     PrintBookInformation.GetPrintBookInformation().PrintFindingBookUI();

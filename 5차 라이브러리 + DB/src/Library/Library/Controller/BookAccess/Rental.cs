@@ -56,7 +56,7 @@ namespace Library.Controller.BookAccess
                     isNotESC = false;
                     continue;
                 }
-                rentBookId = ExceptionHandler.IsValidInput(Constant.NUMBER, column, row, 3, Constant.IS_NOT_PASSWORD);   
+                rentBookId = ExceptionHandler.GetExceptionHandler().IsValidInput(Constant.NUMBER, column, row, 3, Constant.IS_NOT_PASSWORD);   
                 // 빌리려는 책의 아이디 입력
 
                 if(rentBookId == Constant.ESC_STRING)
@@ -65,9 +65,9 @@ namespace Library.Controller.BookAccess
                     continue;
                 }
 
-                if ((!ExceptionHandler.IsStringAllNumber(rentBookId)) || rentBookId == "")
+                if ((!ExceptionHandler.GetExceptionHandler().IsStringAllNumber(rentBookId)) || rentBookId == "")
                 {   // 책의 아이디가 숫자가 아닐 경우
-                    GuidancePhrase.PrintException((int)EXCEPTION.NOT_MATCH_CONDITION, column, row);
+                    GuidancePhrase.SetGuidancePhrase().PrintException((int)EXCEPTION.NOT_MATCH_CONDITION, column, row);
                     continue;
                 }
                 rentBookIdNumber = int.Parse(rentBookId);
@@ -83,14 +83,14 @@ namespace Library.Controller.BookAccess
 
                 if(bookIndex == -1)
                 {   // 검색 결과와 빌리려는 책의 아이디가 일치하지 않을 때
-                    GuidancePhrase.PrintException((int)EXCEPTION.NOT_MATCH_SEARCH, column, row);
+                    GuidancePhrase.SetGuidancePhrase().PrintException((int)EXCEPTION.NOT_MATCH_SEARCH, column, row);
                     continue;
                 }
                 isLeakAmount = IsAffluentBook(searchedBook[bookIndex]); 
                 // 빌리려는 책의 수량이 넉넉한지 확인
                 if (!isLeakAmount)
                 {   // 책의 수량이 0 이하라면
-                    GuidancePhrase.PrintException((int)EXCEPTION.LEAK_AMOUNT, column, row);
+                    GuidancePhrase.SetGuidancePhrase().PrintException((int)EXCEPTION.LEAK_AMOUNT, column, row);
                     continue;
                 }
 
@@ -98,7 +98,7 @@ namespace Library.Controller.BookAccess
                 // 이미 빌린 책인지 확인
                 if (isAlreadyRent)
                 {   // 이미 빌린 책이라면
-                    GuidancePhrase.PrintException((int)EXCEPTION.ALREADY_RENT, column, row);
+                    GuidancePhrase.SetGuidancePhrase().PrintException((int)EXCEPTION.ALREADY_RENT, column, row);
                     continue;
                 }
 
@@ -108,7 +108,7 @@ namespace Library.Controller.BookAccess
                 AccessorData.InsertRentBookData(userId, searchedBook[bookIndex]);
                 AccessorData.UpdateBookIntData(searchedBook[bookIndex].Id, "amount", searchedBook[bookIndex].Amount);
                 PrintBookInformation.PrintSuccessRent();
-                isNotESC = InputFromUser.EnteredESC();
+                isNotESC = InputFromUser.GetInputFromUser().EnteredESC();
             }
         }
         

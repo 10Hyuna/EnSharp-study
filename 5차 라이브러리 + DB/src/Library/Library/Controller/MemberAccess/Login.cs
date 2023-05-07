@@ -60,11 +60,11 @@ namespace Library.Controller.MemberAccess
 
                 if (loginResult == Constant.ID_FAIL)
                 {       // 일치하는 아이디 값이 없다면
-                    GuidancePhrase.PrintException((int)EXCEPTION.ID_FAIL, column, row);
+                    GuidancePhrase.SetGuidancePhrase().PrintException((int)EXCEPTION.ID_FAIL, column, row);
                 }
                 else if (loginResult == Constant.PW_FAIL)
                 {       // 일치하는 아이디 값의 비밀번호와 입력된 비밀번호의 값이 다르다면
-                    GuidancePhrase.PrintException((int)EXCEPTION.PW_FAIL, column, row);
+                    GuidancePhrase.SetGuidancePhrase().PrintException((int)EXCEPTION.PW_FAIL, column, row);
                 }
                 else
                 {
@@ -86,10 +86,10 @@ namespace Library.Controller.MemberAccess
 
             while (isValidInput)
             {
-                id = ExceptionHandler.IsValidInput(Constant.ID, column, row, 15, Constant.IS_NOT_PASSWORD);
+                id = ExceptionHandler.GetExceptionHandler().IsValidInput(Constant.ID, column, row, 15, Constant.IS_NOT_PASSWORD);
                 if (id == "")
                 {   // 아무 값도 입력하지 않았다면
-                    GuidancePhrase.PrintException((int)EXCEPTION.NOT_MATCH_CONDITION, 18, row + 2);
+                    GuidancePhrase.SetGuidancePhrase().PrintException((int)EXCEPTION.NOT_MATCH_CONDITION, 18, row + 2);
                     continue;
                 }
                 if (id == Constant.ESC_STRING)
@@ -98,10 +98,10 @@ namespace Library.Controller.MemberAccess
                     return account;
                 }
 
-                password = ExceptionHandler.IsValidInput(Constant.PASSWORD, column, row + 1, 15, Constant.IS_PASSWORD);
+                password = ExceptionHandler.GetExceptionHandler().IsValidInput(Constant.PASSWORD, column, row + 1, 15, Constant.IS_PASSWORD);
                 if (password == "")
                 {
-                    GuidancePhrase.PrintException((int)EXCEPTION.NOT_MATCH_CONDITION, 18, row + 2);
+                    GuidancePhrase.SetGuidancePhrase().PrintException((int)EXCEPTION.NOT_MATCH_CONDITION, 18, row + 2);
                     continue;
                 }
                 if (password == Constant.ESC_STRING)

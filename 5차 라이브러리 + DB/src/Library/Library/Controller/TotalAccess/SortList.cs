@@ -67,7 +67,7 @@ namespace Library.Controller.TotalAccess
                 }
                 PrintBookInformation.PrintUserBookListUI(books);
             }
-            InputFromUser.InputEnterESC();
+            InputFromUser.GetInputFromUser().InputEnterESC();
         }
 
         private void AnnounceRentBookList()
@@ -91,7 +91,7 @@ namespace Library.Controller.TotalAccess
                 PrintUserInformation.PrintUserId(users[i].Id);
                 PrintBookInformation.PrintUserBookListUI(rentBooks);
             }
-            InputFromUser.InputEnterESC();
+            InputFromUser.GetInputFromUser().InputEnterESC();
         }
     }
 }

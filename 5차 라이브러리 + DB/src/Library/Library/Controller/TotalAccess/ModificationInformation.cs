@@ -67,7 +67,7 @@ namespace Library.Controller.TotalAccess
 
                 for(int i = 0; i < books.Count; i++)
                 {
-                    PrintBookInformation.PrintBookList(books[i]);
+                    PrintBookInformation.GetPrintBookInformation().PrintBookList(books[i]);
                 }
 
                 Console.SetCursorPosition(0, 0);
@@ -77,9 +77,9 @@ namespace Library.Controller.TotalAccess
                 {
                     return;
                 }
-                else if ((!ExceptionHandler.IsStringAllNumber(bookId)) || bookId == "")   // 책의 아이디가 숫자가 맞는지 확인
+                else if ((!ExceptionHandler.GetExceptionHandler().IsStringAllNumber(bookId)) || bookId == "")   // 책의 아이디가 숫자가 맞는지 확인
                 {
-                    GuidancePhrase.PrintException((int)EXCEPTION.NOT_MATCH_CONDITION, column, row);
+                    GuidancePhrase.SetGuidancePhrase().PrintException((int)EXCEPTION.NOT_MATCH_CONDITION, column, row);
                     continue;
                 }
                 bookNumber = int.Parse(bookId);
@@ -88,7 +88,7 @@ namespace Library.Controller.TotalAccess
                 if(!isSuccessModify)
                 {
                     isSuccessModify = true;
-                    GuidancePhrase.PrintException((int)EXCEPTION.NULL_SEARCH_BOOK, column, row + 4);
+                    GuidancePhrase.SetGuidancePhrase().PrintException((int)EXCEPTION.NULL_SEARCH_BOOK, column, row + 4);
                     continue;
                 }
                 InputModifyInformation(bookNumber);     // 수정하려는 책의 정보를 입력하는 메소드 진입
@@ -177,7 +177,7 @@ namespace Library.Controller.TotalAccess
                 if (!isNotESC)      // 수정하기 메뉴에서 엔터를 눌렀을 경우,
                 {
                     PrintUserInformation.PrintSuccessModify(); 
-                    InputFromUser.EnteredESC();
+                    InputFromUser.GetInputFromUser().EnteredESC();
                 }
                 if (validInput == Constant.EXIT_INT)
                 {
@@ -238,7 +238,7 @@ namespace Library.Controller.TotalAccess
                 id = SearchId((int)MODE.USER);      // 수정하려는 책의 아이디 입력
                 if (id == null)
                 {
-                    GuidancePhrase.PrintException((int)EXCEPTION.ID_FAIL, column, row);
+                    GuidancePhrase.SetGuidancePhrase().PrintException((int)EXCEPTION.ID_FAIL, column, row);
                     continue;
                 }
                 else if (id == Constant.ESC_STRING)
@@ -247,7 +247,7 @@ namespace Library.Controller.TotalAccess
                 }
                 else if(!IsValidSearchId(users, id))
                 {
-                    GuidancePhrase.PrintException((int)EXCEPTION.NULL_KEYWORD, column, row);
+                    GuidancePhrase.SetGuidancePhrase().PrintException((int)EXCEPTION.NULL_KEYWORD, column, row);
                     continue;
                 }
                 SelectIndex(id);       // 수정하고자 하는 유저 정보를 입력받는 메소드   
@@ -331,7 +331,7 @@ namespace Library.Controller.TotalAccess
                 if (!isNotESC)
                 {
                     PrintUserInformation.PrintSuccessModify();
-                    InputFromUser.EnteredESC();
+                    InputFromUser.GetInputFromUser().EnteredESC();
                 }
                 if(validInput == Constant.EXIT_INT)
                 {
@@ -354,7 +354,7 @@ namespace Library.Controller.TotalAccess
             {
                 regexForm = Constant.ID;
             }
-            string id = ExceptionHandler.IsValidInput(regexForm, column, row, 15, Constant.IS_NOT_PASSWORD);
+            string id = ExceptionHandler.GetExceptionHandler().IsValidInput(regexForm, column, row, 15, Constant.IS_NOT_PASSWORD);
 
             return id;
         }
@@ -366,7 +366,7 @@ namespace Library.Controller.TotalAccess
 
             string input = "";
 
-            input = ExceptionHandler.IsValidInput(regex, Column, row, 20, isPassword);
+            input = ExceptionHandler.GetExceptionHandler().IsValidInput(regex, Column, row, 20, isPassword);
             if (input == Constant.ESC_STRING)
             {
                 input = null;
@@ -380,7 +380,7 @@ namespace Library.Controller.TotalAccess
             {
                 return Constant.EXIT_INT;     // esc 입력을 표시하는 값 반환
             }
-            else if ((!ExceptionHandler.IsStringAllNumber(input)) || input == "")
+            else if ((!ExceptionHandler.GetExceptionHandler().IsStringAllNumber(input)) || input == "")
             {
                 return Constant.IS_NOT_NUMBER;
             }

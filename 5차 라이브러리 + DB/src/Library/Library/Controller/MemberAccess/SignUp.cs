@@ -52,7 +52,7 @@ namespace Library.Controller.MemberAccess
 
             while (isNotEnter)
             {
-                inputValue = InputFromUser.InputEnterESC();
+                inputValue = InputFromUser.GetInputFromUser().InputEnterESC();
 
                 if(inputValue == Constant.ENTER_STRING)
                 {
@@ -85,7 +85,7 @@ namespace Library.Controller.MemberAccess
                 return Constant.EXIT_INT;
             }
 
-            user.Name = ExceptionHandler.IsValidInput(Constant.NAME, column + 5, row + 3, 20, Constant.IS_NOT_PASSWORD);
+            user.Name = ExceptionHandler.GetExceptionHandler().IsValidInput(Constant.NAME, column + 5, row + 3, 20, Constant.IS_NOT_PASSWORD);
             if(user.Name == Constant.ESC_STRING)
             {
                 return Constant.EXIT_INT;
@@ -97,13 +97,13 @@ namespace Library.Controller.MemberAccess
                 return Constant.EXIT_INT;
             }
 
-            user.PhoneNumber = ExceptionHandler.IsValidInput(Constant.PHONENUMBER, column + 3, row + 5, 20, Constant.IS_NOT_PASSWORD);
+            user.PhoneNumber = ExceptionHandler.GetExceptionHandler().IsValidInput(Constant.PHONENUMBER, column + 3, row + 5, 20, Constant.IS_NOT_PASSWORD);
             if(user.PhoneNumber == Constant.ESC_STRING)
             {
                 return Constant.EXIT_INT;
             }
 
-            user.Address = ExceptionHandler.IsValidInput(Constant.ADDRESS, column + 5, row + 6, 20, Constant.IS_NOT_PASSWORD);
+            user.Address = ExceptionHandler.GetExceptionHandler().IsValidInput(Constant.ADDRESS, column + 5, row + 6, 20, Constant.IS_NOT_PASSWORD);
             if(user.Address == Constant.ESC_STRING)
             {
                 return Constant.EXIT_INT;
@@ -124,7 +124,7 @@ namespace Library.Controller.MemberAccess
 
             while (isNotOverlapData)
             {
-                id = ExceptionHandler.IsValidInput(Constant.ID, column, row, 15, Constant.IS_NOT_PASSWORD);
+                id = ExceptionHandler.GetExceptionHandler().IsValidInput(Constant.ID, column, row, 15, Constant.IS_NOT_PASSWORD);
                 if(id == Constant.ESC_STRING)
                 {
                     return Constant.ESC_STRING;
@@ -138,7 +138,7 @@ namespace Library.Controller.MemberAccess
                 }
                 else
                 {
-                    GuidancePhrase.PrintException((int)EXCEPTION.OVERLAP_DATA, column, row);
+                    GuidancePhrase.SetGuidancePhrase().PrintException((int)EXCEPTION.OVERLAP_DATA, column, row);
                 }
             }
 
@@ -153,7 +153,7 @@ namespace Library.Controller.MemberAccess
             string pwCheck = "";
             bool isDifferentPassword = true;
 
-            password = ExceptionHandler.IsValidInput(Constant.PASSWORD, column, row, 15, Constant.IS_PASSWORD);
+            password = ExceptionHandler.GetExceptionHandler().IsValidInput(Constant.PASSWORD, column, row, 15, Constant.IS_PASSWORD);
             if(password == Constant.ESC_STRING)
             {
                 return Constant.ESC_STRING;
@@ -161,7 +161,7 @@ namespace Library.Controller.MemberAccess
 
             while (isDifferentPassword)
             {
-                pwCheck = ExceptionHandler.IsValidInput(Constant.PASSWORD, column - 16, row + 1, 15, Constant.IS_PASSWORD);
+                pwCheck = ExceptionHandler.GetExceptionHandler().IsValidInput(Constant.PASSWORD, column - 16, row + 1, 15, Constant.IS_PASSWORD);
                 if(pwCheck == Constant.ESC_STRING)
                 {
                     return Constant.ESC_STRING;
@@ -173,7 +173,7 @@ namespace Library.Controller.MemberAccess
                 }
                 else
                 {
-                    GuidancePhrase.PrintException((int)EXCEPTION.NOT_MATCH_PASSWORD, column - 16, row + 1);
+                    GuidancePhrase.SetGuidancePhrase().PrintException((int)EXCEPTION.NOT_MATCH_PASSWORD, column - 16, row + 1);
                 }
             }
 
@@ -192,16 +192,16 @@ namespace Library.Controller.MemberAccess
 
             while(isValidInput)
             {
-                age = ExceptionHandler.IsValidInput(Constant.AGE, column, row, 5, Constant.IS_NOT_PASSWORD);
+                age = ExceptionHandler.GetExceptionHandler().IsValidInput(Constant.AGE, column, row, 5, Constant.IS_NOT_PASSWORD);
 
                 if (age == Constant.ESC_STRING)
                 {
                     return Constant.EXIT_INT;
                 }
 
-                else if ((!ExceptionHandler.IsStringAllNumber(age)) || age == "")
+                else if ((!ExceptionHandler.GetExceptionHandler().IsStringAllNumber(age)) || age == "")
                 {
-                    GuidancePhrase.PrintException((int)EXCEPTION.NOT_MATCH_CONDITION, column, row);
+                    GuidancePhrase.SetGuidancePhrase().PrintException((int)EXCEPTION.NOT_MATCH_CONDITION, column, row);
                     continue;
                 }
                 else
@@ -209,7 +209,7 @@ namespace Library.Controller.MemberAccess
                     ageNumber = int.Parse(age);
                     if (ageNumber < 0 || ageNumber > 200)
                     {
-                        GuidancePhrase.PrintException((int)EXCEPTION.NOT_MATCH_CONDITION, column, row);
+                        GuidancePhrase.SetGuidancePhrase().PrintException((int)EXCEPTION.NOT_MATCH_CONDITION, column, row);
                         continue;
                     }
                 }

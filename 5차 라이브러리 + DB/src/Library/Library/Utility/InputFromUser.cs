@@ -28,14 +28,14 @@ namespace Library.Utility
             e.Cancel = true;
         }
 
-        private static bool isCharacterOrNumber(char input)        // 문자에 해당하는 값이 입력되었다면
+        private bool isCharacterOrNumber(char input)        // 문자에 해당하는 값이 입력되었다면
         {
             if (input >= 'A' && input <= 'Z' || input >= 'a' && input <= 'z' || input >= '0' || input <= '9')
                 return true;
             return false;
         }
 
-        public static bool EnteredESC()     // ESC 입력
+        public bool EnteredESC()     // ESC 입력
         {
             bool isESC = false;
 
@@ -51,7 +51,7 @@ namespace Library.Utility
             return isESC;
         }
 
-        public static string InputEnterESC()        // ESC나 ENTER 입력
+        public string InputEnterESC()        // ESC나 ENTER 입력
         {
             keyInfo = Console.ReadKey(true);
 
@@ -75,7 +75,7 @@ namespace Library.Utility
             return returnValue;
         }
 
-        public static int SelectMenuIndex(int endMenuIndex, int selectedMenu)
+        public int SelectMenuIndex(int endMenuIndex, int selectedMenu)
         {   // 메뉴는 위아래로 움직임            
 
             keyInfo = Console.ReadKey(true);
@@ -111,7 +111,7 @@ namespace Library.Utility
             return selectedMenu;
         }
 
-        public static string InputStringFromUser(int maxLength, bool isPassword, int consoleColumn, int consoleRow)
+        public string InputStringFromUser(int maxLength, bool isPassword, int consoleColumn, int consoleRow)
         {
             Console.CursorVisible = true;
             bool isEnter = true;
@@ -148,7 +148,7 @@ namespace Library.Utility
             return input;
         }
 
-        private static string InputBackspace(string input, int column, int row, bool isPassword)
+        private string InputBackspace(string input, int column, int row, bool isPassword)
         {       // 백스페이스를 입력받았을 경우
             if(input.Length == 0)
             {
@@ -174,7 +174,7 @@ namespace Library.Utility
             return input;
         }
 
-        private static string inputKeyChar(string input, int maxLength, int column, int row, bool isPassword)
+        private string inputKeyChar(string input, int maxLength, int column, int row, bool isPassword)
         {       // 유효한 값이 입력되었을 경우
             if(input.Length < maxLength && 
                 isCharacterOrNumber(keyInfo.KeyChar) &&

@@ -32,8 +32,8 @@ namespace Library.View
             Console.WriteLine("\n\t    ------------------------------------------------\n");
             Console.WriteLine("\t\t             삭제할 유저 ID:\n");
             Console.WriteLine("\t    ------------------------------------------------\n");
-            GuidancePhrase.PrintEsc();
-            GuidancePhrase.PrintEnter();
+            GuidancePhrase.SetGuidancePhrase().PrintEsc();
+            GuidancePhrase.SetGuidancePhrase().PrintEnter();
         }
         public static void PrintSuccessDeleteUser()
         {
@@ -42,7 +42,7 @@ namespace Library.View
             Console.WriteLine("\n\t    ------------------------------------------------\n");
             Console.WriteLine("\t\t         유저 정보 삭제 완료!\n");
             Console.WriteLine("\t    ------------------------------------------------\n");
-            GuidancePhrase.PrintEsc();
+            GuidancePhrase.SetGuidancePhrase().PrintEsc();
         }
 
         public static void PrintModiFyUserIdUI()
@@ -50,8 +50,8 @@ namespace Library.View
             Console.WriteLine("\n\t    ------------------------------------------------\n");
             Console.WriteLine("\t\t             수정할 유저 ID:\n");
             Console.WriteLine("\t    ------------------------------------------------\n");
-            GuidancePhrase.PrintEsc();
-            GuidancePhrase.PrintEnter();
+            GuidancePhrase.SetGuidancePhrase().PrintEsc();
+            GuidancePhrase.SetGuidancePhrase().PrintEnter();
         }
 
         public static void PrintSuccessModify()
@@ -61,7 +61,7 @@ namespace Library.View
             Console.WriteLine("\n\t    ------------------------------------------------\n");
             Console.WriteLine("\t\t         유저 정보 수정 완료!\n");
             Console.WriteLine("\t    ------------------------------------------------\n");
-            GuidancePhrase.PrintEsc();
+            GuidancePhrase.SetGuidancePhrase().PrintEsc();
         }
 
         public static void PrintUserList(List<UserDTO> user)
@@ -81,8 +81,8 @@ namespace Library.View
         {
             Console.SetCursorPosition(0, 2);
             Console.WriteLine("     대 여 상 황\n");
-            GuidancePhrase.PrintEsc();
-            GuidancePhrase.PrintEnter();
+            GuidancePhrase.SetGuidancePhrase().PrintEsc();
+            GuidancePhrase.SetGuidancePhrase().PrintEnter();
         }
 
         public static void PrintUserId(string id)

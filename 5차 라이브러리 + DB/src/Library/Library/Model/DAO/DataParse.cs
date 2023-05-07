@@ -12,16 +12,16 @@ namespace Library.Model.DAO
 {
     public class DataParse
     {
-        private DataParse dataParse;
+        private static DataParse dataParse;
         private AccessorData accessorData;
         private ConnectionNaverApi connectionNaverApi;
-        public DataParse()
+        private DataParse()
         {
             connectionNaverApi = new ConnectionNaverApi();
             accessorData = AccessorData.GetAccessorData();
         }
 
-        public DataParse GetDataParse()
+        public static DataParse GetDataParse()
         {
             if(dataParse == null)
             {
@@ -45,7 +45,7 @@ namespace Library.Model.DAO
             for(int i = 0; i < displayConut; i++)
             {
                 BookDTO book = new BookDTO();
-                book.Title = (string)json["items"][i]["title"];
+                book.Title = (string)(json["items"].Count)[i]["title"];
                 book.Author = (string)json["items"][i]["author"];
                 book.Price = int.Parse((string)json["items"][i]["discount"]);
                 book.Publisher = (string)json["items"][i]["publisher"];

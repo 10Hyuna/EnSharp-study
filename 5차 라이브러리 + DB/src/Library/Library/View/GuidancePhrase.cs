@@ -26,7 +26,7 @@ namespace Library.View
             Console.Write(menu);
         }
 
-        public static void PrintException(int condition, int column, int row)
+        public void PrintException(int condition, int column, int row)
         {
             if (condition == (int)EXCEPTION.NOT_MATCH_CONDITION)
             {
@@ -128,19 +128,35 @@ namespace Library.View
                 Console.SetCursorPosition(column, row);
                 EraseAnounce();
             }
+            else if(condition == (int)EXCEPTION.NOT_MATCH_COUNT)
+            {
+                Console.SetCursorPosition(column, row);
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("1부터 100 사이의 값만 입력 가능합니다");
+                Console.ResetColor();
+                Console.SetCursorPosition(column, row);
+                EraseAnounce();
+            }
         }
 
-        public static void PrintEsc()
+        public void PrintEsc()
         {
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine(" ESC : 뒤로가기");
             Console.ResetColor();
         }
 
-        public static void PrintEnter()
+        public void PrintEnter()
         {
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(" ENTER : 선택하기 / 다시 선택");
+            Console.ResetColor();
+        }
+
+        public void PrintEnterISBN()
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine(" ENTER : 책 요청하기");
             Console.ResetColor();
         }
 

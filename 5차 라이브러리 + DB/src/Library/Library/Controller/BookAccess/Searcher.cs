@@ -40,7 +40,7 @@ namespace Library.Controller.BookAccess
 
                 for(int i = 0; i < books.Count; i++)
                 {
-                    PrintBookInformation.PrintBookList(books[i]);
+                    PrintBookInformation.GetPrintBookInformation().PrintBookList(books[i]);
                 }
                 Console.SetCursorPosition(0, 0);
 
@@ -67,14 +67,14 @@ namespace Library.Controller.BookAccess
                 {   // 검색 결과와 일치하는 값이 없다면
                     Console.Clear();
                     PrintBookInformation.PrintFindingBookUI();
-                    GuidancePhrase.PrintException((int)EXCEPTION.NULL_SEARCH_BOOK, 1, row + 2);
+                    GuidancePhrase.SetGuidancePhrase().PrintException((int)EXCEPTION.NULL_SEARCH_BOOK, 1, row + 2);
                     continue;
                 }
                 if(entryType == (int)USERMENU.FIND
                     || entryType == (int)MANAGERMODE.FIND)
                 {   // 책 찾기 모드에서 들어왔다면
                     Console.Clear();
-                    GuidancePhrase.PrintEsc();
+                    GuidancePhrase.SetGuidancePhrase().PrintEsc();
                 }
                 else
                 {   // 책 빌리는 메뉴에서 들어왔다면
@@ -82,13 +82,13 @@ namespace Library.Controller.BookAccess
                 }
                 for(int i = 0; i < books.Count; i++)
                 {
-                    PrintBookInformation.PrintBookList(books[i]);
+                    PrintBookInformation.GetPrintBookInformation().PrintBookList(books[i]);
                     isNotESC = false;
                 }
                 if (entryType == (int)USERMENU.FIND
                     || entryType == (int)MANAGERMODE.FIND)
                 {
-                    isNotESC = !InputFromUser.EnteredESC();
+                    isNotESC = !InputFromUser.GetInputFromUser().EnteredESC();
                 }
             }
             return books;
@@ -99,19 +99,19 @@ namespace Library.Controller.BookAccess
             int column = 19;
             int row = 0;
 
-            searchResult.Title = ExceptionHandler.IsValidInput(Constant.ONEVALUE, column, row, 50, Constant.IS_NOT_PASSWORD);
+            searchResult.Title = ExceptionHandler.GetExceptionHandler().IsValidInput(Constant.ONEVALUE, column, row, 50, Constant.IS_NOT_PASSWORD);
             if(searchResult.Title == Constant.ESC_STRING) 
             {
                 return searchResult;
             }
 
-            searchResult.Author = ExceptionHandler.IsValidInput(Constant.ONEVALUE, column, row + 1, 50, Constant.IS_NOT_PASSWORD);
+            searchResult.Author = ExceptionHandler.GetExceptionHandler().IsValidInput(Constant.ONEVALUE, column, row + 1, 50, Constant.IS_NOT_PASSWORD);
             if (searchResult.Author == Constant.ESC_STRING)
             {
                 return searchResult;
             }
 
-            searchResult.Publisher = ExceptionHandler.IsValidInput(Constant.ONEVALUE, column, row + 2, 50, Constant.IS_NOT_PASSWORD);
+            searchResult.Publisher = ExceptionHandler.GetExceptionHandler().IsValidInput(Constant.ONEVALUE, column, row + 2, 50, Constant.IS_NOT_PASSWORD);
             if (searchResult.Publisher == Constant.ESC_STRING)
             {
                 return searchResult;

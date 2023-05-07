@@ -28,7 +28,6 @@ namespace Library.Utility
             Stream stream = response.GetResponseStream();
             StreamReader reader = new StreamReader(stream, Encoding.UTF8);
             text = reader.ReadToEnd();
-            Console.Write(text);
             
             return text;
         }

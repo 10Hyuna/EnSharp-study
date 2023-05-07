@@ -40,7 +40,7 @@ namespace Library.Utility
                 ColorMenuIndex(menu, presentIndex, consoleColumn, consoleRow);
                 // 선택하고 있는 메뉴의 인덱스를 색칠해서 출력해 주는 메소드
 
-                selectedMenuIndex = InputFromUser.SelectMenuIndex(menu.Length - 1, presentIndex);   
+                selectedMenuIndex = InputFromUser.GetInputFromUser().SelectMenuIndex(menu.Length - 1, presentIndex);   
                 // 위아래 엔터 값을 입력받아 옴
 
                 switch (selectedMenuIndex)

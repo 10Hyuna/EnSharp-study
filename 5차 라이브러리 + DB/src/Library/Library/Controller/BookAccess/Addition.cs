@@ -54,20 +54,20 @@ namespace Library.Controller.BookAccess
             int column = 20;
             int row = 12;
 
-            book.Title = ExceptionHandler.IsValidInput(Constant.TITLE, column, row, 20, Constant.IS_NOT_PASSWORD); 
+            book.Title = ExceptionHandler.GetExceptionHandler().IsValidInput(Constant.TITLE, column, row, 20, Constant.IS_NOT_PASSWORD); 
             // 값 입력
             if (book.Title == Constant.ESC_STRING)      // 중간에 ESC 입력
             {
                 return book.Title;
             }
 
-            book.Author = ExceptionHandler.IsValidInput(Constant.AUTHOR, column, row + 1, 20, Constant.IS_NOT_PASSWORD);
+            book.Author = ExceptionHandler.GetExceptionHandler().IsValidInput(Constant.AUTHOR, column, row + 1, 20, Constant.IS_NOT_PASSWORD);
             if (book.Author == Constant.ESC_STRING)
             {
                 return book.Author;
             }
 
-            book.Publisher = ExceptionHandler.IsValidInput(Constant.ONEVALUE, column, row + 2, 20, Constant.IS_NOT_PASSWORD);
+            book.Publisher = ExceptionHandler.GetExceptionHandler().IsValidInput(Constant.ONEVALUE, column, row + 2, 20, Constant.IS_NOT_PASSWORD);
             if(book.Publisher == Constant.ESC_STRING)
             {
                 return book.Publisher;
@@ -85,25 +85,25 @@ namespace Library.Controller.BookAccess
                 return Constant.ESC_STRING;
             }
 
-            book.PublishDate = ExceptionHandler.IsValidInput(Constant.PUBLISHDATE, column, row + 5, 20, Constant.IS_NOT_PASSWORD);
+            book.PublishDate = ExceptionHandler.GetExceptionHandler().IsValidInput(Constant.PUBLISHDATE, column, row + 5, 20, Constant.IS_NOT_PASSWORD);
             if(book.PublishDate == Constant.ESC_STRING)
             {
                 return book.PublishDate;
             }
 
-            book.ISBN = ExceptionHandler.IsValidInput(Constant.ISBN, column, row + 6, 20, Constant.IS_NOT_PASSWORD);
+            book.ISBN = ExceptionHandler.GetExceptionHandler().IsValidInput(Constant.ISBN, column, row + 6, 20, Constant.IS_NOT_PASSWORD);
             if (book.ISBN == Constant.ESC_STRING)
             {
                 return book.ISBN;
             }
 
-            book.Information = ExceptionHandler.IsValidInput(Constant.INFORMATION, column, row + 7, 20, Constant.IS_NOT_PASSWORD);
+            book.Information = ExceptionHandler.GetExceptionHandler().IsValidInput(Constant.INFORMATION, column, row + 7, 20, Constant.IS_NOT_PASSWORD);
             if(book.Information == Constant.ESC_STRING)
             {
                 return book.Information;
             }
 
-            inputValue = InputFromUser.InputEnterESC();
+            inputValue = InputFromUser.GetInputFromUser().InputEnterESC();
 
             if(inputValue == Constant.ESC_STRING)
             {
@@ -111,7 +111,7 @@ namespace Library.Controller.BookAccess
             }
             AccessorData.InsertBookData(book);
             PrintBookInformation.PrintSuccessAddBook();
-            InputFromUser.EnteredESC();
+            InputFromUser.GetInputFromUser().EnteredESC();
             return Constant.SUCCESS.ToString();
         }
 
@@ -123,14 +123,14 @@ namespace Library.Controller.BookAccess
 
             while (isNotSuccess)
             {
-                price = ExceptionHandler.IsValidInput(Constant.PRICE, column, row, 20, Constant.IS_NOT_PASSWORD);
+                price = ExceptionHandler.GetExceptionHandler().IsValidInput(Constant.PRICE, column, row, 20, Constant.IS_NOT_PASSWORD);
                 if(price == Constant.ESC_STRING)        // 중간에 ESC 입력
                 {
                     return Constant.EXIT_INT;
                 }
-                else if ((!ExceptionHandler.IsStringAllNumber(price)) || price == "")        // 숫자로 구성된 값이 아닐 때
+                else if ((!ExceptionHandler.GetExceptionHandler().IsStringAllNumber(price)) || price == "")        // 숫자로 구성된 값이 아닐 때
                 {
-                    GuidancePhrase.PrintException((int)EXCEPTION.NOT_MATCH_CONDITION, column, row);
+                    GuidancePhrase.SetGuidancePhrase().PrintException((int)EXCEPTION.NOT_MATCH_CONDITION, column, row);
                     continue;
                 }
                 priceNumber = int.Parse(price);
@@ -152,7 +152,7 @@ namespace Library.Controller.BookAccess
 
                 if(amount <= 0 || amount >= 1000)
                 {
-                    GuidancePhrase.PrintException((int)EXCEPTION.NOT_MATCH_CONDITION, column, row);
+                    GuidancePhrase.SetGuidancePhrase().PrintException((int)EXCEPTION.NOT_MATCH_CONDITION, column, row);
                     continue;
                 }
                 isNotSuccess = false;

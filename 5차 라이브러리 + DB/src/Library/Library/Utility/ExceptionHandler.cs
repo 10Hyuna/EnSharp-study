@@ -29,7 +29,7 @@ namespace Library.Utility
             return exceptionHandler;
         }
 
-        public static bool IsStringAllNumber(string input)      // 입력받은 모든 값이 다 숫자라면
+        public bool IsStringAllNumber(string input)      // 입력받은 모든 값이 다 숫자라면
         {
             bool isNumber = true;
             Regex regex = new Regex(Constant.NUMBER);
@@ -46,7 +46,7 @@ namespace Library.Utility
             return isNumber;
         }
 
-        private static bool IsCheckException(string message, Regex regex)     // 정규식으로 문자열이 주어진 조건에 해당하는지 확인
+        private bool IsCheckException(string message, Regex regex)     // 정규식으로 문자열이 주어진 조건에 해당하는지 확인
         {
             if (regex.IsMatch(message))
             {
@@ -55,7 +55,7 @@ namespace Library.Utility
             return false;
         }
 
-        public static string IsValidInput(string regex, int consoleColumn, int consoleRow, int maxLength, bool isPassword)
+        public string IsValidInput(string regex, int consoleColumn, int consoleRow, int maxLength, bool isPassword)
         {
             string message = "";
             Regex regexForm = new Regex(regex);
@@ -63,7 +63,7 @@ namespace Library.Utility
 
             while (!isValidInput)
             {
-                message = InputFromUser.InputStringFromUser(maxLength, isPassword, consoleColumn, consoleRow);
+                message = InputFromUser.GetInputFromUser().InputStringFromUser(maxLength, isPassword, consoleColumn, consoleRow);
                 if (message == Constant.ESC_STRING)
                 {
                     isValidInput = true;
@@ -76,7 +76,7 @@ namespace Library.Utility
                 else
                 {
                     Console.SetCursorPosition(consoleColumn, consoleRow);
-                    GuidancePhrase.PrintException((int)EXCEPTION.NOT_MATCH_CONDITION, consoleColumn, consoleRow);
+                    GuidancePhrase.SetGuidancePhrase().PrintException((int)EXCEPTION.NOT_MATCH_CONDITION, consoleColumn, consoleRow);
                     continue;
                 }
             }

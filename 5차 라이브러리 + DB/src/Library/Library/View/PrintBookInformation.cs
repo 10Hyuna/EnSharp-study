@@ -35,12 +35,13 @@ namespace Library.View
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine(" 최소 한 개 이상의 검색어를 입력해 주세요\n");
             Console.ResetColor();
-            GuidancePhrase.PrintEsc();
-            GuidancePhrase.PrintEnter();
+            GuidancePhrase.SetGuidancePhrase().PrintEsc();
+            GuidancePhrase.SetGuidancePhrase().PrintEnter();
         }
 
-        public static void PrintBookList(BookDTO book)
+        public void PrintBookList(BookDTO book)
         {
+            
             Console.WriteLine("\n============================================================================\n");
             Console.WriteLine("책아이디  : {0}", book.Id);
             Console.WriteLine("책 제목   : {0}", book.Title);
@@ -79,13 +80,13 @@ namespace Library.View
             Console.WriteLine(" ID 값은 1부터 999 사이의 값입니다.");
             Console.WriteLine("▶ 입력: ");
             Console.WriteLine("\n\n");
-            GuidancePhrase.PrintEsc();
-            GuidancePhrase.PrintEnter();
+            GuidancePhrase.SetGuidancePhrase().PrintEsc();
+            GuidancePhrase.SetGuidancePhrase().PrintEnter();
         }
         public static void PrintRentReturnBookTitle(string entryType)
         {
             Console.WriteLine(string.Format(Constant.BOOK_LIST_UI, entryType));
-            GuidancePhrase.PrintEsc();
+            GuidancePhrase.SetGuidancePhrase().PrintEsc();
             Console.WriteLine("\n");
         }
         public static void PrintAddTheBookUI()
@@ -95,9 +96,9 @@ namespace Library.View
             Console.SetCursorPosition(consoleInputRow, consoleInputColumn);
             Console.WriteLine("도서 추가");
             Console.SetCursorPosition(0, consoleInputColumn + 4);
-            GuidancePhrase.PrintEnter();
+            GuidancePhrase.SetGuidancePhrase().PrintEnter();
             Console.SetCursorPosition(0, consoleInputColumn + 5);
-            GuidancePhrase.PrintEsc();
+            GuidancePhrase.SetGuidancePhrase().PrintEsc();
             Console.WriteLine("\n");
             Console.WriteLine("\t----------------------------------------------------\n");
             Console.WriteLine("\t책 제목   : ");
@@ -129,7 +130,7 @@ namespace Library.View
             Console.WriteLine("\n\t    ------------------------------------------------\n");
             Console.WriteLine("\t\t               책 추가 성공!\n");
             Console.WriteLine("\t    ------------------------------------------------\n");
-            GuidancePhrase.PrintEsc();
+            GuidancePhrase.SetGuidancePhrase().PrintEsc();
         }
 
         public static void PrintDeleteTheBookUI()
@@ -138,7 +139,7 @@ namespace Library.View
             Console.WriteLine("\n\t    ------------------------------------------------\n");
             Console.WriteLine("\t\t               삭제할 책 ID:\n");
             Console.WriteLine("\t    ------------------------------------------------\n");
-            GuidancePhrase.PrintEsc();
+            GuidancePhrase.SetGuidancePhrase().PrintEsc();
         }
 
         public static void PrintDeleteTheBook()
@@ -150,8 +151,8 @@ namespace Library.View
 
             Console.SetCursorPosition(column, row);
             Console.WriteLine("책 수정\n\n");
-            GuidancePhrase.PrintEsc();
-            GuidancePhrase.PrintEnter();
+            GuidancePhrase.SetGuidancePhrase().PrintEsc();
+            GuidancePhrase.SetGuidancePhrase().PrintEnter();
         }
         public static void PrintSuccessDeleteBook()
         {
@@ -160,7 +161,7 @@ namespace Library.View
             Console.WriteLine("\n\t    ------------------------------------------------\n");
             Console.WriteLine("\t\t                   삭제 성공!\n");
             Console.WriteLine("\t    ------------------------------------------------\n");
-            GuidancePhrase.PrintEsc();
+            GuidancePhrase.SetGuidancePhrase().PrintEsc();
         }
 
         public static void PrintModifyBookInformationUI()
@@ -169,7 +170,7 @@ namespace Library.View
             Console.WriteLine("\n\t    ------------------------------------------------\n");
             Console.WriteLine("\t\t               수정할 책 ID:\n");
             Console.WriteLine("\t    ------------------------------------------------\n");
-            GuidancePhrase.PrintEsc();
+            GuidancePhrase.SetGuidancePhrase().PrintEsc();
         }
 
         public static void PrintSuccessModifyBook()
@@ -179,7 +180,7 @@ namespace Library.View
             Console.WriteLine("\n\t    ------------------------------------------------\n");
             Console.WriteLine("\t\t               정보 수정 완료!\n");
             Console.WriteLine("\t    ------------------------------------------------\n");
-            GuidancePhrase.PrintEsc();
+            GuidancePhrase.SetGuidancePhrase().PrintEsc();
         }
 
         public static void PrintSuccessRent()
@@ -189,7 +190,25 @@ namespace Library.View
             Console.WriteLine("\n\t    ------------------------------------------------\n");
             Console.WriteLine("\t\t                  대여 성공!\n");
             Console.WriteLine("\t    ------------------------------------------------\n");
-            GuidancePhrase.PrintEsc();
+            GuidancePhrase.SetGuidancePhrase().PrintEsc();
+        }
+
+        public void PrintNaverSearch()
+        {
+            Console.Clear();
+            Console.WriteLine("\n 책 키워드 :");
+            Console.WriteLine(" 책 개수   :\n");
+
+            GuidancePhrase.SetGuidancePhrase().PrintEsc();
+            GuidancePhrase.SetGuidancePhrase().PrintEnter();
+        }
+
+        public void PrintNaverSearchResult()
+        {
+            Console.SetCursorPosition(0, 5);
+            Console.Write("                                  ");
+            Console.SetCursorPosition(0, 5);
+            GuidancePhrase.SetGuidancePhrase().PrintEnterISBN();
         }
     }
 }

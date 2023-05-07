@@ -50,7 +50,7 @@ namespace Library.Controller.BookAccess
 
                 PrintBookInformation.PrintUserBookListUI(returnBookList);
                 
-                returnId = ExceptionHandler.IsValidInput(Constant.NUMBER, column, row, 3, Constant.IS_NOT_PASSWORD);
+                returnId = ExceptionHandler.GetExceptionHandler().IsValidInput(Constant.NUMBER, column, row, 3, Constant.IS_NOT_PASSWORD);
                 // 반납하려는 책의 아이디 입력
 
                 if(returnId == Constant.ESC_STRING)     // 중간에 ESC 입력했을 경우
@@ -58,9 +58,9 @@ namespace Library.Controller.BookAccess
                     return;
                 }
 
-                else if ((!ExceptionHandler.IsStringAllNumber(returnId)) || returnId == "")     // 책의 아이디가 숫자로 구성돼 있지 않을 경우
+                else if ((!ExceptionHandler.GetExceptionHandler().IsStringAllNumber(returnId)) || returnId == "")     // 책의 아이디가 숫자로 구성돼 있지 않을 경우
                 {
-                    GuidancePhrase.PrintException((int)EXCEPTION.NOT_MATCH_CONDITION, column, row);
+                    GuidancePhrase.SetGuidancePhrase().PrintException((int)EXCEPTION.NOT_MATCH_CONDITION, column, row);
                     continue;
                 }
                 returnIdNumber = int.Parse(returnId);
@@ -70,7 +70,7 @@ namespace Library.Controller.BookAccess
                 if (returnBook.Id == 0)
                 {   
                     // 반납하려는 책의 아이디와 빌린 책의 아이디가 일치하지 않을 경우
-                    GuidancePhrase.PrintException((int)EXCEPTION.NULL_RENT, column, row);
+                    GuidancePhrase.SetGuidancePhrase().PrintException((int)EXCEPTION.NULL_RENT, column, row);
                     continue;
                 }
 
@@ -98,10 +98,11 @@ namespace Library.Controller.BookAccess
             UsersBookDTO returnedBook = new UsersBookDTO();
             returnedBook = AccessorData.SelectReturnedBook(userId, returnBook.Id);
 
-            if (returnedBook.Id != null)
+            if (returnedBook.Id == null)
             {
-                AccessorData.InsertReturnBookData(returnBook);
+                AccessorData.DeleteReturnBookData(returnBook.Id);
             }
+            AccessorData.InsertReturnBookData(returnedBook);
         }
     }
 }

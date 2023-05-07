@@ -97,7 +97,7 @@ namespace Library.Controller.SelectorMode
                     breakPoint = deleterInformation.DeleteUserInformation((int)MODE.USER, userId);
                     break;
                 case (int)USERMENU.NAVER_SEARCH:
-
+                    naverBookSearch.EnterNaverSearch();
                     break;
             }
             return breakPoint;

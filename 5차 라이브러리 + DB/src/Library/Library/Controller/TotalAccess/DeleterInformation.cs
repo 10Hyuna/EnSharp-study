@@ -64,7 +64,7 @@ namespace Library.Controller.TotalAccess
 
                 for (int i = 0; i < books.Count; i++)
                 {
-                    PrintBookInformation.PrintBookList(books[i]);
+                    PrintBookInformation.GetPrintBookInformation().PrintBookList(books[i]);
                 }
 
                 Console.SetCursorPosition(0, 0);
@@ -74,9 +74,9 @@ namespace Library.Controller.TotalAccess
                 {
                     return;
                 }
-                else if ((!ExceptionHandler.IsStringAllNumber(bookId)) || bookId == "")       // 책의 아이디가 모두 숫자인지 확인
+                else if ((!ExceptionHandler.GetExceptionHandler().IsStringAllNumber(bookId)) || bookId == "")       // 책의 아이디가 모두 숫자인지 확인
                 {
-                    GuidancePhrase.PrintException((int)EXCEPTION.NOT_MATCH_CONDITION, column, row);
+                    GuidancePhrase.SetGuidancePhrase().PrintException((int)EXCEPTION.NOT_MATCH_CONDITION, column, row);
                     continue;
                 }
                 bookNumber = int.Parse(bookId);
@@ -86,14 +86,14 @@ namespace Library.Controller.TotalAccess
                 if (!isSuccessDelete)
                 {
                     isSuccessDelete = true;
-                    GuidancePhrase.PrintException((int)EXCEPTION.NOT_MATCH_SEARCH, column, row - 3);
+                    GuidancePhrase.SetGuidancePhrase().PrintException((int)EXCEPTION.NOT_MATCH_SEARCH, column, row - 3);
                     continue;
                 }
                 AccessorData.DeleteBookData(bookNumber);
                 AccessorData.DeleteRentBookData(bookNumber);
                 AccessorData.DeleteReturnBookData(bookNumber);
                 PrintBookInformation.PrintSuccessDeleteBook();
-                InputFromUser.EnteredESC();
+                InputFromUser.GetInputFromUser().EnteredESC();
             }
         }
 
@@ -123,14 +123,14 @@ namespace Library.Controller.TotalAccess
                 {
                     Console.Clear();
                     PrintUserInformation.PrintNotWorkedDeleteAccout();
-                    InputFromUser.EnteredESC();
+                    InputFromUser.GetInputFromUser().EnteredESC();
                     continue;
                 }
 
                 AccessorData.DeleteUserData(id);
                 Console.Clear();
                 PrintUserInformation.PrintSuccessDeleteUser();
-                InputFromUser.EnteredESC();
+                InputFromUser.GetInputFromUser().EnteredESC();
             }
         }
 
@@ -144,7 +144,7 @@ namespace Library.Controller.TotalAccess
                 Console.Clear();
                 PrintUserInformation.PrintDeleteAccountUI();
 
-                inputValue = InputFromUser.InputEnterESC();     // 엔터를 입력하면 회원탈퇴
+                inputValue = InputFromUser.GetInputFromUser().InputEnterESC();     // 엔터를 입력하면 회원탈퇴
                 if(inputValue == Constant.ESC_STRING)
                 {
                     return Constant.FAIL_INT;
@@ -155,14 +155,14 @@ namespace Library.Controller.TotalAccess
                 {
                     Console.Clear();
                     PrintUserInformation.PrintNotWorkedDeleteAccout();
-                    InputFromUser.EnteredESC();
+                    InputFromUser.GetInputFromUser().EnteredESC();
                     continue;
                 }
 
                 AccessorData.DeleteUserData(id);
                 Console.Clear();
                 PrintUserInformation.PrintSuccessDeleteAccount();
-                InputFromUser.EnteredESC();
+                InputFromUser.GetInputFromUser().EnteredESC();
             }
             return Constant.DELETE_ACCOUNT;
         }
@@ -207,7 +207,7 @@ namespace Library.Controller.TotalAccess
             {
                 regexForm = Constant.NUMBER;
             }
-            string id = ExceptionHandler.IsValidInput(regexForm, column, row, 15, Constant.IS_NOT_PASSWORD);
+            string id = ExceptionHandler.GetExceptionHandler().IsValidInput(regexForm, column, row, 15, Constant.IS_NOT_PASSWORD);
 
             return id;
         }

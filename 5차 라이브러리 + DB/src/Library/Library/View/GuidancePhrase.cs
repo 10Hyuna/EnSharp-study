@@ -123,7 +123,7 @@ namespace Library.View
             {
                 Console.SetCursorPosition(column, row);
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("검색 결과와 일치하는 아이디를 입력해 주세요");
+                Console.WriteLine("검색 결과와 일치하는 값을 입력해 주세요");
                 Console.ResetColor();
                 Console.SetCursorPosition(column, row);
                 EraseAnounce();

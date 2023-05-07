@@ -143,6 +143,7 @@ namespace Library.Utility
                         input = inputKeyChar(input, maxLength, consoleColumn, consoleRow, isPassword);
                         break;
                 }
+
             }
             Console.CursorVisible = false;
             return input;

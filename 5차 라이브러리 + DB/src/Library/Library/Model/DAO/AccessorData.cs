@@ -127,6 +127,11 @@ namespace Library.Model.DAO
             connectionDataBase.CUD(stringQuery);
         }
 
+        public void InsertRequestBook(BookDTO book)
+        {
+            string stringQuery = string.Format(Constant.INSERT_REQUEST_BOOK, book.Title, book.Author, book.Publisher, book.Price, book.PublishDate, book.ISBN, book.Information);
+            connectionDataBase.CUD(stringQuery);
+        }
         public static void DeleteBookData(int bookId)
         {
             string stringQuery = string.Format(Constant.DELETE_BOOK, bookId);
@@ -191,6 +196,30 @@ namespace Library.Model.DAO
             return books;
         }
 
+        public List<BookDTO> SelectRequestBook()
+        {
+            string stringQuery = string.Format(Constant.SELECT_REQUEST_BOOK);
+            Hashtable hashtable = connectionDataBase.SelectData(stringQuery);
+            List<BookDTO> books = new List<BookDTO>();
+            if (hashtable.Count == 0)
+            {
+                return books;
+            }
+
+            for (int i = 0; i < ((ArrayList)hashtable["title"]).Count; i++)
+            {
+                BookDTO book = new BookDTO();
+                book.Title = ((ArrayList)hashtable["title"])[i].ToString();
+                book.Author = ((ArrayList)hashtable["author"])[i].ToString();
+                book.Publisher = ((ArrayList)hashtable["publisher"])[i].ToString();
+                book.Price = int.Parse(((ArrayList)hashtable["price"])[i].ToString());
+                book.PublishDate = ((ArrayList)hashtable["publishdate"])[i].ToString();
+                book.ISBN = ((ArrayList)hashtable["ISBN"])[i].ToString();
+                book.Information = ((ArrayList)hashtable["information"])[i].ToString();
+                books.Add(book);
+            }
+            return books;
+        }
         public static List<BookDTO> AllBookData()
         {
             string stringQuery = string.Format(Constant.SELECT_ALL_BOOK);

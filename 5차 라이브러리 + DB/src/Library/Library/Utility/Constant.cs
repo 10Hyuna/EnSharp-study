@@ -61,6 +61,7 @@ namespace Library.Utility
 
         public const string INSERT_USER = "INSERT INTO user_list VALUES('{0}', '{1}', '{2}', '{3}', '{4}', '{5}')";
         public const string INSERT_BOOK = "INSERT INTO book_list (title, author, publisher, amount, price, publishdate, ISBN, information) VALUES('{0}', '{1}', '{2}', {3}, {4}, '{5}', '{6}', '{7}')";
+        public const string INSERT_REQUEST_BOOK = "INSERT INTO request_book (title, author, publisher, price, publishdate, isbn, information) VALUES('{0}', '{1}', '{2}', {3}, {4}, '{5}', '{6}')";
         public const string INSERT_RENT_BOOK = "INSERT INTO user_rent_book VALUES('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}', '{9}', '{10}', '{11}')";
         public const string INSERT_RETURN_BOOK = "INSERT INTO user_return_book VALUES('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}', '{9}', '{10}', '{11}')";
         public const string DELETE_USER = "DELETE FROM user_list WHERE id = '{0}'";
@@ -72,6 +73,7 @@ namespace Library.Utility
         public const string SELECT_ALL_USER = "SELECT * FROM user_list";
         public const string SELECT_MANAGER = "SELECT * FROM manager_list WHERE id = '{0}'";
         public const string SELECT_ALL_BOOK = "SELECT * FROM book_list";
+        public const string SELECT_REQUEST_BOOK = "SELECT * FROM request_book";
         public const string SELECT_BOOK = "SELECT * FROM book_list WHERE (title LIKE CONCAT('%', '{0}', '%') OR '{0}' = '') AND (author LIKE CONCAT('%', '{1}', '%') OR '{1}' = '') AND (publisher LIKE CONCAT('%', '{2}', '%') OR '{2}' = '')";
         public const string SELECT_PARTLY_BOOK = "SELECT * FROM book_list WHERE id = {0}";
         public const string SELECT_RENT_BOOK = "SELECT * FROM user_rent_book WHERE user_id = '{0}'";
@@ -107,7 +109,8 @@ enum EXCEPTION
     ALREADY_RENT,
     NULL_RENT,
     NOT_MATCH_SEARCH,
-    NOT_MATCH_COUNT
+    NOT_MATCH_COUNT,
+    ALREADY_REQUEST
 }
 enum MODE
 {

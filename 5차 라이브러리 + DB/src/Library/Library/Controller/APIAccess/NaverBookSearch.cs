@@ -6,6 +6,7 @@ using MySqlX.XDevAPI.Relational;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,10 +16,18 @@ namespace Library.Controller.APIAccess
     public class NaverBookSearch
     {
 
+        private RequestmentBook requestmentBook;
+        public NaverBookSearch()
+        {
+            requestmentBook = new RequestmentBook();
+        }
+
         public void EnterNaverSearch()
         {
             string bookInformation;
             int bookCount;
+
+            string isESC;
 
             List<BookDTO> books = new List<BookDTO>();
 
@@ -26,14 +35,26 @@ namespace Library.Controller.APIAccess
 
             PrintBookInformation.GetPrintBookInformation().PrintNaverSearch();
             bookInformation = EnterBookInformation();
+            if(bookInformation == Constant.ESC_STRING)
+            {
+                return;
+            }
+
             bookCount = EnterBookCount();
+            if(bookCount == Constant.EXIT_INT)
+            {
+                return;
+            }
+
             PrintBookInformation.GetPrintBookInformation().PrintNaverSearchResult();
             books = SearchBook(bookInformation, bookCount);
             for(int i = 0; i < books.Count; i++)
             {
                 PrintBookInformation.GetPrintBookInformation().PrintBookList(books[i]);
             }
-            Console.ReadKey(true);
+            isESC = InputFromUser.GetInputFromUser().InputEnterESC();
+
+            EnterRequestMenu(isESC, books);
         }
 
         private string EnterBookInformation()
@@ -53,7 +74,7 @@ namespace Library.Controller.APIAccess
                 
                 if(bookInformation == Constant.ESC_STRING)
                 {
-                    continue;
+                    return Constant.ESC_STRING;
                 }
 
                 else if(bookInformation == " " || bookInformation == "")
@@ -82,7 +103,7 @@ namespace Library.Controller.APIAccess
 
                 if (count == Constant.ESC_STRING)
                 {
-                    continue;
+                    return Constant.EXIT_INT;
                 }
                 else if (!ExceptionHandler.GetExceptionHandler().IsStringAllNumber(count))
                 {
@@ -102,6 +123,7 @@ namespace Library.Controller.APIAccess
             }
             return bookCount;
         }
+
         private List<BookDTO> SearchBook(string bookInformation, int bookCount)
         {
             bool isESC = true;
@@ -110,6 +132,18 @@ namespace Library.Controller.APIAccess
             books = DataParse.GetDataParse().ReturnSearchResult(bookInformation, bookCount);
 
             return books;
+        }
+
+        private void EnterRequestMenu(string enterValue, List<BookDTO> books)
+        {
+            switch(enterValue)
+            {
+                case Constant.ESC_STRING:
+                    return;
+                case Constant.ENTER_STRING:
+                    requestmentBook.RequestBook(books);
+                    break;
+            }
         }
     }
 }

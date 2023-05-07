@@ -59,8 +59,7 @@ namespace Library.Model.DAO
                 publishDate = (string)json["items"][i]["pubdate"];
                 book.PublishDate = string.Format("{0}-{1}-{2}", publishDate.Substring(0, 4), publishDate.Substring(4, 2), publishDate.Substring(6, 2));
                 book.ISBN = (string)json["items"][i]["isbn"];
-                information = (string)json["items"][i]["description"];
-                book.Information = string.Format("{0}", information.Substring(0, 100));
+                book.Information = (string)json["items"][i]["description"];
                 books.Add(book);
             }
             return books;

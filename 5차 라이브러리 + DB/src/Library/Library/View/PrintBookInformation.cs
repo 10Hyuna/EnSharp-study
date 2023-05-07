@@ -210,5 +210,13 @@ namespace Library.View
             Console.SetCursorPosition(0, 5);
             GuidancePhrase.SetGuidancePhrase().PrintEnterISBN();
         }
+
+        public void PrintRequestBook()
+        {
+            Console.SetCursorPosition(0, 1);
+            Console.WriteLine("                                                                       \n");
+            Console.SetCursorPosition(1, 1);
+            Console.WriteLine("요청할 책의 제목 :");
+        }
     }
 }

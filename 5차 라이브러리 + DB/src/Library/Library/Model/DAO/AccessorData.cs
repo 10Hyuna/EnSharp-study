@@ -214,7 +214,7 @@ namespace Library.Model.DAO
                 book.Publisher = ((ArrayList)hashtable["publisher"])[i].ToString();
                 book.Price = int.Parse(((ArrayList)hashtable["price"])[i].ToString());
                 book.PublishDate = ((ArrayList)hashtable["publishdate"])[i].ToString();
-                book.ISBN = ((ArrayList)hashtable["ISBN"])[i].ToString();
+                book.ISBN = ((ArrayList)hashtable["isbn"])[i].ToString();
                 book.Information = ((ArrayList)hashtable["information"])[i].ToString();
                 books.Add(book);
             }

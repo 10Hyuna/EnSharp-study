@@ -137,6 +137,15 @@ namespace Library.View
                 Console.SetCursorPosition(column, row);
                 EraseAnounce();
             }
+            else if(condition == (int)EXCEPTION.ALREADY_REQUEST)
+            {
+                Console.SetCursorPosition(column, row);
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("이미 요청된 책이 포함되어 있습니다");
+                Console.ResetColor();
+                Console.SetCursorPosition(column, row);
+                EraseAnounce();
+            }
         }
 
         public void PrintEsc()

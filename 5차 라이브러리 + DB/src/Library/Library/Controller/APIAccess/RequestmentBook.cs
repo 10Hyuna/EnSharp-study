@@ -33,13 +33,19 @@ namespace Library.Controller.APIAccess
 
                 for (int i = 0; i < requestedBook.Count; i++)
                 {
-                    if (bookInformation.Contains(requestedBook[i].Title))
+                    if (requestedBook[i].Title.Contains(bookInformation))
                     {
                         GuidancePhrase.SetGuidancePhrase().PrintException((int)EXCEPTION.ALREADY_REQUEST, column, row);
                         isESC = true;
-                        continue;
+                        break;
                     }
                 }
+
+                if (isESC)
+                {
+                    continue;
+                }
+
                 for (int i = 0; i < books.Count; i++)
                 {
                     if (books[i].Title.Contains(bookInformation))

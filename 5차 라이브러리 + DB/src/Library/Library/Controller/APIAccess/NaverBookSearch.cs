@@ -105,7 +105,7 @@ namespace Library.Controller.APIAccess
                 {
                     return Constant.EXIT_INT;
                 }
-                else if (!ExceptionHandler.GetExceptionHandler().IsStringAllNumber(count))
+                else if (!ExceptionHandler.GetExceptionHandler().IsStringAllNumber(count) || count == "")
                 {
                     GuidancePhrase.SetGuidancePhrase().PrintException((int)EXCEPTION.NOT_MATCH_CONDITION, column, row);
                     isESC = true;

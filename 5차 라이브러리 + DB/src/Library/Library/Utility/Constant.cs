@@ -61,7 +61,7 @@ namespace Library.Utility
 
         public const string INSERT_USER = "INSERT INTO user_list VALUES('{0}', '{1}', '{2}', '{3}', '{4}', '{5}')";
         public const string INSERT_BOOK = "INSERT INTO book_list (title, author, publisher, amount, price, publishdate, ISBN, information) VALUES('{0}', '{1}', '{2}', {3}, {4}, '{5}', '{6}', '{7}')";
-        public const string INSERT_REQUEST_BOOK = "INSERT INTO request_book (title, author, publisher, price, publishdate, isbn, information) VALUES('{0}', '{1}', '{2}', {3}, {4}, '{5}', '{6}')";
+        public const string INSERT_REQUEST_BOOK = "INSERT INTO request_book (title, author, publisher, price, publishdate, isbn, information) VALUES('{0}', '{1}', '{2}', {3}, '{4}', '{5}', '{6}')";
         public const string INSERT_RENT_BOOK = "INSERT INTO user_rent_book VALUES('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}', '{9}', '{10}', '{11}')";
         public const string INSERT_RETURN_BOOK = "INSERT INTO user_return_book VALUES('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}', '{9}', '{10}', '{11}')";
         public const string DELETE_USER = "DELETE FROM user_list WHERE id = '{0}'";

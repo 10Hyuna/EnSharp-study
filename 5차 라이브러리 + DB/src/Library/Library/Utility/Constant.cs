@@ -24,6 +24,7 @@ namespace Library.Utility
 
         public const string RENT = "대여";
         public const string RETURN = "반납";
+        public const string REQUEST = "요청";
 
         public const string ESC_STRING = "ESC";
         public const string ENTER_STRING = "ENTER";
@@ -131,7 +132,8 @@ enum ENTRY
 {
     RENTAL,
     RETURN,
-    MANAGER
+    MANAGER,
+    REQUEST
 }
 
 enum USERMENU
@@ -143,7 +145,8 @@ enum USERMENU
     RETURN_LIST,
     MODIFY_MY_INFORMATION,
     DELETE_ACCOUNT,
-    NAVER_SEARCH
+    NAVER_SEARCH,
+    REQUEST_LIST
 }
 
 enum MANAGERMODE

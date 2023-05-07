@@ -39,14 +39,13 @@ namespace Library.Controller.BookAccess
             int column = 18;
             int row = 3;
 
-            Console.SetWindowSize(76, 40);
-            Console.Clear();
-
-            PrintBookInformation.GetPrintBookInformation().PrintAddBookTitle();
-
             while (isESC)
             {
                 isESC = false;
+                Console.SetWindowSize(76, 40);
+
+                Console.Clear();
+                PrintBookInformation.GetPrintBookInformation().PrintAddBookTitle();
 
                 books = AccessorData.GetAccessorData().SelectRequestBook();
                 Console.SetCursorPosition(0, 6);

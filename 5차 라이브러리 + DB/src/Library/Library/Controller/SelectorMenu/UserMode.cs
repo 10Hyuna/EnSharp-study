@@ -42,15 +42,15 @@ namespace Library.Controller.SelectorMode
 
             bool isNotESC = true;
 
-            string[] menu = { "도서 찾기", "도서 대여", "도서 대여 확인", "도서 반납", "도서 반납 내역", "정보 수정", "계정 삭제", "네이버 검색"};
+            string[] menu = { "도서 찾기", "도서 대여", "도서 대여 확인", "도서 반납", "도서 반납 내역", "정보 수정", "계정 삭제", "네이버 검색", "요청 도서 내역"};
 
             while (isNotESC)
             {
-                Console.SetWindowSize(76, 21);
+                Console.SetWindowSize(76, 22);
                 checkingBreak = -1;
                 Console.Clear();
                 MainView.PrintMain();
-                MainView.PrintBox(10);
+                MainView.PrintBox(11);
 
                 selectedMenu = MenuIndexSelector.SelectMenuIndex(menu, selectedMenu, column, row);
 
@@ -98,6 +98,9 @@ namespace Library.Controller.SelectorMode
                     break;
                 case (int)USERMENU.NAVER_SEARCH:
                     naverBookSearch.EnterNaverSearch();
+                    break;
+                case (int)USERMENU.REQUEST_LIST:
+                    sortList.AnnounceBookState((int)ENTRY.REQUEST, userId);
                     break;
             }
             return breakPoint;

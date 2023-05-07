@@ -30,6 +30,7 @@ namespace Library.Controller.TotalAccess
         {
             Console.Clear();
             List<UsersBookDTO> books = new List<UsersBookDTO>();
+            List<BookDTO> requestBook = new List<BookDTO>();
 
             if(entryType == (int)ENTRY.RENTAL)
             {
@@ -38,6 +39,10 @@ namespace Library.Controller.TotalAccess
             else if(entryType == (int)ENTRY.RETURN)
             {
                 books = AccessorData.SelectAllReturnBook(id);
+            }
+            else if(entryType == (int)ENTRY.REQUEST)
+            {
+                requestBook = AccessorData.GetAccessorData().SelectRequestBook();
             }
             switch(entryType)
             {
@@ -49,6 +54,9 @@ namespace Library.Controller.TotalAccess
                     break;
                 case (int)ENTRY.MANAGER:    // 매니저 모드에서 대여 내역을 확인하고자 한다면
                     AnnounceRentBookList();
+                    break;
+                case (int)ENTRY.REQUEST:
+                    AnnounceRequestBookList(requestBook);
                     break;
             }
         }
@@ -67,6 +75,13 @@ namespace Library.Controller.TotalAccess
                 }
                 PrintBookInformation.GetPrintBookInformation().PrintUserBookListUI(books);
             }
+            InputFromUser.GetInputFromUser().InputEnterESC();
+        }
+
+        private void AnnounceRequestBookList(List<BookDTO> books)
+        {
+            PrintBookInformation.GetPrintBookInformation().PrintRentReturnBookTitle(Constant.REQUEST);
+            PrintBookInformation.GetPrintBookInformation().PrintRequestBookList(books);
             InputFromUser.GetInputFromUser().InputEnterESC();
         }
 

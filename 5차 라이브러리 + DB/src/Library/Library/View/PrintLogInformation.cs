@@ -25,6 +25,7 @@ namespace Library.View
         }
         public void SaveCheckUI()
         {
+            Console.Clear();
             MainView.SetMainView().PrintMain();
             MainView.SetMainView().PrintBox(5);
             Console.SetCursorPosition(22, 10);
@@ -52,6 +53,7 @@ namespace Library.View
 
         public void DeleteCheckUI()
         {
+            Console.Clear();
             MainView.SetMainView().PrintMain();
             MainView.SetMainView().PrintBox(5);
             Console.SetCursorPosition(22, 10);
@@ -79,6 +81,7 @@ namespace Library.View
 
         public void CheckResetUI()
         {
+            Console.Clear();
             MainView.SetMainView().PrintMain();
             MainView.SetMainView().PrintBox(5);
             Console.SetCursorPosition(20, 10);

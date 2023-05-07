@@ -135,13 +135,13 @@ namespace Library.Controller.BookAccess
                 return book.Title;
             }
 
-            book.Author = ExceptionHandler.GetExceptionHandler().IsValidInput(Constant.AUTHOR, column, row + 1, 20, Constant.IS_NOT_PASSWORD);
+            book.Author = ExceptionHandler.GetExceptionHandler().BlockEmptyString(Constant.AUTHOR, column, row + 1, 20, Constant.IS_NOT_PASSWORD);
             if (book.Author == Constant.ESC_STRING)
             {
                 return book.Author;
             }
 
-            book.Publisher = ExceptionHandler.GetExceptionHandler().IsValidInput(Constant.ONEVALUE, column, row + 2, 20, Constant.IS_NOT_PASSWORD);
+            book.Publisher = ExceptionHandler.GetExceptionHandler().BlockEmptyString(Constant.ONEVALUE, column, row + 2, 20, Constant.IS_NOT_PASSWORD);
             if(book.Publisher == Constant.ESC_STRING)
             {
                 return book.Publisher;
@@ -159,19 +159,19 @@ namespace Library.Controller.BookAccess
                 return Constant.ESC_STRING;
             }
 
-            book.PublishDate = ExceptionHandler.GetExceptionHandler().IsValidInput(Constant.PUBLISHDATE, column, row + 5, 20, Constant.IS_NOT_PASSWORD);
+            book.PublishDate = ExceptionHandler.GetExceptionHandler().BlockEmptyString(Constant.PUBLISHDATE, column, row + 5, 20, Constant.IS_NOT_PASSWORD);
             if(book.PublishDate == Constant.ESC_STRING)
             {
                 return book.PublishDate;
             }
 
-            book.ISBN = ExceptionHandler.GetExceptionHandler().IsValidInput(Constant.ISBN, column, row + 6, 20, Constant.IS_NOT_PASSWORD);
+            book.ISBN = ExceptionHandler.GetExceptionHandler().BlockEmptyString(Constant.ISBN, column, row + 6, 20, Constant.IS_NOT_PASSWORD);
             if (book.ISBN == Constant.ESC_STRING)
             {
                 return book.ISBN;
             }
 
-            book.Information = ExceptionHandler.GetExceptionHandler().IsValidInput(Constant.INFORMATION, column, row + 7, 20, Constant.IS_NOT_PASSWORD);
+            book.Information = ExceptionHandler.GetExceptionHandler().BlockEmptyString(Constant.INFORMATION, column, row + 7, 20, Constant.IS_NOT_PASSWORD);
             if(book.Information == Constant.ESC_STRING)
             {
                 return book.Information;

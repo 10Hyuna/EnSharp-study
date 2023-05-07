@@ -78,6 +78,7 @@ namespace Library.Controller.LogAccess
 
                 Console.SetCursorPosition(column, row);
                 printLogInformation.ModifySuccess();
+                LogAddition.SetLogAddition().SetLogValue(Constant.MANAGER_NAME, Constant.LOG_MODIFY, "로그");
                 InputFromUser.GetInputFromUser().InputEnterESC();
                 isESC = true;
             }
@@ -85,30 +86,20 @@ namespace Library.Controller.LogAccess
 
         public void AskSaveLog()
         {
-            bool isESC = true;
-            string inputValue;
-
+            bool isESC;
             Console.SetWindowSize(76, 20);
-            Console.Clear();
             printLogInformation.SaveCheckUI();
 
-            while(isESC)
+            isESC = InputESC();
+            if(!isESC)
             {
-                isESC = false;
-                inputValue = InputFromUser.GetInputFromUser().InputEnterESC();
-
-                if(inputValue == Constant.ESC_STRING)
-                {
-                    isESC = true;
-                    continue;
-                }
-                else
-                {
-                    SaveLogFile();
-                    printLogInformation.SaveSuccessUI();
-                }
-                InputFromUser.GetInputFromUser().EnteredESC();
+                return;
             }
+
+            SaveLogFile();
+            printLogInformation.SaveSuccessUI();
+            LogAddition.SetLogAddition().SetLogValue(Constant.MANAGER_NAME, Constant.LOG_SAVE, "로그");
+            InputFromUser.GetInputFromUser().EnteredESC();
         }
 
         private void SaveLogFile()
@@ -141,22 +132,16 @@ namespace Library.Controller.LogAccess
             string inputValue;
 
             Console.SetWindowSize(76, 20);
-            Console.Clear();
             printLogInformation.DeleteCheckUI();
 
             while (isESC)
             {
-                isESC = false;
-                inputValue = InputFromUser.GetInputFromUser().InputEnterESC();
-
-                if (inputValue == Constant.ESC_STRING)
+                isESC = InputESC();
+                if(!isESC)
                 {
                     continue;
                 }
-                else
-                {
-                    isSuccessDelete = DeleteLogFile();
-                }
+                isSuccessDelete = DeleteLogFile();
                 if (!isSuccessDelete)
                 {
                     GuidancePhrase.SetGuidancePhrase().PrintException((int)EXCEPTION.NULL_FILE, 19, 15);
@@ -164,6 +149,7 @@ namespace Library.Controller.LogAccess
                     continue;
                 }
                 printLogInformation.DeleteSuccessUI();
+                LogAddition.SetLogAddition().SetLogValue(Constant.MANAGER_NAME, Constant.LOG_DELETE, "로그");
                 InputFromUser.GetInputFromUser().EnteredESC();
             }
         }
@@ -192,6 +178,26 @@ namespace Library.Controller.LogAccess
             Console.Clear();
             printLogInformation.CheckResetUI();
 
+            InputESC();
+            ResetLog();
+            printLogInformation.ResetSuccessUI();
+            InputFromUser.GetInputFromUser().EnteredESC();
+        }
+
+        private void ResetLog()
+        {
+            AccessorData.GetAccessorData().DeleteLog();
+            LogAddition.SetLogAddition().SetLogValue(Constant.MANAGER_NAME, Constant.LOG_RESET, "로그");
+        }
+
+        private bool InputESC()
+        {
+            bool isESC = true;
+            bool isSuccessDelete = false;
+            string inputValue;
+
+            Console.SetWindowSize(76, 20);
+
             while (isESC)
             {
                 isESC = false;
@@ -199,21 +205,10 @@ namespace Library.Controller.LogAccess
 
                 if (inputValue == Constant.ESC_STRING)
                 {
-                    continue;
+                    return false;
                 }
-                else
-                {
-                    ResetLog();
-                    printLogInformation.ResetSuccessUI();
-                }
-                InputFromUser.GetInputFromUser().EnteredESC();
             }
-        }
-
-        private void ResetLog()
-        {
-            AccessorData.GetAccessorData().DeleteLog();
-            LogAddition.SetLogAddition().SetLogValue(Constant.MANAGER_NAME, Constant.LOG_RESET, "로그");
+            return true;
         }
     }
 }

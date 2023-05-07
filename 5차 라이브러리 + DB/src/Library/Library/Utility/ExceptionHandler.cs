@@ -82,5 +82,24 @@ namespace Library.Utility
             }
             return message;
         }
+
+        public string BlockEmptyString(string regex, int consoleColumn, int consoleRow, int maxLength, bool isPassword)
+        {
+            bool isValidInput = true;
+            string inputMessage = "";
+
+            while(isValidInput)
+            {
+                isValidInput = false;
+                inputMessage = IsValidInput(regex, consoleColumn, consoleRow, maxLength, isPassword);
+                if (inputMessage == "")
+                {
+                    GuidancePhrase.SetGuidancePhrase().PrintException((int)EXCEPTION.NOT_MATCH_CONDITION, consoleColumn, consoleRow);
+                    isValidInput = true;
+                    continue;
+                }
+            }
+            return inputMessage;
+        }
     }
 }

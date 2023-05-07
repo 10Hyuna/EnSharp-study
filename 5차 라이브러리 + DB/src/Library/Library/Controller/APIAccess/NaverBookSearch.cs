@@ -59,12 +59,13 @@ namespace Library.Controller.APIAccess
                 PrintBookInformation.GetPrintBookInformation().PrintRequestBookList(books);
                 Console.SetCursorPosition(0, 0);
 
-                isESC = InputFromUser.GetInputFromUser().InputEnterESC();
                 if(entryType == (int)MODE.MANAGER)
                 {
                     PrintBookInformation.GetPrintBookInformation().PrintEraseISBN();
+                    isESC = InputFromUser.GetInputFromUser().InputEnterESC();
                     return;
                 }
+                isESC = InputFromUser.GetInputFromUser().InputEnterESC();
                 EnterRequestMenu(isESC, books, userId);
             }
         }

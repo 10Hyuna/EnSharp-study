@@ -146,6 +146,15 @@ namespace Library.View
                 Console.SetCursorPosition(column, row);
                 EraseAnounce();
             }
+            else if(condition == (int)EXCEPTION.INVALID_BOOK)
+            {
+                Console.SetCursorPosition(column, row);
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("요청 리스트에 존재하는 책을 입력해 주세요");
+                Console.ResetColor();
+                Console.SetCursorPosition(column, row);
+                EraseAnounce();
+            }
         }
 
         public void PrintEsc()

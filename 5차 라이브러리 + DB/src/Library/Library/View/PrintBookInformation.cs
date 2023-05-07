@@ -27,7 +27,7 @@ namespace Library.View
             return printBookInformation;
         }
 
-        public static void PrintFindingBookUI()
+        public void PrintFindingBookUI()
         {
             Console.WriteLine(" 제목으로 찾기   :");
             Console.WriteLine(" 작가명으로 찾기 :");
@@ -54,7 +54,7 @@ namespace Library.View
             Console.WriteLine("책 정보   : {0}", book.Information);
         }
 
-        public static void PrintUserBookListUI(List<UsersBookDTO> usersBook)
+        public void PrintUserBookListUI(List<UsersBookDTO> usersBook)
         {
             for(int i = 0; i < usersBook.Count; i++)
             {
@@ -73,23 +73,25 @@ namespace Library.View
             }
         }
 
-        public static void PrintRentReturnUI(string entryType)
+        public void PrintRentReturnUI(string entryType)
         {
+            string printValue = string.Format(Constant.BOOK_ID__UI, entryType);
             Console.Clear();
-            Console.WriteLine(string.Format(Constant.BOOK_ID__UI, entryType));
+            Console.WriteLine(printValue);
             Console.WriteLine(" ID 값은 1부터 999 사이의 값입니다.");
             Console.WriteLine("▶ 입력: ");
             Console.WriteLine("\n\n");
             GuidancePhrase.SetGuidancePhrase().PrintEsc();
             GuidancePhrase.SetGuidancePhrase().PrintEnter();
         }
-        public static void PrintRentReturnBookTitle(string entryType)
+        public void PrintRentReturnBookTitle(string entryType)
         {
-            Console.WriteLine(string.Format(Constant.BOOK_LIST_UI, entryType));
+            string printValue = string.Format(Constant.BOOK_LIST_UI, entryType);
+            Console.WriteLine(printValue);
             GuidancePhrase.SetGuidancePhrase().PrintEsc();
             Console.WriteLine("\n");
         }
-        public static void PrintAddTheBookUI()
+        public void PrintAddTheBookUI()
         {
             int consoleInputRow = 32;
             int consoleInputColumn = 2;
@@ -123,7 +125,7 @@ namespace Library.View
             Console.SetCursorPosition(0, 0);
         }
 
-        public static void PrintSuccessAddBook()
+        public void PrintSuccessAddBook()
         {
             Console.SetWindowSize(76, 8);
             Console.Clear();
@@ -133,7 +135,17 @@ namespace Library.View
             GuidancePhrase.SetGuidancePhrase().PrintEsc();
         }
 
-        public static void PrintDeleteTheBookUI()
+        public void PrintSuccessRequestBook()
+        {
+            Console.SetWindowSize(76, 8);
+            Console.Clear();
+            Console.WriteLine("\n\t    ------------------------------------------------\n");
+            Console.WriteLine("\t\t               책 요청 성공!\n");
+            Console.WriteLine("\t    ------------------------------------------------\n");
+            GuidancePhrase.SetGuidancePhrase().PrintEsc();
+        }
+
+        public void PrintDeleteTheBookUI()
         {
             Console.Clear();
             Console.WriteLine("\n\t    ------------------------------------------------\n");
@@ -142,9 +154,9 @@ namespace Library.View
             GuidancePhrase.SetGuidancePhrase().PrintEsc();
         }
 
-        public static void PrintDeleteTheBook()
+        public void PrintDeleteTheBook()
         {
-            MainView.PrintBox(3);
+            MainView.SetMainView().PrintBox(3);
 
             int column = 32;
             int row = 2;
@@ -154,7 +166,7 @@ namespace Library.View
             GuidancePhrase.SetGuidancePhrase().PrintEsc();
             GuidancePhrase.SetGuidancePhrase().PrintEnter();
         }
-        public static void PrintSuccessDeleteBook()
+        public void PrintSuccessDeleteBook()
         {
             Console.SetWindowSize(76, 8);
             Console.Clear();
@@ -164,7 +176,7 @@ namespace Library.View
             GuidancePhrase.SetGuidancePhrase().PrintEsc();
         }
 
-        public static void PrintModifyBookInformationUI()
+        public void PrintModifyBookInformationUI()
         {
             Console.Clear();
             Console.WriteLine("\n\t    ------------------------------------------------\n");
@@ -173,7 +185,7 @@ namespace Library.View
             GuidancePhrase.SetGuidancePhrase().PrintEsc();
         }
 
-        public static void PrintSuccessModifyBook()
+        public void PrintSuccessModifyBook()
         {
             Console.SetWindowSize(76, 8);
             Console.Clear();
@@ -183,7 +195,7 @@ namespace Library.View
             GuidancePhrase.SetGuidancePhrase().PrintEsc();
         }
 
-        public static void PrintSuccessRent()
+        public void PrintSuccessRent()
         {
             Console.SetWindowSize(76, 8);
             Console.Clear();
@@ -217,6 +229,33 @@ namespace Library.View
             Console.WriteLine("                                                                       \n");
             Console.SetCursorPosition(1, 1);
             Console.WriteLine("요청할 책의 제목 :");
+        }
+
+        public void PrintAddBookTitle()
+        {
+            Console.SetCursorPosition(0, 0);
+            MainView.SetMainView().PrintBox(3);
+
+            int column = 21;
+            int row = 2;
+
+            Console.SetCursorPosition(column, row);
+            Console.WriteLine("추가할 책의 제목을 입력하세요");
+        }
+
+        public void PrintRequestBookList(List<BookDTO> books)
+        {
+            for(int i = 0; i < books.Count; i++)
+            {
+                Console.WriteLine("\n============================================================================\n");
+                Console.WriteLine("책 제목   : {0}", books[i].Title);
+                Console.WriteLine("작가      : {0}", books[i].Author);
+                Console.WriteLine("출판사    : {0}", books[i].Publisher);
+                Console.WriteLine("가격      : {0}", books[i].Price);
+                Console.WriteLine("출시일    : {0}", books[i].PublishDate);
+                Console.WriteLine("ISBN      : {0}", books[i].ISBN);
+                Console.WriteLine("책 정보   : {0}", books[i].Information);
+            }
         }
     }
 }

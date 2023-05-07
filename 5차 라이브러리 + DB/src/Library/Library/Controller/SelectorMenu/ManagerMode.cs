@@ -54,8 +54,8 @@ namespace Library.Controller.SelectorMode
             {
                 Console.SetWindowSize(76, 22);
                 Console.Clear();
-                MainView.PrintMain();
-                MainView.PrintBox(11);
+                MainView.SetMainView().PrintMain();
+                MainView.SetMainView().PrintBox(11);
 
                 selectedMenu = MenuIndexSelector.SelectMenuIndex(menu, selectedMenu, column, row);
 
@@ -92,13 +92,13 @@ namespace Library.Controller.SelectorMode
                     sortList.AnnounceBookState((int)ENTRY.MANAGER, "");
                     break;
                 case (int)MANAGERMODE.NAVER_SEARCH:
-
+                    naverBookSearch.EnterNaverSearch();
                     break;
                 case (int)MANAGERMODE.LOG_MANAGEMENT:
 
                     break;
                 case (int)MANAGERMODE.REQUEST_BOOK:
-
+                    addition.AddRequestedBook();
                     break;
 
             }

@@ -34,7 +34,7 @@ namespace Library.Controller.BookAccess
             {
                 Console.SetWindowSize(100, 30);
                 Console.Clear();
-                PrintBookInformation.PrintFindingBookUI();
+                PrintBookInformation.GetPrintBookInformation().PrintFindingBookUI();
 
                 books = AccessorData.AllBookData();         // 모든 책에 대한 데이터
 
@@ -66,7 +66,7 @@ namespace Library.Controller.BookAccess
                 if(books.Count == 0)
                 {   // 검색 결과와 일치하는 값이 없다면
                     Console.Clear();
-                    PrintBookInformation.PrintFindingBookUI();
+                    PrintBookInformation.GetPrintBookInformation().PrintFindingBookUI();
                     GuidancePhrase.SetGuidancePhrase().PrintException((int)EXCEPTION.NULL_SEARCH_BOOK, 1, row + 2);
                     continue;
                 }
@@ -78,7 +78,7 @@ namespace Library.Controller.BookAccess
                 }
                 else
                 {   // 책 빌리는 메뉴에서 들어왔다면
-                    PrintBookInformation.PrintRentReturnUI(Constant.RENT);
+                    PrintBookInformation.GetPrintBookInformation().PrintRentReturnUI(Constant.RENT);
                 }
                 for(int i = 0; i < books.Count; i++)
                 {

@@ -107,7 +107,7 @@ namespace Library.Controller.BookAccess
 
                 AccessorData.InsertRentBookData(userId, searchedBook[bookIndex]);
                 AccessorData.UpdateBookIntData(searchedBook[bookIndex].Id, "amount", searchedBook[bookIndex].Amount);
-                PrintBookInformation.PrintSuccessRent();
+                PrintBookInformation.GetPrintBookInformation().PrintSuccessRent();
                 isNotESC = InputFromUser.GetInputFromUser().EnteredESC();
             }
         }

@@ -43,12 +43,12 @@ namespace Library.Controller.BookAccess
                 Console.SetWindowSize(76, 40);
 
                 Console.Clear();
-                PrintBookInformation.PrintRentReturnUI(Constant.RETURN);
+                PrintBookInformation.GetPrintBookInformation().PrintRentReturnUI(Constant.RETURN);
 
                 returnBookList = AccessorData.SelectAllRentBookList(userId);
                 Console.SetCursorPosition(0, 9);
 
-                PrintBookInformation.PrintUserBookListUI(returnBookList);
+                PrintBookInformation.GetPrintBookInformation().PrintUserBookListUI(returnBookList);
                 
                 returnId = ExceptionHandler.GetExceptionHandler().IsValidInput(Constant.NUMBER, column, row, 3, Constant.IS_NOT_PASSWORD);
                 // 반납하려는 책의 아이디 입력

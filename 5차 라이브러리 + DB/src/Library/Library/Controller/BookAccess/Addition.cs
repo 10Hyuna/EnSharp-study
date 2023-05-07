@@ -28,6 +28,53 @@ namespace Library.Controller.BookAccess
             accessorData = AccessorData.GetAccessorData();
         }
 
+        public void AddRequestedBook()
+        {
+            List<BookDTO> books = new List<BookDTO>();
+            BookDTO requestedBook = new BookDTO();
+            bool isESC = true;
+
+            string title = "";
+
+            int column = 18;
+            int row = 3;
+
+            Console.SetWindowSize(76, 40);
+            Console.Clear();
+
+            PrintBookInformation.GetPrintBookInformation().PrintAddBookTitle();
+
+            while (isESC)
+            {
+                isESC = false;
+
+                books = AccessorData.GetAccessorData().SelectRequestBook();
+                Console.SetCursorPosition(0, 6);
+                PrintBookInformation.GetPrintBookInformation().PrintRequestBookList(books);
+
+                Console.SetCursorPosition(0, 0);
+                title = InputRequestedBookTitle();
+                if(title == Constant.ESC_STRING)
+                {
+                    continue;
+                }
+
+                requestedBook = AccessorData.GetAccessorData().SelectRequestedBook(title);
+
+                if(requestedBook.Title == null)
+                {
+                    GuidancePhrase.SetGuidancePhrase().PrintException((int)EXCEPTION.INVALID_BOOK, column, row);
+                    isESC = true;
+                    continue;
+                }
+
+                AccessorData.GetAccessorData().InsertBookData(requestedBook);
+                AccessorData.GetAccessorData().DeleteRequestBook(requestedBook.Title);
+                PrintBookInformation.GetPrintBookInformation().PrintSuccessAddBook();
+                isESC = true;
+            }
+        }
+
         public void AddBook()       // 책 추가
         {
             string successAddBook = "";
@@ -36,14 +83,42 @@ namespace Library.Controller.BookAccess
             Console.SetWindowSize(73, 40);
             Console.Clear();
 
-            MainView.PrintBox(3);
-            PrintBookInformation.PrintAddTheBookUI();
+            MainView.SetMainView().PrintBox(3);
+            PrintBookInformation.GetPrintBookInformation().PrintAddTheBookUI();
 
             successAddBook = InputBookInformation();        // 추가할 책의 정보를 입력받는 메소드 호출
             if (successAddBook == Constant.ESC_STRING)      // 중간에 ESC를 입력받았다면
             {
                 return;         // 뒤로가기
             }
+        }
+
+        private string InputRequestedBookTitle()
+        {
+            string title = null;
+
+            int column = 18;
+            int row = 3;
+
+            bool isESC = true;
+
+            while (isESC)
+            {
+                isESC = false;
+
+                title = ExceptionHandler.GetExceptionHandler().IsValidInput(Constant.TITLE, column, row, 20, Constant.IS_NOT_PASSWORD);
+                if (title == Constant.ESC_STRING)
+                {
+                    continue;
+                }
+                else if (title == "")
+                {
+                    GuidancePhrase.SetGuidancePhrase().PrintException((int)EXCEPTION.NOT_MATCH_CONDITION, column, row);
+                    isESC = true;
+                    continue;
+                }
+            }
+            return title;
         }
 
         private string InputBookInformation()
@@ -109,8 +184,8 @@ namespace Library.Controller.BookAccess
             {
                 return Constant.ESC_STRING;
             }
-            AccessorData.InsertBookData(book);
-            PrintBookInformation.PrintSuccessAddBook();
+            AccessorData.GetAccessorData().InsertBookData(book);
+            PrintBookInformation.GetPrintBookInformation().PrintSuccessAddBook();
             InputFromUser.GetInputFromUser().EnteredESC();
             return Constant.SUCCESS.ToString();
         }

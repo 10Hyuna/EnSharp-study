@@ -29,32 +29,38 @@ namespace Library.Controller.APIAccess
 
             string isESC;
 
+            bool isEnterESC = true;
+
             List<BookDTO> books = new List<BookDTO>();
 
             Console.SetWindowSize(76, 40);
 
             PrintBookInformation.GetPrintBookInformation().PrintNaverSearch();
-            bookInformation = EnterBookInformation();
-            if(bookInformation == Constant.ESC_STRING)
-            {
-                return;
-            }
 
-            bookCount = EnterBookCount();
-            if(bookCount == Constant.EXIT_INT)
+            while (isEnterESC)
             {
-                return;
-            }
+                bookInformation = EnterBookInformation();
+                if (bookInformation == Constant.ESC_STRING)
+                {
+                    isEnterESC = false;
+                    continue;
+                }
 
-            PrintBookInformation.GetPrintBookInformation().PrintNaverSearchResult();
-            books = SearchBook(bookInformation, bookCount);
-            for(int i = 0; i < books.Count; i++)
-            {
-                PrintBookInformation.GetPrintBookInformation().PrintBookList(books[i]);
-            }
-            isESC = InputFromUser.GetInputFromUser().InputEnterESC();
+                bookCount = EnterBookCount();
+                if (bookCount == Constant.EXIT_INT)
+                {
+                    isEnterESC = false;
+                    continue;
+                }
 
-            EnterRequestMenu(isESC, books);
+                PrintBookInformation.GetPrintBookInformation().PrintNaverSearchResult();
+                books = SearchBook(bookInformation, bookCount);
+                PrintBookInformation.GetPrintBookInformation().PrintRequestBookList(books);
+                Console.SetCursorPosition(0, 0);
+
+                isESC = InputFromUser.GetInputFromUser().InputEnterESC();
+                EnterRequestMenu(isESC, books);
+            }
         }
 
         private string EnterBookInformation()

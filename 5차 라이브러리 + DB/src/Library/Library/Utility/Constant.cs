@@ -69,11 +69,13 @@ namespace Library.Utility
         public const string DELETE_RENT_BOOK_WITH = "DELETE FROM user_rent_book WHERE book_id = {0}";
         public const string DELETE_RETURN_BOOK = "DELETE FROM user_return_book WHERE book_id = {0}";
         public const string DELETE_RENT_BOOK = "DELETE FROM user_rent_book WHERE user_id = '{0}' AND book_id = {1}";
+        public const string DELETE_REQUEST_BOOK = "DELETE FROM request_book WHERE title = '{0}'";
         public const string SELECT_USER = "SELECT * FROM user_list WHERE id = '{0}'";
         public const string SELECT_ALL_USER = "SELECT * FROM user_list";
         public const string SELECT_MANAGER = "SELECT * FROM manager_list WHERE id = '{0}'";
         public const string SELECT_ALL_BOOK = "SELECT * FROM book_list";
         public const string SELECT_REQUEST_BOOK = "SELECT * FROM request_book";
+        public const string SELECT_REQUESTED_BOOK = "SELECT * FROM request_book WHERE title LIKE CONCAT('%', '{0}', '%')";
         public const string SELECT_BOOK = "SELECT * FROM book_list WHERE (title LIKE CONCAT('%', '{0}', '%') OR '{0}' = '') AND (author LIKE CONCAT('%', '{1}', '%') OR '{1}' = '') AND (publisher LIKE CONCAT('%', '{2}', '%') OR '{2}' = '')";
         public const string SELECT_PARTLY_BOOK = "SELECT * FROM book_list WHERE id = {0}";
         public const string SELECT_RENT_BOOK = "SELECT * FROM user_rent_book WHERE user_id = '{0}'";
@@ -110,7 +112,8 @@ enum EXCEPTION
     NULL_RENT,
     NOT_MATCH_SEARCH,
     NOT_MATCH_COUNT,
-    ALREADY_REQUEST
+    ALREADY_REQUEST,
+    INVALID_BOOK
 }
 enum MODE
 {

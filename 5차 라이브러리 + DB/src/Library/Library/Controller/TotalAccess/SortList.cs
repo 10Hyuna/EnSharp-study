@@ -59,13 +59,13 @@ namespace Library.Controller.TotalAccess
             {
                 if(entryType == (int)(ENTRY.RENTAL))
                 {
-                    PrintBookInformation.PrintRentReturnBookTitle(Constant.RENT);
+                    PrintBookInformation.GetPrintBookInformation().PrintRentReturnBookTitle(Constant.RENT);
                 }
                 else
                 {
-                    PrintBookInformation.PrintRentReturnBookTitle(Constant.RETURN);
+                    PrintBookInformation.GetPrintBookInformation().PrintRentReturnBookTitle(Constant.RETURN);
                 }
-                PrintBookInformation.PrintUserBookListUI(books);
+                PrintBookInformation.GetPrintBookInformation().PrintUserBookListUI(books);
             }
             InputFromUser.GetInputFromUser().InputEnterESC();
         }
@@ -89,7 +89,7 @@ namespace Library.Controller.TotalAccess
                 }
 
                 PrintUserInformation.PrintUserId(users[i].Id);
-                PrintBookInformation.PrintUserBookListUI(rentBooks);
+                PrintBookInformation.GetPrintBookInformation().PrintUserBookListUI(rentBooks);
             }
             InputFromUser.GetInputFromUser().InputEnterESC();
         }

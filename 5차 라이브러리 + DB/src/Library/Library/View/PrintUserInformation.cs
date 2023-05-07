@@ -96,7 +96,7 @@ namespace Library.View
         public static void PrintModifyMyInformationUI()
         {
             Console.SetCursorPosition(0, 0);
-            MainView.PrintBox(3);
+            MainView.SetMainView().PrintBox(3);
             Console.SetCursorPosition(26, 2);
             Console.WriteLine("개 인 정 보 바 꾸 기\n\n\n");
         }
@@ -106,8 +106,8 @@ namespace Library.View
             const int consoleInputRow = 26;
             const int consoleInputColumn = 10;
 
-            MainView.PrintMain();
-            MainView.PrintBox(5);
+            MainView.SetMainView().PrintMain();
+            MainView.SetMainView().PrintBox(5);
 
             Console.SetCursorPosition(consoleInputRow, consoleInputColumn);
             Console.WriteLine("회원탈퇴 하시겠습니까?");
@@ -126,8 +126,8 @@ namespace Library.View
             const int consoleInputColumn = 13;
 
             Console.Clear();
-            MainView.PrintMain();
-            MainView.PrintBox(5);
+            MainView.SetMainView().PrintMain();
+            MainView.SetMainView().PrintBox(5);
 
             Console.SetCursorPosition(consoleInputRow, consoleInputColumn);
             Console.WriteLine("대여 중인 도서가 있어 정보 삭제가 불가능합니다.");
@@ -140,8 +140,8 @@ namespace Library.View
             const int consoleInputRow = 35;
             const int consoleInputColumn = 10;
 
-            MainView.PrintMain();
-            MainView.PrintBox(5);
+            MainView.SetMainView().PrintMain();
+            MainView.SetMainView().PrintBox(5);
 
             Console.SetCursorPosition(consoleInputRow, consoleInputColumn);
             Console.WriteLine("회원 탈퇴 성공!");

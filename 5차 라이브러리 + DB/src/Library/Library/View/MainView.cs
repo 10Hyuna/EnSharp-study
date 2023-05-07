@@ -22,7 +22,7 @@ namespace Library.View
             return mainView;
         }
 
-        public static void PrintMain()
+        public void PrintMain()
         {
             Console.WriteLine("\n\t     ##     #####   ######    #####    ######   #####   ##   ##");
             Console.WriteLine("\t    ##       ##    ###  ##   ##  ##  ###  ##   ##  ##   ## ##");
@@ -32,7 +32,7 @@ namespace Library.View
             Console.WriteLine("\t#####  #####   ######   ##   ### ##  ##   ##   ###   ##\n");
         }
 
-        public static void PrintBox(int line)
+        public void PrintBox(int line)
         {
             Console.WriteLine("\t\t┌─────────────────────────────────────┐");
             for (int i = 0; i < line; i++)
@@ -42,7 +42,7 @@ namespace Library.View
             Console.WriteLine("\t\t└─────────────────────────────────────┘");
         }
 
-        public static void PrintLoginUI(string objectName)
+        public void PrintLoginUI(string objectName)
         {
             PrintMain();
             PrintBox(4);
@@ -62,7 +62,7 @@ namespace Library.View
             Console.WriteLine("\t{0} PASSWORD :", objectName);
         }
 
-        public static void PrintSignUpUI()
+        public void PrintSignUpUI()
         {
             PrintMain();
             PrintBox(5);
@@ -98,7 +98,7 @@ namespace Library.View
             Console.SetCursorPosition(column, row + 7);
         }
 
-        public static void SuccessSignUp()
+        public void SuccessSignUp()
         {
             Console.SetWindowSize(76, 15);
             PrintMain();

@@ -31,7 +31,7 @@ namespace Library.Controller.TotalAccess
         public void ModifyInformation(int entryType, string id)     // 유저 정보 수정하는 메소드
         {
             Console.Clear();
-            MainView.PrintBox(3);
+            MainView.SetMainView().PrintBox(3);
             Console.SetWindowSize(76, 40);
 
             switch (entryType)
@@ -61,7 +61,7 @@ namespace Library.Controller.TotalAccess
             {
                 Console.Clear();
                 Console.SetWindowSize(76, 40);
-                PrintBookInformation.PrintModifyBookInformationUI();
+                PrintBookInformation.GetPrintBookInformation().PrintModifyBookInformationUI();
 
                 books = AccessorData.AllBookData();
 
@@ -129,7 +129,7 @@ namespace Library.Controller.TotalAccess
 
             Console.Clear();
             Console.SetWindowSize(76, 30);
-            PrintBookInformation.PrintDeleteTheBook();
+            PrintBookInformation.GetPrintBookInformation().PrintDeleteTheBook();
 
             while (isNotESC)
             {

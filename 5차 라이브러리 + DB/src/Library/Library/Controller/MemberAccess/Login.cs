@@ -39,7 +39,7 @@ namespace Library.Controller.MemberAccess
             {
                 Console.SetWindowSize(76, 20);
                 Console.Clear();
-                MainView.PrintLoginUI(entryType);
+                MainView.SetMainView().PrintLoginUI(entryType);
 
                 account = ReturnInformation();      // 아이디와 비밀번호 값을 입력받는 메소드 호출
 

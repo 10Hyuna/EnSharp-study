@@ -38,7 +38,7 @@ namespace Library.Controller.MemberAccess
             Console.Clear();
             Console.SetWindowSize(76, 40);
 
-            MainView.PrintSignUpUI();
+            MainView.SetMainView().PrintSignUpUI();
 
             successSignUp = AddUser();      // 회원가입하려는 유저의 정보를 입력하는 메소드
 
@@ -48,7 +48,7 @@ namespace Library.Controller.MemberAccess
             }
 
             Console.Clear();
-            MainView.SuccessSignUp();       // 회원가입 성공
+            MainView.SetMainView().SuccessSignUp();       // 회원가입 성공
 
             while (isNotEnter)
             {

@@ -61,7 +61,8 @@ namespace Library.Controller.APIAccess
                     isESC = true;
                     continue;
                 }
-
+                PrintBookInformation.GetPrintBookInformation().PrintSuccessRequestBook();
+                isESC = true;
             }
         }
     }

@@ -54,8 +54,8 @@ namespace Library.Controller.SelectorMode
             {
                 Console.SetWindowSize(76, 16);
                 Console.Clear();
-                MainView.PrintMain();
-                MainView.PrintBox(4);
+                MainView.SetMainView().PrintMain();
+                MainView.SetMainView().PrintBox(4);
                 menuIndex = MenuIndexSelector.SelectMenuIndex(modeMenu, menuIndex, consoleColumn, consoleRow);
 
                 if(menuIndex == Constant.EXIT_INT)

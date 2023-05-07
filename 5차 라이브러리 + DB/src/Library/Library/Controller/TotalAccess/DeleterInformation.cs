@@ -57,7 +57,7 @@ namespace Library.Controller.TotalAccess
             {
                 Console.Clear();
                 Console.SetWindowSize(76, 30);
-                PrintBookInformation.PrintDeleteTheBookUI();
+                PrintBookInformation.GetPrintBookInformation().PrintDeleteTheBookUI();
 
                 List<BookDTO> books = new List<BookDTO>();
                 books = AccessorData.AllBookData();
@@ -92,7 +92,7 @@ namespace Library.Controller.TotalAccess
                 AccessorData.DeleteBookData(bookNumber);
                 AccessorData.DeleteRentBookData(bookNumber);
                 AccessorData.DeleteReturnBookData(bookNumber);
-                PrintBookInformation.PrintSuccessDeleteBook();
+                PrintBookInformation.GetPrintBookInformation().PrintSuccessDeleteBook();
                 InputFromUser.GetInputFromUser().EnteredESC();
             }
         }

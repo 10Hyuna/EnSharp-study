@@ -1,11 +1,13 @@
 package Controller;
 
-import Model.AccessorData;
 import Model.DataParse;
 
+import java.awt.*;
 import javax.swing.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import javax.swing.JButton;
+import javax.swing.JFrame;
 
 public class SearcherImage {
     private DataParse dataParse;
@@ -17,10 +19,12 @@ public class SearcherImage {
     JPanel jPanel;
 
     public void SearchImage(String searchingKeyword, String size) throws IOException {
+
         int sizeNumber = Integer.parseInt(size);
         BufferedImage[] searchedImage = new BufferedImage[sizeNumber];
         searchedImage = dataParse.ParseURL(searchingKeyword, sizeNumber);
 
+        jPanel = new JPanel();
         image = new JButton[sizeNumber];
 
         for(int i = 0; i < sizeNumber; i++)

@@ -19,7 +19,7 @@ public class ConnectionMySql {
 
     private static Connection ConnectServer()
     {
-        String url = "jdbc:mysql://localhost:3306/HyunaStudy";
+        String url = "jdbc:mysql://localhost:3306/hyuna";
         String user = "root";
         String password = "00000000";
 

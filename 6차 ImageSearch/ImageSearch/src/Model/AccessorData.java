@@ -31,7 +31,7 @@ public class AccessorData {
     public List<LogVO> SelectLog()
     {
         String query = String.format(Constant.SELECT_LOG);
-        List<Hashtable<String, String>> hashtableList = new ArrayList<>();
+        List<Hashtable<String, String>> hashtableList;
         List<LogVO> logs = new ArrayList<>();
         try
         {

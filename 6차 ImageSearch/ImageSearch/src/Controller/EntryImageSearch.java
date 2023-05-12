@@ -60,6 +60,9 @@ public class EntryImageSearch extends JFrame {
                     }
                     setVisible(false);
                 }
+                else if(command.equals("exit")){
+                    setVisible(true);
+                }
             }
         });
 
@@ -72,7 +75,6 @@ public class EntryImageSearch extends JFrame {
 
                 if(command.equals("Log")){
                     logCheck.CheckLog();
-                    setVisible(false);
                 }
             }
         });

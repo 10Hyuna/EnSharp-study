@@ -71,7 +71,6 @@ public class SearcherImage extends JFrame{
 
                 if(command.equals("exit")){
                     setVisible(false);
-                    return;
                 }
                 else {
                     exitButton.setText("exit");

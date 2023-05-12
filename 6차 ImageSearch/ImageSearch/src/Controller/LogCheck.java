@@ -31,18 +31,6 @@ public class LogCheck extends JFrame {
 
         setLayout(new FlowLayout());
 
-        List<LogVO> logs;
-        logs = accessorData.SelectLog();
-        logLabel = new JLabel[logs.size()];
-        logPanel = new JPanel[logs.size()];
-
-        for(int i = 0; i < logs.size(); i++)
-        {
-            logLabel[i].setText(logs.get(i).toString());
-            logPanel[i].add(logLabel[i]);
-            add(logPanel[i]);
-        }
-
         jButtonPanel = new JPanel();
         delete = new JButton("Delete Log");
         delete.setActionCommand("delete");
@@ -54,6 +42,7 @@ public class LogCheck extends JFrame {
                 if(command.equals("delete"))
                 {
                     accessorData.DeleteData();
+
                 }
             }
         });
@@ -75,5 +64,20 @@ public class LogCheck extends JFrame {
         jButtonPanel.add(exit);
         add(jButtonPanel);
 
+        List<LogVO> logs;
+        logs = accessorData.SelectLog();
+        logLabel = new JLabel[logs.size()];
+        logPanel = new JPanel[logs.size()];
+
+        for(int i = 0; i < logs.size(); i++)
+        {
+            logLabel[i] = new JLabel();
+            logPanel[i] = new JPanel();
+            logLabel[i].setText(String.format("%s %s", logs.get(i).GetSearchWord(), logs.get(i).GetSearchTime()));
+            logPanel[i].add(logLabel[i]);
+            add(logPanel[i]);
+        }
+        
+        setVisible(true);
     }
 }

@@ -13,7 +13,7 @@ import java.util.Hashtable;
 
 public class ConnectionMySql {
 
-    private static Connection connection;
+    private static Connection connection = null;
     private static String serverAddress;
     private ResultSet resultSet;
 
@@ -38,7 +38,7 @@ public class ConnectionMySql {
     }
 
     public ArrayList ConnectReader(String query) throws SQLException {
-        ArrayList<Hashtable<String, Object>> list = new ArrayList<>();
+        ArrayList<Hashtable<String, String>> list = new ArrayList<>();
         int column;
         String[] ColumnNames;
         Connection connection = null;
@@ -59,16 +59,17 @@ public class ConnectionMySql {
 
             while(resultSet.next())
             {
-                Hashtable<String, Object> hashtable = new Hashtable<>();
+                Hashtable<String, String> hashtable = new Hashtable<>();
                 for(String columnName : ColumnNames)
                 {
                     Object value = resultSet.getObject(columnName);
-                    hashtable.put(columnName, value);
+                    hashtable.put(columnName, String.valueOf(value));
                 }
                 list.add(hashtable);
             }
             statement.close();
             connection.close();
+            connection = null;
         }
         catch (SQLException e)
         {
@@ -79,7 +80,7 @@ public class ConnectionMySql {
 
     public void CUD(String query)
     {
-        Connection connection = null;
+        connection = null;
 
         try
         {

@@ -1,6 +1,8 @@
 package Controller;
 
+import Model.AccessorData;
 import Model.DataParse;
+import Model.LogVO;
 
 import java.awt.*;
 import javax.swing.*;
@@ -8,14 +10,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
 public class SearcherImage extends JFrame{
     private DataParse dataParse;
-    public SearcherImage()
+    private AccessorData accessorData;
+
+    public SearcherImage(AccessorData accessorData)
     {
         dataParse = new DataParse();
+        this.accessorData = accessorData;
     }
     JButton[] image;
     JButton exitButton;
@@ -30,10 +37,15 @@ public class SearcherImage extends JFrame{
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        LocalDateTime time = LocalDateTime.now();
+        String timeNow = time.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+
         int sizeNumber = Integer.parseInt(size);
         BufferedImage[] searchedImage = new BufferedImage[sizeNumber];
         searchedImage = dataParse.ParseURL(searchingKeyword, sizeNumber);
 
+        LogVO log = new LogVO(searchingKeyword, timeNow);
+        accessorData.InsertData(log);
         jPanel = new JPanel();
         exitPanel = new JPanel();
 
@@ -47,7 +59,6 @@ public class SearcherImage extends JFrame{
             image[i].setFocusPainted(false);
             jPanel.add(image[i]);
         }
-        setVisible(true);
         exitButton = new JButton("EXIT");
         exitButton.setActionCommand("exit");
         exitButton.addActionListener(new ActionListener() {
@@ -68,5 +79,6 @@ public class SearcherImage extends JFrame{
         exitPanel.add(exitButton);
         add(exitPanel);
         add(jPanel);
+        setVisible(true);
     }
 }

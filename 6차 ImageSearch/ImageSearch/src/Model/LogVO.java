@@ -4,6 +4,16 @@ public class LogVO {
     private String searchWord;
     private String searchTime;
 
+    public LogVO(String searchWord, String searchTime)
+    {
+        this.searchWord = searchWord;
+        this.searchTime = searchTime;
+    }
+    public LogVO()
+    {
+
+    }
+
    public String GetSearchWord()
    {
        return searchWord;

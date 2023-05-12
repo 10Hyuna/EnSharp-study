@@ -1,5 +1,7 @@
 package Controller;
 
+import Model.AccessorData;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,6 +21,15 @@ public class EntryImageSearch extends JFrame {
     JButton logButton;
     JPanel jPanel;
     JPanel logPanel;
+    AccessorData accessorData;
+    LogCheck logCheck;
+    SearcherImage searcherImage;
+    public EntryImageSearch()
+    {
+        accessorData = new AccessorData();
+        searcherImage =  new SearcherImage(accessorData);
+        logCheck = new LogCheck(accessorData);
+    }
     public void EnterMenu() {
         setSize(500, 500);
         setTitle("imageSearch");
@@ -42,7 +53,6 @@ public class EntryImageSearch extends JFrame {
                 String command = e.getActionCommand();
 
                 if(command.equals("search")){
-                    SearcherImage searcherImage = new SearcherImage();
                     try {
                         searcherImage.SearchImage(searchingKeyword.getText(), searchedResultSize.getText());
                     } catch (IOException ex) {
@@ -61,7 +71,6 @@ public class EntryImageSearch extends JFrame {
                 String command = e.getActionCommand();
 
                 if(command.equals("Log")){
-                    LogCheck logCheck = new LogCheck();
                     logCheck.CheckLog();
                     setVisible(false);
                 }

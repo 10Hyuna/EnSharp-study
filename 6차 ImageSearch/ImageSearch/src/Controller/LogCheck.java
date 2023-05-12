@@ -7,6 +7,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +33,12 @@ public class LogCheck extends JFrame {
 
         setLayout(new FlowLayout());
 
+        LocalDateTime time = LocalDateTime.now();
+        String timeNow = time.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+
+        LogVO log = new LogVO("로그", timeNow);
+
+        accessorData.InsertData(log);
         jButtonPanel = new JPanel();
         delete = new JButton("Delete Log");
         delete.setActionCommand("delete");
@@ -42,7 +50,11 @@ public class LogCheck extends JFrame {
                 if(command.equals("delete"))
                 {
                     accessorData.DeleteData();
+                    LocalDateTime time = LocalDateTime.now();
+                    String timeNow = time.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
+                    LogVO log = new LogVO("로그 삭제", timeNow);
+                    accessorData.InsertData(log);
                 }
             }
         });
@@ -56,7 +68,7 @@ public class LogCheck extends JFrame {
 
                 if (command.equals("exit"))
                 {
-                    return;
+                    dispose();
                 }
             }
         });
@@ -77,7 +89,7 @@ public class LogCheck extends JFrame {
             logPanel[i].add(logLabel[i]);
             add(logPanel[i]);
         }
-        
+
         setVisible(true);
     }
 }

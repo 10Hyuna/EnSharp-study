@@ -70,10 +70,7 @@ public class SearcherImage extends JFrame{
                 String command = e.getActionCommand();
 
                 if(command.equals("exit")){
-                    setVisible(false);
-                }
-                else {
-                    exitButton.setText("exit");
+                    dispose();
                 }
             }
         });

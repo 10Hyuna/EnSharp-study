@@ -41,7 +41,7 @@ public class ConnectionMySql {
         ArrayList<Hashtable<String, String>> list = new ArrayList<>();
         int column;
         String[] ColumnNames;
-        Connection connection = null;
+        connection = null;
 
         try
         {

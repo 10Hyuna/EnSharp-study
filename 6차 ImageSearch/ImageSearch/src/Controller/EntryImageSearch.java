@@ -58,10 +58,6 @@ public class EntryImageSearch extends JFrame {
                     } catch (IOException ex) {
                         throw new RuntimeException(ex);
                     }
-                    setVisible(false);
-                }
-                else if(command.equals("exit")){
-                    setVisible(true);
                 }
             }
         });

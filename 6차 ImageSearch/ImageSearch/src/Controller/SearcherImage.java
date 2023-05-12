@@ -46,6 +46,9 @@ public class SearcherImage extends JFrame{
 
         LogVO log = new LogVO(searchingKeyword, timeNow);
         accessorData.InsertData(log);
+
+        setLayout(new FlowLayout());
+
         jPanel = new JPanel();
         exitPanel = new JPanel();
 

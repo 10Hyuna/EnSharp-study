@@ -1,7 +1,14 @@
 package view;
 
+import utility.Constant;
+
+import java.awt.Color;
+
 import javax.swing.*;
 import java.awt.*;
+
+import static java.awt.Color.DARK_GRAY;
+import static java.awt.Color.getColor;
 
 public class CalculatorButton extends JPanel
 {
@@ -13,9 +20,19 @@ public class CalculatorButton extends JPanel
         JButton[] calculateButton = new JButton[20];
         for(int i = 0; i < button.length; i++)
         {
-            if(i >= 0 && i <= 3 )
-            calculateButton[i].setText(button[i]);
+            buttonPanel.add(calculateButton[i] = new JButton(button[i]));
+            switch(i)
+            {
+                case Constant.BUTTON_NUMBER[0]:
+                    calculateButton[i].setForeground(DARK_GRAY);
+                    break;
+                case Constant.BUTTON_NUMBER[1]:
+                    calculateButton[i].setForeground(DARK_GRAY);
+                    break;
+                case Constant.BUTTON_NUMBER[2]:
+                    calculateButton[i].setForeground(DARK_GRAY);
+                    break;
+            }
         }
-
     }
 }

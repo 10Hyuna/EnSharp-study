@@ -1,6 +1,5 @@
 package view;
 
-import utility.Constant;
 import javax.swing.*;
 import java.awt.*;
 
@@ -12,13 +11,19 @@ public class CalculatorButton extends JPanel
     {
         JPanel buttonPanel = new JPanel(new GridLayout(5, 4));
         JButton[] calculateButton = new JButton[20];
-        for (int i = 0; i < button.length; i++)
+        for (int buttonIndex = 0; buttonIndex < button.length; buttonIndex++)
         {
-            calculateButton[i].setText(button[i]);
-            switch(i)
-            {
-                case Constant.BUTTON_NUMBER[0]:
+            buttonPanel.add(calculateButton[buttonIndex] = new JButton(button[buttonIndex]));
 
+            if(buttonIndex == 0 || buttonIndex == 1 || buttonIndex == 2
+            || buttonIndex == 3 || buttonIndex == 7 || buttonIndex == 11
+            || buttonIndex == 15 || buttonIndex == 19)
+            {
+                calculateButton[buttonIndex].setForeground(Color.DARK_GRAY);
+            }
+            else
+            {
+                calculateButton[buttonIndex].setForeground(Color.gray);
             }
         }
     }

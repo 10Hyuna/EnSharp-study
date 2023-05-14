@@ -1,6 +1,5 @@
 package controller;
 
-import model.VO.LogVO;
 import view.CalculatorButton;
 import view.InputState;
 import view.RecordButton;
@@ -20,7 +19,6 @@ public class Calculator extends JFrame {
     public void calculate()
     {
         setcalculator();
-        LogVO log = new LogVO();
 
     }
 

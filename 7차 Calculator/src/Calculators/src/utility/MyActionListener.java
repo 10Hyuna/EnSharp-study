@@ -13,12 +13,14 @@ import java.io.IOException;
 public class MyActionListener implements ActionListener {
 
     private static MyActionListener myActionListener;
+    private InputValueParse inputValueParse;
     private JLabel currentInputs;
     private JLabel recentInputs;
     private String inputtedValue;
 
     private MyActionListener()
     {
+        inputValueParse = new InputValueParse();
         currentInputs = InputState.getInputState().getCurrentInput();
         recentInputs = InputState.getInputState().getRecentInput();
     }
@@ -70,7 +72,9 @@ public class MyActionListener implements ActionListener {
         }
         else if(command.equals("="))
         {
-
+            inputValueParse.parseInput(currentInputs.getText(), recentInputs.getText());
+            currentInputs.setText("0");
+            recentInputs.setText("");
         }
         else if(currentInputs.getText() != "0" && (command.equals("⌫") && currentInputs.getText().length() != 0))
         {

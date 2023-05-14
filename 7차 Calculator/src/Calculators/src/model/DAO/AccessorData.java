@@ -12,10 +12,20 @@ import java.util.Hashtable;
 public class AccessorData {
 
     private ConnectionMySql connectionMySql;
+    private static AccessorData accessorData;
 
-    public AccessorData()
+    private AccessorData()
     {
         connectionMySql = new ConnectionMySql();
+    }
+
+    public static AccessorData GetAccessorData()
+    {
+        if(accessorData == null)
+        {
+            accessorData = new AccessorData();
+        }
+        return accessorData;
     }
 
     public LogVO SelectLog()
@@ -68,9 +78,9 @@ public class AccessorData {
         connectionMySql.CUD(query);
     }
 
-    public void InsertLog()
+    public void InsertLog(LogVO log)
     {
-        String query = String.format(DatabaseConstant.INSERT_LOG);
+        String query = String.format(DatabaseConstant.INSERT_LOG, log.GetFirstInput(), log.GetLastInput(), log.GetOperator(), log.GetResult());
         connectionMySql.CUD(query);
     }
 }

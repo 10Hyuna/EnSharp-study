@@ -26,7 +26,7 @@ public class AccessorData {
 
         try
         {
-            hashtableList = connectionMySql.ConnectReader(query);
+            hashtableList = connectionMySql.connectReader(query);
         }
         catch (SQLException e)
         {
@@ -46,7 +46,7 @@ public class AccessorData {
         List<LogVO> logs = new ArrayList<>();
         try
         {
-            hashtableList = connectionMySql.ConnectReader(query);
+            hashtableList = connectionMySql.connectReader(query);
         }
         catch (SQLException e)
         {

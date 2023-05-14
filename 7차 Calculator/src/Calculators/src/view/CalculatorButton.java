@@ -7,9 +7,9 @@ import java.awt.*;
 
 public class CalculatorButton extends JPanel
 {
-    private String[] button = {"CE", "C", "⌫", "⁒", "7", "8", "9", "X",
+    private String[] button = {"CE", "C", "⌫", "÷", "7", "8", "9", "×",
             "4", "5", "6", "-", "1", "2", "3", "+", "+/-", "0", ".", "="};
-    public JPanel SetCalculatorButton()
+    public JPanel setCalculatorButton()
     {
         setLayout(new GridLayout(5, 4));
         JButton[] calculateButton = new JButton[20];

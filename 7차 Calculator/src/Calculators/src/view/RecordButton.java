@@ -7,7 +7,7 @@ public class RecordButton extends JPanel{
     private JLabel standard;
     private JButton recordButton;
 
-    public JPanel SetRecordPanel()
+    public JPanel setRecordPanel()
     {
         recordButton = new JButton("⟲");
         standard = new JLabel("표준");

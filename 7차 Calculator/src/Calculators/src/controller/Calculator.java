@@ -10,28 +10,26 @@ import java.awt.*;
 
 public class Calculator extends JFrame {
     private CalculatorButton calculatorButton;
-    private InputState inputState;
     private RecordButton recordButton;
 
     public Calculator()
     {
         calculatorButton = new CalculatorButton();
-        inputState = new InputState();
         recordButton = new RecordButton();
     }
     public void calculate()
     {
-        Setcalculator();
+        setcalculator();
         LogVO log = new LogVO();
 
     }
 
-    private void Setcalculator()
+    private void setcalculator()
     {
-        JPanel recordPanel = recordButton.SetRecordPanel();
+        JPanel recordPanel = recordButton.setRecordPanel();
         recordPanel.setPreferredSize(new Dimension(10,10));
-        JPanel inputPanel = inputState.SetCurrentInput();
-        JPanel calculatorPanel = calculatorButton.SetCalculatorButton();
+        JPanel inputPanel = InputState.getInputState().setCurrentInput();
+        JPanel calculatorPanel = calculatorButton.setCalculatorButton();
 
         setSize(500, 700);
         setTitle("Calculator");

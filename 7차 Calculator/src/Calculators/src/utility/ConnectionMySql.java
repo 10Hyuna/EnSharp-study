@@ -11,7 +11,7 @@ import java.util.Hashtable;
 
 public class ConnectionMySql {
     private static Connection connection = null;
-    private static Connection ConnectServer()
+    private static Connection connectServer()
     {
         String url = String.format("jdbc:mysql://%s:%s/%s", DatabaseConstant.userId, DatabaseConstant.port, DatabaseConstant.tableName);
         String user = DatabaseConstant.user;
@@ -29,7 +29,7 @@ public class ConnectionMySql {
         return connection;
     }
 
-    public ArrayList ConnectReader(String query) throws SQLException {
+    public ArrayList connectReader(String query) throws SQLException {
 
         ArrayList<Hashtable<String, String>> list = new ArrayList<>();
         int column;
@@ -37,7 +37,7 @@ public class ConnectionMySql {
 
         try
         {
-            connection = ConnectServer();
+            connection = connectServer();
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
@@ -74,7 +74,7 @@ public class ConnectionMySql {
     {
         try
         {
-            connection = ConnectServer();
+            connection = connectServer();
             Statement statement = connection.createStatement();
             statement.execute(query);
             statement.close();

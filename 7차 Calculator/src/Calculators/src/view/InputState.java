@@ -13,12 +13,24 @@ public class InputState extends JPanel
         currentInput = new JLabel("0");
         currentInput.setFont(new Font("Serif", Font.BOLD, 15));
         currentInput.setForeground(Color.BLACK);
+        add(currentInput);
+    }
+
+    public JLabel GetCurrentInput()
+    {
+        return currentInput;
     }
 
     public void SetRecentInput()
     {
         recentInput = new JLabel();
         recentInput.setFont(new Font("Serif", Font.PLAIN, 8));
-        currentInput.setForeground(Color.gray);
+        recentInput.setForeground(Color.gray);
+        add(recentInput);
+    }
+
+    public JLabel GetRecentInput()
+    {
+        return recentInput;
     }
 }

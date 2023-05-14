@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 
 public class ConnectionMySql {
-
     private static Connection connection = null;
     private static Connection ConnectServer()
     {

@@ -1,14 +1,7 @@
-package utility;
+package controller;
 
-import controller.Calculator;
-import view.InputState;
-import view.ManagementInput;
-
-import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 
 public class MyActionListener implements ActionListener {
 
@@ -28,14 +21,13 @@ public class MyActionListener implements ActionListener {
     }
     public void actionPerformed(ActionEvent e)
     {
-        //inputtedValue = null;
         String command = e.getActionCommand();
         if(command.equals("0") || command.equals("1") || command.equals("2")
         || command.equals("3") || command.equals("4") || command.equals("5")
         || command.equals("6") || command.equals("7") || command.equals("8")
-                || command.equals("9") || command.equals("."))
+                || command.equals("9"))
         {
-            calculator.inputNumber();
+            calculator.inputNumber(command);
 //            inputtedValue = currentInputs.getText();
 //            if(isCalculated)
 //            {
@@ -53,10 +45,14 @@ public class MyActionListener implements ActionListener {
 //            }
 //            currentInputs.setText(inputtedValue);
         }
+        else if(command.equals("."))
+        {
+            calculator.inputPoint();
+        }
         else if(command.equals("÷") || command.equals("×") ||
                 command.equals("-") || command.equals("+"))
         {
-            calculator.inputOperator();
+            calculator.inputOperator(command);
 //            operator = command;
 //            if(isCalculated)
 //            {
@@ -77,13 +73,10 @@ public class MyActionListener implements ActionListener {
         else if(command.equals("CE"))
         {
             calculator.inputCE();
-//            currentInputs.setText("0");
         }
         else if(command.equals("C"))
         {
             calculator.inputC();
-//            currentInputs.setText("0");
-//            recentInputs.setText("");
         }
         else if(command.equals("="))
         {
@@ -101,26 +94,10 @@ public class MyActionListener implements ActionListener {
         else if(command.equals("⌫"))
         {
             calculator.inputBackspqce();
-//            inputtedValue = currentInputs.getText();
-//            currentInputs.setText(inputtedValue.substring(0, inputtedValue.length() - 1));
-//            if(currentInputs.getText() == "")
-//            {
-//                currentInputs.setText("0");
-//            }
         }
         else if(command.equals("+/-"))
         {
             calculator.inputNegate();
-//            if(recentInputs.getText() != "")
-//            {
-//                inputtedValue = String.format("negate(%s)", recentInputs.getText());
-//                recentInputs.setText(inputtedValue);
-//            }
-//            if(currentInputs.getText() != "0")
-//            {
-//                inputtedValue = String.valueOf(Integer.parseInt(currentInputs.getText()) * -1);
-//                currentInputs.setText(inputtedValue);
-//            }
         }
     }
 }

@@ -1,43 +1,95 @@
 package controller;
 
-import utility.InputValueParse;
-import view.CalculatorButton;
+import com.sun.tools.javac.Main;
 import view.InputState;
-import view.RecordButton;
+import view.MainView;
 
 import javax.swing.*;
-import java.awt.*;
 
-public class Calculator extends JFrame {
-    private CalculatorButton calculatorButton;
-    private RecordButton recordButton;
-    private InputValueParse inputValueParse;
+public class Calculator {
+    private MainView mainView;
     private JLabel currentInputs;
     private JLabel recentInputs;
     private String inputtedValue;
+    private int firstInput;
+    private int secondInput;
+    private String operator;
+    private int result;
+    private boolean isCalculated = false;
     public Calculator()
     {
-        calculatorButton = new CalculatorButton();
-        recordButton = new RecordButton();
-        inputValueParse = new InputValueParse();
+        mainView = new MainView();
         currentInputs = InputState.getInputState().getCurrentInput();
         recentInputs = InputState.getInputState().getRecentInput();
     }
     public void calculate()
     {
-        setcalculator();
+        mainView.setcalculator();
     }
-    public void inputNumber()
+    public void inputNumber(String input)
+    {
+        if(currentInputs.getText() == "0")
+        {
+            currentInputs.setText(input);
+        }
+        else if(isCalculated)
+        {
+            isCalculated = false;
+            recentInputs.setText("");
+            currentInputs.setText(input);
+        }
+        else
+        {
+            inputtedValue = currentInputs.getText();
+            inputtedValue += input;
+            currentInputs.setText(inputtedValue);
+        }
+    }
+    public void inputPoint()
     {
 
     }
-    public void inputOperator()
+    public void inputOperator(String input)
     {
-
+        if(currentInputs.getText() == "0")
+        {
+            inputtedValue = currentInputs.getText();
+            inputtedValue += input;
+            recentInputs.setText(inputtedValue);
+        }
+        else if(isCalculated)
+        {
+            isCalculated = false;
+            inputtedValue = String.valueOf(result);
+            inputtedValue += input;
+            recentInputs.setText(inputtedValue);
+        }
+        else
+        {
+            if(recentInputs.getText() == "")
+            {
+                inputtedValue = currentInputs.getText();
+                inputtedValue += input;
+                recentInputs.setText(inputtedValue);
+            }
+            else
+            {
+                inputtedValue = recentInputs.getText();
+                inputtedValue = inputtedValue.substring(0, inputtedValue.length() -1);
+                inputtedValue += input;
+                recentInputs.setText(inputtedValue);
+            }
+        }
     }
     public void inputEqual()
     {
+        if(currentInputs.getText() == "0")
+        {
+            if(recentInputs.getText() != "")
+            {
 
+            }
+        }
     }
     public void inputBackspqce()
     {
@@ -72,25 +124,5 @@ public class Calculator extends JFrame {
     {
         currentInputs.setText("0");
         recentInputs.setText("");
-    }
-    private void setcalculator()
-    {
-        JPanel recordPanel = recordButton.setRecordPanel();
-        recordPanel.setPreferredSize(new Dimension(10,10));
-        JPanel inputPanel = InputState.getInputState().setCurrentInput();
-        JPanel calculatorPanel = calculatorButton.setCalculatorButton();
-
-        setSize(500, 700);
-        setTitle("Calculator");
-        setResizable(true);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new BorderLayout());
-
-        this.add(recordPanel, BorderLayout.NORTH);
-        this.add(inputPanel, BorderLayout.CENTER);
-        this.add(calculatorPanel, BorderLayout.SOUTH);
-
-        setVisible(true);
     }
 }

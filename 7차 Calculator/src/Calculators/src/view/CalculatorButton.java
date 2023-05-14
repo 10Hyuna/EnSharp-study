@@ -1,6 +1,6 @@
 package view;
 
-import utility.MyActionListener;
+import controller.MyActionListener;
 
 import javax.swing.*;
 import java.awt.*;

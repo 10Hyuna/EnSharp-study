@@ -81,35 +81,6 @@ public class Calculator {
             inputtedValue = String.format("%s %s", firstInput, operator);
             recentInputs.setText(inputtedValue);
         }
-//        if(currentInputs.getText() == "0")
-//        {
-//            inputtedValue = currentInputs.getText();
-//            inputtedValue += input;
-//            recentInputs.setText(inputtedValue);
-//        }
-//        else if(isCalculated)
-//        {
-//            isCalculated = false;
-//            inputtedValue = String.valueOf(result);
-//            inputtedValue += input;
-//            recentInputs.setText(inputtedValue);
-//        }
-//        else
-//        {
-//            if(recentInputs.getText() == "")
-//            {
-//                inputtedValue = currentInputs.getText();
-//                inputtedValue += input;
-//                recentInputs.setText(inputtedValue);
-//            }
-//            else
-//            {
-//                inputtedValue = recentInputs.getText();
-//                inputtedValue = inputtedValue.substring(0, inputtedValue.length() -1);
-//                inputtedValue += input;
-//                recentInputs.setText(inputtedValue);
-//            }
-//        }
     }
     public void inputEqual()
     {
@@ -124,6 +95,7 @@ public class Calculator {
             secondInput = currentInputs.getText();;
             inputtedValue = String.format("%s %s %s = ", firstInput, operator, secondInput);
             result = inputValueParse.calculateValue(secondInput, firstInput, operator);
+            inputValueParse.parseInput(secondInput, firstInput, operator);
             firstInput = String.valueOf(result);
             recentInputs.setText(inputtedValue);
             currentInputs.setText(String.valueOf(result));

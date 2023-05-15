@@ -38,7 +38,7 @@ public class Calculator {
         else if(isCalculated)
         {
             isCalculated = false;
-            recentInputs.setText("");
+            recentInputs.setText(String.valueOf(result));
             currentInputs.setText(input);
         }
         else if(isOperated)
@@ -66,6 +66,13 @@ public class Calculator {
         {
             firstInput = currentInputs.getText();
             inputtedValue = firstInput;
+            inputtedValue += input;
+            recentInputs.setText(inputtedValue);
+        }
+        else if(isCalculated)
+        {
+            isCalculated = false;
+            inputtedValue = String.valueOf(result);
             inputtedValue += input;
             recentInputs.setText(inputtedValue);
         }
@@ -106,6 +113,7 @@ public class Calculator {
     }
     public void inputEqual()
     {
+        isCalculated = true;
         if(operator == null)
         {
             inputtedValue = String.format("%s =", firstInput);
@@ -117,6 +125,8 @@ public class Calculator {
             inputtedValue = String.format("%s %s %s = ", firstInput, operator, secondInput);
             result = inputValueParse.calculateValue(secondInput, firstInput, operator);
             firstInput = String.valueOf(result);
+            recentInputs.setText(inputtedValue);
+            currentInputs.setText(String.valueOf(result));
         }
     }
     public void inputBackspqce()
@@ -147,11 +157,15 @@ public class Calculator {
     public void inputCE()
     {
         currentInputs.setText("0");
+        secondInput = null;
     }
     public void inputC()
     {
         operator = null;
         currentInputs.setText("0");
         recentInputs.setText("");
+        firstInput = null;
+        secondInput = null;
+        result = 0;
     }
 }

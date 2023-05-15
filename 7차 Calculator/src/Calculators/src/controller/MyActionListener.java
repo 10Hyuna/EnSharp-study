@@ -28,22 +28,6 @@ public class MyActionListener implements ActionListener {
                 || command.equals("9"))
         {
             calculator.inputNumber(command);
-//            inputtedValue = currentInputs.getText();
-//            if(isCalculated)
-//            {
-//                isCalculated = false;
-//                inputtedValue = command;
-//            }
-//            else if(inputtedValue == "0" || operator != null)
-//            {
-//                operator = null;
-//                inputtedValue = command;
-//            }
-//            else
-//            {
-//                inputtedValue += command;
-//            }
-//            currentInputs.setText(inputtedValue);
         }
         else if(command.equals("."))
         {
@@ -53,22 +37,6 @@ public class MyActionListener implements ActionListener {
                 command.equals("-") || command.equals("+"))
         {
             calculator.inputOperator(command);
-//            operator = command;
-//            if(isCalculated)
-//            {
-//                inputtedValue = currentInputs.getText();
-//            }
-//            else if(recentInputs.getText() != "")
-//            {
-//                result = inputValueParse.calculateValue(currentInputs.getText(), recentInputs.getText());
-//                inputtedValue = String.valueOf(result);
-//            }
-//            else
-//            {
-//                inputtedValue = currentInputs.getText();
-//            }
-//            inputtedValue += command;
-//            recentInputs.setText(inputtedValue);
         }
         else if(command.equals("CE"))
         {
@@ -81,15 +49,6 @@ public class MyActionListener implements ActionListener {
         else if(command.equals("="))
         {
             calculator.inputEqual();
-//            if(!isCalculated)
-//            {
-//                isCalculated = true;
-//                result = inputValueParse.calculateValue(currentInputs.getText(), recentInputs.getText());
-//                inputValueParse.parseInput(currentInputs.getText(), recentInputs.getText());
-//                inputtedValue = String.format("%s%s =", recentInputs.getText(), currentInputs.getText());
-//                recentInputs.setText(inputtedValue);
-//                currentInputs.setText(String.valueOf(result));
-//            }
         }
         else if(command.equals("⌫"))
         {

@@ -32,6 +32,10 @@ public class Calculate {
     }
     public void InputNumber(String input)
     {
+        if(!isUnableCalculate)
+        {
+            isUnableCalculate = true;
+        }
         BigDecimal ten = new BigDecimal("10");
         BigDecimal inputValue = new BigDecimal(input);
         current = current.multiply(ten);
@@ -41,10 +45,18 @@ public class Calculate {
     }
     public void InputOperator(String input)
     {
+        if(!isUnableCalculate)
+        {
+            return;
+        }
         operator = input;
         if(current.equals(new BigDecimal("0")))
         {
             current = recent;
+        }
+        else if(!result.equals(new BigDecimal("0")))
+        {
+            current = result;
         }
         recent = current;
         recentLabel = InputState.GetInputState().GetRecentInput();
@@ -53,9 +65,42 @@ public class Calculate {
     }
     public void InputEqual()
     {
+        if(!isUnableCalculate)
+        {
+            return;
+        }
+        recentLabel = InputState.GetInputState().GetRecentInput();
+        if (recent.equals(new BigDecimal("0")) && current.equals(new BigDecimal("0")))
+        {
+            recentLabel.setText("0 =");
+        }
+        else if(operator == null)
+        {
+            recentLabel.setText(String.format("%s = ", current));
+        }
+        else
+        {
+            if(current.equals(new BigDecimal("0")))
+            {
+                current = recent;
+            }
+
+            isUnableCalculate = CalculateValue();
+            if(isUnableCalculate)
+            {
+                recentLabel.setText(String.format(String.valueOf(recent) + " " + operator + " " + String.valueOf(current) + " ="));
+                currentLabel = InputState.GetInputState().GetCurrentInput();
+                currentLabel.setText(String.valueOf(result));
+                recent = new BigDecimal(String.valueOf(result));
+            }
+        }
     }
     public void InputNegate()
     {
+        if(!isUnableCalculate)
+        {
+            return;
+        }
         if(!result.equals(new BigDecimal("0")))
         {
             recentInputs = String.format("negate(%s)", String.valueOf(result));
@@ -93,12 +138,20 @@ public class Calculate {
     }
     public void InputCE()
     {
+        if(!isUnableCalculate)
+        {
+            isUnableCalculate = true;
+        }
         currentLabel.setText("0");
         current = new BigDecimal("0");
         currentInputs = null;
     }
     public void InputC()
     {
+        if(!isUnableCalculate)
+        {
+            isUnableCalculate = true;
+        }
         InputCE();
         recentLabel.setText("");
         recent = new BigDecimal("0");
@@ -107,6 +160,10 @@ public class Calculate {
     }
     public void InputBackspace()
     {
+        if(!isUnableCalculate)
+        {
+            isUnableCalculate = true;
+        }
         if(current.equals(new BigDecimal("0")))
         {
             return;
@@ -140,9 +197,11 @@ public class Calculate {
             recentLabel.setText("");
         }
     }
-    public void InputPoint()
-    {
-
+    public void InputPoint() {
+        if(!isUnableCalculate)
+        {
+            return;
+        }
     }
     private boolean CalculateValue() {
         if (recent.equals(0) && current.equals(0)) {

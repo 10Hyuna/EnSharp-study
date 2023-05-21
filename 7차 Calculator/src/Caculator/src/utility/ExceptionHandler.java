@@ -11,7 +11,6 @@ public class ExceptionHandler {
     {
         currentLabel = InputState.GetInputState().GetCurrentInput();
         recentLabel = InputState.GetInputState().GetRecentInput();
-        recentLabel.setText("");
-        currentLabel.setText("0으로 나눌 수 없습니다");
+        currentLabel.setText("정의되지 않은 결과입니다.");
     }
 }

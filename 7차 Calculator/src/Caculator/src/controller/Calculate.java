@@ -16,9 +16,9 @@ public class Calculate {
     private TotalStorage totalStorage;
     private ExceptionHandler exceptionHandler;
     private boolean isUnableCalculate;
-    private BigDecimal current;
-    private BigDecimal recent;
-    private BigDecimal result;
+    private BigDecimal current = new BigDecimal("0");
+    private BigDecimal recent = new BigDecimal("0");
+    private BigDecimal result = new BigDecimal("0");
     private String operator;
     private String recentInputs;
     private String currentInputs;
@@ -32,10 +32,6 @@ public class Calculate {
     }
     public void InputNumber(String input)
     {
-        if(current == null)
-        {
-            current = new BigDecimal("0");
-        }
         BigDecimal ten = new BigDecimal("10");
         BigDecimal inputValue = new BigDecimal(input);
         current = current.multiply(ten);
@@ -45,10 +41,6 @@ public class Calculate {
     }
     public void InputOperator(String input)
     {
-        if(recent == null)
-        {
-            recent = new BigDecimal("0");
-        }
         operator = input;
         if(current.equals(new BigDecimal("0")))
         {
@@ -80,7 +72,31 @@ public class Calculate {
     }
     public void InputBackspace()
     {
-
+        if(current.equals(new BigDecimal("0")))
+        {
+            return;
+        }
+        else if(result.equals(new BigDecimal("0")))
+        {
+            currentInputs = String.valueOf(current);
+            if(currentInputs.length() == 1)
+            {
+                currentInputs = "0";
+            }
+            else
+            {
+                currentInputs = currentInputs.substring(0, currentInputs.length() - 1);
+            }
+            current = new BigDecimal(currentInputs);
+            currentLabel = InputState.GetInputState().GetCurrentInput();
+            currentLabel.setText(String.valueOf(current));
+        }
+        else
+        {
+            recent = new BigDecimal("0");
+            recentLabel = InputState.GetInputState().GetRecentInput();
+            recentLabel.setText("");
+        }
     }
     public void InputPoint()
     {

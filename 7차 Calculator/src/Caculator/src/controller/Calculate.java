@@ -1,99 +1,86 @@
 package controller;
 
 import model.TotalStorage;
+import utility.ExceptionHandler;
 import view.InputState;
 
 import javax.swing.*;
+import java.math.BigDecimal;
 
 public class Calculate {
     private TotalStorage totalStorage;
-    private int currentInput;
-    private int recentInput;
-    private int result;
+    private ExceptionHandler exceptionHandler;
+    private boolean isUnableCalculate;
+    private BigDecimal current;
+    private BigDecimal recent;
+    private BigDecimal result;
     private String operator;
     private String recentInputs;
     private String currentInputs;
-    private JLabel current;
-    private JLabel recent;
+    private JLabel currentLabel;
+    private JLabel recentLabel;
     public Calculate()
     {
         totalStorage = new TotalStorage();
-        current = InputState.GetInputState().GetCurrentInput();
-        recent = InputState.GetInputState().GetRecentInput();
+        exceptionHandler = new ExceptionHandler();
     }
     public void InputNumber(String input)
     {
-        currentInput *= 10;
-        currentInput += Integer.parseInt(input);
-        current = InputState.GetInputState().GetCurrentInput();
-        current.setText(String.valueOf(currentInput));
+
     }
     public void InputOperator(String input)
     {
-        recentInput = currentInput;
-        operator = input;
-        recentInputs = String.valueOf(currentInput) + operator;
-        recent.setText(recentInputs);
-        currentInput = 0;
+
     }
     public void InputEqual()
     {
-        if(currentInput == 0)
-        {
-            currentInput = recentInput;
-        }
-        CalculateValue();
-        current.setText(String.valueOf(result));
-        recent.setText(String.format(recent.getText() + "="));
-        recentInput = result;
-        recent.setText("");
+
     }
     public void InputNegate()
     {
-        currentInputs = current.getText();
-        recentInputs += String.format("negate(%s)", currentInputs);
-        currentInput *= -1;
-        current.setText(String.valueOf(currentInput));
+
     }
     public void InputCE()
     {
-        current.setText("0");
-        currentInput = 0;
+        currentLabel.setText("0");
+        current = 0;
     }
     public void InputC()
     {
         InputCE();
-        recent.setText("");
-        recentInput = 0;
+        recentLabel.setText("");
+        recent = 0;
     }
     public void InputBackspace()
     {
-        if(currentInput > 0)
-        {
-            currentInput /= 10;
-            current.setText(String.valueOf(currentInput));
-        }
+
     }
     public void InputPoint()
     {
 
     }
-    private void CalculateValue()
+    private boolean CalculateValue()
     {
+        if(recent.equals(0) && current.equals(0))
+        {
+            exceptionHandler.IsUndivisableNumber();
+            return false;
+        }
         switch (operator)
         {
             case "+":
-                result = currentInput + recentInput;
+                result = recent.add(current);
                 break;
             case "-":
-                result = currentInput - recentInput;
+                result = recent.subtract(current);
                 break;
             case "×":
-                result = currentInput * recentInput;
+                result = recent.multiply(current);
                 break;
             case "÷":
-                result = currentInput / recentInput;
+                result = recent.divide(current);
                 break;
         }
+        return true;
     }
 }

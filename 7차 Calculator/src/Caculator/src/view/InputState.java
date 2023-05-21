@@ -23,7 +23,7 @@ public class InputState extends JPanel {
         setLayout(new FlowLayout());
         Dimension dimension = new Dimension(500, 150);
 
-        recentInput = new JLabel("0", JLabel.RIGHT);
+        recentInput = new JLabel("", JLabel.RIGHT);
         recentInput.setForeground(Color.GRAY);
         recentInput.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
         recentInput.setPreferredSize(new Dimension(dimension.width, dimension.height / 4));

@@ -70,13 +70,13 @@ public class Calculate {
     public void InputCE()
     {
         currentLabel.setText("0");
-        current.equals("0");
+        current = new BigDecimal("0");
     }
     public void InputC()
     {
         InputCE();
         recentLabel.setText("");
-        recent.equals("0");
+        recent = new BigDecimal("0");
     }
     public void InputBackspace()
     {

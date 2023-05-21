@@ -4,8 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 
 public class InputState extends JPanel {
-    private JLabel recentInput;
-    private JLabel currentInput;
+    private JLabel recentInput = new JLabel();
+    private JLabel currentInput = new JLabel();
 
     private static InputState inputState;
 
@@ -20,17 +20,18 @@ public class InputState extends JPanel {
     }
 
     public JPanel GetPanel() {
-        Dimension dimension = new Dimension(this.getWidth(), this.getHeight());
+        setLayout(new FlowLayout());
+        Dimension dimension = new Dimension(500, 150);
 
-        recentInput = new JLabel("", JLabel.RIGHT);
-        recentInput.setForeground(Color.DARK_GRAY);
+        recentInput = new JLabel("0", JLabel.RIGHT);
+        recentInput.setForeground(Color.GRAY);
         recentInput.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
-        recentInput.setSize(dimension.width, dimension.height / 4);
+        recentInput.setPreferredSize(new Dimension(dimension.width, dimension.height / 4));
 
         currentInput = new JLabel("0", JLabel.RIGHT);
         currentInput.setForeground(Color.BLACK);
         currentInput.setFont(new Font("맑은 고딕", Font.BOLD, 50));
-        currentInput.setSize(dimension.width, 3 * (dimension.height / 4));
+        currentInput.setPreferredSize(new Dimension(dimension.width, (dimension.height / 4) * 2));
 
         add(recentInput);
         add(currentInput);

@@ -53,27 +53,69 @@ public class Calculate {
     }
     public void InputEqual()
     {
-
     }
     public void InputNegate()
     {
+        if(!result.equals(new BigDecimal("0")))
+        {
+            recentInputs = String.format("negate(%s)", String.valueOf(result));
+            recentLabel = InputState.GetInputState().GetRecentInput();
+            recentLabel.setText(recentInputs);
 
+            current = result;
+            result = new BigDecimal("0");
+        }
+        else if(!recent.equals(new BigDecimal("0")))
+        {
+            if(recentInputs == null)
+            {
+                recentLabel = InputState.GetInputState().GetRecentInput();
+                currentLabel = InputState.GetInputState().GetCurrentInput();
+                recentInputs = String.valueOf(currentLabel.getText());
+                recentInputs = String.format("negate(%s)", String.valueOf(recentInputs));
+                recentLabel.setText(String.format(recentLabel.getText() + " " + recentInputs));
+            }
+            else
+            {
+                recentLabel = InputState.GetInputState().GetRecentInput();
+                recentInputs = String.format("negate(%s)", String.valueOf(recentInputs));
+                recentLabel.setText(String.format(recent + " " + operator + " " + recentInputs));
+            }
+        }
+        else if(current.equals(new BigDecimal("0")))
+        {
+            return;
+        }
+        currentLabel = InputState.GetInputState().GetCurrentInput();
+        current = new BigDecimal(currentLabel.getText());
+        current = current.multiply(new BigDecimal("-1"));
+        currentLabel.setText(String.valueOf(current));
     }
     public void InputCE()
     {
         currentLabel.setText("0");
         current = new BigDecimal("0");
+        currentInputs = null;
     }
     public void InputC()
     {
         InputCE();
         recentLabel.setText("");
         recent = new BigDecimal("0");
+        result = new BigDecimal("0");
+        recentInputs = null;
     }
     public void InputBackspace()
     {
         if(current.equals(new BigDecimal("0")))
         {
+            return;
+        }
+        else if(current.compareTo(new BigDecimal("0")) == -1)
+        {
+            current = new BigDecimal("0");
+            currentLabel = InputState.GetInputState().GetCurrentInput();
+            currentLabel.setText(String.valueOf(current));
             return;
         }
         else if(result.equals(new BigDecimal("0")))

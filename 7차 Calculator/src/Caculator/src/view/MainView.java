@@ -27,10 +27,10 @@ public class MainView extends JFrame
         standard = new JLabel("표준", JLabel.LEFT);
         standard.setPreferredSize(new Dimension(dimension.width, dimension.height / 15));
 
-        inputPanel = InputState.GetInputState().GetPanel();
+        inputPanel = InputState.GetInputState().GetPanel(dimension);
         inputPanel.setPreferredSize(new Dimension(dimension.width, (dimension.height / 15) * 3));
 
-        buttons = calculatorButton.GetCalculatorButton();
+        buttons = calculatorButton.GetCalculatorButton(dimension);
         buttons.setPreferredSize(new Dimension(dimension.width, (dimension.height / 15) * 10));
 
         add(standard);

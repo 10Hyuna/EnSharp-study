@@ -19,24 +19,38 @@ public class InputState extends JPanel {
         return inputState;
     }
 
-    public JPanel GetPanel() {
-        setLayout(new FlowLayout());
-        Dimension dimension = new Dimension(500, 150);
+    public JPanel GetPanel(Dimension dimension) {
+        setLayout(new BorderLayout());
+        add(ReturnRecentInput(dimension), BorderLayout.EAST);
+        add(ReturnCurrentInput(dimension), BorderLayout.SOUTH);
+
+        return this;
+    }
+    private JPanel ReturnRecentInput(Dimension dimension)
+    {
+        JPanel recentPanel = new JPanel();
+        recentPanel.setPreferredSize(new Dimension(dimension.width, ((dimension.height / 15) * 3) / 4));
 
         recentInput = new JLabel("", JLabel.RIGHT);
         recentInput.setForeground(Color.GRAY);
         recentInput.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
-        recentInput.setPreferredSize(new Dimension(dimension.width, dimension.height / 4));
+
+        recentPanel.add(recentInput);
+
+        return recentPanel;
+    }
+    private JPanel ReturnCurrentInput(Dimension dimension)
+    {
+        JPanel currentPanel = new JPanel();
+        currentPanel.setPreferredSize(new Dimension(dimension.width, (((dimension.height / 15) * 3) / 4) * 3));
 
         currentInput = new JLabel("0", JLabel.RIGHT);
         currentInput.setForeground(Color.BLACK);
         currentInput.setFont(new Font("맑은 고딕", Font.BOLD, 50));
-        currentInput.setPreferredSize(new Dimension(dimension.width, (dimension.height / 4) * 2));
 
-        add(recentInput);
-        add(currentInput);
+        currentPanel.add(currentInput);
 
-        return this;
+        return currentPanel;
     }
     public JLabel GetRecentInput() {
         return recentInput;

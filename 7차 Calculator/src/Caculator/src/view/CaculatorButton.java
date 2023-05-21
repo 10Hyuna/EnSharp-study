@@ -18,9 +18,10 @@ public class CaculatorButton extends JPanel {
     {
         myActionListener = new MyActionListener();
     }
-    public JPanel GetCalculatorButton()
+    public JPanel GetCalculatorButton(Dimension dimension)
     {
         setLayout(new GridLayout(5, 4));
+        setPreferredSize(new Dimension(dimension.width, (dimension.height / 15) * 10));
         buttons = new JButton[20];
 
         for (int i = 0; i < button.length; i++)

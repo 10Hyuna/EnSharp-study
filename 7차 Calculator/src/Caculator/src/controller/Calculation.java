@@ -4,7 +4,9 @@ import model.TotalStorage;
 import utility.ExceptionHandler;
 import view.InputState;
 
+import java.awt.*;
 import java.math.MathContext;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
 import javax.swing.*;
@@ -34,14 +36,27 @@ public class Calculation {
         {
             isUnableCalculate = true;
         }
+        if(String.valueOf(current).length() >= 16)
+        {
+            currentLabel.setFont(new Font("맑은 고딕", Font.BOLD, 40));
+            return;
+        }
         BigDecimal ten = new BigDecimal("10");
         BigDecimal inputValue = new BigDecimal(input);
         current = current.multiply(ten);
         current = current.add(inputValue);
         currentLabel = InputState.GetInputState().GetCurrentInput();
-        if(String.valueOf(current).length() >= 16)
+        if(String.valueOf(current).length() == 15)
         {
-            return;
+            currentLabel.setFont(new Font("맑은 고딕", Font.BOLD, 43));
+        }
+        else if(String.valueOf(current).length() == 14)
+        {
+            currentLabel.setFont(new Font("맑은 고딕", Font.BOLD, 46));
+        }
+        else
+        {
+            currentLabel.setFont(new Font("맑은 고딕", Font.BOLD, 50));
         }
         currentLabel.setText(formating.format(current));
     }
@@ -93,11 +108,14 @@ public class Calculation {
                 recentLabel.setText(String.format(String.valueOf(recent) + " " + operator + " " + String.valueOf(current) + " ="));
                 if(result.toString().length() > 16)
                 {
+                    System.out.println(result);
                     String formatedString = result.toString().replace("E", "e");
+                    currentLabel.setFont(new Font("맑은 고딕", Font.BOLD, 35));
                     currentLabel.setText(formatedString);
                 }
                 else
                 {
+                    currentLabel.setFont(new Font("맑은 고딕", Font.BOLD, 50));
                     currentLabel.setText(formating.format(result));
                 }
                 recent = new BigDecimal(String.valueOf(result));
@@ -143,7 +161,7 @@ public class Calculation {
         currentLabel = InputState.GetInputState().GetCurrentInput();
         current = new BigDecimal(currentLabel.getText());
         current = current.multiply(new BigDecimal("-1"));
-        currentLabel.setText(String.valueOf(current));
+        currentLabel.setText(formating.format(current));
     }
     public void InputCE()
     {
@@ -182,7 +200,7 @@ public class Calculation {
         {
             current = new BigDecimal("0");
             currentLabel = InputState.GetInputState().GetCurrentInput();
-            currentLabel.setText(String.valueOf(current));
+            currentLabel.setText(formating.format(current));
             return;
         }
         else if(result.equals(new BigDecimal("0")))
@@ -198,7 +216,7 @@ public class Calculation {
             }
             current = new BigDecimal(currentInputs);
             currentLabel = InputState.GetInputState().GetCurrentInput();
-            currentLabel.setText(String.valueOf(current));
+            currentLabel.setText(formating.format(current));
         }
         else
         {
@@ -231,7 +249,7 @@ public class Calculation {
                 result = recent.subtract(current, MathContext.DECIMAL64);
                 break;
             case "×":
-            result = recent.multiply(current, MathContext.DECIMAL64);
+                result = recent.multiply(current, MathContext.DECIMAL64);
                 break;
             case "÷":
                 result = recent.divide(current, MathContext.DECIMAL64);

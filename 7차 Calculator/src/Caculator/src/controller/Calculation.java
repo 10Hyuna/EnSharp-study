@@ -67,6 +67,7 @@ public class Calculation {
     }
     public void InputEqual()
     {
+        currentLabel = InputState.GetInputState().GetCurrentInput();
         if(!isUnableCalculate)
         {
             return;
@@ -82,16 +83,14 @@ public class Calculation {
         }
         else
         {
-            if(current.equals(new BigDecimal("0")) && !operator.equals("÷"))
+            if(current.equals(new BigDecimal("0")) && !currentLabel.getText().equals("0"))
             {
                 current = recent;
             }
-
             isUnableCalculate = CalculateValue();
             if(isUnableCalculate)
             {
                 recentLabel.setText(String.format(String.valueOf(recent) + " " + operator + " " + String.valueOf(current) + " ="));
-                currentLabel = InputState.GetInputState().GetCurrentInput();
                 if(result.toString().length() > 16)
                 {
                     String formatedString = result.toString().replace("E", "e");

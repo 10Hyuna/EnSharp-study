@@ -1,7 +1,16 @@
 package view;
 
+import controller.MyActionListener;
+import controller.MyKeyActionListener;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
+import java.awt.Dimension;
+import javax.swing.SwingUtilities;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 public class MainView extends JFrame
 {
@@ -10,10 +19,12 @@ public class MainView extends JFrame
     private JPanel record;
     private JPanel inputPanel;
     private CaculatorButton calculatorButton;
+    private MyKeyActionListener myKeyActionListener;
 
     public MainView()
     {
         calculatorButton = new CaculatorButton();
+        myKeyActionListener = new MyKeyActionListener();
     }
 
     public void SetFrame()
@@ -23,15 +34,37 @@ public class MainView extends JFrame
         setSize(500, 750);
         setMinimumSize(new Dimension(400, 650));
 
+        addKeyListener(myKeyActionListener);
         Dimension dimension = new Dimension(this.getWidth(), this.getHeight());
         standard = new JLabel("표준", JLabel.LEFT);
         standard.setPreferredSize(new Dimension(dimension.width, dimension.height / 15));
+        standard.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                standard.setPreferredSize(new Dimension(dimension.width, dimension.height / 15));
+                standard.revalidate();
+            }
+        });
 
         inputPanel = InputState.GetInputState().GetPanel(dimension);
         inputPanel.setPreferredSize(new Dimension(dimension.width, (dimension.height / 15) * 3));
+        inputPanel.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                inputPanel.setPreferredSize(new Dimension(dimension.width, (dimension.height / 15) * 3));
+                inputPanel.revalidate();
+            }
+        });
 
         buttons = calculatorButton.GetCalculatorButton(dimension);
         buttons.setPreferredSize(new Dimension(dimension.width, (dimension.height / 15) * 10));
+        buttons.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                buttons.setPreferredSize(new Dimension(dimension.width, (dimension.height / 15) * 10));
+                buttons.revalidate();
+            }
+        });
 
         add(standard);
         add(inputPanel);

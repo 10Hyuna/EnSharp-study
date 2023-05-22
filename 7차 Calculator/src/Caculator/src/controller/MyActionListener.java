@@ -6,10 +6,19 @@ import java.awt.event.ActionListener;
 public class MyActionListener implements ActionListener
 {
     private Calculate calculate;
+    private static MyActionListener myActionListener;
 
     public MyActionListener()
     {
         calculate = new Calculate();
+    }
+    public static MyActionListener GetMyActionListener()
+    {
+        if(myActionListener == null)
+        {
+            myActionListener = new MyActionListener();
+        }
+        return myActionListener;
     }
     @Override
     public void actionPerformed(ActionEvent e) {

@@ -7,6 +7,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 public class CaculatorButton extends JPanel {
 
@@ -14,21 +16,24 @@ public class CaculatorButton extends JPanel {
             "4", "5", "6", "-", "1", "2", "3", "+", "+/-", "0", ".", "="};
     private JButton[] buttons;
     private MyActionListener myActionListener;
-    public CaculatorButton()
-    {
-        myActionListener = new MyActionListener();
-    }
     public JPanel GetCalculatorButton(Dimension dimension)
     {
         setLayout(new GridLayout(5, 4));
         setPreferredSize(new Dimension(dimension.width, (dimension.height / 15) * 10));
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                setPreferredSize(new Dimension(dimension.width, (dimension.height / 15) * 10));
+                revalidate();
+            }
+        });
         buttons = new JButton[20];
 
         for (int i = 0; i < button.length; i++)
         {
             buttons[i] = new JButton();
             buttons[i].setText(button[i]);
-            buttons[i].addActionListener(myActionListener);
+            buttons[i].addActionListener(MyActionListener.GetMyActionListener());
 
             if(i == 0 || i == 1 || i == 2 || i == 3 ||
             i == 7 || i == 11 || i == 15)

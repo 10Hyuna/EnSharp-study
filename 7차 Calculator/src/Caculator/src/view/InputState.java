@@ -2,6 +2,8 @@ package view;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 public class InputState extends JPanel {
     private JLabel recentInput = new JLabel();
@@ -29,13 +31,19 @@ public class InputState extends JPanel {
     private JPanel ReturnRecentInput(Dimension dimension)
     {
         JPanel recentPanel = new JPanel();
-        recentPanel.setPreferredSize(new Dimension(dimension.width, ((dimension.height / 15) * 3) / 4));
-
+        recentPanel.setPreferredSize(new Dimension(dimension.width, ((dimension.height / 15) * 3 ) / 4));
         recentInput = new JLabel("", JLabel.RIGHT);
         recentInput.setForeground(Color.GRAY);
         recentInput.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
 
         recentPanel.add(recentInput);
+        recentPanel.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                recentPanel.setPreferredSize(new Dimension(dimension.width, ((dimension.height / 15) * 3 ) / 4));
+                recentPanel.revalidate();
+            }
+        });
 
         return recentPanel;
     }
@@ -49,6 +57,13 @@ public class InputState extends JPanel {
         currentInput.setFont(new Font("맑은 고딕", Font.BOLD, 50));
 
         currentPanel.add(currentInput);
+        currentPanel.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                currentPanel.setPreferredSize(new Dimension(dimension.width, (((dimension.height / 15) * 3) / 4) * 3));
+                currentPanel.revalidate();
+            }
+        });
 
         return currentPanel;
     }

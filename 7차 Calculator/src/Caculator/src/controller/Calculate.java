@@ -41,7 +41,13 @@ public class Calculate {
         current = current.multiply(ten);
         current = current.add(inputValue);
         currentLabel = InputState.GetInputState().GetCurrentInput();
-        currentLabel.setText(formating.format(current));
+        currentLabel.setText(current.toString());
+        //if(String.valueOf(current).length() >= 16)
+        //{
+        //    currentLabel.setText(current.toString());
+        //    return;
+        //}
+        //currentLabel.setText(formating.format(current));
     }
     public void InputOperator(String input)
     {

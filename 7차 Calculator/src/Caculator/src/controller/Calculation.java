@@ -4,6 +4,7 @@ import model.TotalStorage;
 import utility.ExceptionHandler;
 import view.InputState;
 
+import java.math.MathContext;
 import java.text.DecimalFormat;
 
 import javax.swing.*;
@@ -22,7 +23,6 @@ public class Calculation {
     private JLabel currentLabel;
     private JLabel recentLabel;
     private DecimalFormat formating = new DecimalFormat("###,###.################");
-    private DecimalFormat Eformating = new DecimalFormat("###,###.################E0");
     public Calculation()
     {
         totalStorage = new TotalStorage();
@@ -82,7 +82,7 @@ public class Calculation {
         }
         else
         {
-            if(current.equals(new BigDecimal("0")))
+            if(current.equals(new BigDecimal("0")) && !operator.equals("÷"))
             {
                 current = recent;
             }
@@ -92,13 +92,14 @@ public class Calculation {
             {
                 recentLabel.setText(String.format(String.valueOf(recent) + " " + operator + " " + String.valueOf(current) + " ="));
                 currentLabel = InputState.GetInputState().GetCurrentInput();
-                if(result.toString().length() >= 16)
+                if(result.toString().length() > 16)
                 {
-                    currentLabel.setText(Eformating.format(result));
+                    String formatedString = result.toString().replace("E", "e");
+                    currentLabel.setText(formatedString);
                 }
                 else
                 {
-                    currentLabel.setText(String.valueOf(result));
+                    currentLabel.setText(formating.format(result));
                 }
                 recent = new BigDecimal(String.valueOf(result));
             }
@@ -162,6 +163,7 @@ public class Calculation {
             isUnableCalculate = true;
         }
         InputCE();
+        recentLabel = InputState.GetInputState().GetRecentInput();
         recentLabel.setText("");
         recent = new BigDecimal("0");
         result = new BigDecimal("0");
@@ -213,22 +215,27 @@ public class Calculation {
         }
     }
     private boolean CalculateValue() {
-        if (recent.equals(0) && current.equals(0)) {
-            exceptionHandler.IsUndivisableNumber();
+        if (recent.equals(new BigDecimal("0")) && current.equals(new BigDecimal("0")) && operator.equals("÷")) {
+            exceptionHandler.UndifinedNumber();
+            return false;
+        }
+        else if(current.equals(new BigDecimal("0")) && operator.equals("÷"))
+        {
+            exceptionHandler.UndividedNumber();
             return false;
         }
         switch (operator) {
             case "+":
-                result = recent.add(current);
+                result = recent.add(current, MathContext.DECIMAL64);
                 break;
             case "-":
-                result = recent.subtract(current);
+                result = recent.subtract(current, MathContext.DECIMAL64);
                 break;
             case "×":
-                result = recent.multiply(current);
+            result = recent.multiply(current, MathContext.DECIMAL64);
                 break;
             case "÷":
-                result = recent.divide(current);
+                result = recent.divide(current, MathContext.DECIMAL64);
                 break;
         }
         return true;

@@ -16,6 +16,7 @@ public class Calculation {
     private TotalStorage totalStorage;
     private ExceptionHandler exceptionHandler;
     private boolean isUnableCalculate;
+    private boolean isCalculated;
     private BigDecimal current = new BigDecimal("0");
     private BigDecimal recent = new BigDecimal("0");
     private BigDecimal result = new BigDecimal("0");
@@ -66,15 +67,41 @@ public class Calculation {
         {
             return;
         }
-        operator = input;
         if(current.equals(new BigDecimal("0")))
         {
             current = recent;
         }
-        else if(!result.equals(new BigDecimal("0")))
+        else if(isCalculated)
         {
             current = result;
         }
+        else if(operator != null)
+        {
+            isUnableCalculate = CalculateValue();
+            if(isUnableCalculate)
+            {
+                operator = input;
+                recentLabel.setText(String.format(String.valueOf(result) + " " + operator));
+                currentLabel.setFont(new Font("맑은 고딕", Font.BOLD, 50));
+                currentLabel.setText(formating.format(result));
+                if(result.toString().length() > 16)
+                {
+                    System.out.println(result);
+                    String formatedString = result.toString().replace("E", "e");
+                    currentLabel.setFont(new Font("맑은 고딕", Font.BOLD, 35));
+                    currentLabel.setText(formatedString);
+                }
+                else
+                {
+                    currentLabel.setFont(new Font("맑은 고딕", Font.BOLD, 50));
+                    currentLabel.setText(formating.format(result));
+                }
+                recent = new BigDecimal(String.valueOf(result));
+                current = new BigDecimal("0");
+            }
+            return;
+        }
+        operator = input;
         recent = current;
         recentLabel = InputState.GetInputState().GetRecentInput();
         recentLabel.setText(String.format(String.valueOf(recent) + " " + operator));
@@ -169,6 +196,7 @@ public class Calculation {
         {
             isUnableCalculate = true;
         }
+        operator = null;
         currentLabel.setText("0");
         current = new BigDecimal("0");
         currentInputs = null;
@@ -232,6 +260,7 @@ public class Calculation {
         }
     }
     private boolean CalculateValue() {
+        isCalculated = false;
         if (recent.equals(new BigDecimal("0")) && current.equals(new BigDecimal("0")) && operator.equals("÷")) {
             exceptionHandler.UndifinedNumber();
             return false;
@@ -255,6 +284,7 @@ public class Calculation {
                 result = recent.divide(current, MathContext.DECIMAL64);
                 break;
         }
+        isCalculated = true;
         return true;
     }
 }

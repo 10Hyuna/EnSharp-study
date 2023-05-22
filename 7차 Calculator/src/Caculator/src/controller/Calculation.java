@@ -1,6 +1,7 @@
 package controller;
 
 import model.TotalStorage;
+import model.VO.CaculateResultVO;
 import utility.ExceptionHandler;
 import view.InputState;
 
@@ -284,6 +285,7 @@ public class Calculation {
                 result = recent.divide(current, MathContext.DECIMAL64);
                 break;
         }
+        totalStorage.result.add(new CaculateResultVO(recent.intValue(), current.intValue(), operator, result.intValue()));
         isCalculated = true;
         return true;
     }

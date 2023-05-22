@@ -5,14 +5,11 @@ import utility.ExceptionHandler;
 import view.InputState;
 
 import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.util.Locale;
 
 import javax.swing.*;
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
 
-public class Calculate {
+public class Calculation {
     private TotalStorage totalStorage;
     private ExceptionHandler exceptionHandler;
     private boolean isUnableCalculate;
@@ -25,7 +22,8 @@ public class Calculate {
     private JLabel currentLabel;
     private JLabel recentLabel;
     private DecimalFormat formating = new DecimalFormat("###,###.################");
-    public Calculate()
+    private DecimalFormat Eformating = new DecimalFormat("###,###.################E0");
+    public Calculation()
     {
         totalStorage = new TotalStorage();
         exceptionHandler = new ExceptionHandler();
@@ -41,13 +39,11 @@ public class Calculate {
         current = current.multiply(ten);
         current = current.add(inputValue);
         currentLabel = InputState.GetInputState().GetCurrentInput();
-        currentLabel.setText(current.toString());
-        //if(String.valueOf(current).length() >= 16)
-        //{
-        //    currentLabel.setText(current.toString());
-        //    return;
-        //}
-        //currentLabel.setText(formating.format(current));
+        if(String.valueOf(current).length() >= 16)
+        {
+            return;
+        }
+        currentLabel.setText(formating.format(current));
     }
     public void InputOperator(String input)
     {
@@ -96,7 +92,14 @@ public class Calculate {
             {
                 recentLabel.setText(String.format(String.valueOf(recent) + " " + operator + " " + String.valueOf(current) + " ="));
                 currentLabel = InputState.GetInputState().GetCurrentInput();
-                currentLabel.setText(String.valueOf(result));
+                if(result.toString().length() >= 16)
+                {
+                    currentLabel.setText(Eformating.format(result));
+                }
+                else
+                {
+                    currentLabel.setText(String.valueOf(result));
+                }
                 recent = new BigDecimal(String.valueOf(result));
             }
         }

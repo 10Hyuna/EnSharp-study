@@ -5,12 +5,12 @@ import java.awt.event.ActionListener;
 
 public class MyActionListener implements ActionListener
 {
-    private Calculate calculate;
+    private Calculation calculate;
     private static MyActionListener myActionListener;
 
     public MyActionListener()
     {
-        calculate = new Calculate();
+        calculate = new Calculation();
     }
     public static MyActionListener GetMyActionListener()
     {

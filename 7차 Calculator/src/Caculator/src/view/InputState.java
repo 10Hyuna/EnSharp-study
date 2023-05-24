@@ -21,49 +21,33 @@ public class InputState extends JPanel {
         return inputState;
     }
 
-    public JPanel GetPanel(Dimension dimension) {
+    public JPanel GetPanel() {
         setLayout(new BorderLayout());
-        add(ReturnRecentInput(dimension), BorderLayout.EAST);
-        add(ReturnCurrentInput(dimension), BorderLayout.SOUTH);
+        add(ReturnRecentInput(), BorderLayout.EAST);
+        add(ReturnCurrentInput(), BorderLayout.SOUTH);
 
         return this;
     }
-    private JPanel ReturnRecentInput(Dimension dimension)
+    private JPanel ReturnRecentInput()
     {
         JPanel recentPanel = new JPanel();
-        recentPanel.setPreferredSize(new Dimension(dimension.width, ((dimension.height / 15) * 3 ) / 4));
         recentInput = new JLabel("", JLabel.RIGHT);
         recentInput.setForeground(Color.GRAY);
         recentInput.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
 
         recentPanel.add(recentInput);
-        recentPanel.addComponentListener(new ComponentAdapter() {
-            @Override
-            public void componentResized(ComponentEvent e) {
-                recentPanel.setPreferredSize(new Dimension(dimension.width, ((dimension.height / 15) * 3 ) / 4));
-                recentPanel.revalidate();
-            }
-        });
 
         return recentPanel;
     }
-    private JPanel ReturnCurrentInput(Dimension dimension)
+    private JPanel ReturnCurrentInput()
     {
         JPanel currentPanel = new JPanel();
-        currentPanel.setPreferredSize(new Dimension(dimension.width, (((dimension.height / 15) * 3) / 4) * 3));
 
         currentInput = new JLabel("0", JLabel.RIGHT);
         currentInput.setForeground(Color.BLACK);
         currentInput.setFont(new Font("맑은 고딕", Font.BOLD, 50));
 
         currentPanel.add(currentInput);
-        currentPanel.addComponentListener(new ComponentAdapter() {
-            @Override
-            public void componentResized(ComponentEvent e) {
-                currentPanel.setPreferredSize(new Dimension(dimension.width, (((dimension.height / 15) * 3) / 4) * 3));
-                currentPanel.revalidate();
-            }
-        });
 
         return currentPanel;
     }

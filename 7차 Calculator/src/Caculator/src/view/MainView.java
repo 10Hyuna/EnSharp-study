@@ -23,7 +23,7 @@ public class MainView extends JFrame
         myKeyActionListener = new MyKeyActionListener();
     }
 
-    public void SetFrame()
+    public JFrame SetFrame()
     {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new FlowLayout());
@@ -42,7 +42,7 @@ public class MainView extends JFrame
             }
         });
 
-        inputPanel = InputState.GetInputState().GetPanel(dimension);
+        inputPanel = InputState.GetInputState().GetPanel();
         inputPanel.setPreferredSize(new Dimension(dimension.width, (dimension.height / 15) * 3));
         inputPanel.addComponentListener(new ComponentAdapter() {
             @Override
@@ -52,7 +52,7 @@ public class MainView extends JFrame
             }
         });
 
-        buttons = calculatorButton.GetCalculatorButton(dimension);
+        buttons = calculatorButton.GetCalculatorButton();
         buttons.setPreferredSize(new Dimension(dimension.width, (dimension.height / 15) * 10));
         buttons.addComponentListener(new ComponentAdapter() {
             @Override
@@ -67,5 +67,7 @@ public class MainView extends JFrame
         add(buttons);
 
         setVisible(true);
+
+        return this;
     }
 }

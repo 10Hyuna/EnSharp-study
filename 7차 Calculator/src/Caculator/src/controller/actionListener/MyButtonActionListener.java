@@ -7,20 +7,10 @@ import java.awt.event.ActionListener;
 
 public class MyButtonActionListener implements ActionListener
 {
-    private Calculation calculate;
-    private static MyButtonActionListener myButtonActionListener;
-
+    private Calculation calculation;
     public MyButtonActionListener()
     {
-        calculate = new Calculation();
-    }
-    public static MyButtonActionListener GetMyActionListener()
-    {
-        if(myButtonActionListener == null)
-        {
-            myButtonActionListener = new MyButtonActionListener();
-        }
-        return myButtonActionListener;
+        calculation = new Calculation();
     }
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -28,28 +18,28 @@ public class MyButtonActionListener implements ActionListener
         switch (command)
         {
             case "CE":
-                calculate.InputCE();
+                calculation.InputCE();
                 break;
             case "C":
-                calculate.InputC();
+                calculation.InputC();
                 break;
             case "=":
-                calculate.InputEqual();
+                calculation.InputEqual();
                 break;
             case "+": case "-": case "×": case "÷":
-                calculate.InputOperator(command);
+                calculation.InputOperator(command);
                 break;
             case "+/-":
-                calculate.InputNegate();
+                calculation.InputNegate();
                 break;
             case "⌫":
-                calculate.InputBackspace();
+                calculation.InputBackspace();
                 break;
             case ".":
-                calculate.InputPoint();
+                calculation.InputPoint();
                 break;
             default:
-                calculate.InputNumber(command);
+                calculation.InputNumber(command);
                 break;
         }
     }

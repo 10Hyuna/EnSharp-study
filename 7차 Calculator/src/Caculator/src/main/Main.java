@@ -1,11 +1,11 @@
 package main;
 
-import controller.ModificationCalculator;
+import controller.CalculatorStart;
 
 public class Main {
     public static void main(String[] args)
     {
-        ModificationCalculator modificationCalculator = new ModificationCalculator();
-        modificationCalculator.ModifyCalculator();
+        CalculatorStart calculatorStart = new CalculatorStart();
+        calculatorStart.SetCalculator();
     }
 }

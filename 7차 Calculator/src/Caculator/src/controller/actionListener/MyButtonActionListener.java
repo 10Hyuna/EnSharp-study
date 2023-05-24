@@ -1,24 +1,26 @@
-package controller;
+package controller.actionListener;
+
+import controller.Calculation;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class MyActionListener implements ActionListener
+public class MyButtonActionListener implements ActionListener
 {
     private Calculation calculate;
-    private static MyActionListener myActionListener;
+    private static MyButtonActionListener myButtonActionListener;
 
-    public MyActionListener()
+    public MyButtonActionListener()
     {
         calculate = new Calculation();
     }
-    public static MyActionListener GetMyActionListener()
+    public static MyButtonActionListener GetMyActionListener()
     {
-        if(myActionListener == null)
+        if(myButtonActionListener == null)
         {
-            myActionListener = new MyActionListener();
+            myButtonActionListener = new MyButtonActionListener();
         }
-        return myActionListener;
+        return myButtonActionListener;
     }
     @Override
     public void actionPerformed(ActionEvent e) {

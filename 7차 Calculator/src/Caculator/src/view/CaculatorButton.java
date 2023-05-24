@@ -1,9 +1,6 @@
 package view;
 
-import controller.MyActionListener;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import controller.actionListener.MyButtonActionListener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,7 +12,7 @@ public class CaculatorButton extends JPanel {
     private String[] button = {"CE", "C", "⌫", "÷", "7", "8", "9", "×",
             "4", "5", "6", "-", "1", "2", "3", "+", "+/-", "0", ".", "="};
     private JButton[] buttons;
-    private MyActionListener myActionListener;
+    private MyButtonActionListener myButtonActionListener;
     public JPanel GetCalculatorButton(Dimension dimension)
     {
         setLayout(new GridLayout(5, 4));
@@ -33,7 +30,7 @@ public class CaculatorButton extends JPanel {
         {
             buttons[i] = new JButton();
             buttons[i].setText(button[i]);
-            buttons[i].addActionListener(MyActionListener.GetMyActionListener());
+            buttons[i].addActionListener(MyButtonActionListener.GetMyActionListener());
 
             if(i == 0 || i == 1 || i == 2 || i == 3 ||
             i == 7 || i == 11 || i == 15)

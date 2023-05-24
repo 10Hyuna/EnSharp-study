@@ -1,16 +1,12 @@
 package view;
 
-import controller.MyActionListener;
-import controller.MyKeyActionListener;
+import controller.actionListener.MyKeyActionListener;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
 import java.awt.Dimension;
-import javax.swing.SwingUtilities;
 import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 
 public class MainView extends JFrame
 {

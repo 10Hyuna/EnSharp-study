@@ -16,7 +16,7 @@ import java.math.BigDecimal;
 public class Calculation {
     private TotalStorage totalStorage;
     private ExceptionHandler exceptionHandler;
-    private boolean isUnableCalculate;
+    private boolean isUnableCalculate = true;
     private boolean isCalculated;
     private BigDecimal current = new BigDecimal("0");
     private BigDecimal recent = new BigDecimal("0");
@@ -213,6 +213,7 @@ public class Calculation {
         recentLabel.setText("");
         recent = new BigDecimal("0");
         result = new BigDecimal("0");
+        isCalculated = false;
         recentInputs = null;
     }
     public void InputBackspace()

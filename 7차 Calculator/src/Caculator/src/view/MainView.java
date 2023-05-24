@@ -34,33 +34,11 @@ public class MainView extends JFrame
         Dimension dimension = new Dimension(this.getWidth(), this.getHeight());
         standard = new JLabel("표준", JLabel.LEFT);
         standard.setPreferredSize(new Dimension(dimension.width, dimension.height / 15));
-        standard.addComponentListener(new ComponentAdapter() {
-            @Override
-            public void componentResized(ComponentEvent e) {
-                standard.setPreferredSize(new Dimension(dimension.width, dimension.height / 15));
-                standard.revalidate();
-            }
-        });
 
         inputPanel = InputState.GetInputState().GetPanel();
         inputPanel.setPreferredSize(new Dimension(dimension.width, (dimension.height / 15) * 3));
-        inputPanel.addComponentListener(new ComponentAdapter() {
-            @Override
-            public void componentResized(ComponentEvent e) {
-                inputPanel.setPreferredSize(new Dimension(dimension.width, (dimension.height / 15) * 3));
-                inputPanel.revalidate();
-            }
-        });
-
         buttons = calculatorButton.GetCalculatorButton();
         buttons.setPreferredSize(new Dimension(dimension.width, (dimension.height / 15) * 10));
-        buttons.addComponentListener(new ComponentAdapter() {
-            @Override
-            public void componentResized(ComponentEvent e) {
-                buttons.setPreferredSize(new Dimension(dimension.width, (dimension.height / 15) * 10));
-                buttons.revalidate();
-            }
-        });
 
         add(standard);
         add(inputPanel);

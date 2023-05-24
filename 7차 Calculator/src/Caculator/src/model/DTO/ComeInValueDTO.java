@@ -1,12 +1,14 @@
 package model.DTO;
 
+import java.math.BigDecimal;
+
 public class ComeInValueDTO {
     private String currentString;
     private String previousString;
     private String operator;
-    private int currentNumber;
-    private int previousNumber;
-    private int resultNumber;
+    private BigDecimal currentNumber;
+    private BigDecimal previousNumber;
+    private BigDecimal resultNumber;
     public String GetCurrentString()
     {
         return currentString;
@@ -23,35 +25,29 @@ public class ComeInValueDTO {
     {
         previousString = value;
     }
-    public String GetOperator()
-    {
-        return operator;
-    }
-    public void SetOperator(String value)
-    {
-        operator = value;
-    }
-    public int GetCurrentNumber()
+    public String GetOperator() { return operator; }
+    public void SetOperator(String value) { operator = value; }
+    public BigDecimal GetCurrentNumber()
     {
         return currentNumber;
     }
-    public void SetCurrentNumber(int value)
+    public void SetCurrentNumber(BigDecimal value)
     {
         currentNumber = value;
     }
-    public int GetPreviousNumber()
+    public BigDecimal GetPreviousNumber()
     {
         return previousNumber;
     }
-    public void SetPreviousNumber(int value)
+    public void SetPreviousNumber(BigDecimal value)
     {
         previousNumber = value;
     }
-    public int GetResultNumber()
+    public BigDecimal GetResultNumber()
     {
         return resultNumber;
     }
-    public void SetResultNumber(int value)
+    public void SetResultNumber(BigDecimal value)
     {
         resultNumber = value;
     }

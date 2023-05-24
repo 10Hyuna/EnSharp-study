@@ -7,7 +7,6 @@ import view.InputState;
 
 import java.awt.*;
 import java.math.MathContext;
-import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
 import javax.swing.*;
@@ -45,14 +44,14 @@ public class Calculation {
         }
         BigDecimal ten = new BigDecimal("10");
         BigDecimal inputValue = new BigDecimal(input);
-        current = current.multiply(ten);
-        current = current.add(inputValue);
+        totalStorage.comeInValue.SetCurrentNumber(totalStorage.comeInValue.GetCurrentNumber().multiply(ten));
+        totalStorage.comeInValue.SetCurrentNumber(totalStorage.comeInValue.GetCurrentNumber().add(inputValue));
         currentLabel = InputState.GetInputState().GetCurrentInput();
-        if(String.valueOf(current).length() == 15)
+        if(String.valueOf(totalStorage.comeInValue.GetCurrentNumber()).length() == 15)
         {
             currentLabel.setFont(new Font("맑은 고딕", Font.BOLD, 43));
         }
-        else if(String.valueOf(current).length() == 14)
+        else if(String.valueOf(totalStorage.comeInValue.GetCurrentNumber()).length() == 14)
         {
             currentLabel.setFont(new Font("맑은 고딕", Font.BOLD, 46));
         }
@@ -60,7 +59,7 @@ public class Calculation {
         {
             currentLabel.setFont(new Font("맑은 고딕", Font.BOLD, 50));
         }
-        currentLabel.setText(formating.format(current));
+        currentLabel.setText(formating.format(totalStorage.comeInValue.GetCurrentNumber()));
     }
     public void InputOperator(String input)
     {
@@ -68,26 +67,25 @@ public class Calculation {
         {
             return;
         }
-        if(current.equals(new BigDecimal("0")))
+        if(totalStorage.comeInValue.GetCurrentNumber().equals(new BigDecimal("0")))
         {
-            current = recent;
+            totalStorage.comeInValue.SetCurrentNumber(recent);
         }
         else if(isCalculated)
         {
-            current = result;
+            totalStorage.comeInValue.SetCurrentNumber(result);
         }
-        else if(operator != null)
+        else if(totalStorage.comeInValue.GetOperator() != null)
         {
             isUnableCalculate = CalculateValue();
             if(isUnableCalculate)
             {
-                operator = input;
+                totalStorage.comeInValue.SetOperator(input);
                 recentLabel.setText(String.format(String.valueOf(result) + " " + operator));
                 currentLabel.setFont(new Font("맑은 고딕", Font.BOLD, 50));
                 currentLabel.setText(formating.format(result));
                 if(result.toString().length() > 16)
                 {
-                    System.out.println(result);
                     String formatedString = result.toString().replace("E", "e");
                     currentLabel.setFont(new Font("맑은 고딕", Font.BOLD, 35));
                     currentLabel.setText(formatedString);
@@ -97,16 +95,16 @@ public class Calculation {
                     currentLabel.setFont(new Font("맑은 고딕", Font.BOLD, 50));
                     currentLabel.setText(formating.format(result));
                 }
-                recent = new BigDecimal(String.valueOf(result));
-                current = new BigDecimal("0");
+                totalStorage.comeInValue.GetPreviousString(new BigDecimal(String.valueOf(result));
+                totalStorage.comeInValue.SetCurrentNumber(new BigDecimal("0"));
             }
             return;
         }
-        operator = input;
-        recent = current;
+        totalStorage.comeInValue.SetOperator(input);
+        totalStorage.comeInValue.SetPreviousNumber(totalStorage.comeInValue.GetCurrentNumber());
         recentLabel = InputState.GetInputState().GetRecentInput();
-        recentLabel.setText(String.format(String.valueOf(recent) + " " + operator));
-        current = new BigDecimal("0");
+        recentLabel.setText(String.format(String.valueOf(totalStorage.comeInValue.GetPreviousNumber()) + " " + totalStorage.comeInValue.GetOperator()));
+        totalStorage.comeInValue.SetCurrentNumber(new BigDecimal("0"));
     }
     public void InputEqual()
     {
@@ -116,37 +114,40 @@ public class Calculation {
             return;
         }
         recentLabel = InputState.GetInputState().GetRecentInput();
-        if (recent.equals(new BigDecimal("0")) && current.equals(new BigDecimal("0")))
+        if (totalStorage.comeInValue.GetPreviousNumber().equals(new BigDecimal("0"))
+                && totalStorage.comeInValue.GetCurrentNumber().equals(new BigDecimal("0")))
         {
             recentLabel.setText("0 =");
         }
-        else if(operator == null)
+        else if(totalStorage.comeInValue.GetOperator() == null)
         {
             recentLabel.setText(String.format("%s = ", current));
         }
         else
         {
-            if(current.equals(new BigDecimal("0")) && !currentLabel.getText().equals("0"))
+            if(totalStorage.comeInValue.GetCurrentNumber().equals(new BigDecimal("0"))
+                    && !currentLabel.getText().equals("0"))
             {
-                current = recent;
+                totalStorage.comeInValue.SetCurrentNumber(totalStorage.comeInValue.GetPreviousNumber());
             }
             isUnableCalculate = CalculateValue();
             if(isUnableCalculate)
             {
-                recentLabel.setText(String.format(String.valueOf(recent) + " " + operator + " " + String.valueOf(current) + " ="));
-                if(result.toString().length() > 16)
+                recentLabel.setText(String.format(String.valueOf(totalStorage.comeInValue.GetPreviousNumber())
+                        + " " + totalStorage.comeInValue.GetOperator() + " " +
+                        String.valueOf(totalStorage.comeInValue.GetCurrentNumber()) + " ="));
+                if(totalStorage.comeInValue.GetResultNumber().toString().length() > 16)
                 {
-                    System.out.println(result);
-                    String formatedString = result.toString().replace("E", "e");
+                    String formatedString = totalStorage.comeInValue.GetResultNumber().toString().replace("E", "e");
                     currentLabel.setFont(new Font("맑은 고딕", Font.BOLD, 35));
                     currentLabel.setText(formatedString);
                 }
                 else
                 {
                     currentLabel.setFont(new Font("맑은 고딕", Font.BOLD, 50));
-                    currentLabel.setText(formating.format(result));
+                    currentLabel.setText(formating.format(totalStorage.comeInValue.GetResultNumber()));
                 }
-                recent = new BigDecimal(String.valueOf(result));
+                totalStorage.comeInValue.SetPreviousNumber(new BigDecimal(String.valueOf(totalStorage.comeInValue.GetResultNumber())));
             }
         }
     }
@@ -156,40 +157,40 @@ public class Calculation {
         {
             return;
         }
-        if(!result.equals(new BigDecimal("0")))
+        if(!totalStorage.comeInValue.GetResultNumber().equals(new BigDecimal("0")))
         {
-            recentInputs = String.format("negate(%s)", String.valueOf(result));
+            totalStorage.comeInValue.SetPreviousString
+                    (String.format("negate(%s)", String.valueOf(totalStorage.comeInValue.GetResultNumber())));
             recentLabel = InputState.GetInputState().GetRecentInput();
-            recentLabel.setText(recentInputs);
+            recentLabel.setText(totalStorage.comeInValue.GetPreviousString());
 
-            current = result;
-            result = new BigDecimal("0");
+            totalStorage.comeInValue.SetCurrentNumber(totalStorage.comeInValue.GetResultNumber());
+            totalStorage.comeInValue.SetResultNumber(new BigDecimal("0"));
         }
-        else if(!recent.equals(new BigDecimal("0")))
+        else if(!totalStorage.comeInValue.GetPreviousString().equals(new BigDecimal("0")))
         {
-            if(recentInputs == null)
+            if(totalStorage.comeInValue.GetPreviousString() == null)
             {
                 recentLabel = InputState.GetInputState().GetRecentInput();
                 currentLabel = InputState.GetInputState().GetCurrentInput();
-                recentInputs = String.valueOf(currentLabel.getText());
-                recentInputs = String.format("negate(%s)", String.valueOf(recentInputs));
+                totalStorage.comeInValue.SetPreviousString(String.format("negate(%s)", currentLabel.getText()));
                 recentLabel.setText(String.format(recentLabel.getText() + " " + recentInputs));
             }
             else
             {
                 recentLabel = InputState.GetInputState().GetRecentInput();
-                recentInputs = String.format("negate(%s)", String.valueOf(recentInputs));
+                totalStorage.comeInValue.SetPreviousString(String.format("negate(%s)", totalStorage.comeInValue.GetPreviousString()));
                 recentLabel.setText(String.format(recent + " " + operator + " " + recentInputs));
             }
         }
-        else if(current.equals(new BigDecimal("0")))
+        else if(totalStorage.comeInValue.GetCurrentNumber().equals(new BigDecimal("0")))
         {
             return;
         }
         currentLabel = InputState.GetInputState().GetCurrentInput();
-        current = new BigDecimal(currentLabel.getText());
-        current = current.multiply(new BigDecimal("-1"));
-        currentLabel.setText(formating.format(current));
+        totalStorage.comeInValue.SetCurrentNumber
+                ((new BigDecimal(currentLabel.getText())).multiply(new BigDecimal("-1")));
+        currentLabel.setText(formating.format(totalStorage.comeInValue.GetCurrentNumber()));
     }
     public void InputCE()
     {
@@ -197,10 +198,10 @@ public class Calculation {
         {
             isUnableCalculate = true;
         }
-        operator = null;
+        totalStorage.comeInValue.SetOperator(null);
         currentLabel.setText("0");
-        current = new BigDecimal("0");
-        currentInputs = null;
+        totalStorage.comeInValue.SetCurrentNumber(new BigDecimal("0"));
+        totalStorage.comeInValue.SetCurrentString(null);
     }
     public void InputC()
     {
@@ -211,10 +212,10 @@ public class Calculation {
         InputCE();
         recentLabel = InputState.GetInputState().GetRecentInput();
         recentLabel.setText("");
-        recent = new BigDecimal("0");
-        result = new BigDecimal("0");
+        totalStorage.comeInValue.SetPreviousNumber(new BigDecimal("0"));
+        totalStorage.comeInValue.SetResultNumber(new BigDecimal("0"));
         isCalculated = false;
-        recentInputs = null;
+        totalStorage.comeInValue.SetPreviousString(null);
     }
     public void InputBackspace()
     {
@@ -222,29 +223,30 @@ public class Calculation {
         {
             isUnableCalculate = true;
         }
-        if(current.equals(new BigDecimal("0")))
+        if(totalStorage.comeInValue.GetCurrentNumber().equals(new BigDecimal("0")))
         {
             return;
         }
-        else if(current.compareTo(new BigDecimal("0")) == -1)
+        else if(totalStorage.comeInValue.GetCurrentNumber().compareTo(new BigDecimal("0")) == -1)
         {
-            current = new BigDecimal("0");
+            totalStorage.comeInValue.SetCurrentNumber(new BigDecimal("0"));
             currentLabel = InputState.GetInputState().GetCurrentInput();
-            currentLabel.setText(formating.format(current));
+            currentLabel.setText(formating.format(totalStorage.comeInValue.GetCurrentNumber()));
             return;
         }
-        else if(result.equals(new BigDecimal("0")))
+        else if(totalStorage.comeInValue.GetResultNumber().equals(new BigDecimal("0")))
         {
-            currentInputs = String.valueOf(current);
-            if(currentInputs.length() == 1)
+            totalStorage.comeInValue.SetCurrentString(String.valueOf(totalStorage.comeInValue.SetCurrentNumber()));
+            if(totalStorage.comeInValue.GetCurrentString().length() == 1)
             {
-                currentInputs = "0";
+                totalStorage.comeInValue.SetCurrentString("0");
             }
             else
             {
-                currentInputs = currentInputs.substring(0, currentInputs.length() - 1);
+                totalStorage.comeInValue.SetCurrentString
+                        (totalStorage.comeInValue.GetCurrentString().substring(0, totalStorage.comeInValue.GetCurrentString().length() - 1));
             }
-            current = new BigDecimal(currentInputs);
+            totalStorage.comeInValue.SetCurrentNumber(new BigDecimal(totalStorage.comeInValue.GetCurrentString()));
             currentLabel = InputState.GetInputState().GetCurrentInput();
             currentLabel.setText(formating.format(current));
         }

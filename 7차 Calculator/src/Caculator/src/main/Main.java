@@ -6,6 +6,6 @@ public class Main {
     public static void main(String[] args)
     {
         CalculatorStart calculatorStart = new CalculatorStart();
-        calculatorStart.SetCalculator();
+        calculatorStart.setCalculator();
     }
 }

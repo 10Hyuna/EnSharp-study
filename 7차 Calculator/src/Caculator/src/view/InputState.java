@@ -2,8 +2,6 @@ package view;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 
 public class InputState extends JPanel {
     private JLabel recentInput = new JLabel();
@@ -14,21 +12,21 @@ public class InputState extends JPanel {
     private InputState() {
     }
 
-    public static InputState GetInputState() {
+    public static InputState getInputState() {
         if (inputState == null) {
             inputState = new InputState();
         }
         return inputState;
     }
 
-    public JPanel GetPanel() {
+    public JPanel getPanel() {
         setLayout(new BorderLayout());
-        add(ReturnRecentInput(), BorderLayout.EAST);
-        add(ReturnCurrentInput(), BorderLayout.SOUTH);
+        add(returnRecentInput(), BorderLayout.EAST);
+        add(returnCurrentInput(), BorderLayout.SOUTH);
 
         return this;
     }
-    private JPanel ReturnRecentInput()
+    private JPanel returnRecentInput()
     {
         JPanel recentPanel = new JPanel();
         recentInput = new JLabel("", JLabel.RIGHT);
@@ -39,7 +37,7 @@ public class InputState extends JPanel {
 
         return recentPanel;
     }
-    private JPanel ReturnCurrentInput()
+    private JPanel returnCurrentInput()
     {
         JPanel currentPanel = new JPanel();
 
@@ -51,13 +49,13 @@ public class InputState extends JPanel {
 
         return currentPanel;
     }
-    public JLabel GetRecentInput() {
+    public JLabel getRecentInput() {
         return recentInput;
     }
-    public JLabel GetCurrentInput() {
+    public JLabel getCurrentInput() {
         return currentInput;
     }
-    public JPanel GetInputList(String currentString, String recentString)
+    public JPanel getInputList(String currentString, String recentString)
     {
         JPanel inputList = new JPanel();
         JLabel current = new JLabel();

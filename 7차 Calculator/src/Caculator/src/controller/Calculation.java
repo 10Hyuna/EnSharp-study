@@ -12,7 +12,8 @@ import java.text.DecimalFormat;
 import javax.swing.*;
 import java.math.BigDecimal;
 
-public class Calculation {
+public class Calculation
+{
     private TotalStorage totalStorage;
     private ExceptionHandler exceptionHandler;
     private boolean isUnableCalculate = true;
@@ -44,14 +45,14 @@ public class Calculation {
         }
         BigDecimal ten = new BigDecimal("10");
         BigDecimal inputValue = new BigDecimal(input);
-        totalStorage.comeInValue.SetCurrentNumber(totalStorage.comeInValue.GetCurrentNumber().multiply(ten));
-        totalStorage.comeInValue.SetCurrentNumber(totalStorage.comeInValue.GetCurrentNumber().add(inputValue));
-        currentLabel = InputState.GetInputState().GetCurrentInput();
-        if(String.valueOf(totalStorage.comeInValue.GetCurrentNumber()).length() == 15)
+        totalStorage.comeInValue.setCurrentNumber(totalStorage.comeInValue.getCurrentNumber().multiply(ten));
+        totalStorage.comeInValue.setCurrentNumber(totalStorage.comeInValue.getCurrentNumber().add(inputValue));
+        currentLabel = InputState.getInputState().getCurrentInput();
+        if(String.valueOf(totalStorage.comeInValue.getCurrentNumber()).length() == 15)
         {
             currentLabel.setFont(new Font("맑은 고딕", Font.BOLD, 43));
         }
-        else if(String.valueOf(totalStorage.comeInValue.GetCurrentNumber()).length() == 14)
+        else if(String.valueOf(totalStorage.comeInValue.getCurrentNumber()).length() == 14)
         {
             currentLabel.setFont(new Font("맑은 고딕", Font.BOLD, 46));
         }
@@ -59,7 +60,7 @@ public class Calculation {
         {
             currentLabel.setFont(new Font("맑은 고딕", Font.BOLD, 50));
         }
-        currentLabel.setText(formating.format(totalStorage.comeInValue.GetCurrentNumber()));
+        currentLabel.setText(formating.format(totalStorage.comeInValue.getCurrentNumber()));
     }
     public void InputOperator(String input)
     {
@@ -67,23 +68,24 @@ public class Calculation {
         {
             return;
         }
-        if(totalStorage.comeInValue.GetCurrentNumber().equals(new BigDecimal("0")))
+        if(totalStorage.comeInValue.getCurrentNumber().equals(new BigDecimal("0")))
         {
-            totalStorage.comeInValue.SetCurrentNumber(recent);
+            totalStorage.comeInValue.setCurrentNumber(recent);
         }
         else if(isCalculated)
         {
-            totalStorage.comeInValue.SetCurrentNumber(result);
+            totalStorage.comeInValue.setCurrentNumber(result);
         }
-        else if(totalStorage.comeInValue.GetOperator() != null)
+        else if(totalStorage.comeInValue.getOperator() != null)
         {
             isUnableCalculate = CalculateValue();
             if(isUnableCalculate)
             {
-                totalStorage.comeInValue.SetOperator(input);
-                recentLabel.setText(String.format(String.valueOf(result) + " " + operator));
+                totalStorage.comeInValue.setOperator(input);
+                recentLabel.setText(String.format(String.valueOf(totalStorage.comeInValue.getResultNumber())
+                        + " " + totalStorage.comeInValue.getOperator()));
                 currentLabel.setFont(new Font("맑은 고딕", Font.BOLD, 50));
-                currentLabel.setText(formating.format(result));
+                currentLabel.setText(formating.format(totalStorage.comeInValue.getResultNumber()));
                 if(result.toString().length() > 16)
                 {
                     String formatedString = result.toString().replace("E", "e");
@@ -93,61 +95,65 @@ public class Calculation {
                 else
                 {
                     currentLabel.setFont(new Font("맑은 고딕", Font.BOLD, 50));
-                    currentLabel.setText(formating.format(result));
+                    currentLabel.setText(formating.format(totalStorage.comeInValue.getResultNumber()));
                 }
-                totalStorage.comeInValue.GetPreviousString(new BigDecimal(String.valueOf(result));
-                totalStorage.comeInValue.SetCurrentNumber(new BigDecimal("0"));
+                totalStorage.comeInValue.setPreviousNumber(new BigDecimal
+                        (String.valueOf(totalStorage.comeInValue.getResultNumber())));
+                totalStorage.comeInValue.setCurrentNumber(new BigDecimal("0"));
             }
             return;
         }
-        totalStorage.comeInValue.SetOperator(input);
-        totalStorage.comeInValue.SetPreviousNumber(totalStorage.comeInValue.GetCurrentNumber());
-        recentLabel = InputState.GetInputState().GetRecentInput();
-        recentLabel.setText(String.format(String.valueOf(totalStorage.comeInValue.GetPreviousNumber()) + " " + totalStorage.comeInValue.GetOperator()));
-        totalStorage.comeInValue.SetCurrentNumber(new BigDecimal("0"));
+        totalStorage.comeInValue.setOperator(input);
+        totalStorage.comeInValue.setPreviousNumber(totalStorage.comeInValue.getCurrentNumber());
+        recentLabel = InputState.getInputState().getRecentInput();
+        recentLabel.setText(String.format(String.valueOf
+                (totalStorage.comeInValue.getPreviousNumber()) + " " + totalStorage.comeInValue.getOperator()));
+        totalStorage.comeInValue.setCurrentNumber(new BigDecimal("0"));
     }
     public void InputEqual()
     {
-        currentLabel = InputState.GetInputState().GetCurrentInput();
+        currentLabel = InputState.getInputState().getCurrentInput();
         if(!isUnableCalculate)
         {
             return;
         }
-        recentLabel = InputState.GetInputState().GetRecentInput();
-        if (totalStorage.comeInValue.GetPreviousNumber().equals(new BigDecimal("0"))
-                && totalStorage.comeInValue.GetCurrentNumber().equals(new BigDecimal("0")))
+        recentLabel = InputState.getInputState().getRecentInput();
+        if (totalStorage.comeInValue.getPreviousNumber().equals(new BigDecimal("0"))
+                && totalStorage.comeInValue.getCurrentNumber().equals(new BigDecimal("0")))
         {
             recentLabel.setText("0 =");
         }
-        else if(totalStorage.comeInValue.GetOperator() == null)
+        else if(totalStorage.comeInValue.getOperator() == null)
         {
             recentLabel.setText(String.format("%s = ", current));
         }
         else
         {
-            if(totalStorage.comeInValue.GetCurrentNumber().equals(new BigDecimal("0"))
+            if(totalStorage.comeInValue.getCurrentNumber().equals(new BigDecimal("0"))
                     && !currentLabel.getText().equals("0"))
             {
-                totalStorage.comeInValue.SetCurrentNumber(totalStorage.comeInValue.GetPreviousNumber());
+                totalStorage.comeInValue.setCurrentNumber(totalStorage.comeInValue.getPreviousNumber());
             }
             isUnableCalculate = CalculateValue();
             if(isUnableCalculate)
             {
-                recentLabel.setText(String.format(String.valueOf(totalStorage.comeInValue.GetPreviousNumber())
-                        + " " + totalStorage.comeInValue.GetOperator() + " " +
-                        String.valueOf(totalStorage.comeInValue.GetCurrentNumber()) + " ="));
-                if(totalStorage.comeInValue.GetResultNumber().toString().length() > 16)
+                recentLabel.setText(String.format(String.valueOf(totalStorage.comeInValue.getPreviousNumber())
+                        + " " + totalStorage.comeInValue.getOperator() + " " +
+                        String.valueOf(totalStorage.comeInValue.getCurrentNumber()) + " ="));
+                if(totalStorage.comeInValue.getResultNumber().toString().length() > 16)
                 {
-                    String formatedString = totalStorage.comeInValue.GetResultNumber().toString().replace("E", "e");
+                    String formatedString = totalStorage.comeInValue.getResultNumber().toString().
+                            replace("E", "e");
                     currentLabel.setFont(new Font("맑은 고딕", Font.BOLD, 35));
                     currentLabel.setText(formatedString);
                 }
                 else
                 {
                     currentLabel.setFont(new Font("맑은 고딕", Font.BOLD, 50));
-                    currentLabel.setText(formating.format(totalStorage.comeInValue.GetResultNumber()));
+                    currentLabel.setText(formating.format(totalStorage.comeInValue.getResultNumber()));
                 }
-                totalStorage.comeInValue.SetPreviousNumber(new BigDecimal(String.valueOf(totalStorage.comeInValue.GetResultNumber())));
+                totalStorage.comeInValue.setPreviousNumber(new BigDecimal(String.valueOf
+                        (totalStorage.comeInValue.getResultNumber())));
             }
         }
     }
@@ -157,40 +163,40 @@ public class Calculation {
         {
             return;
         }
-        if(!totalStorage.comeInValue.GetResultNumber().equals(new BigDecimal("0")))
+        if(!totalStorage.comeInValue.getResultNumber().equals(new BigDecimal("0")))
         {
-            totalStorage.comeInValue.SetPreviousString
-                    (String.format("negate(%s)", String.valueOf(totalStorage.comeInValue.GetResultNumber())));
-            recentLabel = InputState.GetInputState().GetRecentInput();
-            recentLabel.setText(totalStorage.comeInValue.GetPreviousString());
+            totalStorage.comeInValue.setPreviousString
+                    (String.format("negate(%s)", String.valueOf(totalStorage.comeInValue.getResultNumber())));
+            recentLabel = InputState.getInputState().getRecentInput();
+            recentLabel.setText(totalStorage.comeInValue.getPreviousString());
 
-            totalStorage.comeInValue.SetCurrentNumber(totalStorage.comeInValue.GetResultNumber());
-            totalStorage.comeInValue.SetResultNumber(new BigDecimal("0"));
+            totalStorage.comeInValue.setCurrentNumber(totalStorage.comeInValue.getResultNumber());
+            totalStorage.comeInValue.setResultNumber(new BigDecimal("0"));
         }
-        else if(!totalStorage.comeInValue.GetPreviousString().equals(new BigDecimal("0")))
+        else if(!totalStorage.comeInValue.getPreviousString().equals(new BigDecimal("0")))
         {
-            if(totalStorage.comeInValue.GetPreviousString() == null)
+            if(totalStorage.comeInValue.getPreviousString() == null)
             {
-                recentLabel = InputState.GetInputState().GetRecentInput();
-                currentLabel = InputState.GetInputState().GetCurrentInput();
-                totalStorage.comeInValue.SetPreviousString(String.format("negate(%s)", currentLabel.getText()));
+                recentLabel = InputState.getInputState().getRecentInput();
+                currentLabel = InputState.getInputState().getCurrentInput();
+                totalStorage.comeInValue.setPreviousString(String.format("negate(%s)", currentLabel.getText()));
                 recentLabel.setText(String.format(recentLabel.getText() + " " + recentInputs));
             }
             else
             {
-                recentLabel = InputState.GetInputState().GetRecentInput();
-                totalStorage.comeInValue.SetPreviousString(String.format("negate(%s)", totalStorage.comeInValue.GetPreviousString()));
+                recentLabel = InputState.getInputState().getRecentInput();
+                totalStorage.comeInValue.setPreviousString(String.format("negate(%s)", totalStorage.comeInValue.getPreviousString()));
                 recentLabel.setText(String.format(recent + " " + operator + " " + recentInputs));
             }
         }
-        else if(totalStorage.comeInValue.GetCurrentNumber().equals(new BigDecimal("0")))
+        else if(totalStorage.comeInValue.getCurrentNumber().equals(new BigDecimal("0")))
         {
             return;
         }
-        currentLabel = InputState.GetInputState().GetCurrentInput();
-        totalStorage.comeInValue.SetCurrentNumber
+        currentLabel = InputState.getInputState().getCurrentInput();
+        totalStorage.comeInValue.setCurrentNumber
                 ((new BigDecimal(currentLabel.getText())).multiply(new BigDecimal("-1")));
-        currentLabel.setText(formating.format(totalStorage.comeInValue.GetCurrentNumber()));
+        currentLabel.setText(formating.format(totalStorage.comeInValue.getCurrentNumber()));
     }
     public void InputCE()
     {
@@ -198,10 +204,10 @@ public class Calculation {
         {
             isUnableCalculate = true;
         }
-        totalStorage.comeInValue.SetOperator(null);
+        totalStorage.comeInValue.setOperator(null);
         currentLabel.setText("0");
-        totalStorage.comeInValue.SetCurrentNumber(new BigDecimal("0"));
-        totalStorage.comeInValue.SetCurrentString(null);
+        totalStorage.comeInValue.setCurrentNumber(new BigDecimal("0"));
+        totalStorage.comeInValue.setCurrentString(null);
     }
     public void InputC()
     {
@@ -210,12 +216,12 @@ public class Calculation {
             isUnableCalculate = true;
         }
         InputCE();
-        recentLabel = InputState.GetInputState().GetRecentInput();
+        recentLabel = InputState.getInputState().getRecentInput();
         recentLabel.setText("");
-        totalStorage.comeInValue.SetPreviousNumber(new BigDecimal("0"));
-        totalStorage.comeInValue.SetResultNumber(new BigDecimal("0"));
+        totalStorage.comeInValue.setPreviousNumber(new BigDecimal("0"));
+        totalStorage.comeInValue.setResultNumber(new BigDecimal("0"));
         isCalculated = false;
-        totalStorage.comeInValue.SetPreviousString(null);
+        totalStorage.comeInValue.setPreviousString(null);
     }
     public void InputBackspace()
     {
@@ -223,37 +229,37 @@ public class Calculation {
         {
             isUnableCalculate = true;
         }
-        if(totalStorage.comeInValue.GetCurrentNumber().equals(new BigDecimal("0")))
+        if(totalStorage.comeInValue.getCurrentNumber().equals(new BigDecimal("0")))
         {
             return;
         }
-        else if(totalStorage.comeInValue.GetCurrentNumber().compareTo(new BigDecimal("0")) == -1)
+        else if(totalStorage.comeInValue.getCurrentNumber().compareTo(new BigDecimal("0")) == -1)
         {
-            totalStorage.comeInValue.SetCurrentNumber(new BigDecimal("0"));
-            currentLabel = InputState.GetInputState().GetCurrentInput();
-            currentLabel.setText(formating.format(totalStorage.comeInValue.GetCurrentNumber()));
+            totalStorage.comeInValue.setCurrentNumber(new BigDecimal("0"));
+            currentLabel = InputState.getInputState().getCurrentInput();
+            currentLabel.setText(formating.format(totalStorage.comeInValue.getCurrentNumber()));
             return;
         }
-        else if(totalStorage.comeInValue.GetResultNumber().equals(new BigDecimal("0")))
+        else if(totalStorage.comeInValue.getResultNumber().equals(new BigDecimal("0")))
         {
-            totalStorage.comeInValue.SetCurrentString(String.valueOf(totalStorage.comeInValue.SetCurrentNumber()));
-            if(totalStorage.comeInValue.GetCurrentString().length() == 1)
+            totalStorage.comeInValue.setCurrentString(String.valueOf(totalStorage.comeInValue.getCurrentNumber()));
+            if(totalStorage.comeInValue.getCurrentString().length() == 1)
             {
-                totalStorage.comeInValue.SetCurrentString("0");
+                totalStorage.comeInValue.setCurrentString("0");
             }
             else
             {
-                totalStorage.comeInValue.SetCurrentString
-                        (totalStorage.comeInValue.GetCurrentString().substring(0, totalStorage.comeInValue.GetCurrentString().length() - 1));
+                totalStorage.comeInValue.setCurrentString(totalStorage.comeInValue.getCurrentString().
+                                substring(0, totalStorage.comeInValue.getCurrentString().length() - 1));
             }
-            totalStorage.comeInValue.SetCurrentNumber(new BigDecimal(totalStorage.comeInValue.GetCurrentString()));
-            currentLabel = InputState.GetInputState().GetCurrentInput();
+            totalStorage.comeInValue.setCurrentNumber(new BigDecimal(totalStorage.comeInValue.getCurrentString()));
+            currentLabel = InputState.getInputState().getCurrentInput();
             currentLabel.setText(formating.format(current));
         }
         else
         {
             recent = new BigDecimal("0");
-            recentLabel = InputState.GetInputState().GetRecentInput();
+            recentLabel = InputState.getInputState().getRecentInput();
             recentLabel.setText("");
         }
     }
@@ -266,12 +272,12 @@ public class Calculation {
     private boolean CalculateValue() {
         isCalculated = false;
         if (recent.equals(new BigDecimal("0")) && current.equals(new BigDecimal("0")) && operator.equals("÷")) {
-            exceptionHandler.UndifinedNumber();
+            exceptionHandler.undifinedNumber();
             return false;
         }
         else if(current.equals(new BigDecimal("0")) && operator.equals("÷"))
         {
-            exceptionHandler.UndividedNumber();
+            exceptionHandler.undividedNumber();
             return false;
         }
         switch (operator) {

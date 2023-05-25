@@ -15,7 +15,7 @@ public class TotalComponent {
         currentText = new JTextField();
         logButton = new JButton();
     }
-    public static TotalComponent GetTotalComponent()
+    public static TotalComponent getTotalComponent()
     {
         if(totalComponent == null)
         {
@@ -23,19 +23,19 @@ public class TotalComponent {
         }
         return totalComponent;
     }
-    public JButton[] GetCalculatorButton()
+    public JButton[] getCalculatorButton()
     {
         return calculatorButton;
     }
-    public JLabel GetPreviousLabel()
+    public JLabel getPreviousLabel()
     {
         return previousLabel;
     }
-    public JTextField GetCurrentText()
+    public JTextField getCurrentText()
     {
         return currentText;
     }
-    public JButton GetLogButton()
+    public JButton getLogButton()
     {
         return logButton;
     }

@@ -8,7 +8,7 @@ public class Record{
     private JButton[] recordButtons;
     private JPanel recordButtonPanel;
     private JPanel recordPanel;
-    public JPanel GetRecordButtonPanel()
+    public JPanel getRecordButtonPanel()
     {
         recordButton = new JButton("⟲");
         recordButtonPanel.setLayout(new BorderLayout());
@@ -16,7 +16,7 @@ public class Record{
         return recordButtonPanel;
     }
 
-    public JPanel GetRecordPanel()
+    public JPanel getRecordPanel()
     {
 
         return recordPanel;

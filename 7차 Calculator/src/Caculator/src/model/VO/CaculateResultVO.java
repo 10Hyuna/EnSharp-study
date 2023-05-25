@@ -17,19 +17,19 @@ public class CaculateResultVO {
     private String operator;
     private int result;
 
-    public int GetFirstInput()
+    public int getFirstInput()
     {
         return firstInput;
     }
-    public int GetLastInput()
+    public int getLastInput()
     {
         return lastInput;
     }
-    public String GetOperator()
+    public String getOperator()
     {
         return operator;
     }
-    public int GetResult()
+    public int getResult()
     {
         return result;
     }

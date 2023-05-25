@@ -9,45 +9,45 @@ public class ComeInValueDTO {
     private BigDecimal currentNumber;
     private BigDecimal previousNumber;
     private BigDecimal resultNumber;
-    public String GetCurrentString()
+    public String getCurrentString()
     {
         return currentString;
     }
-    public void SetCurrentString(String value)
+    public void setCurrentString(String value)
     {
         currentString = value;
     }
-    public String GetPreviousString()
+    public String getPreviousString()
     {
         return previousString;
     }
-    public void SetPreviousString(String value)
+    public void setPreviousString(String value)
     {
         previousString = value;
     }
-    public String GetOperator() { return operator; }
-    public void SetOperator(String value) { operator = value; }
-    public BigDecimal GetCurrentNumber()
+    public String getOperator() { return operator; }
+    public void setOperator(String value) { operator = value; }
+    public BigDecimal getCurrentNumber()
     {
         return currentNumber;
     }
-    public void SetCurrentNumber(BigDecimal value)
+    public void setCurrentNumber(BigDecimal value)
     {
         currentNumber = value;
     }
-    public BigDecimal GetPreviousNumber()
+    public BigDecimal getPreviousNumber()
     {
         return previousNumber;
     }
-    public void SetPreviousNumber(BigDecimal value)
+    public void setPreviousNumber(BigDecimal value)
     {
         previousNumber = value;
     }
-    public BigDecimal GetResultNumber()
+    public BigDecimal getResultNumber()
     {
         return resultNumber;
     }
-    public void SetResultNumber(BigDecimal value)
+    public void setResultNumber(BigDecimal value)
     {
         resultNumber = value;
     }

@@ -4,9 +4,7 @@ import controller.actionListener.MyKeyActionListener;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ComponentEvent;
 import java.awt.Dimension;
-import java.awt.event.ComponentAdapter;
 
 public class MainView extends JFrame
 {
@@ -23,7 +21,7 @@ public class MainView extends JFrame
         myKeyActionListener = new MyKeyActionListener();
     }
 
-    public JFrame SetFrame()
+    public JFrame setFrame()
     {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new FlowLayout());
@@ -35,9 +33,9 @@ public class MainView extends JFrame
         standard = new JLabel("표준", JLabel.LEFT);
         standard.setPreferredSize(new Dimension(dimension.width, dimension.height / 15));
 
-        inputPanel = InputState.GetInputState().GetPanel();
+        inputPanel = InputState.getInputState().getPanel();
         inputPanel.setPreferredSize(new Dimension(dimension.width, (dimension.height / 15) * 3));
-        buttons = calculatorButton.GetCalculatorButton();
+        buttons = calculatorButton.getCalculatorButton();
         buttons.setPreferredSize(new Dimension(dimension.width, (dimension.height / 15) * 10));
 
         add(standard);

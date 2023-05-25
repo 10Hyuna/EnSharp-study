@@ -13,15 +13,15 @@ public class AdditionActionListener {
     private MyKeyActionListener myKeyActionListener;
     public AdditionActionListener()
     {
-        calculatorButton = TotalComponent.GetTotalComponent().GetCalculatorButton();
-        currentText = TotalComponent.GetTotalComponent().GetCurrentText();
-        logButton = TotalComponent.GetTotalComponent().GetLogButton();
+        calculatorButton = TotalComponent.getTotalComponent().getCalculatorButton();
+        currentText = TotalComponent.getTotalComponent().getCurrentText();
+        logButton = TotalComponent.getTotalComponent().getLogButton();
 
         myButtonActionListener = new MyButtonActionListener();
         myComponentActionListener = new MyComponentActionListener();
         myKeyActionListener = new MyKeyActionListener();
     }
-    public void AddActionListener(JFrame mainFrame)
+    public void addActionListener(JFrame mainFrame)
     {
         for (int i = 0; i < calculatorButton.length; i++)
         {

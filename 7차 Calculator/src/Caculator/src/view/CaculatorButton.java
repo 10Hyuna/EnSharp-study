@@ -1,18 +1,14 @@
 package view;
 
-import controller.actionListener.MyButtonActionListener;
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 
 public class CaculatorButton extends JPanel {
 
     private String[] button = {"CE", "C", "⌫", "÷", "7", "8", "9", "×",
             "4", "5", "6", "-", "1", "2", "3", "+", "+/-", "0", ".", "="};
     private JButton[] buttons;
-    public JPanel GetCalculatorButton()
+    public JPanel getCalculatorButton()
     {
         setLayout(new GridLayout(5, 4));
         buttons = new JButton[20];

@@ -1,6 +1,6 @@
 package controller;
 
-import controller.actionListener.AdditionActionListener;
+import controller.actionListener.Addition;
 import view.MainView;
 
 import javax.swing.*;
@@ -8,16 +8,16 @@ import javax.swing.*;
 public class CalculatorStart
 {
     private MainView mainView;
-    private AdditionActionListener additionActionListener;
+    private Addition addition;
     private JFrame mainFrame;
     public CalculatorStart()
     {
         mainView = new MainView();
-        additionActionListener = new AdditionActionListener();
+        addition = new Addition();
     }
     public void setCalculator()
     {
         mainFrame = mainView.setFrame();
-        additionActionListener.addActionListener(mainFrame);
+        addition.addActionListener(mainFrame);
     }
 }

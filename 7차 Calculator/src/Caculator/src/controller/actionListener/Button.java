@@ -5,10 +5,10 @@ import controller.Calculation;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class MyButtonActionListener implements ActionListener
+public class Button implements ActionListener
 {
     private Calculation calculation;
-    public MyButtonActionListener()
+    public Button()
     {
         calculation = new Calculation();
     }

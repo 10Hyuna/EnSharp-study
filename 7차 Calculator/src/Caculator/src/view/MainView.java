@@ -1,6 +1,6 @@
 package view;
 
-import controller.actionListener.MyKeyActionListener;
+import controller.actionListener.Keyboard;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,12 +13,12 @@ public class MainView extends JFrame
     private JPanel record;
     private JPanel inputPanel;
     private CaculatorButton calculatorButton;
-    private MyKeyActionListener myKeyActionListener;
+    private Keyboard keyboard;
 
     public MainView()
     {
         calculatorButton = new CaculatorButton();
-        myKeyActionListener = new MyKeyActionListener();
+        keyboard = new Keyboard();
     }
 
     public JFrame setFrame()
@@ -28,7 +28,7 @@ public class MainView extends JFrame
         setSize(500, 750);
         setMinimumSize(new Dimension(400, 650));
 
-        addKeyListener(myKeyActionListener);
+        addKeyListener(keyboard);
         Dimension dimension = new Dimension(this.getWidth(), this.getHeight());
         standard = new JLabel("표준", JLabel.LEFT);
         standard.setPreferredSize(new Dimension(dimension.width, dimension.height / 15));

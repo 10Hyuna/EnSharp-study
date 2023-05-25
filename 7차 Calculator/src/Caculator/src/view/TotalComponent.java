@@ -5,14 +5,14 @@ import javax.swing.*;
 public class TotalComponent {
     private JButton[] calculatorButton;
     private JLabel previousLabel;
-    private JTextField currentText;
+    private JLabel currentLabel;
     private JButton logButton;
     private static TotalComponent totalComponent;
     private TotalComponent()
     {
         calculatorButton = new JButton[20];
         previousLabel = new JLabel();
-        currentText = new JTextField();
+        currentLabel = new JLabel();
         logButton = new JButton();
     }
     public static TotalComponent getTotalComponent()
@@ -31,9 +31,9 @@ public class TotalComponent {
     {
         return previousLabel;
     }
-    public JTextField getCurrentText()
+    public JLabel getCurrentJLabel()
     {
-        return currentText;
+        return currentLabel;
     }
     public JButton getLogButton()
     {

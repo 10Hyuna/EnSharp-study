@@ -1,45 +1,44 @@
 package controller.actionListener;
 
-import controller.Calculation;
+import controller.ValueUpdater;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Button implements ActionListener
 {
-    private Calculation calculation;
+    private ValueUpdater valueUpdater;
     public Button()
     {
-        calculation = new Calculation();
+        valueUpdater = new ValueUpdater();
     }
     @Override
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
         switch (command)
         {
-            case "CE":
-                calculation.InputCE();
+            case "⟲":
                 break;
-            case "C":
-                calculation.InputC();
+            case "CE": case "C":
+                valueUpdater.processInputtedClear();
                 break;
             case "=":
-                calculation.InputEqual();
+                valueUpdater.processInputtedEqual();
                 break;
             case "+": case "-": case "×": case "÷":
-                calculation.InputOperator(command);
+                valueUpdater.processInputtedOperator(command);
                 break;
             case "+/-":
-                calculation.InputNegate();
+                valueUpdater.processInputtedNegate();
                 break;
             case "⌫":
-                calculation.InputBackspace();
+                valueUpdater.processInputtedDeleter();
                 break;
             case ".":
-                calculation.InputPoint();
+                valueUpdater.processInputtedPoint();
                 break;
             default:
-                calculation.InputNumber(command);
+                valueUpdater.processInputtedNumber(command);
                 break;
         }
     }

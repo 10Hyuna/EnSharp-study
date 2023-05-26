@@ -11,7 +11,10 @@ public class CaculatorButton extends JPanel {
     public JPanel getCalculatorButton()
     {
         setLayout(new GridLayout(5, 4));
-        buttons = new JButton[20];
+        buttons = TotalComponent.getTotalComponent().getCalculatorButton();
+
+        setMinimumSize(new Dimension(400, 240));
+        setMaximumSize(new Dimension(600, 720));
 
         for (int i = 0; i < button.length; i++)
         {

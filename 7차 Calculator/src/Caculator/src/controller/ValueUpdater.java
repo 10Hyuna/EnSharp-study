@@ -4,6 +4,7 @@ import model.TotalStorage;
 import view.TotalComponent;
 
 import javax.swing.*;
+import java.math.BigDecimal;
 
 public class ValueUpdater
 {
@@ -18,11 +19,14 @@ public class ValueUpdater
         totalStorage = new TotalStorage();
         valueValidator = new ValueValidator();
     }
-    public void processInputtedNumber()
+    public void processInputtedNumber(String command)
     {   // 숫자 버튼이 눌렸을 경우,
+        totalStorage.comeInValue.setCurrentNumber(totalStorage.comeInValue.getCurrentNumber().multiply(new BigDecimal("10")));
+        totalStorage.comeInValue.setCurrentNumber(totalStorage.comeInValue.getCurrentNumber().add(new BigDecimal(command)));
 
+        // 입력 값의 길이를 확인하고 폰트 크기 줄이는 함수 호출
     }
-    public void processInputtedOperator()
+    public void processInputtedOperator(String command)
     {   // 연산자 버튼이 눌렸을 경우,
 
     }
@@ -36,6 +40,14 @@ public class ValueUpdater
     }
     public void processInputtedNegate()
     {   // negate 버튼이 눌렸을 경우,
+
+    }
+    public void processInputtedDeleter()
+    {   // 백스페이스 버튼이 눌렸을 경우,
+
+    }
+    public void processInputtedClear()
+    {   // CE나 C 버튼이 눌렸을 경우,
 
     }
     private void UpdateScreen(String currentString, String previousString)

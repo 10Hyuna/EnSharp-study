@@ -4,6 +4,7 @@ import model.TotalStorage;
 import model.VO.CaculateResultVO;
 import utility.ExceptionHandler;
 import view.InputState;
+import view.TotalComponent;
 
 import java.awt.*;
 import java.math.MathContext;
@@ -23,9 +24,8 @@ public class Calculation
     private BigDecimal result = new BigDecimal("0");
     private String operator;
     private String recentInputs;
-    private String currentInputs;
-    private JLabel currentLabel;
-    private JLabel recentLabel;
+    private JLabel currentLabel = TotalComponent.getTotalComponent().getCurrentJLabel();
+    private JLabel recentLabel = TotalComponent.getTotalComponent().getPreviousLabel();
     private DecimalFormat formating = new DecimalFormat("###,###.################");
     public Calculation()
     {
@@ -47,7 +47,6 @@ public class Calculation
         BigDecimal inputValue = new BigDecimal(input);
         totalStorage.comeInValue.setCurrentNumber(totalStorage.comeInValue.getCurrentNumber().multiply(ten));
         totalStorage.comeInValue.setCurrentNumber(totalStorage.comeInValue.getCurrentNumber().add(inputValue));
-        currentLabel = InputState.getInputState().getCurrentInput();
         if(String.valueOf(totalStorage.comeInValue.getCurrentNumber()).length() == 15)
         {
             currentLabel.setFont(new Font("맑은 고딕", Font.BOLD, 43));
@@ -105,19 +104,16 @@ public class Calculation
         }
         totalStorage.comeInValue.setOperator(input);
         totalStorage.comeInValue.setPreviousNumber(totalStorage.comeInValue.getCurrentNumber());
-        recentLabel = InputState.getInputState().getPreviousInput();
         recentLabel.setText(String.format(String.valueOf
                 (totalStorage.comeInValue.getPreviousNumber()) + " " + totalStorage.comeInValue.getOperator()));
         totalStorage.comeInValue.setCurrentNumber(new BigDecimal("0"));
     }
     public void InputEqual()
     {
-        currentLabel = InputState.getInputState().getCurrentInput();
         if(!isUnableCalculate)
         {
             return;
         }
-        recentLabel = InputState.getInputState().getPreviousInput();
         if (totalStorage.comeInValue.getPreviousNumber().equals(new BigDecimal("0"))
                 && totalStorage.comeInValue.getCurrentNumber().equals(new BigDecimal("0")))
         {
@@ -167,7 +163,6 @@ public class Calculation
         {
             totalStorage.comeInValue.setPreviousString
                     (String.format("negate(%s)", String.valueOf(totalStorage.comeInValue.getResultNumber())));
-            recentLabel = InputState.getInputState().getPreviousInput();
             recentLabel.setText(totalStorage.comeInValue.getPreviousString());
 
             totalStorage.comeInValue.setCurrentNumber(totalStorage.comeInValue.getResultNumber());
@@ -177,14 +172,11 @@ public class Calculation
         {
             if(totalStorage.comeInValue.getPreviousString() == null)
             {
-                recentLabel = InputState.getInputState().getPreviousInput();
-                currentLabel = InputState.getInputState().getCurrentInput();
                 totalStorage.comeInValue.setPreviousString(String.format("negate(%s)", currentLabel.getText()));
                 recentLabel.setText(String.format(recentLabel.getText() + " " + recentInputs));
             }
             else
             {
-                recentLabel = InputState.getInputState().getPreviousInput();
                 totalStorage.comeInValue.setPreviousString(String.format("negate(%s)", totalStorage.comeInValue.getPreviousString()));
                 recentLabel.setText(String.format(recent + " " + operator + " " + recentInputs));
             }
@@ -193,7 +185,6 @@ public class Calculation
         {
             return;
         }
-        currentLabel = InputState.getInputState().getCurrentInput();
         totalStorage.comeInValue.setCurrentNumber
                 ((new BigDecimal(currentLabel.getText())).multiply(new BigDecimal("-1")));
         currentLabel.setText(formating.format(totalStorage.comeInValue.getCurrentNumber()));
@@ -216,7 +207,6 @@ public class Calculation
             isUnableCalculate = true;
         }
         InputCE();
-        recentLabel = InputState.getInputState().getPreviousInput();
         recentLabel.setText("");
         totalStorage.comeInValue.setPreviousNumber(new BigDecimal("0"));
         totalStorage.comeInValue.setResultNumber(new BigDecimal("0"));
@@ -236,7 +226,6 @@ public class Calculation
         else if(totalStorage.comeInValue.getCurrentNumber().compareTo(new BigDecimal("0")) == -1)
         {
             totalStorage.comeInValue.setCurrentNumber(new BigDecimal("0"));
-            currentLabel = InputState.getInputState().getCurrentInput();
             currentLabel.setText(formating.format(totalStorage.comeInValue.getCurrentNumber()));
             return;
         }
@@ -253,13 +242,11 @@ public class Calculation
                                 substring(0, totalStorage.comeInValue.getCurrentString().length() - 1));
             }
             totalStorage.comeInValue.setCurrentNumber(new BigDecimal(totalStorage.comeInValue.getCurrentString()));
-            currentLabel = InputState.getInputState().getCurrentInput();
             currentLabel.setText(formating.format(current));
         }
         else
         {
             recent = new BigDecimal("0");
-            recentLabel = InputState.getInputState().getPreviousInput();
             recentLabel.setText("");
         }
     }

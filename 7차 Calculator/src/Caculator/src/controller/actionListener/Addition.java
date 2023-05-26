@@ -6,7 +6,6 @@ import javax.swing.*;
 
 public class Addition {
     private JButton[] calculatorButton;
-    private JTextField currentText;
     private JButton logButton;
     private Button button;
     private Component component;
@@ -14,7 +13,6 @@ public class Addition {
     public Addition()
     {
         calculatorButton = TotalComponent.getTotalComponent().getCalculatorButton();
-        currentText = TotalComponent.getTotalComponent().getCurrentText();
         logButton = TotalComponent.getTotalComponent().getLogButton();
 
         button = new Button();
@@ -27,9 +25,9 @@ public class Addition {
         {
             calculatorButton[i].addActionListener(button);
         }
-        currentText.addKeyListener(keyboard);
-        logButton.addActionListener(button);
+        mainFrame.addKeyListener(keyboard);
         mainFrame.addComponentListener(component);
+        logButton.addActionListener(button);
     }
     public void sendComponent()
     {

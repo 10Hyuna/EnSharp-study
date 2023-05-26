@@ -1,46 +1,40 @@
 package view;
 
-import controller.actionListener.Keyboard;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.Dimension;
 
 public class MainView extends JFrame
 {
-    private JLabel standard;
     private JPanel buttons;
-    private JPanel record;
+    private JPanel recordPanel;
     private JPanel inputPanel;
     private CaculatorButton calculatorButton;
-    private Keyboard keyboard;
+    private InputState inputState;
+    private Record record;
 
     public MainView()
     {
         calculatorButton = new CaculatorButton();
-        keyboard = new Keyboard();
+        inputState = new InputState();
+        record = new Record();
     }
 
     public JFrame setFrame()
     {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new FlowLayout());
-        setSize(500, 750);
-        setMinimumSize(new Dimension(400, 650));
+        setLayout(new BorderLayout());
+        setMinimumSize(new Dimension(400, 600));
+        setMaximumSize(new Dimension(600, 900));
 
-        addKeyListener(keyboard);
-        Dimension dimension = new Dimension(this.getWidth(), this.getHeight());
-        standard = new JLabel("표준", JLabel.LEFT);
-        standard.setPreferredSize(new Dimension(dimension.width, dimension.height / 15));
-
-        inputPanel = InputState.getInputState().getPanel();
-        inputPanel.setPreferredSize(new Dimension(dimension.width, (dimension.height / 15) * 3));
+        recordPanel = record.getRecordButtonPanel();
+        inputPanel = inputState.getPanel();
         buttons = calculatorButton.getCalculatorButton();
-        buttons.setPreferredSize(new Dimension(dimension.width, (dimension.height / 15) * 10));
+        buttons.setPreferredSize(new Dimension(this.getWidth(), (this.getWidth() / 5) * 4));
 
-        add(standard);
-        add(inputPanel);
-        add(buttons);
+        add(recordPanel, BorderLayout.NORTH);
+        add(inputPanel, BorderLayout.EAST);
+        add(buttons, BorderLayout.SOUTH);
 
         setVisible(true);
 

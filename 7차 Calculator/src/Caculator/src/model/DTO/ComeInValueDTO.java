@@ -3,10 +3,10 @@ package model.DTO;
 import java.math.BigDecimal;
 
 public class ComeInValueDTO {
-    private String currentString;
+    private String currentString = "0";
     private String previousString;
     private String operator;
-    private BigDecimal currentNumber;
+    private BigDecimal currentNumber = new BigDecimal("0");
     private BigDecimal previousNumber;
     private BigDecimal resultNumber;
     public String getCurrentString()

@@ -18,4 +18,12 @@ public class ExceptionHandler {
         currentLabel = TotalComponent.getTotalComponent().getCurrentJLabel();
         currentLabel.setText("0으로 나눌 수 없습니다");
     }
+    public boolean isContainPoint(String currentValue)
+    {
+        if(currentValue.contains("."))
+        {
+            return true;
+        }
+        return false;
+    }
 }

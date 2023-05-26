@@ -1,5 +1,6 @@
 package controller.actionListener;
 
+import controller.Calculation;
 import controller.ValueUpdater;
 
 import java.awt.event.ActionEvent;
@@ -8,9 +9,11 @@ import java.awt.event.ActionListener;
 public class Button implements ActionListener
 {
     private ValueUpdater valueUpdater;
+    private Calculation calculation;
     public Button()
     {
         valueUpdater = new ValueUpdater();
+        calculation = new Calculation();
     }
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -19,26 +22,36 @@ public class Button implements ActionListener
         {
             case "⟲":
                 break;
-            case "CE": case "C":
-                valueUpdater.processInputtedClear();
+            case "CE":
+                calculation.InputCE();
+                //valueUpdater.processInputtedClear();
                 break;
+            case "C":
+                calculation.InputC();
+                //valueUpdater.processInputtedClear();
             case "=":
-                valueUpdater.processInputtedEqual();
+                calculation.InputEqual();
+                //valueUpdater.processInputtedEqual();
                 break;
             case "+": case "-": case "×": case "÷":
-                valueUpdater.processInputtedOperator(command);
+                calculation.InputOperator(command);
+                //valueUpdater.processInputtedOperator(command);
                 break;
             case "+/-":
-                valueUpdater.processInputtedNegate();
+                calculation.InputNegate();
+                //valueUpdater.processInputtedNegate();
                 break;
             case "⌫":
-                valueUpdater.processInputtedDeleter();
+                calculation.InputBackspace();
+                //valueUpdater.processInputtedDeleter();
                 break;
             case ".":
-                valueUpdater.processInputtedPoint();
+                calculation.InputPoint();
+                //valueUpdater.processInputtedPoint();
                 break;
             default:
-                valueUpdater.processInputtedNumber(command);
+                calculation.InputNumber(command);
+                //valueUpdater.processInputtedNumber(command);
                 break;
         }
     }

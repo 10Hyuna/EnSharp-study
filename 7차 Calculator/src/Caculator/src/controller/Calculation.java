@@ -198,7 +198,7 @@ public class Calculation
         totalStorage.comeInValue.setOperator(null);
         currentLabel.setText("0");
         totalStorage.comeInValue.setCurrentNumber(new BigDecimal("0"));
-        totalStorage.comeInValue.setCurrentString(null);
+        totalStorage.comeInValue.setCurrentString("0");
     }
     public void InputC()
     {
@@ -242,11 +242,11 @@ public class Calculation
                                 substring(0, totalStorage.comeInValue.getCurrentString().length() - 1));
             }
             totalStorage.comeInValue.setCurrentNumber(new BigDecimal(totalStorage.comeInValue.getCurrentString()));
-            currentLabel.setText(formating.format(current));
+            currentLabel.setText(formating.format(totalStorage.comeInValue.getCurrentNumber()));
         }
         else
         {
-            recent = new BigDecimal("0");
+            totalStorage.comeInValue.setPreviousNumber(new BigDecimal("0"));
             recentLabel.setText("");
         }
     }
@@ -255,30 +255,47 @@ public class Calculation
         {
             return;
         }
+        if(exceptionHandler.isContainPoint(String.valueOf(totalStorage.comeInValue.getCurrentNumber())))
+        {
+            return;
+        }
+        totalStorage.comeInValue.setCurrentNumber(new BigDecimal(String.format(totalStorage.comeInValue.getCurrentNumber() + ".0")));
+        currentLabel.setText(totalStorage.comeInValue.getCurrentNumber().toString());
     }
     private boolean CalculateValue() {
         isCalculated = false;
-        if (recent.equals(new BigDecimal("0")) && current.equals(new BigDecimal("0")) && operator.equals("÷")) {
+        if (totalStorage.comeInValue.getPreviousNumber().equals(new BigDecimal("0"))
+                && totalStorage.comeInValue.getCurrentNumber().equals(new BigDecimal("0"))
+                && totalStorage.comeInValue.getOperator().equals("÷")) {
             exceptionHandler.undifinedNumber();
             return false;
         }
-        else if(current.equals(new BigDecimal("0")) && operator.equals("÷"))
+        else if(totalStorage.comeInValue.getCurrentNumber().equals(new BigDecimal("0"))
+                && totalStorage.comeInValue.getOperator().equals("÷"))
         {
             exceptionHandler.undividedNumber();
             return false;
         }
-        switch (operator) {
+        switch (totalStorage.comeInValue.getOperator()) {
             case "+":
-                result = recent.add(current, MathContext.DECIMAL64);
+                totalStorage.comeInValue.setResultNumber
+                        (totalStorage.comeInValue.getPreviousNumber().
+                                add(totalStorage.comeInValue.getCurrentNumber(), MathContext.DECIMAL64));
                 break;
             case "-":
-                result = recent.subtract(current, MathContext.DECIMAL64);
+                totalStorage.comeInValue.setResultNumber
+                        (totalStorage.comeInValue.getPreviousNumber().
+                                subtract(totalStorage.comeInValue.getCurrentNumber(), MathContext.DECIMAL64));
                 break;
             case "×":
-                result = recent.multiply(current, MathContext.DECIMAL64);
+                totalStorage.comeInValue.setResultNumber
+                        (totalStorage.comeInValue.getPreviousNumber().
+                                multiply(totalStorage.comeInValue.getCurrentNumber(), MathContext.DECIMAL64));
                 break;
             case "÷":
-                result = recent.divide(current, MathContext.DECIMAL64);
+                totalStorage.comeInValue.setResultNumber
+                        (totalStorage.comeInValue.getPreviousNumber().
+                                divide(totalStorage.comeInValue.getCurrentNumber(), MathContext.DECIMAL64));
                 break;
         }
         totalStorage.result.add(new CaculateResultVO(recent.intValue(), current.intValue(), operator, result.intValue()));

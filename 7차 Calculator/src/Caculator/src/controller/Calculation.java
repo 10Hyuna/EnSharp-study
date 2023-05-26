@@ -43,10 +43,23 @@ public class Calculation
             currentLabel.setFont(new Font("맑은 고딕", Font.BOLD, 40));
             return;
         }
-        BigDecimal ten = new BigDecimal("10");
-        BigDecimal inputValue = new BigDecimal(input);
-        totalStorage.comeInValue.setCurrentNumber(totalStorage.comeInValue.getCurrentNumber().multiply(ten));
-        totalStorage.comeInValue.setCurrentNumber(totalStorage.comeInValue.getCurrentNumber().add(inputValue));
+        if(exceptionHandler.isContainPoint(totalStorage.comeInValue.getCurrentNumber().toString()))
+        {
+            String cuttedValue = totalStorage.comeInValue.getCurrentNumber().toString();
+            if(exceptionHandler.isEndedPoint(totalStorage.comeInValue.getCurrentNumber().toString()))
+            {
+                cuttedValue = cuttedValue.substring(0, cuttedValue.length() - 1);
+            }
+            cuttedValue += input;
+            totalStorage.comeInValue.setCurrentNumber(new BigDecimal(cuttedValue));
+        }
+        else
+        {
+            BigDecimal ten = new BigDecimal("10");
+            BigDecimal inputValue = new BigDecimal(input);
+            totalStorage.comeInValue.setCurrentNumber(totalStorage.comeInValue.getCurrentNumber().multiply(ten));
+            totalStorage.comeInValue.setCurrentNumber(totalStorage.comeInValue.getCurrentNumber().add(inputValue));
+        }
         if(String.valueOf(totalStorage.comeInValue.getCurrentNumber()).length() == 15)
         {
             currentLabel.setFont(new Font("맑은 고딕", Font.BOLD, 43));

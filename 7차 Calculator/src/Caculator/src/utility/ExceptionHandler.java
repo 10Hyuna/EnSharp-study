@@ -26,4 +26,13 @@ public class ExceptionHandler {
         }
         return false;
     }
+    public boolean isEndedPoint(String currentValue)
+    {
+        String lastString = currentValue.substring(currentValue.length() - 2, currentValue.length());
+        if(lastString.contains(".0"))
+        {
+            return true;
+        }
+        return false;
+    }
 }

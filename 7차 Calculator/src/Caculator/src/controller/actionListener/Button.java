@@ -23,36 +23,30 @@ public class Button implements ActionListener
             case "⟲":
                 break;
             case "CE":
-                calculation.InputCE();
-                //valueUpdater.processInputtedClear();
+                valueUpdater.processInputtedCE();
                 break;
             case "C":
-                calculation.InputC();
-                //valueUpdater.processInputtedClear();
+                valueUpdater.processInputtedC();
                 break;
             case "=":
-                calculation.InputEqual();
-                //valueUpdater.processInputtedEqual();
+                valueUpdater.processInputtedEqual();
                 break;
             case "+": case "-": case "×": case "÷":
-                calculation.InputOperator(command);
-                //valueUpdater.processInputtedOperator(command);
+                valueUpdater.processInputtedOperator(command);
                 break;
             case "+/-":
                 calculation.InputNegate();
                 //valueUpdater.processInputtedNegate();
                 break;
             case "⌫":
-                calculation.InputBackspace();
-                //valueUpdater.processInputtedDeleter();
+                //calculation.InputBackspace();
+                valueUpdater.processInputtedDeleter();
                 break;
             case ".":
-                calculation.InputPoint();
-                //valueUpdater.processInputtedPoint();
+                valueUpdater.processInputtedPoint();
                 break;
             default:
-                calculation.InputNumber(command);
-                //valueUpdater.processInputtedNumber(command);
+                valueUpdater.processInputtedNumber(command);
                 break;
         }
     }

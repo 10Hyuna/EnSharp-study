@@ -16,6 +16,7 @@ public class ValueUpdater
     private TotalStorage totalStorage;
     private ValueValidator valueValidator;
     private ExceptionHandler exceptionHandler;
+    private boolean isComeinOpearator;
     public ValueUpdater()
     {
         mediationValue = new MediationValue();
@@ -25,31 +26,33 @@ public class ValueUpdater
     }
     public void processInputtedNumber(String command)
     {   // 숫자 버튼이 눌렸을 경우,
-        if(totalStorage.comeInValue.getOperator() != null)
+        if(totalStorage.comeInValue.getCurrentString().length() < 16)
         {
-            totalStorage.comeInValue.setCurrentNumber(new BigDecimal("0"));
+            if(isComeinOpearator)
+            {
+                isComeinOpearator = false;
+                totalStorage.comeInValue.setCurrentNumber(new BigDecimal("0"));
+                totalStorage.comeInValue.setCurrentString("0");
+            }
+            if(valueValidator.isContainPoint(totalStorage.comeInValue.getCurrentString()))
+            {
+                calculatePoint(command);
+            }
+            else
+            {
+                calculatePlane(command);
+            }
+            mediationValue.changeCurrent(totalStorage.comeInValue.getCurrentString());
         }
-        if(valueValidator.isContainPoint(totalStorage.comeInValue.getCurrentString()))
-        {
-            calculatePoint(command);
-        }
-        else
-        {
-            calculatePlane(command);
-        }
-        mediationValue.changeCurrent(totalStorage.comeInValue.getCurrentString());
-        mediationValue.changePrevious(totalStorage.comeInValue.getPreviousString());
-        // 입력 값의 길이를 확인하고 폰트 크기 줄이는 함수 호출
     }
-    private void calculatePoint(String commnad)
+    private void calculatePoint(String command)
     {
-        String PointValue = valueValidator.isEndedPoint(totalStorage.comeInValue.getCurrentString());
-
-        totalStorage.comeInValue.setCurrentNumber(new BigDecimal(PointValue).add(new BigDecimal(commnad)));
+        String pointValue = valueValidator.isEndedPoint(totalStorage.comeInValue.getCurrentString());
+        pointValue += command;
+        totalStorage.comeInValue.setCurrentNumber(new BigDecimal(pointValue));
         totalStorage.comeInValue.setCurrentString(totalStorage.comeInValue.getCurrentNumber().toString());
 
         mediationValue.changeCurrent(totalStorage.comeInValue.getCurrentString());
-        mediationValue.changePrevious(totalStorage.comeInValue.getPreviousString());
     }
     private void calculatePlane(String command)
     {
@@ -57,20 +60,23 @@ public class ValueUpdater
         totalStorage.comeInValue.setCurrentNumber(totalStorage.comeInValue.getCurrentNumber().add(new BigDecimal(command)));
 
         totalStorage.comeInValue.setCurrentString(totalStorage.comeInValue.getCurrentNumber().toString());
-
-        mediationValue.changeCurrent(totalStorage.comeInValue.getCurrentString());
-        mediationValue.changePrevious(totalStorage.comeInValue.getPreviousString());
     }
     public void processInputtedOperator(String command)
     {   // 연산자 버튼이 눌렸을 경우,
+        isComeinOpearator = true;
         if(!totalStorage.comeInValue.getCurrentNumber().equals(new BigDecimal("0"))
-        && !totalStorage.comeInValue.getPreviousNumber().equals(new BigDecimal("0")))
+        && !totalStorage.comeInValue.getPreviousNumber().equals(new BigDecimal("0"))
+        && totalStorage.comeInValue.getOperator() != null)
         {
             calculateValue();
         }
-        else
+        else if(totalStorage.comeInValue.getResultNumber().equals(new BigDecimal("0")))
         {
             totalStorage.comeInValue.setPreviousNumber(totalStorage.comeInValue.getCurrentNumber());
+        }
+        else
+        {
+            totalStorage.comeInValue.setPreviousNumber(totalStorage.comeInValue.getResultNumber());
         }
         totalStorage.comeInValue.setPreviousString(totalStorage.comeInValue.getPreviousNumber().toString());
         totalStorage.comeInValue.setOperator(command);
@@ -87,10 +93,23 @@ public class ValueUpdater
         totalStorage.comeInValue.setPreviousString(
                 String.format("%s %s =", totalStorage.comeInValue.getPreviousString(), totalStorage.comeInValue.getCurrentNumber()));
 
+        mediationValue.changeCurrent(totalStorage.comeInValue.getResultNumber().toString());
+        mediationValue.changePrevious(totalStorage.comeInValue.getPreviousString());
+
+        totalStorage.comeInValue.setPreviousString(String.format("%s %s", totalStorage.comeInValue.getResultNumber(), totalStorage.comeInValue.getOperator()));
+        totalStorage.comeInValue.setOperator(null);
         //계산할 수 있는 값이 입력되어 있는지 확인하는 유효성 검사 함수 호출
     }
     public void processInputtedPoint()
     {
+        if(valueValidator.isContainPoint(totalStorage.comeInValue.getCurrentString()))
+        {
+            return;
+        }
+        totalStorage.comeInValue.setCurrentNumber(new BigDecimal(totalStorage.comeInValue.getCurrentString() + ".0"));
+        totalStorage.comeInValue.setCurrentString(totalStorage.comeInValue.getCurrentNumber().toString());
+
+        mediationValue.changeCurrent(totalStorage.comeInValue.getCurrentString());
         //소수점이 이미 입력되어 있을 경우를 확인하는 유효성 검사 함수 호출
     }
     public void processInputtedNegate()
@@ -99,11 +118,41 @@ public class ValueUpdater
     }
     public void processInputtedDeleter()
     {   // 백스페이스 버튼이 눌렸을 경우,
+        if(totalStorage.comeInValue.getResultNumber().equals(null))
+        {
+            totalStorage.comeInValue.setPreviousNumber(new BigDecimal("0"));
+            totalStorage.comeInValue.setPreviousString("");
+        }
+        else
+        {
+            String cuttedValue = totalStorage.comeInValue.getCurrentString();
+            cuttedValue = cuttedValue.substring(0, cuttedValue.length() - 1);
+            if (cuttedValue == "") {
+                cuttedValue = "0";
+            }
+            totalStorage.comeInValue.setCurrentNumber(new BigDecimal(cuttedValue));
+            totalStorage.comeInValue.setCurrentString(cuttedValue);
+        }
 
+        mediationValue.changeCurrent(totalStorage.comeInValue.getCurrentString());
     }
-    public void processInputtedClear()
+    public void processInputtedCE()
     {   // CE나 C 버튼이 눌렸을 경우,
+        totalStorage.comeInValue.setCurrentNumber(new BigDecimal("0"));
+        totalStorage.comeInValue.setCurrentString("0");
 
+        mediationValue.changeCurrent(totalStorage.comeInValue.getCurrentString());
+    }
+    public void processInputtedC()
+    {
+        processInputtedCE();
+
+        totalStorage.comeInValue.setPreviousNumber(new BigDecimal("0"));
+        totalStorage.comeInValue.setPreviousString("");
+        totalStorage.comeInValue.setOperator(null);
+
+        mediationValue.changeCurrent(totalStorage.comeInValue.getCurrentString());
+        mediationValue.changePrevious(totalStorage.comeInValue.getPreviousString());
     }
     private void calculateValue() {
         switch (totalStorage.comeInValue.getOperator()) {

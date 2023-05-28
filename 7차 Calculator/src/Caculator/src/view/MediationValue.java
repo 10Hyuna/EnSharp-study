@@ -2,6 +2,7 @@ package view;
 
 import javax.swing.*;
 import java.awt.*;
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 
 public class MediationValue {
@@ -13,9 +14,9 @@ public class MediationValue {
         currentLabel = TotalComponent.getTotalComponent().getCurrentJLabel();
         previousLabel = TotalComponent.getTotalComponent().getPreviousLabel();
     }
-    public void changeCurrent(String currentString)
+    public void changeCurrent(String current)
     {
-        int wasteSize = currentLabel.getText().length() - 9;
+        int wasteSize = currentLabel.getText().length() - 12;
         int fontSize = 50;
 
         if(wasteSize > 0)
@@ -24,10 +25,10 @@ public class MediationValue {
         }
 
         currentLabel.setFont(new Font("맑은 고딕", Font.BOLD, fontSize));
-        currentLabel.setText(currentString);
+        currentLabel.setText(formating.format(new BigDecimal(current)));
     }
-    public void changePrevious(String previousString)
+    public void changePrevious(String previous)
     {
-        previousLabel.setText(previousString);
+        previousLabel.setText(previous);
     }
 }

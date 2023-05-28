@@ -4,11 +4,11 @@ import java.math.BigDecimal;
 
 public class ComeInValueDTO {
     private String currentString = "0";
-    private String previousString;
+    private String previousString = "";
     private String operator;
     private BigDecimal currentNumber = new BigDecimal("0");
-    private BigDecimal previousNumber;
-    private BigDecimal resultNumber;
+    private BigDecimal previousNumber = new BigDecimal("0");
+    private BigDecimal resultNumber = new BigDecimal("0");
     public String getCurrentString()
     {
         return currentString;

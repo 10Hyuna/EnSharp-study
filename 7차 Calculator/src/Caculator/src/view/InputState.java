@@ -24,9 +24,6 @@ public class InputState extends JPanel {
         add(previousLabel, BorderLayout.EAST);
         add(currentLabel, BorderLayout.SOUTH);
 
-        setMinimumSize(new Dimension(400, 120));
-        setMaximumSize(new Dimension(600, 180));
-
         return this;
     }
 }

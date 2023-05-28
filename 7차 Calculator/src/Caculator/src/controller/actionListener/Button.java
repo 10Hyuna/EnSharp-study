@@ -29,6 +29,7 @@ public class Button implements ActionListener
             case "C":
                 calculation.InputC();
                 //valueUpdater.processInputtedClear();
+                break;
             case "=":
                 calculation.InputEqual();
                 //valueUpdater.processInputtedEqual();

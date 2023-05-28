@@ -16,8 +16,6 @@ public class Record extends JPanel{
         recordButton.setText("⟲");
 
         setLayout(new BorderLayout());
-        setMinimumSize(new Dimension(400, 40));
-        setMaximumSize(new Dimension(600, 60));
         add(standard, BorderLayout.WEST);
         add(recordButton, BorderLayout.EAST);
 

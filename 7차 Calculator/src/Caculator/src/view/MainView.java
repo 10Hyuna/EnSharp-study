@@ -30,7 +30,7 @@ public class MainView extends JFrame
         recordPanel = record.getRecordButtonPanel();
         inputPanel = inputState.getPanel();
         buttons = calculatorButton.getCalculatorButton();
-        buttons.setPreferredSize(new Dimension(this.getWidth(), (this.getWidth() / 5) * 4));
+        buttons.setPreferredSize(new Dimension(this.getWidth(), this.getWidth()));
 
         add(recordPanel, BorderLayout.NORTH);
         add(inputPanel, BorderLayout.EAST);

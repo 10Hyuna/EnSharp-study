@@ -84,10 +84,6 @@ public class Calculation
         {
             totalStorage.comeInValue.setCurrentNumber(recent);
         }
-        else if(isCalculated)
-        {
-            totalStorage.comeInValue.setCurrentNumber(result);
-        }
         else if(totalStorage.comeInValue.getOperator() != null)
         {
             isUnableCalculate = CalculateValue();
@@ -115,6 +111,10 @@ public class Calculation
             }
             return;
         }
+        else if(isCalculated)
+        {
+            totalStorage.comeInValue.setCurrentNumber(totalStorage.comeInValue.getResultNumber());
+        }
         totalStorage.comeInValue.setOperator(input);
         totalStorage.comeInValue.setPreviousNumber(totalStorage.comeInValue.getCurrentNumber());
         recentLabel.setText(String.format(String.valueOf
@@ -134,7 +134,7 @@ public class Calculation
         }
         else if(totalStorage.comeInValue.getOperator() == null)
         {
-            recentLabel.setText(String.format("%s = ", current));
+            recentLabel.setText(String.format("%s = ", totalStorage.comeInValue.getCurrentNumber()));
         }
         else
         {
@@ -181,17 +181,19 @@ public class Calculation
             totalStorage.comeInValue.setCurrentNumber(totalStorage.comeInValue.getResultNumber());
             totalStorage.comeInValue.setResultNumber(new BigDecimal("0"));
         }
-        else if(!totalStorage.comeInValue.getPreviousString().equals(new BigDecimal("0")))
+        else if(!totalStorage.comeInValue.getPreviousNumber().equals(new BigDecimal("0")))
         {
-            if(totalStorage.comeInValue.getPreviousString() == null)
+            if(totalStorage.comeInValue.getPreviousString() == "")
             {
                 totalStorage.comeInValue.setPreviousString(String.format("negate(%s)", currentLabel.getText()));
-                recentLabel.setText(String.format(recentLabel.getText() + " " + recentInputs));
+                recentLabel.setText(String.format(recentLabel.getText() + " " + totalStorage.comeInValue.getPreviousString()));
             }
             else
             {
                 totalStorage.comeInValue.setPreviousString(String.format("negate(%s)", totalStorage.comeInValue.getPreviousString()));
-                recentLabel.setText(String.format(recent + " " + operator + " " + recentInputs));
+                recentLabel.setText(String.format(totalStorage.comeInValue.getPreviousNumber() + " "
+                        + totalStorage.comeInValue.getOperator() + " "
+                        + totalStorage.comeInValue.getPreviousString()));
             }
         }
         else if(totalStorage.comeInValue.getCurrentNumber().equals(new BigDecimal("0")))
@@ -224,7 +226,7 @@ public class Calculation
         totalStorage.comeInValue.setPreviousNumber(new BigDecimal("0"));
         totalStorage.comeInValue.setResultNumber(new BigDecimal("0"));
         isCalculated = false;
-        totalStorage.comeInValue.setPreviousString(null);
+        totalStorage.comeInValue.setPreviousString("");
     }
     public void InputBackspace()
     {
@@ -242,7 +244,7 @@ public class Calculation
             currentLabel.setText(formating.format(totalStorage.comeInValue.getCurrentNumber()));
             return;
         }
-        else if(totalStorage.comeInValue.getResultNumber().equals(new BigDecimal("0")))
+        else if(totalStorage.comeInValue.getResultNumber().equals(null))
         {
             totalStorage.comeInValue.setCurrentString(String.valueOf(totalStorage.comeInValue.getCurrentNumber()));
             if(totalStorage.comeInValue.getCurrentString().length() == 1)
@@ -311,7 +313,9 @@ public class Calculation
                                 divide(totalStorage.comeInValue.getCurrentNumber(), MathContext.DECIMAL64));
                 break;
         }
-        totalStorage.result.add(new CaculateResultVO(recent.intValue(), current.intValue(), operator, result.intValue()));
+        totalStorage.result.add(new CaculateResultVO(totalStorage.comeInValue.getCurrentNumber().intValue(),
+                totalStorage.comeInValue.getCurrentNumber().intValue(),
+                totalStorage.comeInValue.getOperator(), totalStorage.comeInValue.getResultNumber().intValue()));
         isCalculated = true;
         return true;
     }

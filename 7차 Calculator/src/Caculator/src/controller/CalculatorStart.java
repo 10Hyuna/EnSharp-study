@@ -13,11 +13,11 @@ public class CalculatorStart
     public CalculatorStart()
     {
         mainView = new MainView();
-        addition = new Addition();
+        addition = new Addition(mainView);
     }
     public void setCalculator()
     {
         mainFrame = mainView.setFrame();
-        addition.addActionListener(mainFrame);
+        addition.addActionListener();
     }
 }

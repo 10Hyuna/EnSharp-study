@@ -35,11 +35,9 @@ public class Button implements ActionListener
                 valueUpdater.processInputtedOperator(command);
                 break;
             case "+/-":
-                calculation.InputNegate();
-                //valueUpdater.processInputtedNegate();
+                valueUpdater.processInputtedNegate();
                 break;
             case "⌫":
-                //calculation.InputBackspace();
                 valueUpdater.processInputtedDeleter();
                 break;
             case ".":

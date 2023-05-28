@@ -4,10 +4,13 @@ import javax.swing.*;
 import java.awt.*;
 
 public class InputState extends JPanel {
-    private JLabel previousInput = new JLabel();
-    private JLabel currentInput = new JLabel();
+    private JPanel previousPanel = new JPanel();
+    private JPanel currentPanel = new JPanel();
     public JPanel getPanel()
     {
+        previousPanel.setLayout(new BorderLayout());
+        currentPanel.setLayout(new BorderLayout());
+
         setLayout(new BorderLayout());
 
         JLabel previousLabel = TotalComponent.getTotalComponent().getPreviousLabel();
@@ -21,8 +24,11 @@ public class InputState extends JPanel {
         currentLabel.setForeground(Color.BLACK);
         currentLabel.setFont(new Font("맑은 고딕", Font.BOLD, 50));
 
-        add(previousLabel, BorderLayout.EAST);
-        add(currentLabel, BorderLayout.SOUTH);
+        previousPanel.add(previousLabel, BorderLayout.EAST);
+        currentPanel.add(currentLabel, BorderLayout.EAST);
+
+        add(previousPanel, BorderLayout.CENTER);
+        add(currentPanel, BorderLayout.SOUTH);
 
         return this;
     }

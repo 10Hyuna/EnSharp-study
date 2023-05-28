@@ -47,6 +47,9 @@ public class ValueUpdater
 
         totalStorage.comeInValue.setCurrentNumber(new BigDecimal(PointValue).add(new BigDecimal(commnad)));
         totalStorage.comeInValue.setCurrentString(totalStorage.comeInValue.getCurrentNumber().toString());
+
+        mediationValue.changeCurrent(totalStorage.comeInValue.getCurrentString());
+        mediationValue.changePrevious(totalStorage.comeInValue.getPreviousString());
     }
     private void calculatePlane(String command)
     {
@@ -54,6 +57,9 @@ public class ValueUpdater
         totalStorage.comeInValue.setCurrentNumber(totalStorage.comeInValue.getCurrentNumber().add(new BigDecimal(command)));
 
         totalStorage.comeInValue.setCurrentString(totalStorage.comeInValue.getCurrentNumber().toString());
+
+        mediationValue.changeCurrent(totalStorage.comeInValue.getCurrentString());
+        mediationValue.changePrevious(totalStorage.comeInValue.getPreviousString());
     }
     public void processInputtedOperator(String command)
     {   // 연산자 버튼이 눌렸을 경우,
@@ -61,7 +67,6 @@ public class ValueUpdater
         && !totalStorage.comeInValue.getPreviousNumber().equals(new BigDecimal("0")))
         {
             calculateValue();
-            totalStorage.comeInValue.setPreviousNumber(totalStorage.comeInValue.getResultNumber());
         }
         else
         {
@@ -71,9 +76,17 @@ public class ValueUpdater
         totalStorage.comeInValue.setOperator(command);
         totalStorage.comeInValue.setPreviousString(
                 String.format("%s %s", totalStorage.comeInValue.getPreviousString(), totalStorage.comeInValue.getOperator()));
+
+        mediationValue.changeCurrent(totalStorage.comeInValue.getCurrentString());
+        mediationValue.changePrevious(totalStorage.comeInValue.getPreviousString());
     }
     public void processInputtedEqual()
     {
+        calculateValue();
+
+        totalStorage.comeInValue.setPreviousString(
+                String.format("%s %s =", totalStorage.comeInValue.getPreviousString(), totalStorage.comeInValue.getCurrentNumber()));
+
         //계산할 수 있는 값이 입력되어 있는지 확인하는 유효성 검사 함수 호출
     }
     public void processInputtedPoint()
@@ -115,6 +128,7 @@ public class ValueUpdater
                                 divide(totalStorage.comeInValue.getCurrentNumber(), MathContext.DECIMAL64));
                 break;
         }
+        totalStorage.comeInValue.setPreviousNumber(totalStorage.comeInValue.getResultNumber());
         totalStorage.result.add(new CaculateResultVO(totalStorage.comeInValue.getCurrentNumber().intValue(),
                 totalStorage.comeInValue.getCurrentNumber().intValue(),
                 totalStorage.comeInValue.getOperator(), totalStorage.comeInValue.getResultNumber().intValue()));

@@ -17,7 +17,7 @@ public class CalculatorStart
     }
     public void setCalculator()
     {
-        mainFrame = mainView.setFrame();
+        mainView.setFrame();
         addition.addActionListener();
     }
 }

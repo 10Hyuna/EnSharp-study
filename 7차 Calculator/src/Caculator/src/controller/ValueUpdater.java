@@ -229,14 +229,7 @@ public class ValueUpdater
                                 divide(totalStorage.comeInValue.getCurrentNumber(), MathContext.DECIMAL128));
                 break;
         }
-        totalStorage.comeInValue.setResultNumber(totalStorage.comeInValue.getResultNumber().setScale(14, RoundingMode.HALF_UP));
-        totalStorage.comeInValue.setPreviousString(totalStorage.comeInValue.getResultNumber().toString());
-        totalStorage.comeInValue.setPreviousString(
-                String.format(totalStorage.comeInValue.getPreviousString() + totalStorage.comeInValue.getOperator()));
-
-        String formatedString = totalStorage.comeInValue.getResultNumber().toString();
-        formatedString = formatedString.replace("E", "e");
-        totalStorage.comeInValue.setResultNumber(new BigDecimal(formatedString));
+        
         totalStorage.comeInValue.setPreviousNumber(totalStorage.comeInValue.getResultNumber());
         totalStorage.result.add(new CaculateResultVO(totalStorage.comeInValue.getCurrentNumber().intValue(),
                 totalStorage.comeInValue.getCurrentNumber().intValue(),

@@ -20,7 +20,7 @@ public class MainView extends JFrame
         record = new Record();
     }
 
-    public JFrame setFrame()
+    public void setFrame()
     {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
@@ -37,7 +37,7 @@ public class MainView extends JFrame
         add(buttons, BorderLayout.SOUTH);
 
         setVisible(true);
-
-        return this;
+        setFocusable(true);
+        requestFocus();
     }
 }

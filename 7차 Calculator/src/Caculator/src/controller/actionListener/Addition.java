@@ -1,5 +1,6 @@
 package controller.actionListener;
 
+import controller.ValueUpdater;
 import view.MainView;
 import view.TotalComponent;
 
@@ -12,6 +13,7 @@ public class Addition {
     private MainView mainView;
     private Component component;
     private Keyboard keyboard;
+    private ValueUpdater valueUpdater;
     public Addition(MainView mainview)
     {
         calculatorButton = TotalComponent.getTotalComponent().getCalculatorButton();
@@ -19,9 +21,10 @@ public class Addition {
 
         this.mainView = mainview;
 
-        button = new Button();
+        valueUpdater = new ValueUpdater();
+        button = new Button(valueUpdater);
+        keyboard = new Keyboard(valueUpdater);
         component = new Component();
-        keyboard = new Keyboard();
     }
     public void addActionListener()
     {

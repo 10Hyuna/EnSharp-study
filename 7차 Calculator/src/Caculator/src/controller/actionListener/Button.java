@@ -9,11 +9,9 @@ import java.awt.event.ActionListener;
 public class Button implements ActionListener
 {
     private ValueUpdater valueUpdater;
-    private Calculation calculation;
-    public Button()
+    public Button(ValueUpdater valueUpdater)
     {
-        valueUpdater = new ValueUpdater();
-        calculation = new Calculation();
+        this.valueUpdater = valueUpdater;
     }
     @Override
     public void actionPerformed(ActionEvent e) {

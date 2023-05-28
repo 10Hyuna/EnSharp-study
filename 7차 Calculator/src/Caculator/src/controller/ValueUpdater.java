@@ -229,7 +229,7 @@ public class ValueUpdater
                                 divide(totalStorage.comeInValue.getCurrentNumber(), MathContext.DECIMAL128));
                 break;
         }
-        
+
         totalStorage.comeInValue.setPreviousNumber(totalStorage.comeInValue.getResultNumber());
         totalStorage.result.add(new CaculateResultVO(totalStorage.comeInValue.getCurrentNumber().intValue(),
                 totalStorage.comeInValue.getCurrentNumber().intValue(),

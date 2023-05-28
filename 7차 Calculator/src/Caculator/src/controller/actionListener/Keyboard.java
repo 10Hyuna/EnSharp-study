@@ -26,7 +26,7 @@ public class Keyboard implements KeyListener
         {
             case KeyEvent.VK_0: case KeyEvent.VK_1: case KeyEvent.VK_2:
             case KeyEvent.VK_3: case KeyEvent.VK_4: case KeyEvent.VK_5:
-            case KeyEvent.VK_6: case KeyEvent.VK_7: case KeyEvent.VK_8: case KeyEvent.VK_9:
+            case KeyEvent.VK_6: case KeyEvent.VK_7: case KeyEvent.VK_9:
                 command = String.valueOf(keyCode - 48);
                 valueUpdater.processInputtedNumber(command);
                 break;
@@ -36,16 +36,31 @@ public class Keyboard implements KeyListener
             case KeyEvent.VK_DIVIDE:
                 valueUpdater.processInputtedOperator("÷");
                 break;
-            case KeyEvent.VK_PLUS:
-                valueUpdater.processInputtedOperator("+");
-                break;
-            case KeyEvent.VK_MULTIPLY:
-                valueUpdater.processInputtedOperator("×");
+            case KeyEvent.VK_EQUALS:
+                if(e.isShiftDown())
+                {
+                    valueUpdater.processInputtedOperator("+");
+                }
+                else
+                {
+                    valueUpdater.processInputtedEqual();
+                }
                 break;
             case KeyEvent.VK_MINUS:
                 valueUpdater.processInputtedOperator("-");
                 break;
-            case KeyEvent.VK_DECIMAL:
+            case KeyEvent.VK_8:
+                if(e.isShiftDown())
+                {
+                    valueUpdater.processInputtedOperator("×");
+                }
+                else
+                {
+                    command = String.valueOf(keyCode - 48);
+                    valueUpdater.processInputtedNumber(command);
+                }
+                break;
+            case KeyEvent.VK_PERIOD:
                 valueUpdater.processInputtedPoint();
                 break;
             case KeyEvent.VK_F8:

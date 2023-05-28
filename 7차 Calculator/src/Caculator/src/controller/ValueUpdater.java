@@ -1,12 +1,14 @@
 package controller;
 
 import model.TotalStorage;
+import model.VO.CaculateResultVO;
 import utility.ExceptionHandler;
 import view.MediationValue;
 import view.TotalComponent;
 
 import javax.swing.*;
 import java.math.BigDecimal;
+import java.math.MathContext;
 
 public class ValueUpdater
 {
@@ -23,6 +25,10 @@ public class ValueUpdater
     }
     public void processInputtedNumber(String command)
     {   // 숫자 버튼이 눌렸을 경우,
+        if(totalStorage.comeInValue.getOperator() != null)
+        {
+            totalStorage.comeInValue.setCurrentNumber(new BigDecimal("0"));
+        }
         if(valueValidator.isContainPoint(totalStorage.comeInValue.getCurrentString()))
         {
             calculatePoint(command);
@@ -51,7 +57,20 @@ public class ValueUpdater
     }
     public void processInputtedOperator(String command)
     {   // 연산자 버튼이 눌렸을 경우,
-
+        if(!totalStorage.comeInValue.getCurrentNumber().equals(new BigDecimal("0"))
+        && !totalStorage.comeInValue.getPreviousNumber().equals(new BigDecimal("0")))
+        {
+            calculateValue();
+            totalStorage.comeInValue.setPreviousNumber(totalStorage.comeInValue.getResultNumber());
+        }
+        else
+        {
+            totalStorage.comeInValue.setPreviousNumber(totalStorage.comeInValue.getCurrentNumber());
+        }
+        totalStorage.comeInValue.setPreviousString(totalStorage.comeInValue.getPreviousNumber().toString());
+        totalStorage.comeInValue.setOperator(command);
+        totalStorage.comeInValue.setPreviousString(
+                String.format("%s %s", totalStorage.comeInValue.getPreviousString(), totalStorage.comeInValue.getOperator()));
     }
     public void processInputtedEqual()
     {
@@ -73,9 +92,31 @@ public class ValueUpdater
     {   // CE나 C 버튼이 눌렸을 경우,
 
     }
-    private void UpdateScreen(String currentString, String previousString)
-    {
-        currentLabel.setText(currentString);
-        previousLabel.setText(previousString);
+    private void calculateValue() {
+        switch (totalStorage.comeInValue.getOperator()) {
+            case "+":
+                totalStorage.comeInValue.setResultNumber
+                        (totalStorage.comeInValue.getPreviousNumber().
+                                add(totalStorage.comeInValue.getCurrentNumber(), MathContext.DECIMAL64));
+                break;
+            case "-":
+                totalStorage.comeInValue.setResultNumber
+                        (totalStorage.comeInValue.getPreviousNumber().
+                                subtract(totalStorage.comeInValue.getCurrentNumber(), MathContext.DECIMAL64));
+                break;
+            case "×":
+                totalStorage.comeInValue.setResultNumber
+                        (totalStorage.comeInValue.getPreviousNumber().
+                                multiply(totalStorage.comeInValue.getCurrentNumber(), MathContext.DECIMAL64));
+                break;
+            case "÷":
+                totalStorage.comeInValue.setResultNumber
+                        (totalStorage.comeInValue.getPreviousNumber().
+                                divide(totalStorage.comeInValue.getCurrentNumber(), MathContext.DECIMAL64));
+                break;
+        }
+        totalStorage.result.add(new CaculateResultVO(totalStorage.comeInValue.getCurrentNumber().intValue(),
+                totalStorage.comeInValue.getCurrentNumber().intValue(),
+                totalStorage.comeInValue.getOperator(), totalStorage.comeInValue.getResultNumber().intValue()));
     }
 }

@@ -4,12 +4,9 @@ import model.TotalStorage;
 import model.VO.CaculateResultVO;
 import utility.ExceptionHandler;
 import view.MediationValue;
-import view.TotalComponent;
 
-import javax.swing.*;
 import java.math.BigDecimal;
 import java.math.MathContext;
-import java.math.RoundingMode;
 
 public class ValueUpdater
 {
@@ -42,7 +39,7 @@ public class ValueUpdater
             }
             else
             {
-                calculatePlane(command);
+                calculatePlain(command);
             }
             mediationValue.changeCurrent(totalStorage.comeInValue.getCurrentString());
         }
@@ -56,7 +53,7 @@ public class ValueUpdater
 
         mediationValue.changeCurrent(totalStorage.comeInValue.getCurrentString());
     }
-    private void calculatePlane(String command)
+    private void calculatePlain(String command)
     {
         totalStorage.comeInValue.setCurrentNumber(totalStorage.comeInValue.getCurrentNumber().multiply(new BigDecimal("10")));
         totalStorage.comeInValue.setCurrentNumber(totalStorage.comeInValue.getCurrentNumber().add(new BigDecimal(command)));

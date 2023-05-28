@@ -8,7 +8,8 @@ import java.text.DecimalFormat;
 public class MediationValue {
     private JLabel currentLabel;
     private JLabel previousLabel;
-    private DecimalFormat formating = new DecimalFormat("###,###.################");
+    private DecimalFormat formatPoint = new DecimalFormat("###,###.0###############");
+    private DecimalFormat formatPlain = new DecimalFormat("###,###.################");
     public MediationValue()
     {
         currentLabel = TotalComponent.getTotalComponent().getCurrentJLabel();
@@ -33,9 +34,13 @@ public class MediationValue {
         {
             currentLabel.setText(current);
         }
+        else if(current.contains("."))
+        {
+            currentLabel.setText(formatPoint.format(new BigDecimal(current)));
+        }
         else
         {
-            currentLabel.setText(formating.format(new BigDecimal(current)));
+            currentLabel.setText(formatPlain.format(new BigDecimal(current)));
         }
     }
     public void changePrevious(String previous)

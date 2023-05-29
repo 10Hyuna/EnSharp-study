@@ -108,7 +108,7 @@ public class ValueUpdater
     {
         totalStorage.comeInValue.setCurrentNumber(new BigDecimal(valueValidator.cutPoint(totalStorage.comeInValue.getCurrentNumber().toString())));
         totalStorage.comeInValue.setCurrentString(totalStorage.comeInValue.getCurrentNumber().toString());
-        
+
         if(totalStorage.comeInValue.getOperator() == null)
         {   // 연산자를 입력한 적이 없다면
             totalStorage.comeInValue.setPreviousString(String.format("%s = ", totalStorage.comeInValue.getCurrentString()));
@@ -233,9 +233,22 @@ public class ValueUpdater
                                 multiply(totalStorage.comeInValue.getCurrentNumber(), MathContext.DECIMAL128));
                 break;
             case "÷":
-                totalStorage.comeInValue.setResultNumber
-                        (totalStorage.comeInValue.getPreviousNumber().
-                                divide(totalStorage.comeInValue.getCurrentNumber(), MathContext.DECIMAL128));
+                if(totalStorage.comeInValue.getCurrentString().equals("0")
+                        && totalStorage.comeInValue.getPreviousString().equals("0"))
+                {
+                    exceptionHandler.undifinedNumber();
+                }
+                else if(totalStorage.comeInValue.getCurrentString().equals("0"))
+                {
+                    exceptionHandler.undividedNumber();
+                }
+                else
+                {
+                    totalStorage.comeInValue.setResultNumber
+                            (totalStorage.comeInValue.getPreviousNumber().
+                                    divide(totalStorage.comeInValue.getCurrentNumber(), MathContext.DECIMAL128));
+
+                }
                 break;
         }
 

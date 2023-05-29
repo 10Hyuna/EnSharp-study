@@ -8,7 +8,7 @@ import java.text.DecimalFormat;
 public class MediationValue {
     private JLabel currentLabel;
     private JLabel previousLabel;
-    private DecimalFormat formatPoint = new DecimalFormat("###,###.0###############");
+    private DecimalFormat formatPoint = new DecimalFormat("###,##0.0###############");
     private DecimalFormat formatPlain = new DecimalFormat("###,###.################");
     public MediationValue()
     {

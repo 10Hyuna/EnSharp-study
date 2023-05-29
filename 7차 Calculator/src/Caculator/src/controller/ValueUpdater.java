@@ -106,6 +106,9 @@ public class ValueUpdater
     }
     public void processInputtedEqual()
     {
+        totalStorage.comeInValue.setCurrentNumber(new BigDecimal(valueValidator.cutPoint(totalStorage.comeInValue.getCurrentNumber().toString())));
+        totalStorage.comeInValue.setCurrentString(totalStorage.comeInValue.getCurrentNumber().toString());
+        
         if(totalStorage.comeInValue.getOperator() == null)
         {   // 연산자를 입력한 적이 없다면
             totalStorage.comeInValue.setPreviousString(String.format("%s = ", totalStorage.comeInValue.getCurrentString()));

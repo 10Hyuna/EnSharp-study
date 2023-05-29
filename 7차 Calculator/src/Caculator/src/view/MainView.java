@@ -1,5 +1,7 @@
 package view;
 
+import model.VO.CaculateResultVO;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.Dimension;
@@ -10,10 +12,13 @@ public class MainView extends JFrame
     private JPanel buttons;
     private JLabel standard;
     private JPanel recordPanel;
+    private JPanel records;
     private JPanel inputPanel;
     private CaculatorButton calculatorButton;
     private InputState inputState;
     private Record record;
+    private JPanel subPanel = new JPanel();
+    public JPanel mainPanel = new JPanel();
     public MainView()
     {
         calculatorButton = new CaculatorButton();
@@ -23,8 +28,11 @@ public class MainView extends JFrame
 
     public void setFrame()
     {
+        getContentPane().removeAll();
+
+        mainPanel.setLayout(new BorderLayout());
+
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new BorderLayout());
         setMinimumSize(new Dimension(400, 600));
         setMaximumSize(new Dimension(800, 1200));
 
@@ -33,9 +41,11 @@ public class MainView extends JFrame
         buttons = calculatorButton.getCalculatorButton();
         buttons.setPreferredSize(new Dimension(this.getWidth(), this.getWidth()));
 
-        add(recordPanel, BorderLayout.NORTH);
-        add(inputPanel, BorderLayout.EAST);
-        add(buttons, BorderLayout.SOUTH);
+        mainPanel.add(recordPanel, BorderLayout.NORTH);
+        mainPanel.add(inputPanel, BorderLayout.EAST);
+        mainPanel.add(buttons, BorderLayout.SOUTH);
+
+        add(mainPanel);
 
         setVisible(true);
         setFocusable(true);
@@ -43,9 +53,12 @@ public class MainView extends JFrame
     }
     public void setContainLog()
     {
-        remove(this);
+        getContentPane().removeAll();
+
+        subPanel = new JPanel();
+        subPanel.setLayout(new BorderLayout());
+
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new BorderLayout());
         setMinimumSize(new Dimension(400, 600));
         setMaximumSize(new Dimension(800, 1200));
 
@@ -60,13 +73,24 @@ public class MainView extends JFrame
 
         sortPanel.add(standard, BorderLayout.NORTH);
         sortPanel.add(inputPanel, BorderLayout.EAST);
-        sortPanel.add(buttons);
+        sortPanel.add(buttons, BorderLayout.SOUTH);
 
-        add(sortPanel, BorderLayout.WEST);
-        add(recordPanel, BorderLayout.EAST);
+        subPanel.add(sortPanel, BorderLayout.WEST);
+        subPanel.add(recordPanel, BorderLayout.EAST);
+
+        add(subPanel);
 
         setVisible(true);
         setFocusable(true);
         requestFocus();
+    }
+    public void addLogPanel(List<CaculateResultVO> resultVO)
+    {
+        buttons.removeAll();
+        buttons.revalidate();
+        buttons.repaint();
+
+        records = record.getRecords(resultVO);
+        mainPanel.add(records, BorderLayout.SOUTH);
     }
 }

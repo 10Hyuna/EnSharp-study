@@ -1,6 +1,7 @@
 package controller.actionListener;
 
 import controller.ValueUpdater;
+import model.TotalStorage;
 import view.MainView;
 import view.TotalComponent;
 
@@ -13,6 +14,7 @@ public class Addition {
     private MainView mainView;
     private Component component;
     private Keyboard keyboard;
+    private TotalStorage totalStorage;
     private ValueUpdater valueUpdater;
     public Addition(MainView mainview)
     {
@@ -21,8 +23,9 @@ public class Addition {
 
         this.mainView = mainview;
 
-        valueUpdater = new ValueUpdater();
-        button = new Button(valueUpdater);
+        totalStorage = new TotalStorage();
+        valueUpdater = new ValueUpdater(totalStorage);
+        button = new Button(valueUpdater, totalStorage, mainView);
         keyboard = new Keyboard(valueUpdater);
         component = new Component(mainview);
     }

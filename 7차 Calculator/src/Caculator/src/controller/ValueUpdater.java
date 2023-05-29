@@ -16,10 +16,10 @@ public class ValueUpdater
     private ExceptionHandler exceptionHandler;
     private boolean isComeinOpearator;
     private boolean isCalculated = false;
-    public ValueUpdater()
+    public ValueUpdater(TotalStorage totalStorage)
     {
         mediationValue = new MediationValue();
-        totalStorage = new TotalStorage();
+        this.totalStorage = totalStorage;
         valueValidator = new ValueValidator();
         exceptionHandler = new ExceptionHandler();
     }

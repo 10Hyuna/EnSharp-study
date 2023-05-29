@@ -84,9 +84,19 @@ public class ValueUpdater
             totalStorage.comeInValue.setPreviousNumber(totalStorage.comeInValue.getResultNumber());
         }   // 이전 값은 결괏값으로 초기화
 
+        totalStorage.comeInValue.setPreviousNumber(new BigDecimal(valueValidator.cutPoint(totalStorage.comeInValue.getPreviousNumber().toString())));
+        //  값이 .0으로 끝나는 형식이라면 잘라냄
+        totalStorage.comeInValue.setPreviousString(totalStorage.comeInValue.getPreviousNumber().toString());
+
         totalStorage.comeInValue.setCurrentNumber(new BigDecimal("0"));
         totalStorage.comeInValue.setCurrentString(totalStorage.comeInValue.getCurrentNumber().toString());
-        totalStorage.comeInValue.setPreviousString(totalStorage.comeInValue.getPreviousNumber().toString());
+
+        if(!totalStorage.comeInValue.getPreviousString().equals(totalStorage.comeInValue.getPreviousNumber().toString()))
+        {   // 소수점을 잘라내게 되어서 이전 number 값과 값이 일치하지 않을 때
+            totalStorage.comeInValue.setPreviousNumber(new BigDecimal(totalStorage.comeInValue.getPreviousString()));
+            // 다시 값을 갱신
+        }
+
         totalStorage.comeInValue.setOperator(command);
         totalStorage.comeInValue.setPreviousString(
                 String.format("%s %s", totalStorage.comeInValue.getPreviousString(), totalStorage.comeInValue.getOperator()));
@@ -120,7 +130,6 @@ public class ValueUpdater
             totalStorage.comeInValue.setPreviousString(
                     String.format("%s %s", totalStorage.comeInValue.getResultNumber(), totalStorage.comeInValue.getOperator()));
             isCalculated = true;
-            // 한 번 사용한 연산자는 null로 초기화
         }
     }
     public void processInputtedPoint()

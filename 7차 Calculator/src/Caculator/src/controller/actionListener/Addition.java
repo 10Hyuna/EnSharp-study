@@ -24,7 +24,7 @@ public class Addition {
         valueUpdater = new ValueUpdater();
         button = new Button(valueUpdater);
         keyboard = new Keyboard(valueUpdater);
-        component = new Component();
+        component = new Component(mainview);
     }
     public void addActionListener()
     {

@@ -11,7 +11,8 @@ public class Record extends JPanel{
     {
         removeAll();
 
-        standard = new JLabel("표준", JLabel.LEFT);
+        standard = getStandard();
+
         recordButton = TotalComponent.getTotalComponent().getLogButton();
         recordButton.setText("⟲");
 
@@ -26,5 +27,11 @@ public class Record extends JPanel{
     {
 
         return this;
+    }
+    public JLabel getStandard()
+    {
+        standard = new JLabel("표준", JLabel.LEFT);
+
+        return standard;
     }
 }

@@ -33,23 +33,31 @@ public class Record extends JPanel{
     }
     public JPanel getRecords(List<CaculateResultVO> resultVO)
     {
+        int cnt = 0;
+
         JLabel calculator;
         JLabel result;
         JPanel recordsPanel = new JPanel();
-        recordsPanel.setLayout(new BoxLayout(recordsPanel, BoxLayout.Y_AXIS));
+        recordsPanel.setLayout(new GridLayout(0, 1));
         JScrollPane scrollPane = new JScrollPane(recordsPanel);
-        scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 
         recordButtons = new JButton[resultVO.size()];
 
-        for (int i = 0; i < resultVO.size(); i++)
+        for (int i = resultVO.size() - 1; i >= 0; i--)
         {
+            if(cnt == 17)
+            {
+                break;
+            }
+            cnt++;
+
             calculator = new JLabel(String.format("%s %s %s", resultVO.get(i).getFirstInput(), resultVO.get(i).getOperator(), resultVO.get(i).getLastInput()));
-            calculator.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
             result = new JLabel(String.format("%s", resultVO.get(i).getResult()));
-            result.setFont(new Font("맑은 고딕", Font.BOLD, 30));
             recordButtons[i] = new JButton();
-            recordButtons[i].setText(String.format("%s\n%s", calculator.getText(), result.getText()));
+            recordButtons[i].setText(String.format("%s = %s", calculator.getText(), result.getText()));
+            recordButtons[i].setSize(new Dimension(recordsPanel.getWidth(), recordsPanel.getHeight() / 17));
+            recordsPanel.add(recordButtons[i]);
         }
         return recordsPanel;
     }

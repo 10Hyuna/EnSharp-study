@@ -86,11 +86,15 @@ public class MainView extends JFrame
     }
     public void addLogPanel(List<CaculateResultVO> resultVO)
     {
-        buttons.removeAll();
-        buttons.revalidate();
-        buttons.repaint();
+        mainPanel.remove(buttons);
 
         records = record.getRecords(resultVO);
+        records.setPreferredSize(new Dimension(this.getWidth(), this.getWidth()));
+
         mainPanel.add(records, BorderLayout.SOUTH);
+        mainPanel.revalidate();
+        mainPanel.repaint();
+
+        add(mainPanel);
     }
 }

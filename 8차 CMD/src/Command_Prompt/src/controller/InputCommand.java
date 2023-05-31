@@ -9,6 +9,7 @@ import controller.nonnessesaryPathCommand.HELP;
 import model.DTO.CurrentStateDTO;
 import model.DTO.InputDTO;
 import utility.Constant;
+import utility.ExceptionHandler;
 import view.PrinterMessage;
 
 import java.io.IOException;
@@ -25,8 +26,10 @@ public class InputCommand
     private InputDTO inputDTO;
     private CurrentStateDTO currentStateDTO;
     private TakingCMDMention takingCMDMention;
+    private ExceptionHandler exceptionHandler;
     public InputCommand()
     {
+        exceptionHandler = new ExceptionHandler();
         takingCMDMention = new TakingCMDMention();
         inputDTO = new InputDTO();
         currentStateDTO = new CurrentStateDTO();
@@ -62,9 +65,10 @@ public class InputCommand
                 isExit = true;
             }
 
-            isValidCommand = isValidCommand(command);
+            isValidCommand = exceptionHandler.isValidCommand(command);
             if(isValidCommand)
             {
+                inputDTO.setCommand(command);
                 enterCommandService();
             }
         }

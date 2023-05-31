@@ -1,5 +1,6 @@
 package view;
 
+import utility.Constant;
 public class PrinterMessage
 {
     private static PrinterMessage printerMessage;
@@ -13,12 +14,14 @@ public class PrinterMessage
         return printerMessage;
     }
 
-    public void printExceptionMessage(int errorCode)
+    public void printExceptionMessage(int errorCode, String input)
     {
         switch (errorCode)
         {
-            //case Integer.parseInt(ERROR.NON_EXISTENCE_COMMAND)
-
+            case Constant.NON_COMMAND:
+                System.out.printf("'%s'은(는) 내부 또는 외부 명령, 실행할 수 있는 프로그램, 또는\n" +
+                        "배치 파일이 아닙니다.\n\n", input);
+                break;
         }
     }
     public void printCMDMessage(String message)

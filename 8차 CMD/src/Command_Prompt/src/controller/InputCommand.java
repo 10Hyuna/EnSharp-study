@@ -13,7 +13,6 @@ import view.PrinterMessage;
 
 import java.io.IOException;
 import java.util.Scanner;
-import java.util.regex.Pattern;
 
 public class InputCommand
 {
@@ -40,6 +39,7 @@ public class InputCommand
     }
     public void inputCommand() throws IOException {
         boolean isExit = true;
+        boolean isValidCommand = true;
         String command;
 
         currentStateDTO.setPath(System.getProperty("user.home"));
@@ -57,13 +57,16 @@ public class InputCommand
             inputDTO.setTotalInput(input);
 
             command = cutEmpty();
-
-            isExit = isValidCommand(command);
-            if(!isExit)
+            if(command != "exit")
             {
-                continue;
+                isExit = true;
             }
-            enterCommandService();
+
+            isValidCommand = isValidCommand(command);
+            if(isValidCommand)
+            {
+                enterCommandService();
+            }
         }
     }
     private String cutEmpty()
@@ -94,45 +97,15 @@ public class InputCommand
     }
     private boolean isValidCommand(String command)
     {
-        Pattern cd = Pattern.compile(Constant.MATCH_CD);
-        Pattern dir = Pattern.compile(Constant.MATCH_DIR);
-        Pattern copy = Pattern.compile(Constant.MATCH_COPY);
-        Pattern move = Pattern.compile(Constant.MATCH_MOVE);
-        Pattern cls = Pattern.compile(Constant.MATCH_CLS);
-        Pattern help = Pattern.compile(Constant.MATCH_HELP);
-        Pattern exit = Pattern.compile(Constant.MATCH_EXIT);
-
-        if(Pattern.matches(cd.pattern(), command))
+        switch (command)
         {
-            inputDTO.setCommand("cd");
-        }
-        else if(Pattern.matches(dir.pattern(), command))
-        {
-            inputDTO.setCommand("dir");
-        }
-        else if(Pattern.matches(copy.pattern(), command))
-        {
-            inputDTO.setCommand("copy");
-        }
-        else if(Pattern.matches(move.pattern(), command))
-        {
-            inputDTO.setCommand("move");
-        }
-        else if(Pattern.matches(help.pattern(), command))
-        {
-            inputDTO.setCommand("help");
-        }
-        else if(Pattern.matches(cls.pattern(), command))
-        {
-            inputDTO.setCommand("cls");
-        }
-        else if(Pattern.matches(exit.pattern(), command))
-        {
-            return false;
-        }
-        else
-        {
-
+            case "cd": case "dir": case "copy":
+            case "move": case "cls": case "help":
+                currentStateDTO.setPath(command);
+                break;
+            default:
+                PrinterMessage.getPrinterMessage().printExceptionMessage(Constant.NON_COMMAND, command);
+                return false;
         }
         return true;
     }

@@ -229,6 +229,10 @@ namespace Library.Controller.BookAccess
             {
                 isSuccess = false;
                 amount = ValidPrice(column, row);
+                if(amount == Constant.EXIT_INT)
+                {
+                    return Constant.EXIT_INT;
+                }
 
                 if(amount <= 0 || amount >= 1000)
                 {

@@ -55,7 +55,7 @@ namespace Library.Controller.APIAccess
 
                 PrintBookInformation.GetPrintBookInformation().PrintNaverSearchResult();
                 books = SearchBook(bookInformation, bookCount);     // 네이버 API 연결을 통해 책을 검색하는 메소드 호출
-                LogAddition.SetLogAddition().SetLogValue(userId, bookInformation, Constant.NAVER_SEARCH);   // 책을 검색한 로그 찍기
+                LogAddition.SetLogAddition().SetLogValue(Constant.USER_NAME, bookInformation, Constant.NAVER_SEARCH);   // 책을 검색한 로그 찍기
                 PrintBookInformation.GetPrintBookInformation().PrintRequestBookList(books);
                 Console.SetCursorPosition(0, 0);
 

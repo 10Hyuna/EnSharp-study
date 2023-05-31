@@ -54,7 +54,7 @@ namespace Library.Controller.APIAccess
                     {   // 추가하고자 하는 책의 정보를 포함하고 있는 검색 결과 찾기
                         requestBookCount++;
                         AccessorData.GetAccessorData().InsertRequestBook(books[i]);
-                        LogAddition.SetLogAddition().SetLogValue(userId, books[i].Title, Constant.REQUEST_BOOK);
+                        LogAddition.SetLogAddition().SetLogValue(Constant.USER_NAME, books[i].Title, Constant.REQUEST_BOOK);
                     }
                 }
 

@@ -54,7 +54,7 @@ public class DIR extends ManagementDetailCommand implements ExcutionCommand
         // 그 경로 내부의 파일, 디렉토리 읽어 오기
         if(file.exists() && file.isDirectory())
         {   // 그 경로가 존재하고, 그 경로가 디렉토리의 경로일 경우
-            restByte = file.getUsableSpace();
+            restByte = file.getFreeSpace();
             // 경로 내부 남은 바이트 반환
 
             files = file.listFiles();

@@ -2,7 +2,7 @@ package controller;
 
 public class ManagementDetailCommand implements DistinctionDetailCommand
 {
-    String detailCommand;
+    String detailCommand = "";
     @Override
     public void distinguishDetailCommand(String input) {
 

@@ -1,16 +1,10 @@
 package controller.nonnessesaryPathCommand;
 
 import controller.ExcutionCommand;
-import model.DTO.CurrentStateDTO;
 import view.PrinterMessage;
 
 public class HELP implements ExcutionCommand
 {
-    private CurrentStateDTO currentStateDTO;
-    public HELP(CurrentStateDTO currentStateDTO)
-    {
-        this.currentStateDTO = currentStateDTO;
-    }
     @Override
     public void excuteCommand()
     {

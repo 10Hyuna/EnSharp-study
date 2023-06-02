@@ -8,11 +8,13 @@ import controller.nonnessesaryPathCommand.CLS;
 import controller.nonnessesaryPathCommand.HELP;
 import model.DTO.CurrentStateDTO;
 import model.DTO.InputDTO;
-import utility.Constant;
 import utility.ExceptionHandler;
 import view.PrinterMessage;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Scanner;
 
 public class InputCommand
@@ -25,20 +27,18 @@ public class InputCommand
     private HELP help;
     private InputDTO inputDTO;
     private CurrentStateDTO currentStateDTO;
-    private TakingCMDMention takingCMDMention;
     private ExceptionHandler exceptionHandler;
     public InputCommand()
     {
         exceptionHandler = new ExceptionHandler();
-        takingCMDMention = new TakingCMDMention();
         inputDTO = new InputDTO();
         currentStateDTO = new CurrentStateDTO();
-        cd = new CD(inputDTO, currentStateDTO);
-        copy = new COPY(inputDTO, currentStateDTO);
-        dir = new DIR(inputDTO, currentStateDTO);
-        move = new MOVE(inputDTO, currentStateDTO);
-        cls = new CLS(currentStateDTO);
-        help = new HELP(currentStateDTO);
+        cd = new CD(inputDTO, currentStateDTO, exceptionHandler);
+        copy = new COPY(inputDTO, currentStateDTO, exceptionHandler);
+        dir = new DIR(inputDTO, currentStateDTO, exceptionHandler);
+        move = new MOVE(inputDTO, currentStateDTO, exceptionHandler);
+        cls = new CLS();
+        help = new HELP();
     }
     public void inputCommand() throws IOException {
         boolean isExit = true;
@@ -46,7 +46,7 @@ public class InputCommand
         String command;
 
         currentStateDTO.setPath(System.getProperty("user.home"));
-        takingCMDMention.takeInCMDMention();
+        takeInCMDMention();
 
         while(isExit)
         {
@@ -73,6 +73,28 @@ public class InputCommand
             }
         }
     }
+    private void takeInCMDMention() throws IOException
+    {
+        Process process = Runtime.getRuntime().exec("cmd");
+        InputStream stdout = process.getInputStream();
+        InputStreamReader inputStreamReader = new InputStreamReader(stdout);
+        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+        String line;
+
+        try
+        {
+            for (int i = 0; i < 2; i++)
+            {
+                line = bufferedReader.readLine();
+                PrinterMessage.getPrinterMessage().printMessage(line);
+            }
+            PrinterMessage.getPrinterMessage().printMessage("");
+        }
+        catch (IOException e)
+        {
+            PrinterMessage.getPrinterMessage().printMessage(e.getMessage());
+        }
+    }
     private String cutEmpty()
     {
         boolean isEmpty = true;
@@ -80,7 +102,7 @@ public class InputCommand
         String input = inputDTO.getTotalInput();
         for(int i = 0; i < input.length(); i++)
         {
-            if(input.charAt(i) == '.' || input.charAt(i) == '/')
+            if(input.charAt(i) == '.' || input.charAt(i) == '/' || input.charAt(i) == '&')
             {
                 break;
             }
@@ -98,20 +120,6 @@ public class InputCommand
             }
         }
         return command;
-    }
-    private boolean isValidCommand(String command)
-    {
-        switch (command)
-        {
-            case "cd": case "dir": case "copy":
-            case "move": case "cls": case "help":
-                currentStateDTO.setPath(command);
-                break;
-            default:
-                PrinterMessage.getPrinterMessage().printExceptionMessage(Constant.NON_COMMAND, command);
-                return false;
-        }
-        return true;
     }
     private void enterCommandService()
     {

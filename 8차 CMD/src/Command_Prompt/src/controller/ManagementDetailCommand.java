@@ -13,7 +13,7 @@ public class ManagementDetailCommand
         switch (input)
         {
             case "cd":
-                detailCommand = managerCdcommand(totalInput);
+                detailCommand = managerCdcommand(totalInput, path);
                 break;
             case "dir":
                 detailCommand = managerDirCommand(totalInput, path);
@@ -27,10 +27,56 @@ public class ManagementDetailCommand
         }
         return detailCommand;
     }
-    protected String managerCdcommand(String totalInput)
+    protected String managerCdcommand(String totalInput, String path)
     {
-        detailCommand = "";
+        totalInput = totalInput.replace("cd", "");
+        totalInput = totalInput.replace(" ", "");
+
+        boolean isRecievedPath = false;
+        int index;
+
+        switch (totalInput)
+        {
+            case "":
+                detailCommand = Constant.EMPTY;
+                break;
+            case ".":
+                detailCommand = Constant.POINT;
+                break;
+            case "\\":
+                index = findSlash(totalInput);
+                detailCommand = totalInput.substring(0, index + 1);
+                break;
+            case "..":
+                detailCommand = totalInput.substring(0, totalInput.lastIndexOf("\\"));
+                break;
+            case "..\\..":
+                totalInput = totalInput.substring(0, totalInput.lastIndexOf("\\"));
+                detailCommand = totalInput.substring(0, totalInput.lastIndexOf("\\"));
+                break;
+            default:
+                isRecievedPath = true;
+        }
+
+        if(isRecievedPath)
+        {
+            if(!isValidPath(totalInput, path))
+            {
+                detailCommand = Constant.FAIL;
+            }
+        }
         return detailCommand;
+    }
+    private int findSlash(String path)
+    {
+        int count = 0;
+        for(int i = 0; i < path.length(); i++)
+        {
+            if(path.charAt(i) == '\\')
+                break;
+            count++;
+        }
+        return count;
     }
     protected String managerDirCommand(String totalInput, String path)
     {

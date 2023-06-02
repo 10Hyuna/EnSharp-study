@@ -4,7 +4,9 @@ import controller.ExcutionCommand;
 import controller.ManagementDetailCommand;
 import model.DTO.CurrentStateDTO;
 import model.DTO.InputDTO;
+import utility.Constant;
 import utility.ExceptionHandler;
+import view.PrinterMessage;
 
 public class CD extends ManagementDetailCommand implements ExcutionCommand
 {
@@ -23,7 +25,15 @@ public class CD extends ManagementDetailCommand implements ExcutionCommand
     @Override
     public void excuteCommand()
     {
+        String path = currentStateDTO.getPath();
         String detailCommand;
-        detailCommand = managementDetailCommand.distinguishDetailCommand("cd", inputDTO.getTotalInput(), "");
+
+        detailCommand = managementDetailCommand.distinguishDetailCommand("cd", inputDTO.getTotalInput(), path);
+
+        if(detailCommand == Constant.FAIL)
+        {
+            PrinterMessage.getPrinterMessage().printExceptionMessage(Constant.NON_PATH, "");
+        }
+        else if()
     }
 }

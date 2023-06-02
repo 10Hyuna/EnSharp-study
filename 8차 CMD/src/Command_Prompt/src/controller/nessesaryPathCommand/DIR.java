@@ -35,8 +35,6 @@ public class DIR extends ManagementDetailCommand implements ExcutionCommand
         File files[] = {};
         String path = currentStateDTO.getPath();
 
-        PrinterMessage.getPrinterMessage().printMessage(String.format("\n%s 디렉터리\n", path));
-
         detailCommand = managementDetailCommand.distinguishDetailCommand("dir", inputDTO.getTotalInput(), path);
         // 명령어의 상세 사항을 구분하는 함수 호출
         if(detailCommand == Constant.FAIL)
@@ -49,6 +47,9 @@ public class DIR extends ManagementDetailCommand implements ExcutionCommand
             path = detailCommand;
             // 경로 갱신
         }
+
+        path = path.replace("\\\\", "\\");
+        PrinterMessage.getPrinterMessage().printMessage(String.format("\n %s 디렉터리\n", path));
 
         File file = new File(path);
         // 그 경로 내부의 파일, 디렉토리 읽어 오기

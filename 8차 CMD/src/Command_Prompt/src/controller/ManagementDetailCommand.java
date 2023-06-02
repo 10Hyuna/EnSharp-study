@@ -53,6 +53,7 @@ public class ManagementDetailCommand
     }
     private boolean isValidPath(String path, String currentPath)
     {
+        path = path.replace("\\", "\\\\");
         File absolutePath = new File(path);
         boolean isValidFilePath = false;
         if(absolutePath.exists() && absolutePath.isAbsolute())

@@ -24,6 +24,6 @@ public class MOVE extends ManagementDetailCommand implements ExcutionCommand
     public void excuteCommand() {
         String detailCommand;
 
-        detailCommand = managementDetailCommand.distinguishDetailCommand("move", inputDTO.getTotalInput());
+        detailCommand = managementDetailCommand.distinguishDetailCommand("move", inputDTO.getTotalInput(), "");
     }
 }

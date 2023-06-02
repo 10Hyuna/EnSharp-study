@@ -24,6 +24,6 @@ public class CD extends ManagementDetailCommand implements ExcutionCommand
     public void excuteCommand()
     {
         String detailCommand;
-        detailCommand = managementDetailCommand.distinguishDetailCommand("cd", inputDTO.getTotalInput());
+        detailCommand = managementDetailCommand.distinguishDetailCommand("cd", inputDTO.getTotalInput(), "");
     }
 }

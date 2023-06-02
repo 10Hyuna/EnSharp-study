@@ -37,7 +37,7 @@ public class DIR extends ManagementDetailCommand implements ExcutionCommand
 
         PrinterMessage.getPrinterMessage().printMessage(String.format("\n%s 디렉터리\n", path));
 
-        detailCommand = managementDetailCommand.distinguishDetailCommand("dir", inputDTO.getTotalInput());
+        detailCommand = managementDetailCommand.distinguishDetailCommand("dir", inputDTO.getTotalInput(), path);
         // 명령어의 상세 사항을 구분하는 함수 호출
         if(detailCommand == Constant.FAIL)
         {

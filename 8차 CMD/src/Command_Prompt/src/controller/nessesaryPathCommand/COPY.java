@@ -23,6 +23,6 @@ public class COPY extends ManagementDetailCommand implements ExcutionCommand
     @Override
     public void excuteCommand() {
         String detailCommand;
-        detailCommand = managementDetailCommand.distinguishDetailCommand("copy", inputDTO.getTotalInput());
+        detailCommand = managementDetailCommand.distinguishDetailCommand("copy", inputDTO.getTotalInput(), "");
     }
 }

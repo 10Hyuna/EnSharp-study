@@ -6,16 +6,17 @@ import java.io.File;
 
 public class ManagementDetailCommand
 {
-    public String distinguishDetailCommand(String input, String totalInput)
+    String detailCommand;
+    public String distinguishDetailCommand(String input, String totalInput, String path)
     {
-        String detailCommand = "";
+        detailCommand = "";
         switch (input)
         {
             case "cd":
                 detailCommand = managerCdcommand(totalInput);
                 break;
             case "dir":
-                detailCommand = managerDirCommand(totalInput);
+                detailCommand = managerDirCommand(totalInput, path);
                 break;
             case "copy":
                 detailCommand = managerCopyCommand(totalInput);
@@ -28,16 +29,15 @@ public class ManagementDetailCommand
     }
     protected String managerCdcommand(String totalInput)
     {
-        String detailCommand = "";
+        detailCommand = "";
         return detailCommand;
     }
-    protected String managerDirCommand(String totalInput)
+    protected String managerDirCommand(String totalInput, String path)
     {
-        String detailCommand = "";
-        totalInput = totalInput.replace("dir", " ");
-        detailCommand = totalInput.replace(" ", "");
+        totalInput = totalInput.replace("dir", "");
+        totalInput = totalInput.replace(" ", "");
 
-        if(!isValidPath(detailCommand) && detailCommand != "")
+        if(!isValidPath(totalInput, path))
         {
             detailCommand = Constant.FAIL;
         }
@@ -45,21 +45,29 @@ public class ManagementDetailCommand
     }
     protected String managerCopyCommand(String totalInput)
     {
-        String detailCommand = "";
         return detailCommand;
     }
     protected String managerMoveCommand(String totalInput)
     {
-        String detailCommand = "";
         return detailCommand;
     }
-    private boolean isValidPath(String path)
+    private boolean isValidPath(String path, String currentPath)
     {
-        File file = new File(path);
-        if(file.exists())
+        File absolutePath = new File(path);
+        boolean isValidFilePath = false;
+        if(absolutePath.exists() && absolutePath.isAbsolute())
         {
-            return true;
+            detailCommand = path;
+            isValidFilePath = true;
         }
-        return false;
+        else if(!absolutePath.isAbsolute())
+        {
+            if(isValidPath(String.format("%s\\%s", currentPath, path), ""));
+            {
+                detailCommand = String.format("%s\\%s", currentPath, path);
+                isValidFilePath = true;
+            }
+        }
+        return isValidFilePath;
     }
 }

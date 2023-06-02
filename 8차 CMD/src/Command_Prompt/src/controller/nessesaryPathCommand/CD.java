@@ -33,7 +33,20 @@ public class CD extends ManagementDetailCommand implements ExcutionCommand
         if(detailCommand == Constant.FAIL)
         {
             PrinterMessage.getPrinterMessage().printExceptionMessage(Constant.NON_PATH, "");
+            PrinterMessage.getPrinterMessage().printMessage("");
         }
-        else if()
+        else if(detailCommand == Constant.EMPTY)
+        {
+            PrinterMessage.getPrinterMessage().printMessage(path);
+            PrinterMessage.getPrinterMessage().printMessage("");
+        }
+        else if(detailCommand == Constant.POINT)
+        {
+            PrinterMessage.getPrinterMessage().printMessage("");
+        }
+        else
+        {
+            currentStateDTO.setPath(detailCommand);
+        }
     }
 }

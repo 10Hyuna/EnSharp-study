@@ -48,11 +48,11 @@ public class ManagementDetailCommand
                 detailCommand = totalInput.substring(0, index + 1);
                 break;
             case "..":
-                detailCommand = totalInput.substring(0, totalInput.lastIndexOf("\\"));
+                detailCommand = path.substring(0, path.lastIndexOf("\\"));
                 break;
             case "..\\..":
-                totalInput = totalInput.substring(0, totalInput.lastIndexOf("\\"));
-                detailCommand = totalInput.substring(0, totalInput.lastIndexOf("\\"));
+                path = path.substring(0, path.lastIndexOf("\\"));
+                detailCommand = path.substring(0, totalInput.lastIndexOf("\\"));
                 break;
             default:
                 isRecievedPath = true;
@@ -65,6 +65,7 @@ public class ManagementDetailCommand
                 detailCommand = Constant.FAIL;
             }
         }
+        detailCommand = detailCommand.replace("/", "\\");
         return detailCommand;
     }
     private int findSlash(String path)
@@ -109,10 +110,10 @@ public class ManagementDetailCommand
         }
         else if(!absolutePath.isAbsolute())
         {
-            if(isValidPath(String.format("%s\\%s", currentPath, path), ""));
+            isValidFilePath = isValidPath(String.format("%s\\%s", currentPath, path), "");
+            if(isValidFilePath)
             {
                 detailCommand = String.format("%s\\%s", currentPath, path);
-                isValidFilePath = true;
             }
         }
         return isValidFilePath;

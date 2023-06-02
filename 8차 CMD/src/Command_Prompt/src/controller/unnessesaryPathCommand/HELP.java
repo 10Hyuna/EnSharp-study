@@ -1,4 +1,4 @@
-package controller.nonnessesaryPathCommand;
+package controller.unnessesaryPathCommand;
 
 import controller.ExcutionCommand;
 import view.PrinterMessage;

@@ -33,6 +33,8 @@ public class PrinterMessage
                 break;
             case Constant.NON_FILE:
                 System.out.println("지정된 파일을 찾을 수 없습니다.\n");
+            case Constant.FILE_EXISTENCE:
+                System.out.println("파일을 찾을 수 없습니다.");
         }
     }
     public void printCurrentPath(String path)

@@ -11,16 +11,18 @@ public class COPY extends ManagementDetailCommand implements ExcutionCommand
     private InputDTO inputDTO;
     private CurrentStateDTO currentStateDTO;
     private ExceptionHandler exceptionHandler;
-
-    public COPY(InputDTO inputDTO, CurrentStateDTO currentStateDTO, ExceptionHandler exceptionHandler)
+    private ManagementDetailCommand managementDetailCommand;
+    public COPY(InputDTO inputDTO, CurrentStateDTO currentStateDTO,
+                ExceptionHandler exceptionHandler, ManagementDetailCommand managementDetailCommand)
     {
         this.inputDTO = inputDTO;
         this.currentStateDTO = currentStateDTO;
         this.exceptionHandler = exceptionHandler;
+        this.managementDetailCommand = managementDetailCommand;
     }
     @Override
     public void excuteCommand() {
         String detailCommand;
-        detailCommand = managerCopyCommand();
+        detailCommand = managementDetailCommand.distinguishDetailCommand("copy", inputDTO.getTotalInput());
     }
 }

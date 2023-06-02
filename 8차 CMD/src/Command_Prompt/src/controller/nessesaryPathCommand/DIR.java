@@ -17,12 +17,15 @@ public class DIR extends ManagementDetailCommand implements ExcutionCommand
     private InputDTO inputDTO;
     private CurrentStateDTO currentStateDTO;
     private ExceptionHandler exceptionHandler;
+    private ManagementDetailCommand managementDetailCommand;
     private long restByte;
-    public DIR(InputDTO inputDTO, CurrentStateDTO currentStateDTO, ExceptionHandler exceptionHandler)
+    public DIR(InputDTO inputDTO, CurrentStateDTO currentStateDTO,
+               ExceptionHandler exceptionHandler, ManagementDetailCommand managementDetailCommand)
     {
         this.inputDTO = inputDTO;
         this.currentStateDTO = currentStateDTO;
         this.exceptionHandler = exceptionHandler;
+        this.managementDetailCommand = managementDetailCommand;
     }
     @Override
     public void excuteCommand()
@@ -32,9 +35,16 @@ public class DIR extends ManagementDetailCommand implements ExcutionCommand
         File files[] = {};
         String path = currentStateDTO.getPath();
 
-        detailCommand = managerDirCommand();
+        PrinterMessage.getPrinterMessage().printMessage(String.format("\n%s 디렉터리\n", path));
+
+        detailCommand = managementDetailCommand.distinguishDetailCommand("dir", inputDTO.getTotalInput());
         // 명령어의 상세 사항을 구분하는 함수 호출
-        if(detailCommand != Constant.EMPTY)
+        if(detailCommand == Constant.FAIL)
+        {
+            PrinterMessage.getPrinterMessage().printExceptionMessage(Constant.FILE_EXISTENCE, "");
+            return;
+        }
+        else if(detailCommand != Constant.EMPTY)
         {   // 어느 경로가 반환되었다면
             path = detailCommand;
             // 경로 갱신

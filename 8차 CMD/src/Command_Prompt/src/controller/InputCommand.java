@@ -4,8 +4,8 @@ import controller.nessesaryPathCommand.CD;
 import controller.nessesaryPathCommand.COPY;
 import controller.nessesaryPathCommand.DIR;
 import controller.nessesaryPathCommand.MOVE;
-import controller.nonnessesaryPathCommand.CLS;
-import controller.nonnessesaryPathCommand.HELP;
+import controller.unnessesaryPathCommand.CLS;
+import controller.unnessesaryPathCommand.HELP;
 import model.DTO.CurrentStateDTO;
 import model.DTO.InputDTO;
 import utility.ExceptionHandler;
@@ -28,15 +28,17 @@ public class InputCommand
     private InputDTO inputDTO;
     private CurrentStateDTO currentStateDTO;
     private ExceptionHandler exceptionHandler;
+    private ManagementDetailCommand managementDetailCommand;
     public InputCommand()
     {
         exceptionHandler = new ExceptionHandler();
         inputDTO = new InputDTO();
         currentStateDTO = new CurrentStateDTO();
-        cd = new CD(inputDTO, currentStateDTO, exceptionHandler);
-        copy = new COPY(inputDTO, currentStateDTO, exceptionHandler);
-        dir = new DIR(inputDTO, currentStateDTO, exceptionHandler);
-        move = new MOVE(inputDTO, currentStateDTO, exceptionHandler);
+        managementDetailCommand = new ManagementDetailCommand();
+        cd = new CD(inputDTO, currentStateDTO, exceptionHandler, managementDetailCommand);
+        copy = new COPY(inputDTO, currentStateDTO, exceptionHandler, managementDetailCommand);
+        dir = new DIR(inputDTO, currentStateDTO, exceptionHandler, managementDetailCommand);
+        move = new MOVE(inputDTO, currentStateDTO, exceptionHandler, managementDetailCommand);
         cls = new CLS();
         help = new HELP();
     }

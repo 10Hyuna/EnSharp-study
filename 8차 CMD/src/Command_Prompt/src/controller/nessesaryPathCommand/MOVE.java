@@ -11,17 +11,19 @@ public class MOVE extends ManagementDetailCommand implements ExcutionCommand
     private InputDTO inputDTO;
     private CurrentStateDTO currentStateDTO;
     private ExceptionHandler exceptionHandler;
-
-    public MOVE(InputDTO inputDTO, CurrentStateDTO currentStateDTO, ExceptionHandler exceptionHandler)
+    private ManagementDetailCommand managementDetailCommand;
+    public MOVE(InputDTO inputDTO, CurrentStateDTO currentStateDTO,
+                ExceptionHandler exceptionHandler, ManagementDetailCommand managementDetailCommand)
     {
         this.inputDTO = inputDTO;
         this.currentStateDTO = currentStateDTO;
         this.exceptionHandler = exceptionHandler;
+        this.managementDetailCommand = managementDetailCommand;
     }
     @Override
     public void excuteCommand() {
         String detailCommand;
 
-        detailCommand = managerMoveCommand();
+        detailCommand = managementDetailCommand.distinguishDetailCommand("move", inputDTO.getTotalInput());
     }
 }

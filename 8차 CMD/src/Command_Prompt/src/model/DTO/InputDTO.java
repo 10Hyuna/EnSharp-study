@@ -3,7 +3,6 @@ package model.DTO;
 public class InputDTO
 {
     private String totalInput;
-    private String nonEmptyInput;
     private String path;
     private String file;
     private String command;
@@ -14,14 +13,6 @@ public class InputDTO
     public void setTotalInput(String value)
     {
         this.totalInput = value;
-    }
-    public String getNonEmptyInput()
-    {
-        return nonEmptyInput;
-    }
-    public void setNonEmptyInput(String value)
-    {
-        this.nonEmptyInput = value;
     }
     public String getPath()
     {

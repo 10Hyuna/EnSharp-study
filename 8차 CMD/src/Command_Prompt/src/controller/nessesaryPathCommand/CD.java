@@ -11,17 +11,19 @@ public class CD extends ManagementDetailCommand implements ExcutionCommand
     private InputDTO inputDTO;
     private CurrentStateDTO currentStateDTO;
     private ExceptionHandler exceptionHandler;
-
-    public CD(InputDTO inputDTO, CurrentStateDTO currentStateDTO, ExceptionHandler exceptionHandler)
+    private ManagementDetailCommand managementDetailCommand;
+    public CD(InputDTO inputDTO, CurrentStateDTO currentStateDTO,
+              ExceptionHandler exceptionHandler, ManagementDetailCommand managementDetailCommand)
     {
         this.inputDTO = inputDTO;
         this.currentStateDTO = currentStateDTO;
         this.exceptionHandler = exceptionHandler;
+        this.managementDetailCommand = managementDetailCommand;
     }
     @Override
     public void excuteCommand()
     {
         String detailCommand;
-        detailCommand = managercdcommand();
+        detailCommand = managementDetailCommand.distinguishDetailCommand("cd", inputDTO.getTotalInput());
     }
 }

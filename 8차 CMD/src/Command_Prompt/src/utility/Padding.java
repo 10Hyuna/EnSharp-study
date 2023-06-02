@@ -3,10 +3,12 @@ package utility;
 public class Padding {
     public String padRigth(String messege, int n)
     {
+        n = CalculateRadRightSize(messege, n);
         return String.format("%-" + n + "s", messege);
     }
     public String padLeft(String messege, int n)
     {
+        n = CalculateRadRightSize(messege, n);
         return String.format("%" + n + "s", messege);
     }
     public int CalculateRadRightSize(String message, int count)

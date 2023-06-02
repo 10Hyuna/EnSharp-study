@@ -33,21 +33,28 @@ public class DIR extends ManagementDetailCommand implements ExcutionCommand
         String path = currentStateDTO.getPath();
 
         detailCommand = managerDirCommand();
+        // 명령어의 상세 사항을 구분하는 함수 호출
         if(detailCommand != Constant.EMPTY)
-        {
+        {   // 어느 경로가 반환되었다면
             path = detailCommand;
+            // 경로 갱신
         }
 
         File file = new File(path);
-        restByte = file.getUsableSpace();
+        // 그 경로 내부의 파일, 디렉토리 읽어 오기
         if(file.exists() && file.isDirectory())
-        {
+        {   // 그 경로가 존재하고, 그 경로가 디렉토리의 경로일 경우
+            restByte = file.getUsableSpace();
+            // 경로 내부 남은 바이트 반환
+
             files = file.listFiles();
             parseFileInformation(files);
+            // 파일의 정보를 관리하는 함수 호출
         }
         else
         {
             PrinterMessage.getPrinterMessage().printExceptionMessage(Constant.NON_FILE, "");
+            // 예외 처리 (올바르지 않은 경로)
         }
     }
     private void parseFileInformation(File[] files)
@@ -61,16 +68,22 @@ public class DIR extends ManagementDetailCommand implements ExcutionCommand
         for(File file : files)
         {
             if(file.isFile() && file.isHidden())
-            {
+            {   // 숨긴 파일은 출력 안 함
                 continue;
             }
             else if(file.isDirectory() && file.delete())
-            {
+            {   // junction 폴더는 출력 안 함
                 continue;
             }
+
             date = formatDate(file);
+            // 최근 수정 날짜를 cmd 형식으로 포맷팅 해 주는 함수 호출
+
             fileInformation[0] = date.substring(0, 10);
+            // 일자
             fileInformation[1] = date.substring(11);
+            // 시간
+
             if(file.isFile())
             {
                 fileCount++;

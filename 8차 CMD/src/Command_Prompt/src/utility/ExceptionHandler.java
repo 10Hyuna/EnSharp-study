@@ -9,7 +9,7 @@ public class ExceptionHandler
         switch (command)
         {
             case "cd": case "dir": case "copy":
-            case "move": case "cls": case "help":
+            case "move": case "cls": case "help": case "exit":
                 return true;
             default:
                 PrinterMessage.getPrinterMessage().printExceptionMessage(Constant.NON_COMMAND, command);

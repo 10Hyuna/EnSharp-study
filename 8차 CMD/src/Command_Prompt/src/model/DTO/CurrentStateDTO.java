@@ -10,8 +10,15 @@ public class CurrentStateDTO
     }
     public void setPath(String value)
     {
+        value = value.replace("\\\\", "\\");
+        value = value.replace("/","\\");
         this.path = value;
     }
-    public String getExcutedPath(){return excutedPath;}
-    public void setExcutedPath(String value) {this.excutedPath = value;}
+    public String getExcutedPath() { return excutedPath; }
+    public void setExcutedPath(String value)
+    {
+        value = value.replace("\\\\", "\\");
+        value = value.replace("/","\\");
+        this.excutedPath = value;
+    }
 }

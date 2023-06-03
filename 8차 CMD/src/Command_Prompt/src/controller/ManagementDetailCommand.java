@@ -29,9 +29,6 @@ public class ManagementDetailCommand
     }
     protected String managerCdcommand(String totalInput, String path)
     {
-        totalInput = totalInput.replace("cd", "");
-        totalInput = totalInput.replace("Cd", "");
-        totalInput = totalInput.replace("CD", "");
         totalInput = totalInput.replace(" ", "");
 
         boolean isRecievedPath = false;
@@ -88,13 +85,6 @@ public class ManagementDetailCommand
     }
     protected String managerDirCommand(String totalInput, String path)
     {
-        totalInput = totalInput.replace("dir", "");
-        totalInput = totalInput.replace("Dir","");
-        totalInput = totalInput.replace("dIr", "");
-        totalInput = totalInput.replace("diR", "");
-        totalInput = totalInput.replace("DIr", "");
-        totalInput = totalInput.replace("dIR", "");
-        totalInput = totalInput.replace("DIR", "");
         totalInput = totalInput.replace(" ", "");
 
         if(!isValidPath(totalInput, path))

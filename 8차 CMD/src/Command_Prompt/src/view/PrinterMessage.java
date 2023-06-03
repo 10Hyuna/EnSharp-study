@@ -46,14 +46,21 @@ public class PrinterMessage
     }
     public void printCurrentPath(String path)
     {
+        path = path.replace("\\\\", "\\");
         System.out.printf("%s>", path);
     }
     public void printMessage(String message)
     {
+        message = message.replace("\\\\", "\\");
         System.out.println(message);
     }
     public void printFileInformation(String[] message)
     {
+        if(!message[3].equals(" "))
+        {
+            message[3] = formatInteger(message[3]);
+        }
+
         System.out.print(padding.padRigth(message[0], 12));
         System.out.print(padding.padRigth(message[1], 12));
         System.out.print(padding.padRigth(message[2], 5));
@@ -63,16 +70,24 @@ public class PrinterMessage
     }
     public void printFolder(int fileCount, int directoryCount, long usedByte, long restByte)
     {
-        DecimalFormat decimalFormat = new DecimalFormat("###,###");
+        String usedCapacity = String.valueOf(formatInteger(String.valueOf(usedByte)));
+        String restCapacity = String.valueOf(formatInteger(String.valueOf(restByte)));
 
         String file = String.format("%d개 파일", fileCount);
-        String useByte = String.format("%s 바이트", decimalFormat.format(new BigDecimal(usedByte)));
+        String useByte = String.format("%s 바이트", usedCapacity);
         String directory = String.format("%d개 디렉터리", directoryCount);
-        String wasteByte = String.format("%s 바이트 남음", decimalFormat.format(new BigDecimal(restByte)));
+        String wasteByte = String.format("%s 바이트 남음", restCapacity);
 
         System.out.print(padding.padLeft(file, 19));
         System.out.println(padding.padLeft(useByte, 25));
         System.out.print(padding.padLeft(directory, 21));
-        System.out.println(padding.padLeft(wasteByte, 22));
+        System.out.println(padding.padLeft(wasteByte, 25));
+    }
+    private String formatInteger(String message)
+    {
+        long numberMessage = Long.valueOf(message);
+        DecimalFormat decimalFormat = new DecimalFormat("###,###");
+
+        return decimalFormat.format(new BigDecimal(numberMessage));
     }
 }

@@ -47,7 +47,6 @@ public class InputCommand
         boolean isValidCommand = true;
         String command;
 
-        // 프로그램이 처음 시작할 때 첫 경로를 사용자 폴더로 지정
         takeInCMDMention();
         // cmd 첫 실행 시 뜨는 운영체제 알림창 출력 함수 호출
 
@@ -67,23 +66,35 @@ public class InputCommand
 
             command = cutEmpty();
             // 입력받은 명령어에서 앞에 존재할 수도 있는 공백 등과 같은 예외들을 다 자르고 명령어만 반환
-            if(command != "exit")
-            // 명령어가 탈출을 의미하는 exit가 아니라면
-            {
-                isExit = true;
-                // 반복문을 계속해서 실행할 수 있게 isExit 변수를 true로 설정
-            }
 
-            isValidCommand = exceptionHandler.isValidCommand(command);
-            // 입력받은 명령어가 유효한 명령어인지 확인
-            if(isValidCommand)
-            {   // 유효한 명령어라면
-                inputDTO.setCommand(command);
-                // DTO에 명령어 저장
-                enterCommandService();
-                // 입력한 명령어에 해당하는 서비스로 들어갈 수 있도록
-            }
+            isExit = isEnterExit(command);
+            // exit 커맨드가 입력되었는지 확인
+
+            validateCommand(command);
+            // 커맨드 유효성 검사
         }
+    }
+    private void validateCommand(String command)
+    {
+        boolean isValidCommand = exceptionHandler.isValidCommand(command);
+        // 입력받은 명령어가 유효한 명령어인지 확인
+        if(isValidCommand)
+        {   // 유효한 명령어라면
+            inputDTO.setCommand(command);
+            // DTO에 명령어 저장
+            enterCommandService();
+            // 입력한 명령어에 해당하는 서비스로 들어갈 수 있도록
+        }
+    }
+    private boolean isEnterExit(String command)
+    {
+        if(command != "exit")
+        // 명령어가 탈출을 의미하는 exit가 아니라면
+        {
+            return true;
+            // 반복문을 계속해서 실행할 수 있게 isExit 변수를 true로 설정
+        }
+        return false;
     }
     private void takeInCMDMention() throws IOException
     {

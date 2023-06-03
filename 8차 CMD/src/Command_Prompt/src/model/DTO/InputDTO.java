@@ -3,6 +3,7 @@ package model.DTO;
 public class InputDTO
 {
     private String totalInput;
+    private String cutCommand;
     private String path;
     private String file;
     private String command;
@@ -13,6 +14,14 @@ public class InputDTO
     public void setTotalInput(String value)
     {
         this.totalInput = value;
+    }
+    public String getcutCommand()
+    {
+        return cutCommand;
+    }
+    public void setcutCommand(String value)
+    {
+        this.cutCommand = value;
     }
     public String getPath()
     {

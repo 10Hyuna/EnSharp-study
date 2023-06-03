@@ -16,4 +16,15 @@ public class ExceptionHandler
                 return false;
         }
     }
+    public boolean isOnlyHelp(String command)
+    {
+        command = command.replace(" ", "");
+        command = command.toLowerCase();
+
+        if(command.equals("help"))
+        {
+            return true;
+        }
+        return false;
+    }
 }

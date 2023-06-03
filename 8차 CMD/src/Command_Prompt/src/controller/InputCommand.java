@@ -40,14 +40,13 @@ public class InputCommand
         dir = new DIR(inputDTO, currentStateDTO, exceptionHandler, managementDetailCommand);
         move = new MOVE(inputDTO, currentStateDTO, exceptionHandler, managementDetailCommand);
         cls = new CLS();
-        help = new HELP();
+        help = new HELP(inputDTO, exceptionHandler);
     }
     public void inputCommand() throws IOException {
         boolean isExit = true;
         boolean isValidCommand = true;
         String command;
 
-        currentStateDTO.setPath(System.getProperty("user.home"));
         // 프로그램이 처음 시작할 때 첫 경로를 사용자 폴더로 지정
         takeInCMDMention();
         // cmd 첫 실행 시 뜨는 운영체제 알림창 출력 함수 호출
@@ -135,6 +134,7 @@ public class InputCommand
                 }
             }
         }
+        command = command.toLowerCase();
         return command;
     }
     private void enterCommandService()

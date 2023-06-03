@@ -2,7 +2,7 @@ package model.DTO;
 
 public class CurrentStateDTO
 {
-    private String path;
+    private static String path = System.getProperty("user.home");
     public String getPath()
     {
         return path;

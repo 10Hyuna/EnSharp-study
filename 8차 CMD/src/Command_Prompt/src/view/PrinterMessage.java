@@ -35,11 +35,13 @@ public class PrinterMessage
                 System.out.println("지정된 파일을 찾을 수 없습니다.\n");
                 break;
             case Constant.FILE_EXISTENCE:
-                System.out.println("파일을 찾을 수 없습니다.");
+                System.out.println("파일을 찾을 수 없습니다.\n\n");
                 break;
             case Constant.NON_PATH:
-                System.out.println("지정된 경로를 찾을 수 없습니다.");
+                System.out.println("지정된 경로를 찾을 수 없습니다.\n\n");
                 break;
+            case Constant.HELP_CONTAINS_ANOTHER:
+                System.out.printf("이 명령은 도움말 유틸리티가 지원하지 않습니다. \"%s /?\"를 사용해 보십시오\n\n", input);
         }
     }
     public void printCurrentPath(String path)
@@ -66,7 +68,7 @@ public class PrinterMessage
         String file = String.format("%d개 파일", fileCount);
         String useByte = String.format("%s 바이트", decimalFormat.format(new BigDecimal(usedByte)));
         String directory = String.format("%d개 디렉터리", directoryCount);
-        String wasteByte = String.format("%s 바이트", decimalFormat.format(new BigDecimal(restByte)));
+        String wasteByte = String.format("%s 바이트 남음", decimalFormat.format(new BigDecimal(restByte)));
 
         System.out.print(padding.padLeft(file, 19));
         System.out.println(padding.padLeft(useByte, 25));

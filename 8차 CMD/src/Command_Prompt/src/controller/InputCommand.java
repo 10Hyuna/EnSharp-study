@@ -125,8 +125,10 @@ public class InputCommand
         boolean isEmpty = true;
         String command = "";
         String input = inputDTO.getTotalInput();
+        int commandIndex = 0;
         for(int i = 0; i < input.length(); i++)
         {
+            commandIndex++;
             if(input.charAt(i) == '.' || input.charAt(i) == '/' || input.charAt(i) == '&')
             {   // 커맨드와 함께 사용할 수 있는 특수문자가 나왔을 경우 반복문 종료
                 break;
@@ -145,6 +147,7 @@ public class InputCommand
                 }
             }
         }
+        currentStateDTO.setExcutedPath(input.substring(commandIndex));
         command = command.toLowerCase();
         return command;
     }

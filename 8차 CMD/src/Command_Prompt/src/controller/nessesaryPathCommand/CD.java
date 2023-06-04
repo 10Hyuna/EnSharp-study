@@ -2,7 +2,6 @@ package controller.nessesaryPathCommand;
 
 import controller.ExcutionCommand;
 import controller.GoingOverPath;
-import controller.ManagementDetailCommand;
 import model.DTO.CurrentStateDTO;
 import model.DTO.InputDTO;
 import utility.Constant;
@@ -26,17 +25,26 @@ public class CD extends ManagementDetailCommand implements ExcutionCommand
     @Override
     public void excuteCommand()
     {
+        boolean isValidPath = false;
         currentStateDTO.setExcutedPath(currentStateDTO.getPath());
         String path = inputDTO.getcutCommand();
 
         goingOverPath.discriminatePath(path);
-        if(currentStateDTO.getExcutedPath().equals(Constant.FAIL))
+
+        isValidPath = exceptionHandler.isValidPath(currentStateDTO.getExcutedPath());
+
+        if(isValidPath)
         {
-            PrinterMessage.getPrinterMessage().printExceptionMessage(Constant.NON_PATH, "");
+            currentStateDTO.setPath(currentStateDTO.getExcutedPath());
         }
         else
         {
-            currentStateDTO.setPath(currentStateDTO.getExcutedPath());
+            PrinterMessage.getPrinterMessage().printExceptionMessage(Constant.NON_PATH, "");
+        }
+
+        if(inputDTO.getcutCommand().equals(""))
+        {
+            PrinterMessage.getPrinterMessage().printMessage(currentStateDTO.getPath());
         }
 //        String detailCommand;
 //

@@ -131,11 +131,11 @@ public class InputCommand
         for(int i = 0; i < input.length(); i++)
         {
             commandIndex++;
-            if(input.charAt(i) == '.' || input.charAt(i) == '/' || input.charAt(i) == '&')
-            {   // 커맨드와 함께 사용할 수 있는 특수문자가 나왔을 경우 반복문 종료
-                break;
-            }
-            else if(input.charAt(i) != ' ')
+//            if(input.charAt(i) == '.' || input.charAt(i) == '/' || input.charAt(i) == '&')
+//            {   // 커맨드와 함께 사용할 수 있는 특수문자가 나왔을 경우 반복문 종료
+//                break;
+//            }
+            if(input.charAt(i) != ' ')
             {   // 공백이 아닌 값이 나왔을 경우,
                 isEmpty = false;
                 command += String.valueOf(input.charAt(i));

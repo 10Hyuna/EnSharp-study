@@ -2,7 +2,6 @@ package controller.nessesaryPathCommand;
 
 import controller.ExcutionCommand;
 import controller.GoingOverPath;
-import controller.ManagementDetailCommand;
 import model.DTO.CurrentStateDTO;
 import model.DTO.InputDTO;
 import utility.ExceptionHandler;

@@ -2,12 +2,11 @@ package controller.nessesaryPathCommand;
 
 import controller.ExcutionCommand;
 import controller.GoingOverPath;
-import controller.ManagementDetailCommand;
 import model.DTO.CurrentStateDTO;
 import model.DTO.InputDTO;
 import utility.ExceptionHandler;
 
-public class COPY extends ManagementDetailCommand implements ExcutionCommand
+public class COPY implements ExcutionCommand
 {
     private InputDTO inputDTO;
     private CurrentStateDTO currentStateDTO;
@@ -22,8 +21,9 @@ public class COPY extends ManagementDetailCommand implements ExcutionCommand
         this.goingOverPath = goingOverPath;
     }
     @Override
-    public void excuteCommand() {
-        String detailCommand;
-        detailCommand = distinguishDetailCommand("copy", inputDTO.getTotalInput(), "");
+    public void excuteCommand()
+    {
+
+
     }
 }

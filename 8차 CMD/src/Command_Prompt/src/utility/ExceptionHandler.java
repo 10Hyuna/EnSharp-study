@@ -2,8 +2,19 @@ package utility;
 
 import view.PrinterMessage;
 
+import java.io.File;
+
 public class ExceptionHandler
 {
+    public boolean isValidPath(String path)
+    {
+        File file = new File(path);
+        if(file.exists())
+        {
+            return true;
+        }
+        return false;
+    }
     public boolean isValidCommand(String command)
     {
         switch (command)

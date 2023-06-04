@@ -8,7 +8,6 @@ public class Constant
     public static final String KOREAN = "[가-힇][0-9]";
     public static final int NON_COMMAND = 0;
     public static final int NON_FILE = 1;
-    public static final int FILE_EXISTENCE = 2;
-    public static final int NON_PATH = 3;
-    public static final int HELP_CONTAINS_ANOTHER = 4;
+    public static final int NON_PATH = 2;
+    public static final int HELP_CONTAINS_ANOTHER = 3;
 }

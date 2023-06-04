@@ -19,6 +19,9 @@ public class DIR implements ExcutionCommand
     private ExceptionHandler exceptionHandler;
     private GoingOverPath goingOverPath;
     private long restByte;
+    long usedByte = 0;
+    private int fileCount = 0;
+    private int directoryCount = 0;
     public DIR(InputDTO inputDTO, CurrentStateDTO currentStateDTO,
                ExceptionHandler exceptionHandler, GoingOverPath goingOverPath)
     {
@@ -67,7 +70,7 @@ public class DIR implements ExcutionCommand
             // 경로 내부 남은 바이트 반환
 
             files = file.listFiles();
-            parseFileInformation(files);
+            parseFileInformation(files, file);
             // 파일의 정보를 관리하는 함수 호출
         }
         else
@@ -76,50 +79,85 @@ public class DIR implements ExcutionCommand
             // 예외 처리 (올바르지 않은 경로)
         }
     }
-    private void parseFileInformation(File[] files)
+    private void addFile(File file)
     {
-        int fileCount = 0;
-        int directoryCount = 0;
-        long usedByte = 0;
+        String fileInformation[] = new String[5];
+        String date;
+
+        File currentFile = new File(file.getPath());
+        File previousFile = new File(file.getParent());
+
+        date = formatDate(currentFile);
+
+        fileInformation[0] = date.substring(0, 10);
+        // 일자
+        fileInformation[1] = date.substring(11);
+        // 시간
+    }
+    private void parseFileInformation(File[] files, File file)
+    {
         String[] fileInformation = new String[5];
         String date;
 
-        for(File file : files)
+        File currentFile = new File(file.getPath());
+        File previousFile = new File(file.getParent());
+
+        sortFileInformation(currentFile);
+        sortFileInformation(previousFile);
+
+        for(File fn : files)
         {
-            if(file.isFile() && file.isHidden())
-            {   // 숨긴 파일은 출력 안 함
-                continue;
-            }
-            else if(file.isDirectory() && file.delete())
-            {   // junction 폴더는 출력 안 함
-                continue;
-            }
-
-            date = formatDate(file);
-            // 최근 수정 날짜를 cmd 형식으로 포맷팅 해 주는 함수 호출
-
-            fileInformation[0] = date.substring(0, 10);
-            // 일자
-            fileInformation[1] = date.substring(11);
-            // 시간
-
-            if(file.isFile())
-            {
-                fileCount++;
-                usedByte += file.length();
-                fileInformation[2] = " ";
-                fileInformation[3] = String.valueOf(file.length());
-            }
-            else
-            {
-                directoryCount++;
-                fileInformation[2] = "<DIR>";
-                fileInformation[3] = " ";
-            }
-            fileInformation[4] = file.getName();
-            PrinterMessage.getPrinterMessage().printFileInformation(fileInformation);
+            sortFileInformation(fn);
         }
         PrinterMessage.getPrinterMessage().printFolder(fileCount, directoryCount, usedByte, restByte);
+    }
+    private void sortFileInformation(File file)
+    {
+        String date;
+        String[] fileInformation = new String[5];
+
+        if(file.isFile() && file.isHidden())
+        {
+            return;
+        }
+        else if(file.isDirectory() && file.delete())
+        {
+            return;
+        }
+        date = formatDate(file);
+        // 최근 수정 날짜를 cmd 형식으로 포맷팅 해 주는 함수 호출
+
+        fileInformation[0] = date.substring(0, 10);
+        // 일자
+        fileInformation[1] = date.substring(11);
+        // 시간
+
+        if(file.isFile())
+        {
+            fileCount++;
+            usedByte += file.length();
+            fileInformation[2] = " ";
+            fileInformation[3] = String.valueOf(file.length());
+        }
+        else
+        {
+            directoryCount++;
+            fileInformation[2] = "<DIR>";
+            fileInformation[3] = " ";
+        }
+        if(file.toString().equals(currentStateDTO.getExcutedPath()))
+        {
+            fileInformation[4] = ".";
+        }
+        else if(file.toString().equals(currentStateDTO.getExcutedPath().substring(0, currentStateDTO.getExcutedPath().lastIndexOf("\\"))))
+        {
+            fileInformation[4] = "..";
+        }
+        else
+        {
+            fileInformation[4] = file.getName();
+        }
+        PrinterMessage.getPrinterMessage().printFileInformation(fileInformation);
     }
     private String formatDate(File file)
     {

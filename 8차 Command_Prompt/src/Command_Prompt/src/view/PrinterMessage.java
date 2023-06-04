@@ -46,16 +46,15 @@ public class PrinterMessage
             case Constant.DUPLICATION_FILE:
                 System.out.println("같은 파일로 복사할 수 없습니다.");
                 break;
+            case Constant.ACCESS_DENIED:
+                System.out.println("액세스가 거부되었습니다.");
+                break;
         }
     }
     public void printCurrentPath(String path)
     {
         path = path.replace("\\\\", "\\");
         System.out.printf("\n%s>", path);
-    }
-    public void printCopidFileCount(int count)
-    {
-        System.out.printf("        %d개 파일이 복사되었습니다.", count);
     }
     public void printMessage(String message)
     {

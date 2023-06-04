@@ -8,6 +8,8 @@ import utility.Constant;
 import utility.ExceptionHandler;
 import view.PrinterMessage;
 
+import java.io.File;
+
 public class MOVE implements ExcutionCommand, ConfirmationFile
 {
     private InputDTO inputDTO;
@@ -42,6 +44,14 @@ public class MOVE implements ExcutionCommand, ConfirmationFile
     public int checkOneFlie(String sourcePath, String targetPath) {
 
         int movedCount = 0;
+        boolean isCreated;
+
+        File file = new File(sourcePath);
+
+        if(file.isDirectory())
+        {
+            PrinterMessage.getPrinterMessage().printExceptionMessage(Constant.ACCESS_DENIED, "");
+        }
 
         return movedCount;
     }

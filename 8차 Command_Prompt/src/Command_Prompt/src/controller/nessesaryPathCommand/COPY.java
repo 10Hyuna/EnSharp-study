@@ -43,18 +43,18 @@ public class COPY implements ExcutionCommand, ConfirmationFile
         }
     }
     @Override
-    public int checkOneFlie(String targetFile, String targetPath)
+    public int checkOneFlie(String sourcePath, String targetPath)
     {
         boolean isCreated;
         int copiedCount = 0;
         String target = targetPath;
         String destinationFile;
 
-        File file = new File(targetFile);
+        File sourceFile = new File(sourcePath);
 
-        if(file.isDirectory())
+        if(sourceFile.isDirectory())
         {
-            File[] files = file.listFiles();
+            File[] files = sourceFile.listFiles();
 
             for(File fn: files)
             {
@@ -79,7 +79,7 @@ public class COPY implements ExcutionCommand, ConfirmationFile
             if(isCreated)
             {
                 destinationFile = targetPath;
-                copiedCount += copyFile(targetFile, destinationFile);
+                copiedCount += copyFile(sourcePath, destinationFile);
             }
         }
 

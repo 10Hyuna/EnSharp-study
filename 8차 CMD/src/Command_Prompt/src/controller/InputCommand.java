@@ -29,16 +29,18 @@ public class InputCommand
     private CurrentStateDTO currentStateDTO;
     private ExceptionHandler exceptionHandler;
     private ManagementDetailCommand managementDetailCommand;
+    private GoingOverPath goingOverPath;
     public InputCommand()
     {
         exceptionHandler = new ExceptionHandler();
         inputDTO = new InputDTO();
         currentStateDTO = new CurrentStateDTO();
         managementDetailCommand = new ManagementDetailCommand();
-        cd = new CD(inputDTO, currentStateDTO, exceptionHandler, managementDetailCommand);
-        copy = new COPY(inputDTO, currentStateDTO, exceptionHandler, managementDetailCommand);
-        dir = new DIR(inputDTO, currentStateDTO, exceptionHandler, managementDetailCommand);
-        move = new MOVE(inputDTO, currentStateDTO, exceptionHandler, managementDetailCommand);
+        goingOverPath = new GoingOverPath(inputDTO, currentStateDTO);
+        cd = new CD(inputDTO, currentStateDTO, exceptionHandler, goingOverPath);
+        copy = new COPY(inputDTO, currentStateDTO, exceptionHandler, goingOverPath);
+        dir = new DIR(inputDTO, currentStateDTO, exceptionHandler, goingOverPath);
+        move = new MOVE(inputDTO, currentStateDTO, exceptionHandler, goingOverPath);
         cls = new CLS();
         help = new HELP(inputDTO, exceptionHandler);
     }
@@ -147,7 +149,7 @@ public class InputCommand
                 }
             }
         }
-        currentStateDTO.setExcutedPath(input.substring(commandIndex));
+        inputDTO.setcutCommand(input.substring(commandIndex));
         command = command.toLowerCase();
         return command;
     }

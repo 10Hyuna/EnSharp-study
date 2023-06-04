@@ -1,6 +1,7 @@
 package controller.nessesaryPathCommand;
 
 import controller.ExcutionCommand;
+import controller.GoingOverPath;
 import controller.ManagementDetailCommand;
 import model.DTO.CurrentStateDTO;
 import model.DTO.InputDTO;
@@ -13,14 +14,14 @@ public class CD extends ManagementDetailCommand implements ExcutionCommand
     private InputDTO inputDTO;
     private CurrentStateDTO currentStateDTO;
     private ExceptionHandler exceptionHandler;
-    private ManagementDetailCommand managementDetailCommand;
+    private GoingOverPath goingOverPath;
     public CD(InputDTO inputDTO, CurrentStateDTO currentStateDTO,
-              ExceptionHandler exceptionHandler, ManagementDetailCommand managementDetailCommand)
+              ExceptionHandler exceptionHandler, GoingOverPath goingOverPath)
     {
         this.inputDTO = inputDTO;
         this.currentStateDTO = currentStateDTO;
         this.exceptionHandler = exceptionHandler;
-        this.managementDetailCommand = managementDetailCommand;
+        this.goingOverPath = goingOverPath;
     }
     @Override
     public void excuteCommand()
@@ -28,7 +29,7 @@ public class CD extends ManagementDetailCommand implements ExcutionCommand
         String path = currentStateDTO.getPath();
         String detailCommand;
 
-        detailCommand = managementDetailCommand.distinguishDetailCommand("cd", inputDTO.getTotalInput(), path);
+        detailCommand = distinguishDetailCommand("cd", inputDTO.getTotalInput(), path);
 
         if(detailCommand == Constant.FAIL)
         {

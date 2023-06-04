@@ -32,10 +32,7 @@ public class PrinterMessage
                         "배치 파일이 아닙니다.\n\n", input);
                 break;
             case Constant.NON_FILE:
-                System.out.println("지정된 파일을 찾을 수 없습니다.\n");
-                break;
-            case Constant.FILE_EXISTENCE:
-                System.out.println("파일을 찾을 수 없습니다.\n\n");
+                System.out.println("파일을 찾을 수 없습니다.\n");
                 break;
             case Constant.NON_PATH:
                 System.out.println("지정된 경로를 찾을 수 없습니다.\n\n");
@@ -47,7 +44,7 @@ public class PrinterMessage
     public void printCurrentPath(String path)
     {
         path = path.replace("\\\\", "\\");
-        System.out.printf("%s>", path);
+        System.out.printf("\n%s>", path);
     }
     public void printMessage(String message)
     {

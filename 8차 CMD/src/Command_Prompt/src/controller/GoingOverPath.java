@@ -19,35 +19,39 @@ public class GoingOverPath {
     {
         boolean isPath;
 
-        file = new File(path).getAbsoluteFile();
+        file = new File(path);
+        discriminateAbsoultePath(path);
 
-        isPath = file.exists();
-
-        path = discriminateAbsoultePath(path);
-
-        if (isPath)
-        {
-            movePath(path);
-        }
-        else
+//        file = new File(path).getAbsoluteFile();
+//        isPath = file.exists();
+//
+//        if (isPath)
+//        {
+//            movePath(path);
+//        }
+//        else
+//        {
+//            handlePath(path);
+//        }
+    }
+    private void discriminateAbsoultePath(String path)
+    {
+        if(!path.equals(file.getAbsolutePath()))
         {
             handlePath(path);
         }
-    }
-    private String discriminateAbsoultePath(String path)
-    {
-        if(path.equals(file.getAbsolutePath()))
-        {
-            return path;
-        }
         else
         {
-            return file.getAbsolutePath();
+            currentStateDTO.setExcutedPath(path);
         }
-    }
-    private void movePath(String path)
-    {
-        currentStateDTO.setExcutedPath(path);
+//        if(path.equals(file.getAbsolutePath()))
+//        {
+//            return path;
+//        }
+//        else
+//        {
+//            return currentStateDTO.getExcutedPath() + "\\" + path;
+//        }
     }
     private void handlePath(String path)
     {
@@ -58,29 +62,27 @@ public class GoingOverPath {
 
         for(int i = 0; i < path.length(); i++)
         {
+            cuttedPath += path.charAt(i);
             if(path.charAt(i) == '\\')
             {
                 manipulateRoute(cuttedPath);
                 cuttedPath = "";
-            }
-            else
-            {
-                cuttedPath += path.charAt(i);
             }
         }
         manipulateRoute(cuttedPath);
     }
     private void manipulateRoute(String path)
     {
+        String removeSlash = path.replace("\\", "");
         if(currentStateDTO.getExcutedPath().equals("C:\\"))
         {
             return;
         }
 
-        switch (path)
+        switch (removeSlash)
         {
             case "..":
-                goBackOneStep(path);
+                goBackOneStep();
                 break;
             case ".":
                 CurrentStep(file.getAbsolutePath());
@@ -90,15 +92,15 @@ public class GoingOverPath {
                 break;
             default:
                 currentStateDTO.setExcutedPath(currentStateDTO.getExcutedPath() + "\\" + path);
-                movePath(currentStateDTO.getExcutedPath());
                 break;
         }
     }
-    private String goBackOneStep(String path)
+    private void goBackOneStep()
     {
+        String path = currentStateDTO.getExcutedPath();
         path = path.substring(0, path.lastIndexOf("\\"));
 
-        return path;
+        currentStateDTO.setExcutedPath(path);
     }
     private void CurrentStep(String currentStep)
     {

@@ -1,6 +1,7 @@
 package controller.nessesaryPathCommand;
 
 import controller.ExcutionCommand;
+import controller.GoingOverPath;
 import controller.ManagementDetailCommand;
 import model.DTO.CurrentStateDTO;
 import model.DTO.InputDTO;
@@ -17,15 +18,15 @@ public class DIR extends ManagementDetailCommand implements ExcutionCommand
     private InputDTO inputDTO;
     private CurrentStateDTO currentStateDTO;
     private ExceptionHandler exceptionHandler;
-    private ManagementDetailCommand managementDetailCommand;
+    private GoingOverPath goingOverPath;
     private long restByte;
     public DIR(InputDTO inputDTO, CurrentStateDTO currentStateDTO,
-               ExceptionHandler exceptionHandler, ManagementDetailCommand managementDetailCommand)
+               ExceptionHandler exceptionHandler, GoingOverPath goingOverPath)
     {
         this.inputDTO = inputDTO;
         this.currentStateDTO = currentStateDTO;
         this.exceptionHandler = exceptionHandler;
-        this.managementDetailCommand = managementDetailCommand;
+        this.goingOverPath = goingOverPath;
     }
     @Override
     public void excuteCommand()
@@ -33,22 +34,25 @@ public class DIR extends ManagementDetailCommand implements ExcutionCommand
         restByte = 0;
         String detailCommand;
         File files[] = {};
-        String path = currentStateDTO.getPath();
+        String path = inputDTO.getcutCommand();
+        currentStateDTO.setExcutedPath(currentStateDTO.getPath());
 
-        detailCommand = managementDetailCommand.distinguishDetailCommand("dir", inputDTO.getTotalInput(), path);
-        // 명령어의 상세 사항을 구분하는 함수 호출
-        if(detailCommand == Constant.FAIL)
-        {
-            PrinterMessage.getPrinterMessage().printExceptionMessage(Constant.FILE_EXISTENCE, "");
-            return;
-        }
-        else if(detailCommand != Constant.EMPTY)
-        {   // 어느 경로가 반환되었다면
-            path = detailCommand;
-            // 경로 갱신
-        }
+        goingOverPath.discriminatePath(path);
 
-        path = path.replace("\\\\", "\\");
+//        detailCommand = distinguishDetailCommand("dir", inputDTO.getTotalInput(), path);
+//        // 명령어의 상세 사항을 구분하는 함수 호출
+//        if(detailCommand == Constant.FAIL)
+//        {
+//            PrinterMessage.getPrinterMessage().printExceptionMessage(Constant.FILE_EXISTENCE, "");
+//            return;
+//        }
+//        else if(detailCommand != Constant.EMPTY)
+//        {   // 어느 경로가 반환되었다면
+//            path = detailCommand;
+//            // 경로 갱신
+//        }
+
+        path = currentStateDTO.getExcutedPath();
         PrinterMessage.getPrinterMessage().printMessage(String.format("\n %s 디렉터리\n", path));
 
         File file = new File(path);

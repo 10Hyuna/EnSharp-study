@@ -4,7 +4,9 @@ import controller.ExcutionCommand;
 import controller.GoingOverPath;
 import model.DTO.CurrentStateDTO;
 import model.DTO.InputDTO;
+import utility.Constant;
 import utility.ExceptionHandler;
+import view.PrinterMessage;
 
 public class COPY implements ExcutionCommand
 {
@@ -23,7 +25,8 @@ public class COPY implements ExcutionCommand
     @Override
     public void excuteCommand()
     {
-        int targetIndex;
+        boolean isValid = false;
+
         String targetPath;
         String currentPath = currentStateDTO.getPath();
         currentStateDTO.setExcutedPath(currentPath);
@@ -33,17 +36,19 @@ public class COPY implements ExcutionCommand
 
         goingOverPath.discriminatePath(inputtedPath);
 
-        if(inputtedPath.equals(inputDTO.getcutCommand()))
+        targetPath = setTargetPath(inputtedPath);
+
+        isValid = isValidPath(inputtedPath, targetPath);
+
+        if(isValid)
         {
-            targetPath = currentPath;
+            copyFile(currentPath, targetPath);
         }
         else
         {
-            targetIndex = inputtedPath.length() + 1;
-            targetPath = inputDTO.getcutCommand().substring(targetIndex);
+            PrinterMessage.getPrinterMessage().printExceptionMessage(Constant.NON_TARGET_FILE, "");
         }
     }
-
     private String parseInputtedParse(String inputtedPath)
     {
         String parsedPath = "";
@@ -56,5 +61,38 @@ public class COPY implements ExcutionCommand
             parsedPath += String.valueOf(inputtedPath.charAt(i));
         }
         return parsedPath;
+    }
+    private String setTargetPath(String inputtedPath)
+    {
+        String targetPath;
+        int targetIndex;
+
+        if(inputtedPath.equals(inputDTO.getcutCommand()))
+        {
+            targetPath = currentStateDTO.getPath();
+        }
+        else
+        {
+            targetIndex = inputtedPath.length() + 1;
+            targetPath = inputDTO.getcutCommand().substring(targetIndex);
+        }
+        return targetPath;
+    }
+    private boolean isValidPath(String currentPath, String targerPath)
+    {
+        boolean isValid = false;
+
+        isValid = exceptionHandler.isValidPath(currentPath);
+        isValid = exceptionHandler.isValidPath(targerPath);
+
+        return isValid;
+    }
+    private void copyFile(String currentPath, String targetPath)
+    {
+
+    }
+    private void discriminateFile(String path)
+    {
+
     }
 }

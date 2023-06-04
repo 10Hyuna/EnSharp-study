@@ -10,4 +10,5 @@ public class Constant
     public static final int NON_FILE = 1;
     public static final int NON_PATH = 2;
     public static final int HELP_CONTAINS_ANOTHER = 3;
+    public static final int NON_TARGET_FILE = 4;
 }

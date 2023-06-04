@@ -39,6 +39,10 @@ public class PrinterMessage
                 break;
             case Constant.HELP_CONTAINS_ANOTHER:
                 System.out.printf("이 명령은 도움말 유틸리티가 지원하지 않습니다. \"%s /?\"를 사용해 보십시오\n", input);
+                break;
+            case Constant.NON_TARGET_FILE:
+                System.out.println("지정된 파일을 찾을 수 없습니다.");
+                break;
         }
     }
     public void printCurrentPath(String path)

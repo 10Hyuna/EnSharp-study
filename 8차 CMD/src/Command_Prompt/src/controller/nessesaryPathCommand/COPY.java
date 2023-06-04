@@ -48,7 +48,7 @@ public class COPY implements ExcutionCommand
         targetPath = setTargetPath(inputtedPath);
 
         currentPath = currentStateDTO.getExcutedPath();
-        isValid = isValidPath(currentPath, targetPath);
+        isValid = isValidPath(currentPath);
         isDuplicatedFile = isDuplication(currentPath, targetPath);
 
         if(!isValid)
@@ -98,12 +98,11 @@ public class COPY implements ExcutionCommand
         }
         return targetPath;
     }
-    private boolean isValidPath(String currentPath, String targerPath)
+    private boolean isValidPath(String currentPath)
     {
         boolean isValid = false;
 
         isValid = exceptionHandler.isValidPath(currentPath);
-        isValid = exceptionHandler.isValidPath(targerPath);
 
         return isValid;
     }
@@ -130,18 +129,19 @@ public class COPY implements ExcutionCommand
         File file = new File(targetFile);
         File destination = new File(targetPath);
 
-        if(destination.isDirectory())
+        if(file.isDirectory())
         {
             File[] files = file.listFiles();
 
             for(File fn: files)
             {
-                if(fn.isDirectory() || fn.isHidden() || fn.delete())
+                if(fn.isDirectory() || fn.isHidden())
                 {
                     continue;
                 }
                 targetPath = String.format("%s\\%s", target, fn.getName());
                 PrinterMessage.getPrinterMessage().printMessage(targetPath);
+                PrinterMessage.getPrinterMessage().printMessage("\n");
                 isCreated = createFile(targetPath);
                 if(isCreated)
                 {
@@ -152,9 +152,8 @@ public class COPY implements ExcutionCommand
         }
         else
         {
-            PrinterMessage.getPrinterMessage().printMessage(targetFileName);
-            answer = askOverwriting(targetFileName);
-            if(answer.equals("y") || answer.equals("yes"))
+            isCreated = createFile(targetPath);
+            if(isCreated)
             {
                 destinationFile = targetPath;
                 copiedCount += copyFile(targetFile, destinationFile);
@@ -165,9 +164,18 @@ public class COPY implements ExcutionCommand
     }
     private boolean createFile(String targetPath)
     {
+        boolean isFile;
         String answer;
         if(Files.exists(Paths.get(targetPath)))
         {
+            PrinterMessage.getPrinterMessage().printMessage(targetPath);
+            PrinterMessage.getPrinterMessage().printMessage("\n");
+            isFile = exceptionHandler.isValidPath(targetPath);
+
+            if(!isFile)
+            {
+                targetPath = String.format("%s\\%s", currentStateDTO.getPath(), targetPath);
+            }
             if(!isAll)
             {
                 answer = askOverwriting(targetPath);

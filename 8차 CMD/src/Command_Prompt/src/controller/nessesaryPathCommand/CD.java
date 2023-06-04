@@ -26,28 +26,39 @@ public class CD extends ManagementDetailCommand implements ExcutionCommand
     @Override
     public void excuteCommand()
     {
-        String path = currentStateDTO.getPath();
-        String detailCommand;
+        currentStateDTO.setExcutedPath(currentStateDTO.getPath());
+        String path = inputDTO.getcutCommand();
 
-        detailCommand = distinguishDetailCommand("cd", inputDTO.getTotalInput(), path);
-
-        if(detailCommand == Constant.FAIL)
+        goingOverPath.discriminatePath(path);
+        if(currentStateDTO.getExcutedPath().equals(Constant.FAIL))
         {
             PrinterMessage.getPrinterMessage().printExceptionMessage(Constant.NON_PATH, "");
-            PrinterMessage.getPrinterMessage().printMessage("");
-        }
-        else if(detailCommand == Constant.EMPTY)
-        {
-            PrinterMessage.getPrinterMessage().printMessage(path);
-            PrinterMessage.getPrinterMessage().printMessage("");
-        }
-        else if(detailCommand == Constant.POINT)
-        {
-            PrinterMessage.getPrinterMessage().printMessage("");
         }
         else
         {
-            currentStateDTO.setPath(detailCommand);
+            currentStateDTO.setPath(currentStateDTO.getExcutedPath());
         }
+//        String detailCommand;
+//
+//        detailCommand = distinguishDetailCommand("cd", inputDTO.getTotalInput(), path);
+//
+//        if(detailCommand == Constant.FAIL)
+//        {
+//            PrinterMessage.getPrinterMessage().printExceptionMessage(Constant.NON_PATH, "");
+//            PrinterMessage.getPrinterMessage().printMessage("");
+//        }
+//        else if(detailCommand == Constant.EMPTY)
+//        {
+//            PrinterMessage.getPrinterMessage().printMessage(path);
+//            PrinterMessage.getPrinterMessage().printMessage("");
+//        }
+//        else if(detailCommand == Constant.POINT)
+//        {
+//            PrinterMessage.getPrinterMessage().printMessage("");
+//        }
+//        else
+//        {
+//            currentStateDTO.setPath(detailCommand);
+//        }
     }
 }

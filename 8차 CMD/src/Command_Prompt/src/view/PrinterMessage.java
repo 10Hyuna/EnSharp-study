@@ -29,16 +29,16 @@ public class PrinterMessage
         {
             case Constant.NON_COMMAND:
                 System.out.printf("'%s'은(는) 내부 또는 외부 명령, 실행할 수 있는 프로그램, 또는\n" +
-                        "배치 파일이 아닙니다.\n\n", input);
+                        "배치 파일이 아닙니다.\n", input);
                 break;
             case Constant.NON_FILE:
-                System.out.println("파일을 찾을 수 없습니다.\n");
+                System.out.println("파일을 찾을 수 없습니다.");
                 break;
             case Constant.NON_PATH:
-                System.out.println("지정된 경로를 찾을 수 없습니다.\n\n");
+                System.out.println("지정된 경로를 찾을 수 없습니다.");
                 break;
             case Constant.HELP_CONTAINS_ANOTHER:
-                System.out.printf("이 명령은 도움말 유틸리티가 지원하지 않습니다. \"%s /?\"를 사용해 보십시오\n\n", input);
+                System.out.printf("이 명령은 도움말 유틸리티가 지원하지 않습니다. \"%s /?\"를 사용해 보십시오\n", input);
         }
     }
     public void printCurrentPath(String path)

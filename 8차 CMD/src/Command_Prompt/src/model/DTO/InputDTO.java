@@ -21,6 +21,8 @@ public class InputDTO
     }
     public void setcutCommand(String value)
     {
+        value = value.replace("\\\\", "\\");
+        value = value.replace("/", "\\");
         this.cutCommand = value;
     }
     public String getPath()

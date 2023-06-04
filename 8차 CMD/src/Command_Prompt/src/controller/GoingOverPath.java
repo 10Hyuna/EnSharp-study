@@ -17,6 +17,11 @@ public class GoingOverPath {
     }
     public void discriminatePath(String path)
     {
+        if(path.equals("\\"))
+        {
+            path = "C:\\";
+        }
+
         boolean isPath;
 
         file = new File(path);
@@ -36,13 +41,20 @@ public class GoingOverPath {
     }
     private void discriminateAbsoultePath(String path)
     {
-        if(!path.equals(file.getAbsolutePath()))
+        if(file.exists())
         {
-            handlePath(path);
+            if(!path.equals(file.getAbsolutePath()))
+            {
+                handlePath(path);
+            }
+            else
+            {
+                currentStateDTO.setExcutedPath(path);
+            }
         }
         else
         {
-            currentStateDTO.setExcutedPath(path);
+            currentStateDTO.setExcutedPath(Constant.FAIL);
         }
 //        if(path.equals(file.getAbsolutePath()))
 //        {
@@ -74,7 +86,12 @@ public class GoingOverPath {
     private void manipulateRoute(String path)
     {
         String removeSlash = path.replace("\\", "");
-        if(currentStateDTO.getExcutedPath().equals("C:\\"))
+        if(currentStateDTO.getExcutedPath().equals("C:"))
+        {
+            currentStateDTO.setExcutedPath("C:\\");
+            return;
+        }
+        else if(currentStateDTO.getExcutedPath().equals("C:\\"))
         {
             return;
         }

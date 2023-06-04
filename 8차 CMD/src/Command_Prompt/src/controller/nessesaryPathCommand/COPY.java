@@ -9,6 +9,9 @@ import utility.ExceptionHandler;
 import view.PrinterMessage;
 
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Scanner;
 
 public class COPY implements ExcutionCommand
 {
@@ -42,8 +45,9 @@ public class COPY implements ExcutionCommand
         goingOverPath.discriminatePath(inputtedPath);
         targetPath = setTargetPath(inputtedPath);
 
-        isValid = isValidPath(currentStateDTO.getExcutedPath(), targetPath);
-        isDuplicatedFile = isDuplication(currentStateDTO.getExcutedPath(), targetPath);
+        currentPath = currentStateDTO.getExcutedPath();
+        isValid = isValidPath(currentPath, targetPath);
+        isDuplicatedFile = isDuplication(currentPath, targetPath);
 
         if(!isValid)
         {
@@ -55,6 +59,7 @@ public class COPY implements ExcutionCommand
         }
         copiedCount = discrimanateFile(currentPath, targetPath);
         PrinterMessage.getPrinterMessage().printCopidFileCount(copiedCount);
+        PrinterMessage.getPrinterMessage().printMessage("\n");
     }
     private String parseInputtedParse(String inputtedPath)
     {
@@ -103,7 +108,7 @@ public class COPY implements ExcutionCommand
 
         if(targetFile.isFile())
         {
-            copiedCount = copyFile(targetFile, targetPath);
+            copiedCount = copyFile(file, path);
         }
         else
         {
@@ -113,12 +118,26 @@ public class COPY implements ExcutionCommand
 
         return copiedCount;
     }
-    private int copyFile(File targetFile, File targetPath)
+    private int copyFile(String targetFile, String targetPath)
     {
         int copiedCount = 0;
+        String answer;
+        String targetFileName = targetPath.substring(targetPath.lastIndexOf("\\") + 1);
 
+        answer = askOverwriting(targetFileName);
+        if(answer.equals("y") || answer.equals("yes"))
+        {
+            copiedCount++;
+            try {
+                byte[] fileContext = Files.readAllBytes(Paths.get(targetFile));
 
-
+                Files.write(Paths.get(targetPath), fileContext);
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
         return copiedCount;
     }
     private int copyFiles(File[] targetFile, File targetPath)
@@ -127,6 +146,18 @@ public class COPY implements ExcutionCommand
 
 
         return copiedCount;
+    }
+    private String askOverwriting(String targetFile)
+    {
+        Scanner scanner = new Scanner(System.in);
+        String answer;
+        String message = String.format("%s을(를) 덮어쓰시겠습니까? (Yes/No/All): ", targetFile);
+        PrinterMessage.getPrinterMessage().printMessage(message);
+
+        answer = scanner.nextLine();
+        answer.toLowerCase();
+
+        return answer;
     }
     private boolean isDuplication(String targetFile, String targetPath)
     {

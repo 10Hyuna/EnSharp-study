@@ -45,6 +45,7 @@ public class CD implements ExcutionCommand
         if(inputDTO.getcutCommand().equals(""))
         {
             PrinterMessage.getPrinterMessage().printMessage(currentStateDTO.getPath());
+            PrinterMessage.getPrinterMessage().printMessage("\n");
         }
 //        String detailCommand;
 //

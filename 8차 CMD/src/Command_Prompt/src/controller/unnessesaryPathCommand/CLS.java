@@ -9,7 +9,7 @@ public class CLS implements ExcutionCommand
     public void excuteCommand() {
         for(int i = 0; i < 40; i++)
         {
-            PrinterMessage.getPrinterMessage().printMessage(" ");
+            PrinterMessage.getPrinterMessage().printMessage("\n");
         }
     }
 }

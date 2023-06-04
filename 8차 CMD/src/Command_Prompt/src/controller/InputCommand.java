@@ -112,8 +112,9 @@ public class InputCommand
             {
                 line = bufferedReader.readLine();
                 PrinterMessage.getPrinterMessage().printMessage(line);
+                PrinterMessage.getPrinterMessage().printMessage("\n");
             }
-            PrinterMessage.getPrinterMessage().printMessage("");
+            PrinterMessage.getPrinterMessage().printMessage("\n");
         }
         catch (IOException e)
         {

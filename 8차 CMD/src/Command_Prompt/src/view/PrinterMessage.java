@@ -60,7 +60,7 @@ public class PrinterMessage
     public void printMessage(String message)
     {
         message = message.replace("\\\\", "\\");
-        System.out.println(message);
+        System.out.print(message);
     }
     public void printFileInformation(String[] message)
     {

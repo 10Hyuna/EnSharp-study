@@ -59,9 +59,12 @@ public class COPY implements ExcutionCommand
         {
             PrinterMessage.getPrinterMessage().printExceptionMessage(Constant.DUPLICATION_FILE, "");
         }
-        copiedCount = discrimanateFile(currentPath, targetPath);
-        PrinterMessage.getPrinterMessage().printCopidFileCount(copiedCount);
-        PrinterMessage.getPrinterMessage().printMessage("\n");
+        else
+        {
+            copiedCount = discrimanateFile(currentPath, targetPath);
+            PrinterMessage.getPrinterMessage().printCopidFileCount(copiedCount);
+            PrinterMessage.getPrinterMessage().printMessage("\n");
+        }
     }
     private String parseInputtedParse(String inputtedPath)
     {
@@ -91,9 +94,13 @@ public class COPY implements ExcutionCommand
             targetIndex = inputtedPath.length() + 1;
             targetPath = inputDTO.getcutCommand().substring(targetIndex);
             validateFile = new File(targetPath);
-            if(!validateFile.exists())
+
+            if(!validateFile.isAbsolute())
             {
-                targetPath = String.format("%s\\%s", currentStateDTO.getPath(), inputDTO.getcutCommand().substring(targetIndex));
+                if(!validateFile.exists())
+                {
+                    targetPath = String.format("%s\\%s", currentStateDTO.getPath(), inputDTO.getcutCommand().substring(targetIndex));
+                }
             }
         }
         return targetPath;
@@ -119,12 +126,10 @@ public class COPY implements ExcutionCommand
     }
     private int checkOneFlie(String targetFile, String targetPath)
     {
-        boolean isCreated = false;
+        boolean isCreated;
         int copiedCount = 0;
         String target = targetPath;
-        String answer;
         String destinationFile;
-        String targetFileName = targetPath.substring(targetPath.lastIndexOf("\\") + 1);
 
         File file = new File(targetFile);
         File destination = new File(targetPath);

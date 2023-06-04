@@ -8,6 +8,8 @@ import utility.Constant;
 import utility.ExceptionHandler;
 import view.PrinterMessage;
 
+import java.io.File;
+
 public class COPY implements ExcutionCommand
 {
     private InputDTO inputDTO;
@@ -25,7 +27,10 @@ public class COPY implements ExcutionCommand
     @Override
     public void excuteCommand()
     {
-        boolean isValid = false;
+        boolean isValid;
+        boolean isDuplicatedFile;
+
+        int copiedCount = 0;
 
         String targetPath;
         String currentPath = currentStateDTO.getPath();
@@ -35,19 +40,21 @@ public class COPY implements ExcutionCommand
         inputtedPath = parseInputtedParse(inputtedPath);
 
         goingOverPath.discriminatePath(inputtedPath);
-
         targetPath = setTargetPath(inputtedPath);
 
-        isValid = isValidPath(inputtedPath, targetPath);
+        isValid = isValidPath(currentStateDTO.getExcutedPath(), targetPath);
+        isDuplicatedFile = isDuplication(currentStateDTO.getExcutedPath(), targetPath);
 
-        if(isValid)
-        {
-            copyFile(currentPath, targetPath);
-        }
-        else
+        if(!isValid)
         {
             PrinterMessage.getPrinterMessage().printExceptionMessage(Constant.NON_TARGET_FILE, "");
         }
+        else if(isDuplicatedFile)
+        {
+            PrinterMessage.getPrinterMessage().printExceptionMessage(Constant.DUPLICATION_FILE, "");
+        }
+        copiedCount = discrimanateFile(currentPath, targetPath);
+        PrinterMessage.getPrinterMessage().printCopidFileCount(copiedCount);
     }
     private String parseInputtedParse(String inputtedPath)
     {
@@ -74,7 +81,7 @@ public class COPY implements ExcutionCommand
         else
         {
             targetIndex = inputtedPath.length() + 1;
-            targetPath = inputDTO.getcutCommand().substring(targetIndex);
+            targetPath = String.format("%s\\%s", currentStateDTO.getPath(), inputDTO.getcutCommand().substring(targetIndex));
         }
         return targetPath;
     }
@@ -87,12 +94,49 @@ public class COPY implements ExcutionCommand
 
         return isValid;
     }
-    private void copyFile(String currentPath, String targetPath)
+    private int discrimanateFile(String file, String path)
     {
+        File targetFile = new File(file);
+        File targetPath = new File(path);
 
+        int copiedCount;
+
+        if(targetFile.isFile())
+        {
+            copiedCount = copyFile(targetFile, targetPath);
+        }
+        else
+        {
+            File[] targetFiles = targetFile.listFiles();
+            copiedCount = copyFiles(targetFiles, targetPath);
+        }
+
+        return copiedCount;
     }
-    private void discriminateFile(String path)
+    private int copyFile(File targetFile, File targetPath)
     {
+        int copiedCount = 0;
 
+
+
+        return copiedCount;
+    }
+    private int copyFiles(File[] targetFile, File targetPath)
+    {
+        int copiedCount = 0;
+
+
+        return copiedCount;
+    }
+    private boolean isDuplication(String targetFile, String targetPath)
+    {
+        boolean isDuplicated = false;
+
+        if(targetFile.equals(targetPath))
+        {
+            isDuplicated = true;
+        }
+
+        return isDuplicated;
     }
 }

@@ -9,7 +9,7 @@ public class ExceptionHandler
     public boolean isValidPath(String path)
     {
         File file = new File(path);
-        if(file.exists())
+        if(file.exists() || file.isFile())
         {
             return true;
         }

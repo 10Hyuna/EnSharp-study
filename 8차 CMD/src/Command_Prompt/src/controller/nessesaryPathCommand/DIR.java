@@ -31,7 +31,6 @@ public class DIR implements ExcutionCommand
     public void excuteCommand()
     {
         restByte = 0;
-        File files[] = {};
         String path = inputDTO.getcutCommand();
         currentStateDTO.setExcutedPath(currentStateDTO.getPath());
 

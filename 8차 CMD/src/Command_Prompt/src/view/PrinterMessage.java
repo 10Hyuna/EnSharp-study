@@ -38,10 +38,13 @@ public class PrinterMessage
                 System.out.println("지정된 경로를 찾을 수 없습니다.");
                 break;
             case Constant.HELP_CONTAINS_ANOTHER:
-                System.out.printf("이 명령은 도움말 유틸리티가 지원하지 않습니다. \"%s /?\"를 사용해 보십시오\n", input);
+                System.out.printf("이 명령은 도움말 유틸리티가 지원하지 않습니다. \"%s /?\"를 사용해 보십시오.\n", input);
                 break;
             case Constant.NON_TARGET_FILE:
                 System.out.println("지정된 파일을 찾을 수 없습니다.");
+                break;
+            case Constant.DUPLICATION_FILE:
+                System.out.println("같은 파일로 복사할 수 없습니다.");
                 break;
         }
     }
@@ -49,6 +52,10 @@ public class PrinterMessage
     {
         path = path.replace("\\\\", "\\");
         System.out.printf("\n%s>", path);
+    }
+    public void printCopidFileCount(int count)
+    {
+        System.out.printf("        %d개 파일이 복사되었습니다.", count);
     }
     public void printMessage(String message)
     {

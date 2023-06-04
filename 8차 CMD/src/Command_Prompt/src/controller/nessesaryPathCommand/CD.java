@@ -8,7 +8,7 @@ import utility.Constant;
 import utility.ExceptionHandler;
 import view.PrinterMessage;
 
-public class CD extends ManagementDetailCommand implements ExcutionCommand
+public class CD implements ExcutionCommand
 {
     private InputDTO inputDTO;
     private CurrentStateDTO currentStateDTO;

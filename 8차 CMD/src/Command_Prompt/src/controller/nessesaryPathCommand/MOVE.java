@@ -6,7 +6,7 @@ import model.DTO.CurrentStateDTO;
 import model.DTO.InputDTO;
 import utility.ExceptionHandler;
 
-public class MOVE extends ManagementDetailCommand implements ExcutionCommand
+public class MOVE implements ExcutionCommand
 {
     private InputDTO inputDTO;
     private CurrentStateDTO currentStateDTO;
@@ -21,9 +21,8 @@ public class MOVE extends ManagementDetailCommand implements ExcutionCommand
         this.goingOverPath = goingOverPath;
     }
     @Override
-    public void excuteCommand() {
-        String detailCommand;
+    public void excuteCommand()
+    {
 
-        detailCommand = distinguishDetailCommand("move", inputDTO.getTotalInput(), "");
     }
 }

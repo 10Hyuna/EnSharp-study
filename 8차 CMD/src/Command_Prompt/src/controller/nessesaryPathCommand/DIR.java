@@ -12,7 +12,7 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class DIR extends ManagementDetailCommand implements ExcutionCommand
+public class DIR implements ExcutionCommand
 {
     private InputDTO inputDTO;
     private CurrentStateDTO currentStateDTO;
@@ -31,7 +31,6 @@ public class DIR extends ManagementDetailCommand implements ExcutionCommand
     public void excuteCommand()
     {
         restByte = 0;
-        String detailCommand;
         File files[] = {};
         String path = inputDTO.getcutCommand();
         currentStateDTO.setExcutedPath(currentStateDTO.getPath());

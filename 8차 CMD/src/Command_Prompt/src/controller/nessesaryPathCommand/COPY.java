@@ -8,7 +8,7 @@ import utility.Constant;
 import utility.ExceptionHandler;
 import view.PrinterMessage;
 
-import java.io.File;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Scanner;
@@ -19,6 +19,7 @@ public class COPY implements ExcutionCommand
     private CurrentStateDTO currentStateDTO;
     private ExceptionHandler exceptionHandler;
     private GoingOverPath goingOverPath;
+    private boolean isAll;
     public COPY(InputDTO inputDTO, CurrentStateDTO currentStateDTO,
                 ExceptionHandler exceptionHandler, GoingOverPath goingOverPath)
     {
@@ -30,6 +31,7 @@ public class COPY implements ExcutionCommand
     @Override
     public void excuteCommand()
     {
+        isAll = false;
         boolean isValid;
         boolean isDuplicatedFile;
 
@@ -76,6 +78,7 @@ public class COPY implements ExcutionCommand
     }
     private String setTargetPath(String inputtedPath)
     {
+        File validateFile;
         String targetPath;
         int targetIndex;
 
@@ -86,7 +89,12 @@ public class COPY implements ExcutionCommand
         else
         {
             targetIndex = inputtedPath.length() + 1;
-            targetPath = String.format("%s\\%s", currentStateDTO.getPath(), inputDTO.getcutCommand().substring(targetIndex));
+            targetPath = inputDTO.getcutCommand().substring(targetIndex);
+            validateFile = new File(targetPath);
+            if(!validateFile.exists())
+            {
+                targetPath = String.format("%s\\%s", currentStateDTO.getPath(), inputDTO.getcutCommand().substring(targetIndex));
+            }
         }
         return targetPath;
     }
@@ -106,44 +114,105 @@ public class COPY implements ExcutionCommand
 
         int copiedCount;
 
-        if(targetFile.isFile())
+        copiedCount = checkOneFlie(file, path);
+
+        return copiedCount;
+    }
+    private int checkOneFlie(String targetFile, String targetPath)
+    {
+        boolean isCreated = false;
+        int copiedCount = 0;
+        String target = targetPath;
+        String answer;
+        String destinationFile;
+        String targetFileName = targetPath.substring(targetPath.lastIndexOf("\\") + 1);
+
+        File file = new File(targetFile);
+        File destination = new File(targetPath);
+
+        if(destination.isDirectory())
         {
-            copiedCount = copyFile(file, path);
+            File[] files = file.listFiles();
+
+            for(File fn: files)
+            {
+                if(fn.isDirectory() || fn.isHidden() || fn.delete())
+                {
+                    continue;
+                }
+                targetPath = String.format("%s\\%s", target, fn.getName());
+                PrinterMessage.getPrinterMessage().printMessage(targetPath);
+                isCreated = createFile(targetPath);
+                if(isCreated)
+                {
+                    destinationFile = targetPath;
+                    copiedCount += copyFile(fn.getAbsolutePath(), destinationFile);
+                }
+            }
         }
         else
         {
-            File[] targetFiles = targetFile.listFiles();
-            copiedCount = copyFiles(targetFiles, targetPath);
+            PrinterMessage.getPrinterMessage().printMessage(targetFileName);
+            answer = askOverwriting(targetFileName);
+            if(answer.equals("y") || answer.equals("yes"))
+            {
+                destinationFile = targetPath;
+                copiedCount += copyFile(targetFile, destinationFile);
+            }
         }
 
         return copiedCount;
     }
-    private int copyFile(String targetFile, String targetPath)
+    private boolean createFile(String targetPath)
     {
-        int copiedCount = 0;
         String answer;
-        String targetFileName = targetPath.substring(targetPath.lastIndexOf("\\") + 1);
-
-        answer = askOverwriting(targetFileName);
-        if(answer.equals("y") || answer.equals("yes"))
+        if(Files.exists(Paths.get(targetPath)))
         {
-            copiedCount++;
+            if(!isAll)
+            {
+                answer = askOverwriting(targetPath);
+                if(answer.equals("n") || answer.equals("no"))
+                {
+                    return false;
+                }
+                else if(answer.equals("a") || answer.equals("all"))
+                {
+                    isAll = true;
+                }
+            }
+        }
+        else
+        {
             try {
-                byte[] fileContext = Files.readAllBytes(Paths.get(targetFile));
-
-                Files.write(Paths.get(targetPath), fileContext);
+                Files.createFile(Paths.get(targetPath));
             }
             catch (Exception e)
             {
                 e.printStackTrace();
             }
         }
-        return copiedCount;
+        return true;
     }
-    private int copyFiles(File[] targetFile, File targetPath)
+    private int copyFile(String sourceFile, String destination)
     {
         int copiedCount = 0;
 
+        try (InputStream inputStream = new FileInputStream(sourceFile);
+             OutputStream outputStream = new FileOutputStream(destination);)
+        {
+            byte[] buffer = new byte[1024];
+            int bytesRead;
+
+            while((bytesRead = inputStream.read(buffer)) != -1)
+            {
+                outputStream.write(buffer, 0, bytesRead);
+            }
+            copiedCount++;
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
 
         return copiedCount;
     }

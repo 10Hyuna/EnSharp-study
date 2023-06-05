@@ -28,7 +28,7 @@ public class MOVE implements ExcutionCommand
         String targetPath;
         File sourceFile;
         boolean isSuccessSetting;
-        boolean isDirectory;
+        boolean isDirectory = false;
         isSuccessSetting = confirmationPath.setPath();
         // 입력받은 sourcePath와 targetPath를 정규화해 주는 함수 호출
 
@@ -44,18 +44,17 @@ public class MOVE implements ExcutionCommand
             isDirectory = sourceFile.isDirectory();
             movedCount += moveFile(sourcePath, targetPath);
             // 이동시킨 객체들이 몇 개인지 확인
-
-            if(isDirectory)
-            {
-                // 이동시키려는 파일 객체가 폴더일 경우
-                String successMessage = String.format("        %d개의 디렉터리를 이동했습니다.\n", movedCount);
-                PrinterMessage.getPrinterMessage().printMessage(successMessage);
-            }
-            else
-            {
-                String successMessage = String.format("        %d개 파일을 이동했습니다.\n", movedCount);
-                PrinterMessage.getPrinterMessage().printMessage(successMessage);
-            }
+        }
+        if(isDirectory)
+        {
+            // 이동시키려는 파일 객체가 폴더일 경우
+            String successMessage = String.format("        %d개의 디렉터리를 이동했습니다.\n", movedCount);
+            PrinterMessage.getPrinterMessage().printMessage(successMessage);
+        }
+        else
+        {
+            String successMessage = String.format("        %d개 파일을 이동했습니다.\n", movedCount);
+            PrinterMessage.getPrinterMessage().printMessage(successMessage);
         }
     }
     private int moveFile(String sourcePath, String destinationPath)

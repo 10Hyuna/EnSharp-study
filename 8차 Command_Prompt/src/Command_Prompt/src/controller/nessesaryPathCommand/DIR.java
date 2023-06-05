@@ -14,6 +14,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.LinkOption;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -108,16 +111,14 @@ public class DIR implements ExcutionCommand
     private void sortFileInformation(File file)
     {
         String date;
+        boolean isJunctionFile = isJunction(file);
         String[] fileInformation = new String[5];
 
-        if(file.isFile() && file.isHidden())
+        if(isJunctionFile || (file.isFile() || file.isDirectory()) && file.isHidden())
         {
             return;
         }
-        else if(file.isDirectory() && file.delete())
-        {
-            return;
-        }
+
         date = formatDate(file);
         // 최근 수정 날짜를 cmd 형식으로 포맷팅 해 주는 함수 호출
 
@@ -193,5 +194,23 @@ public class DIR implements ExcutionCommand
         {
             e.printStackTrace();
         }
+    }
+    private boolean isJunction(File file)
+    {
+        Path path = Paths.get(file.getPath());
+        boolean isJunctionFile = true;
+
+        try{
+            Path realPath = path.toRealPath();
+            if(path.compareTo(realPath) == 0)
+            {
+                isJunctionFile = false;
+            }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return isJunctionFile;
     }
 }

@@ -38,7 +38,14 @@ public class ConfirmationPath {
         currentStateDTO.setExcutedPath(sourcePath);
 
         String inputtedPath = inputDTO.getcutCommand();
+        if(inputtedPath.equals(""))
+        {
+            PrinterMessage.getPrinterMessage().printExceptionMessage(Constant.ALLOWED_COMMAND, "");
+            return false;
+        }
 
+        inputtedPath = parseInputtedString(inputtedPath);
+        currentStateDTO.setExcutedPath(sourcePath);
         goingOverPath.discriminatePath(inputtedPath);
         // 커맨드 이후에 입력된 값을 경로로 보고 경로를 처리하는 함수 호출
 

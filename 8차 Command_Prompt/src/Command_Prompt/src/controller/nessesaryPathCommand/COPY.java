@@ -40,10 +40,9 @@ public class COPY implements ExcutionCommand
 
             copiedCount = checkOneFlie(sourcePath, targetPath);
             // 이동시킨 객체들이 몇 개인지 확인
-
-            String successMessage = String.format("       %d개 파일이 복사되었습니다.\n", copiedCount);
-            PrinterMessage.getPrinterMessage().printMessage(successMessage);
         }
+        String successMessage = String.format("       %d개 파일이 복사되었습니다.\n", copiedCount);
+        PrinterMessage.getPrinterMessage().printMessage(successMessage);
     }
     private int checkOneFlie(String sourcePath, String targetPath)
     {

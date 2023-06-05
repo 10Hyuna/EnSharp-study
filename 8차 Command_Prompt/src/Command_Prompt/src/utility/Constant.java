@@ -13,4 +13,5 @@ public class Constant
     public static final int NON_TARGET_FILE = 4;
     public static final int DUPLICATION_FILE = 5;
     public static final int ACCESS_DENIED = 6;
+    public static final int ALLOWED_COMMAND = 7;
 }

@@ -32,7 +32,7 @@ public class GoingOverPath {
         {   // 경로가 생성된 파일 객체의 절대 경로와 같지 않을 때
             handlePath(path);
         }
-        else
+        else if(path.equals(file.getAbsolutePath()))
         {   // 경로가 생성된 파일 객체의 절대 경로와 같을 때
             CurrentStep(path);
         }
@@ -47,7 +47,7 @@ public class GoingOverPath {
         for(int i = 0; i < path.length(); i++)
         {
             cuttedPath += path.charAt(i);
-            if(path.charAt(i) == '\\')  // "\"를 기준으로 커맨드 하나씩 시행하기 위해 자름
+            if(path.charAt(i) == '\\' || path.charAt(i) == ' ')  // "\"를 기준으로 커맨드 하나씩 시행하기 위해 자름
             {
                 manipulateRoute(cuttedPath);
                 // "\"이 나오기 전까지 입력되어 있던 path를 시행
@@ -101,6 +101,10 @@ public class GoingOverPath {
         File sourceFile = new File(currentStep);
 
         try {
+            if(!sourceFile.exists())
+            {
+
+            }
             currentStateDTO.setExcutedPath(sourceFile.getCanonicalPath());
         }
         catch (Exception e)

@@ -49,6 +49,9 @@ public class PrinterMessage
             case Constant.ACCESS_DENIED:
                 System.out.println("액세스가 거부되었습니다.");
                 break;
+            case Constant.ALLOWED_COMMAND:
+                System.out.println("명령 구문이 올바르지 않습니다.");
+                break;
         }
     }
     public void printCurrentPath(String path)

@@ -2,7 +2,6 @@ package controller;
 
 import model.DTO.CurrentStateDTO;
 import model.DTO.InputDTO;
-import utility.Constant;
 
 import java.io.File;
 
@@ -24,10 +23,10 @@ public class GoingOverPath {
         }
 
         file = new File(path);
-        discriminateAbsoultePath(path);
+        discriminateAbsolutePath(path);
         // path가 절대경로인지 판단하는 함수 호출
     }
-    private void discriminateAbsoultePath(String path)
+    private void discriminateAbsolutePath(String path)
     {
         if(!path.equals(file.getAbsolutePath()))
         {   // 경로가 생성된 파일 객체의 절대 경로와 같지 않을 때
@@ -35,26 +34,7 @@ public class GoingOverPath {
         }
         else
         {   // 경로가 생성된 파일 객체의 절대 경로와 같을 때
-            findPath(path);
-        }
-    }
-    private void findPath(String path)
-    {
-        String fileName;
-        String targetName;
-        File sourceFile = new File(path);
-        File targetFile = new File(sourceFile.getParent());
-        File[] fileList = targetFile.listFiles();
-
-        for(File fn: fileList)
-        {
-            fileName = fn.getAbsolutePath().toLowerCase();
-            targetName = sourceFile.getPath().toLowerCase();
-            if(fileName.equals(targetName))
-            {
-                currentStateDTO.setExcutedPath(fn.getPath());
-                break;
-            }
+            CurrentStep(path);
         }
     }
     private void handlePath(String path)
@@ -117,23 +97,15 @@ public class GoingOverPath {
 
         currentStateDTO.setExcutedPath(path);
     }
-    private void CurrentStep(String currentStep)
-    {
-        currentStep = currentStep.toLowerCase();
-        String fileName;
-        File file = new File(currentStep);
-        File[] files = file.listFiles();
+    private void CurrentStep(String currentStep) {
+        File sourceFile = new File(currentStep);
 
-        for(File fn: files)
+        try {
+            currentStateDTO.setExcutedPath(sourceFile.getCanonicalPath());
+        }
+        catch (Exception e)
         {
-            fileName = fn.getPath();
-            fileName = fileName.toLowerCase();
-
-            if(fileName.equals(currentStep))
-            {
-                currentStateDTO.setExcutedPath(fn.getPath());
-                break;
-            }
+            e.printStackTrace();
         }
     }
 }

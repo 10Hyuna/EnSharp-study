@@ -25,22 +25,6 @@ public class InputDTO
         value = value.replace("/", "\\");
         this.cutCommand = value;
     }
-    public String getPath()
-    {
-        return path;
-    }
-    public void setPath(String value)
-    {
-        this.path = value;
-    }
-    public String getFile()
-    {
-        return file;
-    }
-    public void setFile(String value)
-    {
-        this.file = value;
-    }
     public String getCommand()
     {
         return command;

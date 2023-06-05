@@ -35,7 +35,26 @@ public class GoingOverPath {
         }
         else
         {   // 경로가 생성된 파일 객체의 절대 경로와 같을 때
-            currentStateDTO.setExcutedPath(path);
+            findPath(path);
+        }
+    }
+    private void findPath(String path)
+    {
+        String fileName;
+        String targetName;
+        File sourceFile = new File(path);
+        File targetFile = new File(sourceFile.getParent());
+        File[] fileList = targetFile.listFiles();
+
+        for(File fn: fileList)
+        {
+            fileName = fn.getAbsolutePath().toLowerCase();
+            targetName = sourceFile.getPath().toLowerCase();
+            if(fileName.equals(targetName))
+            {
+                currentStateDTO.setExcutedPath(fn.getPath());
+                break;
+            }
         }
     }
     private void handlePath(String path)
@@ -92,12 +111,29 @@ public class GoingOverPath {
     private void goBackOneStep()
     {
         String path = currentStateDTO.getExcutedPath();
-        path = path.substring(0, path.lastIndexOf("\\"));
+        File file = new File(path);
+
+        path = file.getParent();
 
         currentStateDTO.setExcutedPath(path);
     }
     private void CurrentStep(String currentStep)
     {
-        currentStateDTO.setExcutedPath(currentStep);
+        currentStep = currentStep.toLowerCase();
+        String fileName;
+        File file = new File(currentStep);
+        File[] files = file.listFiles();
+
+        for(File fn: files)
+        {
+            fileName = fn.getPath();
+            fileName = fileName.toLowerCase();
+
+            if(fileName.equals(currentStep))
+            {
+                currentStateDTO.setExcutedPath(fn.getPath());
+                break;
+            }
+        }
     }
 }

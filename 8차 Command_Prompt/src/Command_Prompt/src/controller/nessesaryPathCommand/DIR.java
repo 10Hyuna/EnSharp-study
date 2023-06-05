@@ -24,8 +24,8 @@ public class DIR implements ExcutionCommand
     private GoingOverPath goingOverPath;
     private long restByte;
     long usedByte = 0;
-    private int fileCount = 0;
-    private int directoryCount = 0;
+    private int fileCount;
+    private int directoryCount;
     public DIR(InputDTO inputDTO, CurrentStateDTO currentStateDTO, GoingOverPath goingOverPath)
     {
         this.inputDTO = inputDTO;
@@ -35,6 +35,8 @@ public class DIR implements ExcutionCommand
     @Override
     public void excuteCommand()
     {
+        fileCount = 0;
+        directoryCount = 0;
         restByte = 0;
         String path = inputDTO.getcutCommand();
         currentStateDTO.setExcutedPath(currentStateDTO.getPath());

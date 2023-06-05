@@ -23,7 +23,7 @@ public class DIR implements ExcutionCommand
     private CurrentStateDTO currentStateDTO;
     private GoingOverPath goingOverPath;
     private long restByte;
-    long usedByte = 0;
+    private long usedByte = 0;
     private int fileCount;
     private int directoryCount;
     public DIR(InputDTO inputDTO, CurrentStateDTO currentStateDTO, GoingOverPath goingOverPath)
@@ -72,21 +72,6 @@ public class DIR implements ExcutionCommand
             PrinterMessage.getPrinterMessage().printExceptionMessage(Constant.NON_FILE, "");
             // 예외 처리 (올바르지 않은 경로)
         }
-    }
-    private void addFile(File file)
-    {
-        String fileInformation[] = new String[5];
-        String date;
-
-        File currentFile = new File(file.getPath());
-        File previousFile = new File(file.getParent());
-
-        date = formatDate(currentFile);
-
-        fileInformation[0] = date.substring(0, 10);
-        // 일자
-        fileInformation[1] = date.substring(11);
-        // 시간
     }
     private void parseFileInformation(File[] files, File file)
     {

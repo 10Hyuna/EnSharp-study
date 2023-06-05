@@ -45,7 +45,7 @@ public class COPY implements ExcutionCommand
             PrinterMessage.getPrinterMessage().printMessage(successMessage);
         }
     }
-    public int checkOneFlie(String sourcePath, String targetPath)
+    private int checkOneFlie(String sourcePath, String targetPath)
     {
         boolean isCreated;
         int copiedCount = 0;

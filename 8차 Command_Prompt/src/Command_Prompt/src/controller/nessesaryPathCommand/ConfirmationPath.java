@@ -10,7 +10,6 @@ import view.PrinterMessage;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Currency;
 import java.util.Scanner;
 
 public class ConfirmationPath {
@@ -18,7 +17,7 @@ public class ConfirmationPath {
     private CurrentStateDTO currentStateDTO;
     private ExceptionHandler exceptionHandler;
     private GoingOverPath goingOverPath;
-    public boolean isAll;
+    private boolean isAll;
     public ConfirmationPath(InputDTO inputDTO, CurrentStateDTO currentStateDTO,
                             ExceptionHandler exceptionHandler, GoingOverPath goingOverPath)
     {
@@ -43,7 +42,7 @@ public class ConfirmationPath {
         goingOverPath.discriminatePath(inputtedPath);
         // 커맨드 이후에 입력된 값을 경로로 보고 경로를 처리하는 함수 호출
 
-        inputtedPath = parseInputtedParse(inputtedPath);
+        inputtedPath = parseInputtedString(inputtedPath);
         targetPath = setTargetPath(inputtedPath);
         // 대상 경로를 정규화해서 설정하는 함수 호출
 
@@ -69,7 +68,7 @@ public class ConfirmationPath {
         }
         return isSuccess;
     }
-    private String parseInputtedParse(String inputtedPath)
+    private String parseInputtedString(String inputtedPath)
     {
         String parsedPath = "";
         for(int i = 0; i < inputtedPath.length(); i++)
@@ -152,7 +151,7 @@ public class ConfirmationPath {
             if(!isAll)
             {
                 // all을 선택한 적이 없다면
-                answer = askOverwriting(targetPath);
+                answer = askOverwritting(targetPath);
                 // yes no all 중에 선택
                 if(answer.equals("n") || answer.equals("no"))
                 {
@@ -178,7 +177,7 @@ public class ConfirmationPath {
         }
         return true;
     }
-    public String askOverwriting(String targetFile)
+    private String askOverwritting(String targetFile)
     {
         Scanner scanner = new Scanner(System.in);
         String answer;
@@ -190,7 +189,7 @@ public class ConfirmationPath {
 
         return answer;
     }
-    public boolean isDuplication(String targetFile, String targetPath)
+    private boolean isDuplication(String targetFile, String targetPath)
     {
         boolean isDuplicated = false;
 

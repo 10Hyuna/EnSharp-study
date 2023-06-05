@@ -77,12 +77,22 @@ public class ConfirmationPath {
             }
             parsedPath += String.valueOf(inputtedPath.charAt(i));
         }
+
+        if(!exceptionHandler.isValidPath(parsedPath))
+        {
+            currentStateDTO.setExcutedPath(String.format("%s\\%s", currentStateDTO.getPath(), parsedPath));
+        }
+        else
+        {
+            currentStateDTO.setExcutedPath(parsedPath);
+        }
         return parsedPath;
     }
     private String setTargetPath(String inputtedPath)
     {
         File validateFile;
         String targetPath;
+        String originPath = currentStateDTO.getExcutedPath();
         int targetIndex;
 
         if(inputtedPath.equals(inputDTO.getcutCommand()))
@@ -93,6 +103,7 @@ public class ConfirmationPath {
         {
             targetIndex = inputtedPath.length() + 1;
             targetPath = inputDTO.getcutCommand().substring(targetIndex);
+
             validateFile = new File(targetPath);
 
             if(!validateFile.isAbsolute())
@@ -101,8 +112,15 @@ public class ConfirmationPath {
                 {
                     targetPath = String.format("%s\\%s", currentStateDTO.getPath(), inputDTO.getcutCommand().substring(targetIndex));
                 }
+                else
+                {
+                    currentStateDTO.setExcutedPath(currentStateDTO.getPath());
+                    goingOverPath.discriminatePath(targetPath);
+                    targetPath = currentStateDTO.getExcutedPath();
+                }
             }
         }
+        currentStateDTO.setExcutedPath(originPath);
         currentStateDTO.setDestinationPath(targetPath);
         return targetPath;
     }

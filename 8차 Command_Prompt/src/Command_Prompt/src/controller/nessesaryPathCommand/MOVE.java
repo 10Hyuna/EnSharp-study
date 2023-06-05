@@ -1,7 +1,6 @@
 package controller.nessesaryPathCommand;
 
 import controller.ExcutionCommand;
-import controller.GoingOverPath;
 import model.DTO.CurrentStateDTO;
 import model.DTO.InputDTO;
 import utility.Constant;
@@ -9,6 +8,9 @@ import utility.ExceptionHandler;
 import view.PrinterMessage;
 
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 
 public class MOVE implements ExcutionCommand, ConfirmationFile
 {
@@ -27,6 +29,9 @@ public class MOVE implements ExcutionCommand, ConfirmationFile
     @Override
     public void excuteCommand()
     {
+        String sourcePath;
+        String targetPath;
+        File sourceFile;
         boolean isSuccessSetting;
         isSuccessSetting = confirmationPath.setPath();
 
@@ -34,9 +39,21 @@ public class MOVE implements ExcutionCommand, ConfirmationFile
 
         if(isSuccessSetting)
         {
+            sourcePath = currentStateDTO.getExcutedPath();
+            targetPath = currentStateDTO.getDestinationPath();
+
+            sourceFile = new File(sourcePath);
             movedCount = checkOneFlie(currentStateDTO.getExcutedPath(), currentStateDTO.getDestinationPath());
-            String successMessage = String.format("        %d개 파일을 이동했습니다.\n", movedCount);
-            PrinterMessage.getPrinterMessage().printMessage(successMessage);
+            if(sourceFile.isDirectory())
+            {
+                String successMessage = String.format("        %d개의 디렉터리를 이동했습니다.\n", movedCount);
+                PrinterMessage.getPrinterMessage().printMessage(successMessage);
+            }
+            else
+            {
+                String successMessage = String.format("        %d개 파일을 이동했습니다.\n", movedCount);
+                PrinterMessage.getPrinterMessage().printMessage(successMessage);
+            }
         }
     }
 
@@ -44,13 +61,34 @@ public class MOVE implements ExcutionCommand, ConfirmationFile
     public int checkOneFlie(String sourcePath, String targetPath) {
 
         int movedCount = 0;
-        boolean isCreated;
 
-        File file = new File(sourcePath);
+        movedCount += moveFile(sourcePath, targetPath);
 
-        if(file.isDirectory())
+        return movedCount;
+    }
+    private int moveFile(String sourcePath, String destinationPath)
+    {
+        int movedCount = 0;
+
+        File sourceFile = new File(sourcePath);
+        File destinationFile = new File(destinationPath);
+        File destinatedPath = new File(destinationPath);
+
+        if(destinationFile.isDirectory())
         {
-            PrinterMessage.getPrinterMessage().printExceptionMessage(Constant.ACCESS_DENIED, "");
+            destinatedPath = new File(destinationPath, sourceFile.getName());
+        }
+
+        try
+        {
+            Path sourceFilePath = sourceFile.toPath();
+            Path destinationFilePath = destinatedPath.toPath();
+            Files.move(sourceFilePath, destinationFilePath, StandardCopyOption.REPLACE_EXISTING);
+            movedCount++;
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
         }
 
         return movedCount;

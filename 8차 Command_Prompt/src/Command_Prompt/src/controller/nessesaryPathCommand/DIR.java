@@ -8,7 +8,12 @@ import utility.Constant;
 import utility.ExceptionHandler;
 import view.PrinterMessage;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -16,18 +21,15 @@ public class DIR implements ExcutionCommand
 {
     private InputDTO inputDTO;
     private CurrentStateDTO currentStateDTO;
-    private ExceptionHandler exceptionHandler;
     private GoingOverPath goingOverPath;
     private long restByte;
     long usedByte = 0;
     private int fileCount = 0;
     private int directoryCount = 0;
-    public DIR(InputDTO inputDTO, CurrentStateDTO currentStateDTO,
-               ExceptionHandler exceptionHandler, GoingOverPath goingOverPath)
+    public DIR(InputDTO inputDTO, CurrentStateDTO currentStateDTO, GoingOverPath goingOverPath)
     {
         this.inputDTO = inputDTO;
         this.currentStateDTO = currentStateDTO;
-        this.exceptionHandler = exceptionHandler;
         this.goingOverPath = goingOverPath;
     }
     @Override
@@ -38,22 +40,12 @@ public class DIR implements ExcutionCommand
         currentStateDTO.setExcutedPath(currentStateDTO.getPath());
 
         goingOverPath.discriminatePath(path);
-
-//        detailCommand = distinguishDetailCommand("dir", inputDTO.getTotalInput(), path);
-//        // 명령어의 상세 사항을 구분하는 함수 호출
-//        if(detailCommand == Constant.FAIL)
-//        {
-//            PrinterMessage.getPrinterMessage().printExceptionMessage(Constant.FILE_EXISTENCE, "");
-//            return;
-//        }
-//        else if(detailCommand != Constant.EMPTY)
-//        {   // 어느 경로가 반환되었다면
-//            path = detailCommand;
-//            // 경로 갱신
-//        }
+        // 커맨드와 입력 받은 경로 처리하는 함수 호출
 
         path = currentStateDTO.getExcutedPath();
-        PrinterMessage.getPrinterMessage().printMessage(String.format("\n %s 디렉터리\n", path));
+
+        TakeInSerialNumber();
+        PrinterMessage.getPrinterMessage().printMessage(String.format("\n %s 디렉터리\n\n", path));
 
         File file = new File(path);
         // 그 경로 내부의 파일, 디렉토리 읽어 오기
@@ -98,12 +90,27 @@ public class DIR implements ExcutionCommand
     {
         String[] fileInformation = new String[5];
         String date;
+        File currentFile;
+        File previousFile;
 
-        File currentFile = new File(file.getPath());
-        File previousFile = new File(file.getParent());
-
-        sortFileInformation(currentFile);
-        sortFileInformation(previousFile);
+        if(!(file.getPath().equals("C:\\") || file.getPath().equals("c:\\")))
+        {
+            // 현재 위치가 최상위 폴더가 아닐 때
+            File parentFile = new File(file.getPath());
+            if(file.getParent().equals("C:\\") || file.getParent().equals("c:\\"))
+            {
+                // 현재 위치의 부모 경로가 최상위 폴더일 때
+                currentFile = new File(file.getPath());
+                sortFileInformation(currentFile);
+            }
+            else
+            {
+                currentFile = new File(file.getPath());
+                previousFile = new File(file.getParent());
+                sortFileInformation(currentFile);
+                sortFileInformation(previousFile);
+            }
+        }
 
         for(File fn : files)
         {
@@ -145,12 +152,12 @@ public class DIR implements ExcutionCommand
             fileInformation[2] = "<DIR>";
             fileInformation[3] = " ";
         }
-        if(file.toString().equals(currentStateDTO.getExcutedPath()))
-        {
+        if(file.getPath().equals(currentStateDTO.getExcutedPath()))
+        {   // 파일이 현재 위치와 같다면
             fileInformation[4] = ".";
         }
-        else if(file.toString().equals(currentStateDTO.getExcutedPath().substring(0, currentStateDTO.getExcutedPath().lastIndexOf("\\"))))
-        {
+        else if(file.getPath().equals(currentStateDTO.getExcutedPath().substring(0, currentStateDTO.getExcutedPath().lastIndexOf("\\"))))
+        {   // 파일이 현재 위치의 부모 경로와 같다면
             fileInformation[4] = "..";
         }
         else
@@ -174,5 +181,30 @@ public class DIR implements ExcutionCommand
         date = date.replace("PM", "오후");
 
         return date;
+    }
+    private void TakeInSerialNumber()
+    {
+        try {
+            ProcessBuilder processBuilder = new ProcessBuilder("cmd.exe", "/c", "dir");
+            processBuilder.redirectErrorStream(true);
+
+            Process process = processBuilder.start();
+
+            InputStream inputStream = process.getInputStream();
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, Charset.forName("EUC-KR")));
+
+            String line;
+            for(int i = 0; i < 2; i++)
+            {
+                line = bufferedReader.readLine();
+                PrinterMessage.getPrinterMessage().printMessage(line);
+                PrinterMessage.getPrinterMessage().printMessage("\n");
+            }
+            process.waitFor();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 }

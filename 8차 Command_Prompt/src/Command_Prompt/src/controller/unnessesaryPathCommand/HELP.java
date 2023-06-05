@@ -20,6 +20,7 @@ public class HELP implements ExcutionCommand
     {
         String inputValue;
         boolean isHelp = exceptionHandler.isOnlyHelp(inputDTO.getTotalInput());
+        // 커맨드가 오직 help로만 구성되어 있는지 확인
 
         if(isHelp)
         {

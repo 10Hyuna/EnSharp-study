@@ -12,18 +12,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 
-public class MOVE implements ExcutionCommand, ConfirmationFile
+public class MOVE implements ExcutionCommand
 {
-    private InputDTO inputDTO;
     private CurrentStateDTO currentStateDTO;
-    private ExceptionHandler exceptionHandler;
     private ConfirmationPath confirmationPath;
-    public MOVE(InputDTO inputDTO, CurrentStateDTO currentStateDTO,
-                ExceptionHandler exceptionHandler, ConfirmationPath confirmationPath)
+    public MOVE(CurrentStateDTO currentStateDTO, ConfirmationPath confirmationPath)
     {
-        this.inputDTO = inputDTO;
         this.currentStateDTO = currentStateDTO;
-        this.exceptionHandler = exceptionHandler;
         this.confirmationPath = confirmationPath;
     }
     @Override
@@ -34,18 +29,23 @@ public class MOVE implements ExcutionCommand, ConfirmationFile
         File sourceFile;
         boolean isSuccessSetting;
         isSuccessSetting = confirmationPath.setPath();
+        // 입력받은 sourcePath와 targetPath를 정규화해 주는 함수 호출
 
         int movedCount = 0;
 
         if(isSuccessSetting)
+        // sourcePath와 targetPath가 올바른 경로일 경우
         {
             sourcePath = currentStateDTO.getExcutedPath();
             targetPath = currentStateDTO.getDestinationPath();
 
             sourceFile = new File(sourcePath);
-            movedCount = checkOneFlie(currentStateDTO.getExcutedPath(), currentStateDTO.getDestinationPath());
+            movedCount += moveFile(sourcePath, targetPath);
+            // 이동시킨 객체들이 몇 개인지 확인
+
             if(sourceFile.isDirectory())
             {
+                // 이동시키려는 파일 객체가 폴더일 경우
                 String successMessage = String.format("        %d개의 디렉터리를 이동했습니다.\n", movedCount);
                 PrinterMessage.getPrinterMessage().printMessage(successMessage);
             }
@@ -55,16 +55,6 @@ public class MOVE implements ExcutionCommand, ConfirmationFile
                 PrinterMessage.getPrinterMessage().printMessage(successMessage);
             }
         }
-    }
-
-    @Override
-    public int checkOneFlie(String sourcePath, String targetPath) {
-
-        int movedCount = 0;
-
-        movedCount += moveFile(sourcePath, targetPath);
-
-        return movedCount;
     }
     private int moveFile(String sourcePath, String destinationPath)
     {
@@ -76,7 +66,9 @@ public class MOVE implements ExcutionCommand, ConfirmationFile
 
         if(destinationFile.isDirectory())
         {
+            // 이동의 목적지가 폴더일 경우
             destinatedPath = new File(destinationPath, sourceFile.getName());
+            // 폴더 내부의 한 파일에 접근하는 객체 선언
         }
 
         try
@@ -84,6 +76,7 @@ public class MOVE implements ExcutionCommand, ConfirmationFile
             Path sourceFilePath = sourceFile.toPath();
             Path destinationFilePath = destinatedPath.toPath();
             Files.move(sourceFilePath, destinationFilePath, StandardCopyOption.REPLACE_EXISTING);
+            // 파일 이동
             movedCount++;
         }
         catch (Exception e)

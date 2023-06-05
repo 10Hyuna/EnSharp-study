@@ -13,36 +13,38 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
-public class COPY implements ExcutionCommand, ConfirmationFile
+public class COPY implements ExcutionCommand
 {
-    private InputDTO inputDTO;
     private CurrentStateDTO currentStateDTO;
-    private ExceptionHandler exceptionHandler;
     private ConfirmationPath confirmationPath;
-    public COPY(InputDTO inputDTO, CurrentStateDTO currentStateDTO,
-                ExceptionHandler exceptionHandler, ConfirmationPath confirmationPath)
+    public COPY(CurrentStateDTO currentStateDTO, ConfirmationPath confirmationPath)
     {
-        this.inputDTO = inputDTO;
         this.currentStateDTO = currentStateDTO;
-        this.exceptionHandler = exceptionHandler;
         this.confirmationPath = confirmationPath;
     }
     @Override
     public void excuteCommand()
     {
+        String sourcePath;
+        String targetPath;
         boolean isSuccessSetting;
         isSuccessSetting = confirmationPath.setPath();
+        // 입력받은 sourcePath와 targetPath를 정규화해 주는 함수 호출
 
         int copiedCount = 0;
 
         if(isSuccessSetting)
         {
-            copiedCount = checkOneFlie(currentStateDTO.getExcutedPath(), currentStateDTO.getDestinationPath());
+            sourcePath = currentStateDTO.getExcutedPath();
+            targetPath = currentStateDTO.getDestinationPath();
+
+            copiedCount = checkOneFlie(sourcePath, targetPath);
+            // 이동시킨 객체들이 몇 개인지 확인
+
             String successMessage = String.format("       %d개 파일이 복사되었습니다.\n", copiedCount);
             PrinterMessage.getPrinterMessage().printMessage(successMessage);
         }
     }
-    @Override
     public int checkOneFlie(String sourcePath, String targetPath)
     {
         boolean isCreated;
@@ -54,7 +56,9 @@ public class COPY implements ExcutionCommand, ConfirmationFile
 
         if(sourceFile.isDirectory())
         {
+            // 이동시키고자 하는 객체가 폴더일 경우
             File[] files = sourceFile.listFiles();
+            // 그 폴더 내부의 파일을 하나하나 복사하기 위해 이동시키고자 하는 파일 객체를 list로 반환
 
             for(File fn: files)
             {
@@ -65,11 +69,15 @@ public class COPY implements ExcutionCommand, ConfirmationFile
                 targetPath = String.format("%s\\%s", target, fn.getName());
                 PrinterMessage.getPrinterMessage().printMessage(targetPath);
                 PrinterMessage.getPrinterMessage().printMessage("\n");
+
                 isCreated = confirmationPath.createFile(targetPath);
+                // 복사하고자 하는 파일이 이미 존재하는 파일인지 확인하고 덮어쓸 것인지 물어보기 위한 함수 호출
                 if(isCreated)
                 {
+                    // 복사하고자 하는 파일이 없어서 파일 객체를 만들었을 경우
                     destinationFile = targetPath;
                     copiedCount += copyFile(fn.getAbsolutePath(), destinationFile);
+                    // 파일 복사
                 }
             }
         }

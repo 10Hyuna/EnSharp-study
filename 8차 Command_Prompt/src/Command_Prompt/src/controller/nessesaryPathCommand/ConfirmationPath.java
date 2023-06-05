@@ -34,8 +34,6 @@ public class ConfirmationPath {
         boolean isValid;
         boolean isDuplicatedFile;
 
-        int excutedCount = 0;
-
         String targetPath;
         String sourcePath = currentStateDTO.getPath();
         currentStateDTO.setExcutedPath(sourcePath);
@@ -43,12 +41,17 @@ public class ConfirmationPath {
         String inputtedPath = inputDTO.getcutCommand();
 
         goingOverPath.discriminatePath(inputtedPath);
+        // 커맨드 이후에 입력된 값을 경로로 보고 경로를 처리하는 함수 호출
+
         inputtedPath = parseInputtedParse(inputtedPath);
         targetPath = setTargetPath(inputtedPath);
+        // 대상 경로를 정규화해서 설정하는 함수 호출
 
         sourcePath = currentStateDTO.getExcutedPath();
         isValid = exceptionHandler.isValidPath(sourcePath);
+        // 원본 경로가 유효한 경로인지 확인
         isDuplicatedFile = isDuplication(sourcePath, targetPath);
+        // 원본 경로와 대상 경로가 일치하는 경로인지 확인
 
         if(!isValid)
         {
@@ -79,8 +82,10 @@ public class ConfirmationPath {
         }
 
         if(!exceptionHandler.isValidPath(parsedPath))
+        // parsing된 파일 경로가 절대경로가 아니라면
         {
             currentStateDTO.setExcutedPath(String.format("%s\\%s", currentStateDTO.getPath(), parsedPath));
+            // 현재 위치에 parsing된 파일 경로를 이어 붙여 절대 경로로 만듦
         }
         else
         {
@@ -96,21 +101,24 @@ public class ConfirmationPath {
         int targetIndex;
 
         if(inputtedPath.equals(inputDTO.getcutCommand()))
-        {
+        {   // 커맨드 뒤에 나온 것이 하나의 경로라면
             targetPath = currentStateDTO.getPath();
+            // 목표 경로는 현재 위치
         }
         else
         {
             targetIndex = inputtedPath.length() + 1;
             targetPath = inputDTO.getcutCommand().substring(targetIndex);
+            // sourcePath를 제외한 입력 경로를 substring으로 만듦
 
             validateFile = new File(targetPath);
 
             if(!validateFile.isAbsolute())
-            {
+            {   // targetPath 경로로 생성한 객체가 절대경로가 아닐 때,
                 if(!validateFile.exists())
                 {
                     targetPath = String.format("%s\\%s", currentStateDTO.getPath(), inputDTO.getcutCommand().substring(targetIndex));
+                    // 절대경로로 만듦
                 }
                 else
                 {
@@ -129,18 +137,23 @@ public class ConfirmationPath {
         boolean isFile;
         String answer;
         if(Files.exists(Paths.get(targetPath)))
+        // targetPath 경로가 존재한다면
         {
             PrinterMessage.getPrinterMessage().printMessage(targetPath);
             PrinterMessage.getPrinterMessage().printMessage("\n");
             isFile = exceptionHandler.isValidPath(targetPath);
+            // 경로의 유효성 검사
 
             if(!isFile)
             {
                 targetPath = String.format("%s\\%s", currentStateDTO.getPath(), targetPath);
+                // 절대경로화
             }
             if(!isAll)
             {
+                // all을 선택한 적이 없다면
                 answer = askOverwriting(targetPath);
+                // yes no all 중에 선택
                 if(answer.equals("n") || answer.equals("no"))
                 {
                     return false;
@@ -153,8 +166,10 @@ public class ConfirmationPath {
         }
         else
         {
+            // 파일이 존재하지 않을 때
             try {
                 Files.createFile(Paths.get(targetPath));
+                // 파일을 만듦
             }
             catch (Exception e)
             {

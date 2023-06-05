@@ -35,9 +35,9 @@ public class InputCommand
         goingOverPath = new GoingOverPath(inputDTO, currentStateDTO);
         confirmationPath = new ConfirmationPath(inputDTO, currentStateDTO, exceptionHandler, goingOverPath);
         cd = new CD(inputDTO, currentStateDTO, exceptionHandler, goingOverPath);
-        dir = new DIR(inputDTO, currentStateDTO, exceptionHandler, goingOverPath);
-        copy = new COPY(inputDTO, currentStateDTO, exceptionHandler, confirmationPath);
-        move = new MOVE(inputDTO, currentStateDTO, exceptionHandler, confirmationPath);
+        dir = new DIR(inputDTO, currentStateDTO, goingOverPath);
+        copy = new COPY(currentStateDTO, confirmationPath);
+        move = new MOVE(currentStateDTO, confirmationPath);
         cls = new CLS();
         help = new HELP(inputDTO, exceptionHandler);
     }
@@ -154,7 +154,6 @@ public class InputCommand
                     command += String.valueOf(input.charAt(i));
                     // 입력값을 저장
                 }
-
             }
             else
             {

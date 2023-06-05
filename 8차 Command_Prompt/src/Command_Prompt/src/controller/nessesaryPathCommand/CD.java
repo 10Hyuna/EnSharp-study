@@ -30,11 +30,13 @@ public class CD implements ExcutionCommand
         String path = inputDTO.getcutCommand();
 
         goingOverPath.discriminatePath(path);
+        // 입력받은 경로 값 처리
 
         isValidPath = exceptionHandler.isValidPath(currentStateDTO.getExcutedPath());
+        // 경로 값을 처리하고 나서의 실행되어야 하는 경로가 유효한 경로인지 판단
 
         if(isValidPath)
-        {
+        {   // 유효한 경로일 경우
             currentStateDTO.setPath(currentStateDTO.getExcutedPath());
         }
         else
@@ -47,27 +49,5 @@ public class CD implements ExcutionCommand
             PrinterMessage.getPrinterMessage().printMessage(currentStateDTO.getPath());
             PrinterMessage.getPrinterMessage().printMessage("\n");
         }
-//        String detailCommand;
-//
-//        detailCommand = distinguishDetailCommand("cd", inputDTO.getTotalInput(), path);
-//
-//        if(detailCommand == Constant.FAIL)
-//        {
-//            PrinterMessage.getPrinterMessage().printExceptionMessage(Constant.NON_PATH, "");
-//            PrinterMessage.getPrinterMessage().printMessage("");
-//        }
-//        else if(detailCommand == Constant.EMPTY)
-//        {
-//            PrinterMessage.getPrinterMessage().printMessage(path);
-//            PrinterMessage.getPrinterMessage().printMessage("");
-//        }
-//        else if(detailCommand == Constant.POINT)
-//        {
-//            PrinterMessage.getPrinterMessage().printMessage("");
-//        }
-//        else
-//        {
-//            currentStateDTO.setPath(detailCommand);
-//        }
     }
 }

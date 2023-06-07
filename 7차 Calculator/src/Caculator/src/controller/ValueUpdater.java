@@ -111,6 +111,7 @@ public class ValueUpdater
         {
             totalStorage.comeInValue.setCurrentNumber(new BigDecimal(valueValidator.cutPoint(totalStorage.comeInValue.getCurrentNumber().toString())));
             totalStorage.comeInValue.setCurrentString(totalStorage.comeInValue.getCurrentNumber().toString());
+            // 함수화
         }
 
         if(totalStorage.comeInValue.getOperator() == null)

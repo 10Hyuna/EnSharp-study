@@ -39,8 +39,6 @@ public class Record extends JPanel{
         JLabel result;
         JPanel recordsPanel = new JPanel();
         recordsPanel.setLayout(new GridLayout(0, 1));
-        JScrollPane scrollPane = new JScrollPane(recordsPanel);
-        scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 
         recordButtons = new JButton[resultVO.size()];
 
@@ -56,9 +54,15 @@ public class Record extends JPanel{
             result = new JLabel(String.format("%s", resultVO.get(i).getResult()));
             recordButtons[i] = new JButton();
             recordButtons[i].setText(String.format("%s = %s", calculator.getText(), result.getText()));
-            recordButtons[i].setSize(new Dimension(recordsPanel.getWidth(), recordsPanel.getHeight() / 17));
+            recordButtons[i].setMaximumSize(new Dimension(recordsPanel.getWidth(), recordsPanel.getHeight() / 17));
+            recordButtons[i].setMinimumSize(new Dimension(recordsPanel.getWidth(), recordsPanel.getHeight() / 17));
             recordsPanel.add(recordButtons[i]);
         }
+
+        JScrollPane scrollPane = new JScrollPane();
+        scrollPane.setViewportView(recordsPanel);
+        scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+
         return recordsPanel;
     }
     public JLabel getStandard()

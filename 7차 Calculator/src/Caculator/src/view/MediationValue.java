@@ -49,7 +49,7 @@ public class MediationValue {
         previousLabel.setText(previous);
     }
     private int checkInteger(String value)
-    {
+    {       // 뷰 x
         String[] number = {"1", "2", "3", "4", "5", "6", "7", "8", "9"};
         String cuttedValue;
         int numberCount = 0;

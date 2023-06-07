@@ -24,6 +24,8 @@ public class MainView extends JFrame
         calculatorButton = new CaculatorButton();
         inputState = new InputState();
         record = new Record();
+
+        getContentPane().removeAll();
     }
 
     public void setFrame()

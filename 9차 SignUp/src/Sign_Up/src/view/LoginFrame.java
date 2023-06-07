@@ -1,6 +1,7 @@
 package view;
 
 import main.Main;
+import utility.MusicPlayer;
 
 import java.awt.Graphics;
 import java.awt.Image;
@@ -10,11 +11,14 @@ import javax.swing.JFrame;
 public class LoginFrame extends JFrame {
     private Image background = new ImageIcon(Main.class.getResource("../image/mainFrame.png")).getImage();
     // 배경 이미지
+    private MusicPlayer musicPlayer;
     public LoginFrame(){
         setFrame();
     }
     public void setFrame()
     {
+        musicPlayer = new MusicPlayer();
+        musicPlayer.start();
         setTitle("로그인 창");
         setSize(960, 480);
         setResizable(false);

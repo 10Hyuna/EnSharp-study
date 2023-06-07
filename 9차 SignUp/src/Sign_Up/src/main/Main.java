@@ -1,5 +1,6 @@
 package main;
 
+import utility.MusicPlayer;
 import view.LoginFrame;
 
 public class Main {

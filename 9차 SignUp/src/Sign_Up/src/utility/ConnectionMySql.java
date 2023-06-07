@@ -1,6 +1,5 @@
 package utility;
 
-import com.mysql.cj.MysqlConnection;
 import java.sql.*;
 import java.sql.Connection;
 import java.sql.DriverManager;

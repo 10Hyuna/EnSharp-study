@@ -33,6 +33,10 @@ public class TotalComponent {
     private JTextField number;
     private JTextField address;
     private JTextField zipCode;
+    private JButton search;
+    private JPanel searchResult;
+    private JTextField nameSearch;
+    private JTextField phoneSearch;
     private static TotalComponent totalComponent;
     private TotalComponent(){
         loginButton = new JButton();
@@ -54,6 +58,11 @@ public class TotalComponent {
         number = new JTextField();
         address = new JTextField();
         zipCode = new JTextField();
+
+        search = new JButton();
+        searchResult = new JPanel();
+        nameSearch = new JPasswordField();
+        phoneSearch = new JPasswordField();
     }
 
     public static TotalComponent getTotalComponent(){
@@ -129,5 +138,21 @@ public class TotalComponent {
 
     public JTextField getZipCode() {
         return zipCode;
+    }
+
+    public JButton getSearch() {
+        return search;
+    }
+
+    public JPanel getSearchResult() {
+        return searchResult;
+    }
+
+    public JTextField getNameSearch() {
+        return nameSearch;
+    }
+
+    public JTextField getPhoneSearch() {
+        return phoneSearch;
     }
 }

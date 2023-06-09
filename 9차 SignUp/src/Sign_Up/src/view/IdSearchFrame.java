@@ -8,7 +8,6 @@ import java.awt.*;
 public class IdSearchFrame extends JFrame{
     private Image image;
     private Image background = new ImageIcon(Main.class.getResource("../image/search_id_page.png")).getImage();
-    private ImageIcon searchButtonImage = new ImageIcon(Main.class.getResource("../image/search_button.png"));
     private JButton searchButton;
     private JTextField name;
     private JTextField phone;
@@ -31,17 +30,20 @@ public class IdSearchFrame extends JFrame{
 
     public void setFrame(){
         add(searchButton);
-        searchButton.setBounds(1050, 100, 150, 40);
-        image = searchButtonImage.getImage();
-        image = image.getScaledInstance(150, 40, Image.SCALE_SMOOTH);
-        searchButtonImage = new ImageIcon(image);
-        searchButton.setBorder(null);
+        searchButton.setBounds(1050, 70, 180, 40);
+//        image = searchButtonImage.getImage();
+//        image = image.getScaledInstance(150, 40, Image.SCALE_SMOOTH);
+//        searchButtonImage = new ImageIcon(image);
+//        searchButton.setBorder(null);
         searchButton.setFocusPainted(false);
         searchButton.setContentAreaFilled(false);
         searchButton.setFocusable(false);
         searchButton.setBorderPainted(false);
-        searchButton.setIcon(searchButtonImage);
-        searchButton.setSize(searchButtonImage.getIconWidth(), searchButtonImage.getIconHeight());
+        searchButton.setOpaque(false);
+
+
+//        searchButton.setIcon(searchButtonImage);
+//        searchButton.setSize(searchButton.getIconWidth(), searchButtonImage.getIconHeight());
 
         add(name);
         name.setBorder(null);

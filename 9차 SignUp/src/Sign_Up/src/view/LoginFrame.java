@@ -4,6 +4,8 @@ import main.Main;
 import utility.MusicPlayer;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 
 public class LoginFrame extends JFrame {
@@ -69,6 +71,12 @@ public class LoginFrame extends JFrame {
         searcherId.setBorderPainted(false);
         searcherId.setFocusable(false);
         searcherId.setSize(searcherIdImage.getIconWidth(), searcherIdImage.getIconHeight());
+        searcherId.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new IdSearchFrame();
+            }
+        });
 
         add(searcherPw);
         searcherPw.setBounds(720, 350, 50, 25);
@@ -81,6 +89,12 @@ public class LoginFrame extends JFrame {
         searcherPw.setBorderPainted(false);
         searcherPw.setFocusable(false);
         searcherPw.setSize(searcherPwButton.getIconWidth(), searcherPwButton.getIconHeight());
+        searcherPw.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new PwSearchFrame();
+            }
+        });
 
         add(signUp);
         signUp.setBounds(800, 350, 50, 20);
@@ -93,6 +107,12 @@ public class LoginFrame extends JFrame {
         signUp.setBorderPainted(false);
         signUp.setFocusable(false);
         signUp.setSize(signUpButton.getIconWidth(), signUpButton.getIconHeight());
+        signUp.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new SignUpFrame();
+            }
+        });
     }
 
     public void paint(Graphics g)

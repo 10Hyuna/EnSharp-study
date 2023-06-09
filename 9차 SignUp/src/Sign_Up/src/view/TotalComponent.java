@@ -1,6 +1,7 @@
 package view;
 
 import com.toedter.calendar.JCalendar;
+import main.Main;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
@@ -13,6 +14,7 @@ import javax.swing.SpinnerDateModel;
 import java.awt.BorderLayout;
 import java.util.Calendar;
 public class TotalComponent {
+    private ImageIcon searchButtonImage = new ImageIcon(Main.class.getResource("../image/search_button.png"));
     private JButton loginButton;
     private JButton signUpButton;
     private JButton searcherIdButton;
@@ -59,10 +61,10 @@ public class TotalComponent {
         address = new JTextField();
         zipCode = new JTextField();
 
-        search = new JButton();
+        search = new JButton(searchButtonImage);
         searchResult = new JPanel();
-        nameSearch = new JPasswordField();
-        phoneSearch = new JPasswordField();
+        nameSearch = new JTextField();
+        phoneSearch = new JTextField();
     }
 
     public static TotalComponent getTotalComponent(){

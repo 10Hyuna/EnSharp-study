@@ -29,7 +29,7 @@ public class ConnectionMySql {
         return connection;
     }
 
-    public ArrayList ConnectReader(String query) throws SQLException {
+    public ArrayList connectReader(String query) throws SQLException {
 
         ArrayList<Hashtable<String, String>> list = new ArrayList<>();
         int column;

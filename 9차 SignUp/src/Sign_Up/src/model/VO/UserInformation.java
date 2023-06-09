@@ -9,6 +9,15 @@ public class UserInformation {
     private String phoneNumber;
     private String address;
     private String zipCode;
+    public UserInformation(String id, String name, String phoneNumber){
+        this.id = id;
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+    }
+    public UserInformation(String name, String phoneNumber){
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+    }
     public UserInformation(String id, String pw, String name, String birthDate,
                            String email, String phoneNumebr, String address, String zipCode)
     {

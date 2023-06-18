@@ -1,5 +1,6 @@
 package view;
 
+import controller.ActionListener.pwSearchButton;
 import main.Main;
 
 import javax.swing.*;
@@ -12,12 +13,14 @@ public class PwSearchFrame extends JFrame{
     private JTextField name;
     private JTextField phone;
     private JTextField id;
+    private pwSearchButton pwSearchButton;
     public PwSearchFrame(){
         searchButton = new JButton(new ImageIcon(Main.class.getResource("../image/search_button.png")));
 
-        name = new JTextField();
-        phone = new JTextField();
-        id = new JTextField();
+        name = TotalComponent.getTotalComponent().getNameSearch();
+        phone = TotalComponent.getTotalComponent().getPhoneSearch();
+        id = TotalComponent.getTotalComponent().getIdSearch();
+        pwSearchButton = new pwSearchButton();
 
         setTitle("비밀번호 찾기");
         setSize(1276, 710);
@@ -37,6 +40,7 @@ public class PwSearchFrame extends JFrame{
         searchButton.setFocusable(false);
         searchButton.setBorderPainted(false);
         searchButton.setOpaque(false);
+        searchButton.addActionListener(pwSearchButton);
 
         add(name);
         name.setBorder(null);

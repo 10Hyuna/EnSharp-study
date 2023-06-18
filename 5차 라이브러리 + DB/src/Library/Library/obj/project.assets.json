@@ -1747,30 +1747,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\현아\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "/Users/hyunakim/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\현아\\Desktop\\Develop\\Study\\5차 라이브러리 + DB\\src\\Library\\Library\\Library.csproj",
+      "projectUniqueName": "/Users/hyunakim/Desktop/develop/study/5차 라이브러리 + DB/src/Library/Library/Library.csproj",
       "projectName": "Library",
-      "projectPath": "C:\\Users\\현아\\Desktop\\Develop\\Study\\5차 라이브러리 + DB\\src\\Library\\Library\\Library.csproj",
-      "packagesPath": "C:\\Users\\현아\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\현아\\Desktop\\Develop\\Study\\5차 라이브러리 + DB\\src\\Library\\Library\\obj\\",
+      "projectPath": "/Users/hyunakim/Desktop/develop/study/5차 라이브러리 + DB/src/Library/Library/Library.csproj",
+      "packagesPath": "/Users/hyunakim/.nuget/packages/",
+      "outputPath": "/Users/hyunakim/Desktop/develop/study/5차 라이브러리 + DB/src/Library/Library/obj/",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\현아\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "/Users/hyunakim/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -1809,12 +1803,26 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[6.0.15, 6.0.15]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Host.osx-arm64",
+            "version": "[6.0.15, 6.0.15]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Ref",
+            "version": "[6.0.15, 6.0.15]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/Users/hyunakim/.dotnet/sdk/7.0.202/RuntimeIdentifierGraph.json"
       }
     }
   }

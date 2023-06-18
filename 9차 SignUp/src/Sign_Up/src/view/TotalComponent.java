@@ -39,6 +39,7 @@ public class TotalComponent {
     private JPanel searchResult;
     private JTextField nameSearch;
     private JTextField phoneSearch;
+    private JTextField idSearch;
     private static TotalComponent totalComponent;
     private TotalComponent(){
         loginButton = new JButton();
@@ -65,6 +66,7 @@ public class TotalComponent {
         searchResult = new JPanel();
         nameSearch = new JTextField();
         phoneSearch = new JTextField();
+        idSearch = new JTextField();
     }
 
     public static TotalComponent getTotalComponent(){
@@ -156,5 +158,9 @@ public class TotalComponent {
 
     public JTextField getPhoneSearch() {
         return phoneSearch;
+    }
+
+    public JTextField getIdSearch() {
+        return idSearch;
     }
 }

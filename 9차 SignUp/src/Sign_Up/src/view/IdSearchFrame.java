@@ -1,5 +1,6 @@
 package view;
 
+import controller.ActionListener.idSearchButton;
 import main.Main;
 
 import javax.swing.*;
@@ -11,11 +12,13 @@ public class IdSearchFrame extends JFrame{
     private JButton searchButton;
     private JTextField name;
     private JTextField phone;
+    private idSearchButton idSearchButton;
 
     public IdSearchFrame(){
         searchButton = TotalComponent.getTotalComponent().getSearch();
         name = TotalComponent.getTotalComponent().getNameSearch();
         phone = TotalComponent.getTotalComponent().getPhoneSearch();
+        idSearchButton = new idSearchButton();
 
         setTitle("아이디 찾기");
         setSize(1276, 710);
@@ -39,7 +42,8 @@ public class IdSearchFrame extends JFrame{
         searchButton.setContentAreaFilled(false);
         searchButton.setFocusable(false);
         searchButton.setBorderPainted(false);
-        searchButton.setOpaque(false);
+        searchButton.setOpaque(true);
+        searchButton.addActionListener(idSearchButton);
 
 
 //        searchButton.setIcon(searchButtonImage);

@@ -14,9 +14,12 @@ public class UserInformation {
         this.name = name;
         this.phoneNumber = phoneNumber;
     }
-    public UserInformation(String name, String phoneNumber){
-        this.name = name;
-        this.phoneNumber = phoneNumber;
+    public UserInformation(String id, String pw){
+        this.id = id;
+        this.pw = pw;
+    }
+    public UserInformation(String id){
+        this.id = id;
     }
     public UserInformation(String id, String pw, String name, String birthDate,
                            String email, String phoneNumebr, String address, String zipCode)

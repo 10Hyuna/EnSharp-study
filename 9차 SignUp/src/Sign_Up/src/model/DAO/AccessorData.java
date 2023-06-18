@@ -46,12 +46,12 @@ public class AccessorData
             throw new RuntimeException(e);
         }
 
-        idSearch = new UserInformation(hashtableList.get(0).get("name"), hashtableList.get(0).get("phonenumber"));
+        idSearch = new UserInformation(hashtableList.get(0).get("id"));
 
         return idSearch;
     }
     public UserInformation SelectPwInformation(UserInformation userInformation){
-        String query = String.format(DatabaseConstant.SELECT_PW_SEARCH, userInformation.getId(), userInformation.getName(), userInformation.getEmail());
+        String query = String.format(DatabaseConstant.SELECT_PW_SEARCH, userInformation.getId(), userInformation.getName(), userInformation.getPhoneNumber());
 
         List<Hashtable<String, String>> hashtableList;
         UserInformation pwSearch;
@@ -65,8 +65,51 @@ public class AccessorData
             throw new RuntimeException(e);
         }
 
-        pwSearch = new UserInformation(hashtableList.get(0).get("id"), hashtableList.get(0).get("name"), hashtableList.get(0).get("phonenumber"));
+        pwSearch = new UserInformation(hashtableList.get(0).get("id"), hashtableList.get(0).get("password"));
 
         return pwSearch;
+    }
+    public UserInformation SelectOverlapId(UserInformation userInformation){
+        String query = String.format(DatabaseConstant.SELECT_OVERLAP_ID, userInformation.getId());
+
+        List<Hashtable<String, String>> hashtable;
+        UserInformation overlapId;
+
+        try{
+            hashtable = connectionMySql.connectReader(query);
+        }
+        catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+
+        if(hashtable.get(0).get("id") != null){
+            overlapId = new UserInformation(hashtable.get(0).get("id"));
+        }
+        else{
+            overlapId = new UserInformation(null);
+        }
+
+        return overlapId;
+    }
+    public UserInformation SelectLoginInformation(UserInformation userInformation){
+        String query = String.format(DatabaseConstant.SELECT_LOGIN_INFORMATION, userInformation.getId(), userInformation.getPw());
+        List<Hashtable<String, String>> hashtable;
+        UserInformation loginInformation;
+
+        try{
+            hashtable = connectionMySql.connectReader(query);
+        }
+        catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+
+        if(hashtable.get(0).get("id") != null){
+            loginInformation = new UserInformation(hashtable.get(0).get("id"), hashtable.get(0).get("password"));
+        }
+        else{
+            loginInformation = new UserInformation(null);
+        }
+
+        return loginInformation;
     }
 }

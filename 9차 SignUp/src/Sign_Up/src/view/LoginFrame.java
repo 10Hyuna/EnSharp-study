@@ -1,5 +1,6 @@
 package view;
 
+import controller.ActionListener.LoginButton;
 import main.Main;
 import utility.MusicPlayer;
 
@@ -23,7 +24,9 @@ public class LoginFrame extends JFrame {
     private JButton searcherId = TotalComponent.getTotalComponent().getSearcherIdButton();
     private JButton searcherPw = TotalComponent.getTotalComponent().getSearcherPwButton();
     private JButton signUp = TotalComponent.getTotalComponent().getSignUpButton();
+    private LoginButton loginButtonListener;
     public LoginFrame(){
+        loginButtonListener = new LoginButton();
         setTitle("로그인 창");
         setSize(960, 480);
         setResizable(false);
@@ -59,6 +62,7 @@ public class LoginFrame extends JFrame {
         login.setBorderPainted(false);
         login.setIcon(loginButton);
         login.setSize(loginButton.getIconWidth(), loginButton.getIconHeight());
+        login.addActionListener(loginButtonListener);
 
         add(searcherId);
         searcherId.setBounds(640, 350, 50, 25);

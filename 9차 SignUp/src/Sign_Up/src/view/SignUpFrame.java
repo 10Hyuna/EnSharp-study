@@ -1,6 +1,5 @@
 package view;
 
-import com.toedter.calendar.JCalendar;
 import main.Main;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 
@@ -23,6 +22,7 @@ public class SignUpFrame extends JFrame{
     private JTextField phoneNumber;
     private JTextField address;
     private JTextField zipCode;
+//    private signUp sign;
     public SignUpFrame(){
         signUpButton = TotalComponent.getTotalComponent().getSuccessSignUp();
         addressButton = TotalComponent.getTotalComponent().getSearcherAddress();
@@ -35,6 +35,8 @@ public class SignUpFrame extends JFrame{
         phoneNumber = TotalComponent.getTotalComponent().getNumber();
         address = TotalComponent.getTotalComponent().getAddress();
         zipCode = TotalComponent.getTotalComponent().getZipCode();
+
+//        sign = new signUp();
 
         setTitle("회원 가입 창");
         setSize(1276, 710);
@@ -60,6 +62,7 @@ public class SignUpFrame extends JFrame{
         signUpButton.setBorderPainted(false);
         signUpButton.setIcon(signUpImage);
         signUpButton.setSize(signUpImage.getIconWidth(), signUpImage.getIconHeight());
+//        signUpButton.addActionListener(sign);
 
         add(addressButton);
         addressButton.setBounds(570, 520, 100, 40);
@@ -109,6 +112,21 @@ public class SignUpFrame extends JFrame{
         zipCode.setBounds(180, 610, 300, 40);
         zipCode.setBorder(null);
     }
+//    public void successSignUp(){
+//        JFrame jFrame = new JFrame();
+//        this.dispose();
+//        jFrame.setTitle("회원가입 성공");
+//        jFrame.setSize(300, 300);
+//        jFrame.setResizable(false);
+//        jFrame.setLocationRelativeTo(null);
+//        jFrame.setLayout(null);
+//        jFrame.setVisible(true);
+//        jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+//
+//        JLabel label = new JLabel("로그인 성공!");
+//        label.setBounds(115, 120, 180, 40);
+//        jFrame.add(label);
+//    }
     public void paint(Graphics g)
     {
         g.drawImage(background, 0, 0, null);
